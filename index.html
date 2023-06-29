@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.129">
+<meta name="generator" content="quarto-1.4.176">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,7 +17,7 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
 </style>
@@ -51,6 +51,11 @@ ul.task-list li input[type="checkbox"] {
   "panel-placement": "end",
   "type": "overlay",
   "limit": 20,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -60,10 +65,10 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
-
 <script>
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
@@ -74,10 +79,10 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-book','listing-commentable','listing-eval','listing-format','listing-jupyter','listing-keep-ipynb','listing-project','listing-validate-yaml','listing-wrap','listing-language','listing-website','listing-title','listing-date','listing-draft','listing-weight','listing-slug','listing-type','listing-tags','listing-categories','listing-summary','listing-bibliography','listing-path','listing-date-modified','listing-author','listing-image','listing-description','listing-filename','listing-file-modified','listing-reading-time','listing-icon','listing-icon_pack','listing-linktitle','listing-echo','listing-output','listing-plotly',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-date-modified-sort'] },{ data: ['listing-file-modified-sort'] },{ data: ['listing-reading-time-sort'] }],
+      valueNames: ['listing-book','listing-commentable','listing-eval','listing-format','listing-jupyter','listing-keep-ipynb','listing-project','listing-validate-yaml','listing-wrap','listing-language','listing-website','listing-title','listing-date','listing-draft','listing-weight','listing-slug','listing-type','listing-tags','listing-categories','listing-summary','listing-bibliography','listing-path','listing-outputHref','listing-date-modified','listing-author','listing-description','listing-filename','listing-file-modified','listing-reading-time','listing-icon','listing-icon_pack','listing-image','listing-echo','listing-output','listing-plotly',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-date-modified-sort'] },{ data: ['listing-file-modified-sort'] },{ data: ['listing-reading-time-sort'] }],
       page: 25,
     pagination: { item: "<li class='page-item'><a class='page page-link' href='#'></a></li>" },
-      searchColumns: ["listing-book","listing-commentable","listing-eval","listing-format","listing-jupyter","listing-keep-ipynb","listing-project","listing-validate-yaml","listing-wrap","listing-language","listing-website","listing-title","listing-date","listing-draft","listing-weight","listing-slug","listing-type","listing-tags","listing-categories","listing-summary","listing-bibliography","listing-path","listing-date-modified","listing-author","listing-image","listing-description","listing-filename","listing-file-modified","listing-reading-time","listing-icon","listing-icon_pack","listing-linktitle","listing-echo","listing-output","listing-plotly"],
+      searchColumns: ["listing-book","listing-commentable","listing-eval","listing-format","listing-jupyter","listing-keep-ipynb","listing-project","listing-validate-yaml","listing-wrap","listing-language","listing-website","listing-title","listing-date","listing-draft","listing-weight","listing-slug","listing-type","listing-tags","listing-categories","listing-summary","listing-bibliography","listing-path","listing-outputHref","listing-date-modified","listing-author","listing-description","listing-filename","listing-file-modified","listing-reading-time","listing-icon","listing-icon_pack","listing-image","listing-echo","listing-output","listing-plotly"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -95,6 +100,7 @@ ul.task-list li input[type="checkbox"] {
   })
   </script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
@@ -107,11 +113,12 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Python pour la data science</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
@@ -150,8 +157,9 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Git <i class="fa-brands fa-git-alt" aria-hidden="true"></i></span></a>
   </li>  
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -160,7 +168,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(47)</span></div><div class="category" data-category="Avancé">Avancé <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Exercice">Exercice <span class="quarto-category-count">(15)</span></div><div class="category" data-category="Manipulation">Manipulation <span class="quarto-category-count">(9)</span></div><div class="category" data-category="Modelisation">Modelisation <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Modélisation">Modélisation <span class="quarto-category-count">(6)</span></div><div class="category" data-category="NLP">NLP <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Tutorial">Tutorial <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Tutoriel">Tutoriel <span class="quarto-category-count">(12)</span></div><div class="category" data-category="Visualisation">Visualisation <span class="quarto-category-count">(2)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(46)</span></div><div class="category" data-category="Avancé">Avancé <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Exercice">Exercice <span class="quarto-category-count">(15)</span></div><div class="category" data-category="Manipulation">Manipulation <span class="quarto-category-count">(9)</span></div><div class="category" data-category="Modelisation">Modelisation <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Modélisation">Modélisation <span class="quarto-category-count">(6)</span></div><div class="category" data-category="NLP">NLP <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Tutorial">Tutorial <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Tutoriel">Tutoriel <span class="quarto-category-count">(12)</span></div><div class="category" data-category="Visualisation">Visualisation <span class="quarto-category-count">(2)</span></div></div></div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
@@ -194,14 +202,11 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quarto-listing quarto-listing-container-custom" id="listing-sample-listings">
-
 <div class="list grid quarto-listing-cols-3">
-  <div class="g-col-1" data-index="0" data-categories="NLP,Tutoriel" data-listing-date-sort="1602766800000" data-listing-file-modified-sort="1688041730914" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8.4">
+  <div class="g-col-1" data-index="0" data-categories="NLP,Tutoriel" data-listing-date-sort="1602766800000" data-listing-file-modified-sort="1688068752533" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="./content/course/NLP/01_intro/wordcloud_openfood_start.png" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Quelques éléments pour comprendre les enjeux du NLP</h5>
             <div class="card-subtitle listing-subtitle"></div>
@@ -230,18 +235,16 @@ ul.task-list li input[type="checkbox"] {
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="1" data-categories="NLP,Exercice" data-listing-date-sort="1603976400000" data-listing-file-modified-sort="1688041730934" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="17.705">
+  <div class="g-col-1" data-index="1" data-categories="NLP,Exercice" data-listing-date-sort="1603976400000" data-listing-file-modified-sort="1688068752557" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="18">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="./content/course/NLP/02_exoclean/word_embedding.png" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Nettoyer un texte: des exercices pour découvrir l'approche bag-of-words</h5>
             <div class="card-subtitle listing-subtitle"></div>
@@ -270,13 +273,13 @@ ul.task-list li input[type="checkbox"] {
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="2" data-categories="Tutoriel" data-listing-date-sort="1603976400000" data-listing-file-modified-sort="1688041730934" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8.74">
+  <div class="g-col-1" data-index="2" data-categories="Tutoriel" data-listing-date-sort="1603976400000" data-listing-file-modified-sort="1688068752557" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
@@ -308,18 +311,16 @@ ul.task-list li input[type="checkbox"] {
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="3" data-categories="Tutoriel" data-listing-date-sort="1603976400000" data-listing-file-modified-sort="1688041730934" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="17.725">
+  <div class="g-col-1" data-index="3" data-categories="Tutoriel" data-listing-date-sort="1603976400000" data-listing-file-modified-sort="1688068752557" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="18">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="https://chrisalbon.com/images/machine_learning_flashcards/TF-IDF_print.png" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Méthodes de vectorisation : comptages et word embeddings</h5>
             <div class="card-subtitle listing-subtitle"></div>
@@ -348,13 +349,13 @@ ul.task-list li input[type="checkbox"] {
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="4" data-categories="Exercice" data-listing-date-sort="1617973200000" data-listing-file-modified-sort="1688041730934" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4.645">
+  <div class="g-col-1" data-index="4" data-categories="Exercice" data-listing-date-sort="1617973200000" data-listing-file-modified-sort="1688068752557" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
@@ -386,13 +387,13 @@ ul.task-list li input[type="checkbox"] {
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="5" data-listing-date-sort="1602680400000" data-listing-file-modified-sort="1688041730938" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="0.81">
+  <div class="g-col-1" data-index="5" data-listing-date-sort="1602680400000" data-listing-file-modified-sort="1688068752557" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
@@ -417,13 +418,13 @@ des exemples de :books: pour s’amuser.</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="6" data-listing-file-modified-sort="1688041730938">
+  <div class="g-col-1" data-index="6" data-listing-file-modified-sort="1688068752557">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
@@ -447,18 +448,16 @@ des exemples de :books: pour s’amuser.</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="7" data-listing-date-sort="1594904400000" data-listing-file-modified-sort="1688041730938" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12.485">
+  <div class="g-col-1" data-index="7" data-listing-date-sort="1594904400000" data-listing-file-modified-sort="1688068752557" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="https://img.shields.io/badge/SSPcloud-Tester%20via%20SSP--cloud-informational&amp;color=yellow?logo=Python" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Configuration de Python</h5>
             <div class="card-subtitle listing-subtitle"></div>
@@ -482,25 +481,23 @@ de chacun :</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="8" data-listing-date-sort="1595419200000" data-listing-file-modified-sort="1688041730938" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7.095">
+  <div class="g-col-1" data-index="8" data-listing-date-sort="1595419200000" data-listing-file-modified-sort="1688068752561" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="https://pydsc.files.wordpress.com/2017/11/pythonenvironment.png?w=663" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">L'environnement Python pour la data-science</h5>
             <div class="card-subtitle listing-subtitle"></div>
               <div class="card-text listing-description delink">La richesse des langages <em>open-source</em> est la possibilité
 d’utiliser des <em>packages</em>
 développés par des spécialistes. <code>Python</code> est particulièrement
-bien…<code></code></div>
+bien doté dans le domaine. Pour…<code></code></div>
               <div class="card-attribution card-text-small justify">
                 <div class="listing-author"></div>
                 <div class="listing-date">Jul 22, 2020</div>
@@ -517,18 +514,16 @@ bien…<code></code></div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="9" data-listing-date-sort="1595419200000" data-listing-file-modified-sort="1688041730938" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11.68">
+  <div class="g-col-1" data-index="9" data-listing-date-sort="1595419200000" data-listing-file-modified-sort="1688068752561" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="https://s3.amazonaws.com/revue/items/images/005/107/849/original/59df6bbf7a4b2da55d4eebbd37457f47.png?1571180763" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Comment aborder un jeu de données</h5>
             <div class="card-subtitle listing-subtitle"></div>
@@ -551,13 +546,13 @@ et de suivre une démarche assez simple.</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="10" data-listing-date-sort="1595419200000" data-listing-file-modified-sort="1688041730938" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7.875">
+  <div class="g-col-1" data-index="10" data-listing-date-sort="1595419200000" data-listing-file-modified-sort="1688068752561" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
@@ -582,13 +577,13 @@ et de suivre une démarche assez simple.</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="11" data-listing-date-sort="1594306800000" data-listing-file-modified-sort="1688041730938" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13.29">
+  <div class="g-col-1" data-index="11" data-listing-date-sort="1594306800000" data-listing-file-modified-sort="1688068752561" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
@@ -620,13 +615,13 @@ et de suivre une démarche assez simple.</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="12" data-listing-date-sort="1594306800000" data-listing-file-modified-sort="1688041730938" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13.625">
+  <div class="g-col-1" data-index="12" data-listing-date-sort="1594306800000" data-listing-file-modified-sort="1688068752561" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
@@ -658,13 +653,13 @@ et de suivre une démarche assez simple.</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="13" data-listing-date-sort="1594306800000" data-listing-file-modified-sort="1688041730938" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12.785">
+  <div class="g-col-1" data-index="13" data-listing-date-sort="1594306800000" data-listing-file-modified-sort="1688068752561" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
@@ -696,25 +691,28 @@ et de suivre une démarche assez simple.</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="14" data-listing-date-sort="1536451200000" data-listing-file-modified-sort="1688041730938" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4.19">
+  <div class="g-col-1" data-index="14" data-listing-date-sort="1687996800000" data-listing-file-modified-sort="1688068752561" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Introduction</h5>
             <div class="card-subtitle listing-subtitle"></div>
-              <div class="card-text listing-description delink">Avant de plonger dans les arcanes de la <em>data science</em>, cette partie
-d’introduction propose des éléments de configuration et des
-révisions pour mettre le pied à l’étrier.</div>
+              <div class="card-text listing-description delink">Ce cours rassemble l’ensemble du contenu du cours
+<em>Python  pour la data-science</em> que je donne
+à l’ENSAE
+depuis 2018.
+Ce cours était auparavant donné par Xavier Dupré.
+Quelques…<em></em></div>
               <div class="card-attribution card-text-small justify">
                 <div class="listing-author"></div>
-                <div class="listing-date">Sep 9, 2018</div>
+                <div class="listing-date">Jun 29, 2023</div>
               </div>
             <style>
               .listing-categories .listing-category .listing-href {
@@ -728,13 +726,13 @@ révisions pour mettre le pied à l’étrier.</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="15" data-listing-file-modified-sort="1688041730942">
+  <div class="g-col-1" data-index="15" data-listing-file-modified-sort="1688068752561">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
@@ -758,13 +756,13 @@ révisions pour mettre le pied à l’étrier.</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="16" data-listing-file-modified-sort="1688041730942">
+  <div class="g-col-1" data-index="16" data-listing-file-modified-sort="1688068752561">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
@@ -788,13 +786,13 @@ révisions pour mettre le pied à l’étrier.</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="17" data-listing-file-modified-sort="1688041730942">
+  <div class="g-col-1" data-index="17" data-listing-file-modified-sort="1688068752561">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
@@ -818,43 +816,13 @@ révisions pour mettre le pied à l’étrier.</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="18" data-listing-file-modified-sort="1688041730942">
-    <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
-      <div class="quarto-grid-item card h-100 card-left">
-          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
-          <div class="card-body post-contents">
-            <h5 class="no-anchor card-title listing-title"></h5>
-            <div class="card-subtitle listing-subtitle"></div>
-              <div class="card-text listing-description delink"></div>
-              <div class="card-attribution card-text-small justify">
-                <div class="listing-author"></div>
-                <div class="listing-date"></div>
-              </div>
-            <style>
-              .listing-categories .listing-category .listing-href {
-                color: inherit; /* blue colors for links too */
-                text-decoration: inherit; /* no underline */
-              }
-            </style>
-          </div>
-        <!-- <div class="card-footer">
-            <div class="card-filename listing-filename">
-              index.qmd
-            </div>
-            <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
-            </div>
-        </div> -->
-      </div>
-    </a> <!-- Added link wrapper -->
-  </div>
-  <div class="g-col-1" data-index="19" data-categories="Tutoriel,Manipulation" data-listing-date-sort="1594904400000" data-listing-file-modified-sort="1688041730942" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13.69">
+  <div class="g-col-1" data-index="18" data-categories="Tutoriel,Manipulation" data-listing-date-sort="1594904400000" data-listing-file-modified-sort="1688068752565" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <p class="card-img-top">
@@ -880,18 +848,16 @@ révisions pour mettre le pied à l’étrier.</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="20" data-categories="Tutoriel,Manipulation" data-listing-date-sort="1595941200000" data-listing-file-modified-sort="1688041730942" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="25.315">
+  <div class="g-col-1" data-index="19" data-categories="Tutoriel,Manipulation" data-listing-date-sort="1595941200000" data-listing-file-modified-sort="1688068752565" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="26">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="./content/course/manipulation/02a_pandas_tutorial/featured.png" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Introduction à pandas</h5>
             <div class="card-subtitle listing-subtitle"></div>
@@ -912,18 +878,16 @@ révisions pour mettre le pied à l’étrier.</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="21" data-categories="Manipulation,Exercice" data-listing-date-sort="1667307600000" data-listing-file-modified-sort="1688041730942" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11.6">
+  <div class="g-col-1" data-index="20" data-categories="Manipulation,Exercice" data-listing-date-sort="1667307600000" data-listing-file-modified-sort="1688068752565" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="https://d33wubrfki0l68.cloudfront.net/3aea19108d39606bbe49981acda07696c0c7fcd8/2de65/images/tidy-9.png" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Pratique de pandas: un exemple complet</h5>
             <div class="card-subtitle listing-subtitle"></div>
@@ -944,13 +908,13 @@ révisions pour mettre le pied à l’étrier.</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="22" data-categories="Manipulation,Exercice" data-listing-date-sort="1594299600000" data-listing-file-modified-sort="1688041730942" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13.33">
+  <div class="g-col-1" data-index="21" data-categories="Manipulation,Exercice" data-listing-date-sort="1594299600000" data-listing-file-modified-sort="1688068752565" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
@@ -982,18 +946,16 @@ révisions pour mettre le pied à l’étrier.</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="23" data-categories="Tutoriel,Manipulation" data-listing-date-sort="1594299600000" data-listing-file-modified-sort="1688041730946" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="21.44">
+  <div class="g-col-1" data-index="22" data-categories="Tutoriel,Manipulation" data-listing-date-sort="1594299600000" data-listing-file-modified-sort="1688068752569" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="22">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="https://www.earthdatascience.org/images/courses/earth-analytics/spatial-data/spatial-projection-transformations-crs.png" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Données spatiales: découverte de geopandas</h5>
             <div class="card-subtitle listing-subtitle"></div>
@@ -1022,18 +984,16 @@ révisions pour mettre le pied à l’étrier.</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="24" data-categories="Exercice,Manipulation" data-listing-date-sort="1599570000000" data-listing-file-modified-sort="1688041730950" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="34.915">
+  <div class="g-col-1" data-index="23" data-categories="Exercice,Manipulation" data-listing-date-sort="1599570000000" data-listing-file-modified-sort="1688068752569" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="35">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="./content/course/manipulation/04a_webscraping_TP/featured.jpg" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Webscraping avec python</h5>
             <div class="card-subtitle listing-subtitle"></div>
@@ -1062,13 +1022,13 @@ révisions pour mettre le pied à l’étrier.</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="25" data-categories="Tutoriel" data-listing-date-sort="1599570000000" data-listing-file-modified-sort="1688041730950" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="18.085">
+  <div class="g-col-1" data-index="24" data-categories="Tutoriel" data-listing-date-sort="1599570000000" data-listing-file-modified-sort="1688068752569" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="19">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
@@ -1100,18 +1060,16 @@ révisions pour mettre le pied à l’étrier.</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="26" data-categories="Exercice,Manipulation" data-listing-date-sort="1599570000000" data-listing-file-modified-sort="1688041730950" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="23.175">
+  <div class="g-col-1" data-index="25" data-categories="Exercice,Manipulation" data-listing-date-sort="1599570000000" data-listing-file-modified-sort="1688068752569" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="24">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="./content/course/manipulation/04c_API_TP/{url}" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Récupérer des données avec des API depuis Python</h5>
             <div class="card-subtitle listing-subtitle"></div>
@@ -1140,13 +1098,13 @@ révisions pour mettre le pied à l’étrier.</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="27" data-categories="Exercice,Manipulation" data-listing-date-sort="1625835600000" data-listing-file-modified-sort="1688041730950" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7.13">
+  <div class="g-col-1" data-index="26" data-categories="Exercice,Manipulation" data-listing-date-sort="1625835600000" data-listing-file-modified-sort="1688068752573" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
@@ -1178,18 +1136,16 @@ révisions pour mettre le pied à l’étrier.</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="28" data-categories="Tutoriel,Manipulation" data-listing-date-sort="1661871600000" data-listing-file-modified-sort="1688041730950" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14.195">
+  <div class="g-col-1" data-index="27" data-categories="Tutoriel,Manipulation" data-listing-date-sort="1661871600000" data-listing-file-modified-sort="1688068752573" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="15">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="https://docs.dask.org/en/stable/_images/dask-dataframe.svg" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Introduction à dask grâce aux données DVF</h5>
             <div class="card-subtitle listing-subtitle"></div>
@@ -1210,13 +1166,13 @@ révisions pour mettre le pied à l’étrier.</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="29" data-listing-date-sort="1594857600000" data-listing-file-modified-sort="1688041730950" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2.01">
+  <div class="g-col-1" data-index="28" data-listing-date-sort="1594857600000" data-listing-file-modified-sort="1688068752573" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
@@ -1224,7 +1180,7 @@ révisions pour mettre le pied à l’étrier.</div>
             <h5 class="no-anchor card-title listing-title">Partie 1: manipuler des données</h5>
             <div class="card-subtitle listing-subtitle"></div>
               <div class="card-text listing-description delink">Le <em>dataframe</em> est l’outil central du logiciel <code>R</code> mais il s’agit d’un objet qui, en <code>Python</code>, ne s’est
-imposé que récemment, notamment grâce au package <code>pandas</code>. Le concept de <em>da…</em></div>
+imposé que récemment, notamment grâce au package <code>pandas</code>. Le concept de <em>dataf…</em></div>
               <div class="card-attribution card-text-small justify">
                 <div class="listing-author"></div>
                 <div class="listing-date">Jul 16, 2020</div>
@@ -1241,18 +1197,16 @@ imposé que récemment, notamment grâce au package <code>pandas</code>. Le conc
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="30" data-categories="Modélisation,Exercice" data-listing-date-sort="1602766800000" data-listing-file-modified-sort="1688041730950" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13.16">
+  <div class="g-col-1" data-index="29" data-categories="Modélisation,Exercice" data-listing-date-sort="1602766800000" data-listing-file-modified-sort="1688068752573" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="./content/course/modelisation/0_preprocessing/scikit_predict.png" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Préparation des données pour construire un modèle</h5>
             <div class="card-subtitle listing-subtitle"></div>
@@ -1281,18 +1235,16 @@ imposé que récemment, notamment grâce au package <code>pandas</code>. Le conc
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="31" data-categories="Modélisation,Exercice" data-listing-date-sort="1602766800000" data-listing-file-modified-sort="1688041730954" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7.025">
+  <div class="g-col-1" data-index="30" data-categories="Modélisation,Exercice" data-listing-date-sort="1602766800000" data-listing-file-modified-sort="1688068752573" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="./content/course/modelisation/1_modelevaluation/scikit_predict.png" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Evaluer la qualité d'un modèle</h5>
             <div class="card-subtitle listing-subtitle"></div>
@@ -1321,18 +1273,16 @@ imposé que récemment, notamment grâce au package <code>pandas</code>. Le conc
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="32" data-categories="Modelisation,Exercice" data-listing-date-sort="1602766800000" data-listing-file-modified-sort="1688041730958" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5.96">
+  <div class="g-col-1" data-index="31" data-categories="Modelisation,Exercice" data-listing-date-sort="1602766800000" data-listing-file-modified-sort="1688068752577" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="./content/course/modelisation/2_SVM/featured.png" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Classification: premier modèle avec les SVM</h5>
             <div class="card-subtitle listing-subtitle"></div>
@@ -1361,13 +1311,13 @@ imposé que récemment, notamment grâce au package <code>pandas</code>. Le conc
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="33" data-categories="Modélisation,Exercice" data-listing-date-sort="1602766800000" data-listing-file-modified-sort="1688041730958" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9.82">
+  <div class="g-col-1" data-index="32" data-categories="Modélisation,Exercice" data-listing-date-sort="1602766800000" data-listing-file-modified-sort="1688068752577" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
@@ -1399,13 +1349,13 @@ imposé que récemment, notamment grâce au package <code>pandas</code>. Le conc
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="34" data-categories="Modélisation,Exercice" data-listing-date-sort="1602766800000" data-listing-file-modified-sort="1688041730958" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6.08">
+  <div class="g-col-1" data-index="33" data-categories="Modélisation,Exercice" data-listing-date-sort="1602766800000" data-listing-file-modified-sort="1688068752577" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
@@ -1437,18 +1387,16 @@ imposé que récemment, notamment grâce au package <code>pandas</code>. Le conc
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="35" data-categories="Modélisation,Exercice" data-listing-date-sort="1603198800000" data-listing-file-modified-sort="1688041730958" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9.295">
+  <div class="g-col-1" data-index="34" data-categories="Modélisation,Exercice" data-listing-date-sort="1603198800000" data-listing-file-modified-sort="1688068752577" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="https://scikit-learn.org/stable/_images/sphx_glr_plot_kmeans_assumptions_001.png" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Clustering</h5>
             <div class="card-subtitle listing-subtitle"></div>
@@ -1477,18 +1425,16 @@ imposé que récemment, notamment grâce au package <code>pandas</code>. Le conc
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="36" data-categories="Modélisation,Tutorial" data-listing-date-sort="1603198800000" data-listing-file-modified-sort="1688041730958" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="20.4">
+  <div class="g-col-1" data-index="35" data-categories="Modélisation,Tutorial" data-listing-date-sort="1603198800000" data-listing-file-modified-sort="1688068752581" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="21">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/7/76/Random_forest_diagram_complete.png" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Premier pas vers l'industrialisation avec les pipelines scikit</h5>
             <div class="card-subtitle listing-subtitle"></div>
@@ -1517,24 +1463,21 @@ imposé que récemment, notamment grâce au package <code>pandas</code>. Le conc
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="37" data-listing-date-sort="1602680400000" data-listing-file-modified-sort="1688041730958" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2.89">
+  <div class="g-col-1" data-index="36" data-listing-date-sort="1602680400000" data-listing-file-modified-sort="1688068752581" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="https://scikit-learn.org/stable/_static/ml_map.png" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Partie 3: modéliser</h5>
             <div class="card-subtitle listing-subtitle"></div>
               <div class="card-text listing-description delink">Un modèle statistique est une construction mathématique qui formalise une loi
-ayant généré les données. La différence principale entre <em>machine learning</em> (ML) et économétrie
-est dans le degré de structure…</div>
+ayant généré les données. La différence principale entre <em>machine learning</em> (ML) et…</div>
               <div class="card-attribution card-text-small justify">
                 <div class="listing-author"></div>
                 <div class="listing-date">Oct 14, 2020</div>
@@ -1551,13 +1494,13 @@ est dans le degré de structure…</div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="38" data-listing-date-sort="1595419200000" data-listing-file-modified-sort="1688041730958" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="18.665">
+  <div class="g-col-1" data-index="37" data-listing-date-sort="1595419200000" data-listing-file-modified-sort="1688068752581" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="19">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
@@ -1567,7 +1510,8 @@ est dans le degré de structure…</div>
               <div class="card-text listing-description delink">L’un des apports principaux des innovations
 récentes de la <em>data-science</em> est la
 manière dont des projets, malgré
-leur complexité, peuvent…<code></code><em></em></div>
+leur complexité, peuvent facilement
+être converti en projets…<code></code><em></em></div>
               <div class="card-attribution card-text-small justify">
                 <div class="listing-author"></div>
                 <div class="listing-date">Jul 22, 2020</div>
@@ -1584,18 +1528,16 @@ leur complexité, peuvent…<code></code><em></em></div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:50 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="39" data-categories="Tutoriel,Avancé" data-listing-date-sort="1661518800000" data-listing-file-modified-sort="1688041731022" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9.26">
+  <div class="g-col-1" data-index="38" data-categories="Tutoriel,Avancé" data-listing-date-sort="1661518800000" data-listing-file-modified-sort="1688068752633" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="./content/course/modern-ds/dallE/featured.png" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Génération d'images avec Python, DALL-E et StableDiffusion</h5>
             <div class="card-subtitle listing-subtitle"></div>
@@ -1616,13 +1558,13 @@ leur complexité, peuvent…<code></code><em></em></div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:51 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="40" data-categories="Tutoriel" data-listing-date-sort="1599138000000" data-listing-file-modified-sort="1688041731022" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11.235">
+  <div class="g-col-1" data-index="39" data-categories="Tutoriel" data-listing-date-sort="1599138000000" data-listing-file-modified-sort="1688068752637" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
@@ -1646,18 +1588,16 @@ leur complexité, peuvent…<code></code><em></em></div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:51 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="41" data-categories="Tutoriel" data-listing-date-sort="1599138000000" data-listing-file-modified-sort="1688041731026" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="29.355">
+  <div class="g-col-1" data-index="40" data-categories="Tutoriel" data-listing-date-sort="1599138000000" data-listing-file-modified-sort="1688068752637" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="30">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="./content/course/modern-ds/elastic_intro/fraise.png" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Introduction à ElasticSearch pour la recherche textuelle</h5>
             <div class="card-subtitle listing-subtitle"></div>
@@ -1678,20 +1618,22 @@ leur complexité, peuvent…<code></code><em></em></div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:51 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="42" data-listing-date-sort="1602680400000" data-listing-file-modified-sort="1688041731046" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="0.485">
+  <div class="g-col-1" data-index="41" data-listing-date-sort="1602680400000" data-listing-file-modified-sort="1688068752665" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Partie 5: Introduction aux outils et méthodes à l'état de l'art</h5>
             <div class="card-subtitle listing-subtitle"></div>
-              <div class="card-text listing-description delink">Les parties précédentes étaient très tournées sur…<em></em><code></code><em></em><code></code></div>
+              <div class="card-text listing-description delink">Les parties précédentes étaient très tournées sur l’acquisition
+de compétences minimales dans chaque domaine de l’analyse de données.
+Cette partie propose des éléments plus…<em></em><code></code><em></em><code></code></div>
               <div class="card-attribution card-text-small justify">
                 <div class="listing-author"></div>
                 <div class="listing-date">Oct 14, 2020</div>
@@ -1708,18 +1650,16 @@ leur complexité, peuvent…<code></code><em></em></div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:51 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="43" data-categories="Tutoriel" data-listing-date-sort="1661698800000" data-listing-file-modified-sort="1688041731050" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="23.855">
+  <div class="g-col-1" data-index="42" data-categories="Tutoriel" data-listing-date-sort="1661698800000" data-listing-file-modified-sort="1688068752665" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="24">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="./content/course/modern-ds/s3/featured.png" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">Les nouveaux modes d'accès aux données: le format parquet et les données sur le cloud</h5>
             <div class="card-subtitle listing-subtitle"></div>
@@ -1748,13 +1688,13 @@ leur complexité, peuvent…<code></code><em></em></div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:51 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="44" data-listing-date-sort="1600261200000" data-listing-file-modified-sort="1688041731050" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="0.535">
+  <div class="g-col-1" data-index="43" data-listing-date-sort="1600261200000" data-listing-file-modified-sort="1688068752665" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
@@ -1763,7 +1703,7 @@ leur complexité, peuvent…<code></code><em></em></div>
             <div class="card-subtitle listing-subtitle"></div>
               <div class="card-text listing-description delink">L’écosystème <code>Python</code> pour la valorisation de données est très riche. Il est
 possible de consacrer des livres entiers à celui-ci.
-Dans le domaine de la visualisation, le…<em></em></div>
+Dans le domaine de la visualisation, le parti…<em></em></div>
               <div class="card-attribution card-text-small justify">
                 <div class="listing-author"></div>
                 <div class="listing-date">Sep 16, 2020</div>
@@ -1780,13 +1720,13 @@ Dans le domaine de la visualisation, le…<em></em></div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:51 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="45" data-categories="Visualisation,Exercice" data-listing-date-sort="1601989200000" data-listing-file-modified-sort="1688041731050" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="18.955">
+  <div class="g-col-1" data-index="44" data-categories="Visualisation,Exercice" data-listing-date-sort="1601989200000" data-listing-file-modified-sort="1688068752665" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="19">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
           <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
@@ -1818,18 +1758,16 @@ Dans le domaine de la visualisation, le…<em></em></div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:51 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
     </a> <!-- Added link wrapper -->
   </div>
-  <div class="g-col-1" data-index="46" data-categories="Visualisation,Exercice" data-listing-date-sort="1600952400000" data-listing-file-modified-sort="1688041731050" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13.045">
+  <div class="g-col-1" data-index="45" data-categories="Visualisation,Exercice" data-listing-date-sort="1600952400000" data-listing-file-modified-sort="1688068752665" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14">
     <a href="[object Object]" target="_blank" rel="noopener" class="grid-item-link"> <!-- Added link wrapper -->
       <div class="quarto-grid-item card h-100 card-left">
-          <p class="card-img-top">
-            <img src="./content/course/visualisation/matplotlib/animation.gif" class="thumbnail-image card-img" style="height: auto;" alt="">
-          </p>
+          <div class="card-img-bg" style="height: 100%;">&nbsp;</div>
           <div class="card-body post-contents">
             <h5 class="no-anchor card-title listing-title">De beaux graphiques avec python: mise en pratique</h5>
             <div class="card-subtitle listing-subtitle"></div>
@@ -1858,7 +1796,7 @@ Dans le domaine de la visualisation, le…<em></em></div>
               index.qmd
             </div>
             <div class="card-file-modified listing-file-modified">
-              6/29/23, 12:28:51 PM
+              6/29/23, 7:59:12 PM
             </div>
         </div> -->
       </div>
@@ -1899,9 +1837,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1937,10 +1889,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1950,8 +1901,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1964,6 +1924,60 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    if (id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        return container.innerHTML
+      } else {
+        return note.innerHTML;
+      }
+    } else {
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      try { hash = new URL(url).hash; } catch {}
+      const id = hash.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note !== null) {
+        try {
+          const html = processXRef(id, note);
+          instance.setContent(html);
+        } finally {
+          instance.enable();
+          instance.show();
+        }
+      } else {
+        // See if we can fetch this
+        fetch(url.split('#')[0])
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.getElementById(id);
+          if (note !== null) {
+            const html = processXRef(id, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -2007,6 +2021,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -2101,6 +2116,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
+
 
 
 
