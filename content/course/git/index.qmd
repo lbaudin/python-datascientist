@@ -1,0 +1,52 @@
+---
+title: "Git: un outil nécessaire pour les data-scientists"
+date: 2020-07-16T13:00:00Z
+draft: false
+weight: 70
+slug: git
+icon: git-alt
+icon_pack: fab
+description: |
+  Une partie annexe au cours pour découvrir `Git`,
+  un outil
+  devenu indispensable pour les data-scientists
+  afin de mener des projets impliquant
+  du code `Python`.
+type: book
+image: https://ensae-reproductibilite.github.io/website/cards/git/snakedolls.jpg
+categories:
+  - Git
+---
+
+Cette partie du site présente un élément qui n'est pas propre à
+`Python` mais qui est néanmoins indispensable : la pratique de `Git`.
+
+Une grande partie du contenu de la partie provient du cours
+[Travail collaboratif avec `R`](https://linogaliana.gitlab.io/collaboratif/git.html)
+ou d'un [cours dédié fait avec Romain Avouac](https://formation.pages.lab.sspcloud.fr/git/20220929-formation-git-dese/#/title-slide).
+
+Le chapitre [de présentation de `Git`](/introgit) propose 
+une introduction visant à présenter l'intérêt d'utiliser
+cet outil. Une mise en pratique est proposée
+avec [un cadavre exquis](/exogit).
+
+
+
+# Utilisation de `Git` avec `Python`
+
+`Git` est à la fois un outil et un langage. Il
+est donc nécessaire d'installer, dans un premier
+temps `Git Bash`, puis de connecter
+son outil préféré pour faire du `Python` (qu'il
+s'agisse de `Jupyter`, `VSCode` ou `PyCharm`). 
+
+L'un des intérêts d'utiliser une approche _cloud_
+est que l'utilisateur final n'a pas à se préoccuper
+de l'installation de ces différentes briques. 
+Les interfaces `Git` sont parfois déjà
+configurées pour faciliter l'usage. C'est le
+cas sur le `SSPCloud`.  
+
+
+
+{{< list_children >}}
