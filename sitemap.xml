@@ -2,174 +2,174 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://pythonds.linogaliana.fr/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.589Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.331Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/getting-started/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.161Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.203Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/getting-started/01_installation/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.153Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.195Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/getting-started/02_DS_environment/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.153Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.195Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/getting-started/03_data_analysis/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.153Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.195Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/getting-started/04_python_practice/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.157Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.199Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/getting-started/05_rappels_types/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.161Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.199Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/getting-started/06_rappels_fonctions/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.161Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.199Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/getting-started/07_rappels_classes/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.161Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.199Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/manipulation/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.169Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.207Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/manipulation/01_numpy/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.161Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.203Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/manipulation/02a_pandas_tutorial/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.161Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.203Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/manipulation/02b_pandas_TP/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.165Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.203Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/manipulation/03_geopandas_tutorial/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.165Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.203Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/manipulation/03_geopandas_TP/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.165Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.203Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/manipulation/04a_webscraping_TP/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.169Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.207Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/manipulation/04c_API_TP/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.169Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.207Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/manipulation/04b_regex_TP/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.169Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.207Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/manipulation/07_dask/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.169Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.207Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/manipulation/06a_exo_supp_webscraping/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.169Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.207Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/visualisation/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.265Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.295Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/visualisation/matplotlib/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.265Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.295Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/visualisation/maps/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.265Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.295Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/modelisation/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.177Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.219Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/modelisation/0_preprocessing/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.169Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.211Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/modelisation/1_modelevaluation/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.169Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.211Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/modelisation/2_SVM/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.177Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.215Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/modelisation/3_regression/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.177Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.215Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/modelisation/4_featureselection/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.177Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.215Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/modelisation/5_clustering/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.177Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.215Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/modelisation/6_pipeline/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.177Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.215Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/NLP/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.149Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.187Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/NLP/01_intro/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.125Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.167Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/NLP/02_exoclean/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.149Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.187Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/NLP/03_lda/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.149Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.187Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/NLP/04_word2vec/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.149Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.187Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/NLP/05_exo_supp/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.149Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.187Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/modern-ds/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.265Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.291Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/modern-ds/continuous_integration/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.177Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.219Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/modern-ds/dallE/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.237Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.271Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/modern-ds/s3/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.265Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.295Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/modern-ds/elastic_approfondissement/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.241Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.271Z</lastmod>
   </url>
   <url>
     <loc>https://pythonds.linogaliana.fr/content/course/modern-ds/elastic_intro/index.html</loc>
-    <lastmod>2023-07-22T01:52:32.241Z</lastmod>
+    <lastmod>2023-08-11T13:12:48.271Z</lastmod>
   </url>
 </urlset>
