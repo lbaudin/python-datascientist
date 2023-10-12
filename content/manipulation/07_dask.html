@@ -1,0 +1,2289 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Lino Galiana">
+<meta name="dcterms.date" content="2022-08-30">
+
+<title>Python pour la data science - Introduction à dask grâce aux données DVF</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../content/manipulation/04b_regex_TP.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+
+      .quarto-title-block .quarto-title-banner {
+        background: #e9f3fa;
+      }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<meta name="twitter:title" content="Python pour la data science - Introduction à dask grâce aux données DVF">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://pythonds.linogaliana.fr/content/manipulation/featured.png">
+<meta name="twitter:image-height" content="362">
+<meta name="twitter:image-width" content="700">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="citation_title" content="Python pour la data science">
+<meta name="citation_author" content="Lino Galiana">
+<meta name="citation_publication_date" content="2023">
+<meta name="citation_cover_date" content="2023">
+<meta name="citation_year" content="2023">
+<meta name="citation_online_date" content="2022-08-30">
+<meta name="citation_fulltext_html_url" content="https://pythonds.linogaliana.fr/">
+<meta name="citation_doi" content="10.5281/zenodo.8229676">
+<meta name="citation_language" content="en">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Python pour la data science</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-introduction" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Introduction</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-introduction">    
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/01_installation.html" rel="" target="">
+ <span class="dropdown-text">Configuration de Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/02_DS_environment.html" rel="" target="">
+ <span class="dropdown-text">L’environnement Python pour la data science</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/03_data_analysis.html" rel="" target="">
+ <span class="dropdown-text">Comment aborder un jeu de données</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/04_python_practice.html" rel="" target="">
+ <span class="dropdown-text">Bonne pratique de Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/05_rappels_types.html" rel="" target="">
+ <span class="dropdown-text">Quelques rappels sur les principes de base de Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/06_rappels_fonctions.html" rel="" target="">
+ <span class="dropdown-text">Modules, tests, boucles, fonctions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/07_rappels_classes.html" rel="" target="">
+ <span class="dropdown-text">Les classes en Python</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-manipuler" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Manipuler</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-manipuler">    
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/01_numpy.html" rel="" target="">
+ <span class="dropdown-text">Numpy, la brique de base de la data science</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/02a_pandas_tutorial.html" rel="" target="">
+ <span class="dropdown-text">Introduction à Pandas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/02b_pandas_TP.html" rel="" target="">
+ <span class="dropdown-text">Pratique de pandas : un exemple complet</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/03_geopandas_tutorial.html" rel="" target="">
+ <span class="dropdown-text">Données spatiales : découverte de geopandas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/03_geopandas_TP.html" rel="" target="">
+ <span class="dropdown-text">Pratique de geopandas avec les données vélib</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/04a_webscraping_TP.html" rel="" target="">
+ <span class="dropdown-text">Webscraping avec python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/04c_API_TP.html" rel="" target="">
+ <span class="dropdown-text">Récupérer des données avec des API depuis Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/04b_regex_TP.html" rel="" target="">
+ <span class="dropdown-text">Maîtriser les expressions régulières</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/07_dask.html" rel="" target="">
+ <span class="dropdown-text">Introduction à dask grâce aux données DVF</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-communiquer" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Communiquer</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-communiquer">    
+        <li>
+    <a class="dropdown-item" href="../../content/visualisation/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/visualisation/matplotlib.html" rel="" target="">
+ <span class="dropdown-text">De beaux graphiques avec python: mise en pratique</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/visualisation/maps.html" rel="" target="">
+ <span class="dropdown-text">De belles cartes avec python: mise en pratique</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-modéliser" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Modéliser</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-modéliser">    
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/0_preprocessing.html" rel="" target="">
+ <span class="dropdown-text">Préparation des données pour construire un modèle</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/1_modelevaluation.html" rel="" target="">
+ <span class="dropdown-text">Evaluer la qualité d’un modèle</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/2_SVM.html" rel="" target="">
+ <span class="dropdown-text">Classification: premier modèle avec les SVM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/3_regression.html" rel="" target="">
+ <span class="dropdown-text">Régression : une introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/4_featureselection.html" rel="" target="">
+ <span class="dropdown-text">Sélection de variables : une introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/5_clustering.html" rel="" target="">
+ <span class="dropdown-text">Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/6_pipeline.html" rel="" target="">
+ <span class="dropdown-text">Premier pas vers l’industrialisation avec les pipelines scikit</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-approfondissements" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Approfondissements</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-approfondissements">    
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/continuous_integration.html" rel="" target="">
+ <span class="dropdown-text">Intégration continue avec Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/dallE.html" rel="" target="">
+ <span class="dropdown-text">Génération d’images avec Python, DALL-E et StableDiffusion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/s3.html" rel="" target="">
+ <span class="dropdown-text">Les nouveaux modes d’accès aux données : le format parquet et les données sur le cloud</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/elastic_approfondissement.html" rel="" target="">
+ <span class="dropdown-text">Approfondissement ElasticSearch pour des recherches de proximité géographique</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/elastic_intro.html" rel="" target="">
+ <span class="dropdown-text">Introduction à ElasticSearch pour la recherche textuelle</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-git" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Git</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-git">    
+        <li>
+    <a class="dropdown-item" href="../../content/git/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/git/introgit.html" rel="" target="">
+ <span class="dropdown-text">Git : un élément essentiel au quotidien</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/git/exogit.html" rel="" target="">
+ <span class="dropdown-text">Un cadavre exquis pour découvrir Git</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-annexes" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Annexes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-annexes">    
+        <li>
+    <a class="dropdown-item" href="../../content/annexes/evaluation.html" rel="" target="">
+ <span class="dropdown-text">Evaluation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/annexes/corrections.html" rel="" target="">
+ <span class="dropdown-text">Corrections</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://linogaliana.github.io/python-datascientist-slides/#/title-slide" rel="" target="">
+ <span class="dropdown-text">Slides de présentation</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools ms-auto-item" href="https://github.com/linogaliana/python-datascientist">
+            Code source
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../content/manipulation/07_dask.html">Introduction à dask grâce aux données DVF</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Introduction à dask grâce aux données DVF</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Tutoriel</div>
+                <div class="quarto-category">Manipulation</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Lino Galiana </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">August 30, 2022</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/01_numpy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Numpy, la brique de base de la data science</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/02a_pandas_tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction à Pandas</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/02b_pandas_TP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pratique de pandas : un exemple complet</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/03_geopandas_tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Données spatiales : découverte de geopandas</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/03_geopandas_TP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pratique de geopandas avec les données vélib</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/04a_webscraping_TP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Webscraping avec python</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/04c_API_TP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Récupérer des données avec des API depuis Python</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/04b_regex_TP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Maîtriser les expressions régulières</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/07_dask.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Introduction à dask grâce aux données DVF</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#pourquoi-utiliser-dask" id="toc-pourquoi-utiliser-dask" class="nav-link active" data-scroll-target="#pourquoi-utiliser-dask">Pourquoi utiliser <code>Dask</code> ?</a>
+  <ul class="collapse">
+  <li><a href="#comment-dask-se-compare-à-spark" id="toc-comment-dask-se-compare-à-spark" class="nav-link" data-scroll-target="#comment-dask-se-compare-à-spark">Comment <code>Dask</code> se compare à <code>Spark</code> ?</a></li>
+  </ul></li>
+  <li><a href="#démonstration-de-quelques-features-de-dask" id="toc-démonstration-de-quelques-features-de-dask" class="nav-link" data-scroll-target="#démonstration-de-quelques-features-de-dask">Démonstration de quelques <em>features</em> de <code>Dask</code></a>
+  <ul class="collapse">
+  <li><a href="#présentation-du-dask.dataframe" id="toc-présentation-du-dask.dataframe" class="nav-link" data-scroll-target="#présentation-du-dask.dataframe">Présentation du <code>Dask.DataFrame</code></a></li>
+  <li><a href="#la-lazy-evaluation" id="toc-la-lazy-evaluation" class="nav-link" data-scroll-target="#la-lazy-evaluation">La <em>“lazy evaluation”</em></a></li>
+  <li><a href="#problèmes-de-lecture-dus-à-des-types-problématiques" id="toc-problèmes-de-lecture-dus-à-des-types-problématiques" class="nav-link" data-scroll-target="#problèmes-de-lecture-dus-à-des-types-problématiques">Problèmes de lecture dus à des types problématiques</a></li>
+  </ul></li>
+  <li><a href="#utiliser-dask-avec-le-format-parquet" id="toc-utiliser-dask-avec-le-format-parquet" class="nav-link" data-scroll-target="#utiliser-dask-avec-le-format-parquet">Utiliser <code>Dask</code> avec le format parquet</a></li>
+  <li><a href="#a-quoi-sert-persist" id="toc-a-quoi-sert-persist" class="nav-link" data-scroll-target="#a-quoi-sert-persist">A quoi sert <code>persist</code> ?</a></li>
+  <li><a href="#aller-plus-loin-utiliser-le-decorator-dask.delayed-pour-paralléliser-du-code" id="toc-aller-plus-loin-utiliser-le-decorator-dask.delayed-pour-paralléliser-du-code" class="nav-link" data-scroll-target="#aller-plus-loin-utiliser-le-decorator-dask.delayed-pour-paralléliser-du-code">Aller plus loin: Utiliser le decorator <code>dask.delayed</code> pour paralléliser du code</a></li>
+  <li><a href="#remerciements" id="toc-remerciements" class="nav-link" data-scroll-target="#remerciements">Remerciements</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/linogaliana/python-datascientist/edit/master/content/manipulation/07_dask.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/linogaliana/python-datascientist/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>Pour essayer les exemples présents dans ce tutoriel :</p>
+<div class="cell markdown">
+<p class="badges">
+<a href="https://github.com/linogaliana/python-datascientist-notebooks/blob/main/notebooks/manipulation/07_dask.ipynb" class="github"><i class="fab fa-github"></i></a>
+<a href="https://downgit.github.io/#/home?url=https://github.com/linogaliana/python-datascientist-notebooks/blob/main/notebooks/manipulation/07_dask.ipynb" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Download-Notebook-important?logo=Jupyter" alt="Download"></a>
+<a href="https://nbviewer.jupyter.org/github/linogaliana/python-datascientist-notebooksblob/main/notebooks/manipulation/07_dask.ipynb" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Visualize-nbviewer-blue?logo=Jupyter" alt="nbviewer"></a>
+<a href="https://datalab.sspcloud.fr/launcher/ide/jupyter-python?autoLaunch=true&amp;onyxia.friendlyName=%C2%ABpython-datascience%C2%BB&amp;init.personalInit=%C2%ABhttps%3A%2F%2Fraw.githubusercontent.com%2Flinogaliana%2Fpython-datascientist%2Fmaster%2Fsspcloud%2Finit-jupyter.sh%C2%BB&amp;init.personalInitArgs=%C2%ABmanipulation%2007_dask%C2%BB&amp;security.allowlist.enabled=false" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/SSP%20Cloud-Tester_avec_Jupyter-orange?logo=Jupyter&amp;logoColor=orange" alt="Onyxia"></a>
+<a href="https://datalab.sspcloud.fr/launcher/ide/vscode-python?autoLaunch=true&amp;onyxia.friendlyName=%C2%ABpython-datascience%C2%BB&amp;init.personalInit=%C2%ABhttps%3A%2F%2Fraw.githubusercontent.com%2Flinogaliana%2Fpython-datascientist%2Fmaster%2Fsspcloud%2Finit-vscode.sh%C2%BB&amp;init.personalInitArgs=%C2%ABmanipulation%2007_dask%C2%BB&amp;security.allowlist.enabled=false" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/SSP%20Cloud-Tester_avec_VSCode-blue?logo=visualstudiocode&amp;logoColor=blue" alt="Onyxia"></a><br>
+<a href="https://mybinder.org/v2/gh/linogaliana/python-datascientist-notebooks/main?filepath={binder_path}" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Launch-Binder-E66581.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABZCAMAAABi1XidAAAB8lBMVEX///9XmsrmZYH1olJXmsr1olJXmsrmZYH1olJXmsr1olJXmsrmZYH1olL1olJXmsr1olJXmsrmZYH1olL1olJXmsrmZYH1olJXmsr1olL1olJXmsrmZYH1olL1olJXmsrmZYH1olL1olL0nFf1olJXmsrmZYH1olJXmsq8dZb1olJXmsrmZYH1olJXmspXmspXmsr1olL1olJXmsrmZYH1olJXmsr1olL1olJXmsrmZYH1olL1olLeaIVXmsrmZYH1olL1olL1olJXmsrmZYH1olLna31Xmsr1olJXmsr1olJXmsrmZYH1olLqoVr1olJXmsr1olJXmsrmZYH1olL1olKkfaPobXvviGabgadXmsqThKuofKHmZ4Dobnr1olJXmsr1olJXmspXmsr1olJXmsrfZ4TuhWn1olL1olJXmsqBi7X1olJXmspZmslbmMhbmsdemsVfl8ZgmsNim8Jpk8F0m7R4m7F5nLB6jbh7jbiDirOEibOGnKaMhq+PnaCVg6qWg6qegKaff6WhnpKofKGtnomxeZy3noG6dZi+n3vCcpPDcpPGn3bLb4/Mb47UbIrVa4rYoGjdaIbeaIXhoWHmZYHobXvpcHjqdHXreHLroVrsfG/uhGnuh2bwj2Hxk17yl1vzmljzm1j0nlX1olL3AJXWAAAAbXRSTlMAEBAQHx8gICAuLjAwMDw9PUBAQEpQUFBXV1hgYGBkcHBwcXl8gICAgoiIkJCQlJicnJ2goKCmqK+wsLC4usDAwMjP0NDQ1NbW3Nzg4ODi5+3v8PDw8/T09PX29vb39/f5+fr7+/z8/Pz9/v7+zczCxgAABC5JREFUeAHN1ul3k0UUBvCb1CTVpmpaitAGSLSpSuKCLWpbTKNJFGlcSMAFF63iUmRccNG6gLbuxkXU66JAUef/9LSpmXnyLr3T5AO/rzl5zj137p136BISy44fKJXuGN/d19PUfYeO67Znqtf2KH33Id1psXoFdW30sPZ1sMvs2D060AHqws4FHeJojLZqnw53cmfvg+XR8mC0OEjuxrXEkX5ydeVJLVIlV0e10PXk5k7dYeHu7Cj1j+49uKg7uLU61tGLw1lq27ugQYlclHC4bgv7VQ+TAyj5Zc/UjsPvs1sd5cWryWObtvWT2EPa4rtnWW3JkpjggEpbOsPr7F7EyNewtpBIslA7p43HCsnwooXTEc3UmPmCNn5lrqTJxy6nRmcavGZVt/3Da2pD5NHvsOHJCrdc1G2r3DITpU7yic7w/7Rxnjc0kt5GC4djiv2Sz3Fb2iEZg41/ddsFDoyuYrIkmFehz0HR2thPgQqMyQYb2OtB0WxsZ3BeG3+wpRb1vzl2UYBog8FfGhttFKjtAclnZYrRo9ryG9uG/FZQU4AEg8ZE9LjGMzTmqKXPLnlWVnIlQQTvxJf8ip7VgjZjyVPrjw1te5otM7RmP7xm+sK2Gv9I8Gi++BRbEkR9EBw8zRUcKxwp73xkaLiqQb+kGduJTNHG72zcW9LoJgqQxpP3/Tj//c3yB0tqzaml05/+orHLksVO+95kX7/7qgJvnjlrfr2Ggsyx0eoy9uPzN5SPd86aXggOsEKW2Prz7du3VID3/tzs/sSRs2w7ovVHKtjrX2pd7ZMlTxAYfBAL9jiDwfLkq55Tm7ifhMlTGPyCAs7RFRhn47JnlcB9RM5T97ASuZXIcVNuUDIndpDbdsfrqsOppeXl5Y+XVKdjFCTh+zGaVuj0d9zy05PPK3QzBamxdwtTCrzyg/2Rvf2EstUjordGwa/kx9mSJLr8mLLtCW8HHGJc2R5hS219IiF6PnTusOqcMl57gm0Z8kanKMAQg0qSyuZfn7zItsbGyO9QlnxY0eCuD1XL2ys/MsrQhltE7Ug0uFOzufJFE2PxBo/YAx8XPPdDwWN0MrDRYIZF0mSMKCNHgaIVFoBbNoLJ7tEQDKxGF0kcLQimojCZopv0OkNOyWCCg9XMVAi7ARJzQdM2QUh0gmBozjc3Skg6dSBRqDGYSUOu66Zg+I2fNZs/M3/f/Grl/XnyF1Gw3VKCez0PN5IUfFLqvgUN4C0qNqYs5YhPL+aVZYDE4IpUk57oSFnJm4FyCqqOE0jhY2SMyLFoo56zyo6becOS5UVDdj7Vih0zp+tcMhwRpBeLyqtIjlJKAIZSbI8SGSF3k0pA3mR5tHuwPFoa7N7reoq2bqCsAk1HqCu5uvI1n6JuRXI+S1Mco54YmYTwcn6Aeic+kssXi8XpXC4V3t7/ADuTNKaQJdScAAAAAElFTkSuQmCC" alt="Binder"></a>
+<a href="https://colab.research.google.com/github/linogaliana/python-datascientist-notebooks/blob/main/notebooks/manipulation/07_dask.ipynb" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>
+<a href="https://github.dev/linogaliana/python-datascientist-notebooks/notebooks/manipulation/07_dask.ipynb" target="_blank" rel="noopener"><img src="https://img.shields.io/static/v1?logo=visualstudiocode&amp;label=&amp;message=Open%20in%20Visual%20Studio%20Code&amp;labelColor=2c2c32&amp;color=007acc&amp;logoColor=007acc" alt="githubdev"></a>
+</p>
+<p></p>
+</div>
+<p>La documentation complète sur <code>Dask</code> se trouve sur <a href="https://docs.dask.org/" class="uri">https://docs.dask.org/</a>.</p>
+<p>Le projet requiert l’installation de <code>dask</code>. Afin d’avoir
+la distribution complète on utilise la commande suivante :</p>
+<pre class="shell"><code>pip install dask[complete]</code></pre>
+<section id="pourquoi-utiliser-dask" class="level2">
+<h2 class="anchored" data-anchor-id="pourquoi-utiliser-dask">Pourquoi utiliser <code>Dask</code> ?</h2>
+<p>On peut se référer à la page https://docs.dask.org/en/stable/why.html</p>
+<p>Plusieurs points sont mis en avant dans la documentation officielle et sont résumés ci-dessous:
+- <code>Dask</code> ressemble fortement en termes de syntaxe à <code>pandas</code> et <code>numpy</code> ;
+- <code>Dask</code> peut être utilisé sur un ordinateur seul ou sur un <em>cloud cluster</em>. Avec <code>Dask</code>, on peut traiter des bases de 100GB sur un ordinateur portable, voire même 1TB sans même avoir besoin d’un cluster <em>big data</em> ;
+- <code>Dask</code> requiert peu de temps d’installation puisqu’il peut être installé avec le gestionnaire de <em>packages</em> <code>conda</code> (il est même livré dans la distribution par défaut d’Anaconda)</p>
+<section id="comment-dask-se-compare-à-spark" class="level3">
+<h3 class="anchored" data-anchor-id="comment-dask-se-compare-à-spark">Comment <code>Dask</code> se compare à <code>Spark</code> ?</h3>
+<p>Dans le monde du <em>big-data</em>, un écosystème concurrent existe: <a href="https://spark.apache.org/"><code>Spark</code></a>. Globalement, lorsqu’on a compris la logique
+de l’un, il est très facile de faire la transition vers l’autre si besoin<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.
+<!-----
+Pour ma part, j'ai principalement fait du `Spark` sur
+des [données de téléphonie de plusieurs TB](https://www.linogaliana.fr/publication/2020-segregation/). En fait, la logique sera la même que celle de `Dask` sur données moins volumineuses.
+------></p>
+<ul>
+<li><code>Spark</code> est écrit en <code>Scala</code> à l’origine. Le package <a href="https://spark.apache.org/docs/latest/api/python/"><code>pyspark</code></a> permet d’écrire en <code>Python</code> et s’assure de la traduction en <code>Python</code> afin d’interagir avec les machines virtuelles <code>Java</code> (JVM) nécessaires pour la parallélisation des opérations <code>Spark</code>. <code>Dask</code> est quant à lui écrit en Python, ce qui est un écosystème plus léger. Pour gagner en performance, il permet d’interagir avec du code C/C++ entre autres ;</li>
+<li>L’installation de <code>Spark</code> est plus lourde que celle de <code>Dask</code></li>
+<li><code>Spark</code> est un projet Apache en lui-même alors que <code>Dask</code> intervient comme une composante de l’univers <code>Python</code>;</li>
+<li><code>Spark</code> est un peu plus vieux (2010 versus 2014 pour <code>Dask</code>) ;</li>
+<li><code>Spark</code> permet de très bien faire des opérations classiques SQL et des ETLs, et proposer ses propres librairies de parallélisation de modèles de <em>machine learning</em>. Pour faire du <em>machine learning</em> avec <code>Spark</code> il faut aller piocher dans <code>Spark MLLib</code>. <code>Dask</code> permet quant à lui de bien interagir avec <code>scikit-learn</code> et de faire de la modélisation.</li>
+</ul>
+<p>Globalement, il faut retenir que <code>Dask</code> comme <code>Spark</code> ne sont intéressants que pour des données dont le traitement engendre des problèmes de RAM. Autrement, il
+vaut mieux se contenter de <code>pandas</code>.</p>
+</section>
+</section>
+<section id="démonstration-de-quelques-features-de-dask" class="level2">
+<h2 class="anchored" data-anchor-id="démonstration-de-quelques-features-de-dask">Démonstration de quelques <em>features</em> de <code>Dask</code></h2>
+<section id="présentation-du-dask.dataframe" class="level3">
+<h3 class="anchored" data-anchor-id="présentation-du-dask.dataframe">Présentation du <code>Dask.DataFrame</code></h3>
+<p>Nous allons utiliser les <a href="https://www.data.gouv.fr/fr/datasets/demandes-de-valeurs-foncieres/">données immobilières <code>DVF</code></a> pour montrer quelques éléments clefs de <code>Dask</code>.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import dvf files </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dask.dataframe <span class="im">as</span> dd</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>d_urls <span class="op">=</span> {</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"2019"</span> : <span class="st">'https://www.data.gouv.fr/fr/datasets/r/3004168d-bec4-44d9-a781-ef16f41856a2'</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"2020"</span> : <span class="st">"https://www.data.gouv.fr/fr/datasets/r/90a98de0-f562-4328-aa16-fe0dd1dca60f"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"2021"</span>: <span class="st">"https://www.data.gouv.fr/fr/datasets/r/817204ac-2202-4b4a-98e7-4184d154d98c"</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> import_dvf_one_year(year, dict_url <span class="op">=</span> d_urls):</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.read_csv(dict_url[year], sep <span class="op">=</span> <span class="st">"|"</span>, decimal<span class="op">=</span><span class="st">","</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"year"</span>] <span class="op">=</span> year</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> import_dvf_all_years(dict_url <span class="op">=</span> d_urls):</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    dfs <span class="op">=</span> [import_dvf_one_year(y, dict_url) <span class="cf">for</span> y <span class="kw">in</span> dict_url.keys()]</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.concat(dfs).reset_index()</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.drop([<span class="st">"level_0"</span>, <span class="st">"level_1"</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Dans un premier temps, on va utiliser <code>pandas</code> pour
+importer une année de données (millésime 2019), ces dernières tenant en mémoire
+sur un ordinateur normalement doté en RAM<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dvf <span class="op">=</span> import_dvf_one_year(<span class="st">"2019"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>dvf.shape</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>dvf.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/tmp/ipykernel_1247/455432909.py:13: DtypeWarning:
+
+Columns (18,23,24,26,28,41) have mixed types. Specify dtype option on import or set low_memory=False.
+</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Identifiant de document</th>
+<th data-quarto-table-cell-role="th">Reference document</th>
+<th data-quarto-table-cell-role="th">1 Articles CGI</th>
+<th data-quarto-table-cell-role="th">2 Articles CGI</th>
+<th data-quarto-table-cell-role="th">3 Articles CGI</th>
+<th data-quarto-table-cell-role="th">4 Articles CGI</th>
+<th data-quarto-table-cell-role="th">5 Articles CGI</th>
+<th data-quarto-table-cell-role="th">No disposition</th>
+<th data-quarto-table-cell-role="th">Date mutation</th>
+<th data-quarto-table-cell-role="th">Nature mutation</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Nombre de lots</th>
+<th data-quarto-table-cell-role="th">Code type local</th>
+<th data-quarto-table-cell-role="th">Type local</th>
+<th data-quarto-table-cell-role="th">Identifiant local</th>
+<th data-quarto-table-cell-role="th">Surface reelle bati</th>
+<th data-quarto-table-cell-role="th">Nombre pieces principales</th>
+<th data-quarto-table-cell-role="th">Nature culture</th>
+<th data-quarto-table-cell-role="th">Nature culture speciale</th>
+<th data-quarto-table-cell-role="th">Surface terrain</th>
+<th data-quarto-table-cell-role="th">year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>1</td>
+<td>04/01/2019</td>
+<td>Vente</td>
+<td>...</td>
+<td>1</td>
+<td>2.0</td>
+<td>Appartement</td>
+<td>NaN</td>
+<td>20.0</td>
+<td>1.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>2019</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>1</td>
+<td>04/01/2019</td>
+<td>Vente</td>
+<td>...</td>
+<td>1</td>
+<td>3.0</td>
+<td>Dépendance</td>
+<td>NaN</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>2019</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>1</td>
+<td>04/01/2019</td>
+<td>Vente</td>
+<td>...</td>
+<td>2</td>
+<td>2.0</td>
+<td>Appartement</td>
+<td>NaN</td>
+<td>62.0</td>
+<td>3.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>2019</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>1</td>
+<td>08/01/2019</td>
+<td>Vente</td>
+<td>...</td>
+<td>0</td>
+<td>1.0</td>
+<td>Maison</td>
+<td>NaN</td>
+<td>90.0</td>
+<td>4.0</td>
+<td>S</td>
+<td>NaN</td>
+<td>940.0</td>
+<td>2019</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>1</td>
+<td>07/01/2019</td>
+<td>Vente</td>
+<td>...</td>
+<td>0</td>
+<td>1.0</td>
+<td>Maison</td>
+<td>NaN</td>
+<td>101.0</td>
+<td>5.0</td>
+<td>S</td>
+<td>NaN</td>
+<td>490.0</td>
+<td>2019</td>
+</tr>
+</tbody>
+</table>
+
+<p>5 rows × 44 columns</p>
+</div>
+</div>
+</div>
+<p>Ici on travaille sur un <code>DataFrame</code> d’environ 3.5 millions de lignes et 44 variables.
+L’objet <code>dvf</code> est un <code>pandas.DataFrame</code>
+qui tient en mémoire sur le <code>SSP Cloud</code> ou sur les serveurs utilisés
+pour construire ce site web.</p>
+<div class="cell markdown">
+<div class="alert alert-success" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 1</h3>
+<p>On aurait pu lire directement les csv dans un <code>dask.DataFrame</code> avec le <code>read_csv</code> de <code>dask</code>. Comme exercice, vous pouvez essayer de le faire
+pour une année (analogue de la fonction <code>import_dvf_one_year</code>) puis sur toutes les données (analogue de la fonction <code>import_dvf_all_years</code>).</p>
+</div>
+</div>
+<p>On peut créer une structure <code>Dask</code> directement à partir
+d’un <code>DataFrame</code> <code>pandas</code> avec la méthode <code>from_pandas</code>.</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dvf_dd <span class="op">=</span> dd.from_pandas(dvf, npartitions<span class="op">=</span><span class="dv">10</span>) </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>dvf_dd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div><strong>Dask DataFrame Structure:</strong></div>
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Identifiant de document</th>
+<th data-quarto-table-cell-role="th">Reference document</th>
+<th data-quarto-table-cell-role="th">1 Articles CGI</th>
+<th data-quarto-table-cell-role="th">2 Articles CGI</th>
+<th data-quarto-table-cell-role="th">3 Articles CGI</th>
+<th data-quarto-table-cell-role="th">4 Articles CGI</th>
+<th data-quarto-table-cell-role="th">5 Articles CGI</th>
+<th data-quarto-table-cell-role="th">No disposition</th>
+<th data-quarto-table-cell-role="th">Date mutation</th>
+<th data-quarto-table-cell-role="th">Nature mutation</th>
+<th data-quarto-table-cell-role="th">Valeur fonciere</th>
+<th data-quarto-table-cell-role="th">No voie</th>
+<th data-quarto-table-cell-role="th">B/T/Q</th>
+<th data-quarto-table-cell-role="th">Type de voie</th>
+<th data-quarto-table-cell-role="th">Code voie</th>
+<th data-quarto-table-cell-role="th">Voie</th>
+<th data-quarto-table-cell-role="th">Code postal</th>
+<th data-quarto-table-cell-role="th">Commune</th>
+<th data-quarto-table-cell-role="th">Code departement</th>
+<th data-quarto-table-cell-role="th">Code commune</th>
+<th data-quarto-table-cell-role="th">Prefixe de section</th>
+<th data-quarto-table-cell-role="th">Section</th>
+<th data-quarto-table-cell-role="th">No plan</th>
+<th data-quarto-table-cell-role="th">No Volume</th>
+<th data-quarto-table-cell-role="th">1er lot</th>
+<th data-quarto-table-cell-role="th">Surface Carrez du 1er lot</th>
+<th data-quarto-table-cell-role="th">2eme lot</th>
+<th data-quarto-table-cell-role="th">Surface Carrez du 2eme lot</th>
+<th data-quarto-table-cell-role="th">3eme lot</th>
+<th data-quarto-table-cell-role="th">Surface Carrez du 3eme lot</th>
+<th data-quarto-table-cell-role="th">4eme lot</th>
+<th data-quarto-table-cell-role="th">Surface Carrez du 4eme lot</th>
+<th data-quarto-table-cell-role="th">5eme lot</th>
+<th data-quarto-table-cell-role="th">Surface Carrez du 5eme lot</th>
+<th data-quarto-table-cell-role="th">Nombre de lots</th>
+<th data-quarto-table-cell-role="th">Code type local</th>
+<th data-quarto-table-cell-role="th">Type local</th>
+<th data-quarto-table-cell-role="th">Identifiant local</th>
+<th data-quarto-table-cell-role="th">Surface reelle bati</th>
+<th data-quarto-table-cell-role="th">Nombre pieces principales</th>
+<th data-quarto-table-cell-role="th">Nature culture</th>
+<th data-quarto-table-cell-role="th">Nature culture speciale</th>
+<th data-quarto-table-cell-role="th">Surface terrain</th>
+<th data-quarto-table-cell-role="th">year</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">npartitions=10</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>float64</td>
+<td>float64</td>
+<td>float64</td>
+<td>float64</td>
+<td>float64</td>
+<td>float64</td>
+<td>float64</td>
+<td>int64</td>
+<td>string</td>
+<td>string</td>
+<td>float64</td>
+<td>float64</td>
+<td>string</td>
+<td>string</td>
+<td>string</td>
+<td>string</td>
+<td>float64</td>
+<td>string</td>
+<td>string</td>
+<td>int64</td>
+<td>float64</td>
+<td>string</td>
+<td>int64</td>
+<td>string</td>
+<td>string</td>
+<td>float64</td>
+<td>string</td>
+<td>float64</td>
+<td>string</td>
+<td>float64</td>
+<td>float64</td>
+<td>float64</td>
+<td>float64</td>
+<td>float64</td>
+<td>int64</td>
+<td>float64</td>
+<td>string</td>
+<td>float64</td>
+<td>float64</td>
+<td>float64</td>
+<td>string</td>
+<td>string</td>
+<td>float64</td>
+<td>string</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">362713</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3264417</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3627129</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<div>Dask Name: to_pyarrow_string, 2 graph layers</div>
+</div>
+</div>
+<p>Pour souligner la différence avec un <code>pandas.DataFrame</code>,
+l’affichage diffère. Seule la structure du <code>dask.DataFrame</code>
+est affichée et non son contenu car les données
+<code>dask</code> ne sont pas chargées en mémoire.</p>
+<div class="cell markdown">
+<div class="alert alert-danger" role="alert">
+<i class="fa-solid fa-triangle-exclamation"></i> Warning
+<p>Attention, <code>Dask</code> ne peut créer un <code>Dask.DataFrame</code> à partir d’un <code>pandas.DataFrame</code> multi-indexé.</p>
+<p>Dans ce cas il a fallu faire un <code>reset_index()</code> pour avoir un unique index.</p>
+</div>
+</div>
+<p>On a ainsi la structure de notre <code>dask.DataFrame</code>, soit environ 3.5 millions de lignes, avec 44 colonnes en 10 partitions, soit environ 350 000 observations par partition.</p>
+<p>Il faut savoir que <code>Dask</code> produit des <code>Array</code>, <code>Bag</code> et <code>DataFrames</code>, qui fonctionnent comme dans <code>Numpy</code> et <code>Pandas</code> (il est possible de créer d’autres structures <em>ad hoc</em>, cf plus loin).
+<code>Dask</code>, comme <code>Spark</code> et en fait comme la plupart des <em>frameworks</em> permettant de
+traiter des données plus volumineuses que la RAM disponible,
+repose sur le principe du partitionnement et de la parallélisation
+des opérations. Les données ne sont jamais importées dans leur
+ensemble mais par bloc. Un plan des opérations à effectuer est
+ensuite appliquer sur chaque bloc (nous reviendrons
+sur ce principe), indépendamment. La particularité de <code>Dask</code>,
+par rapport à <code>Spark</code>,
+est que chaque bloc est un <code>pandas.DataFrame</code>, ce qui
+rend très facile l’application de manipulations de données
+traditionnelles sur des sources volumineuses:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://docs.dask.org/en/stable/_images/dask-dataframe.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="https://docs.dask.org/en/stable/_images/dask-dataframe.svg" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<p>Le site de <code>Dask</code> cite une règle qui est la suivante :</p>
+<blockquote class="blockquote">
+<p><em>“Have 5 to 10 times as much RAM as the size of your dataset”</em>,</p>
+<p><span class="citation" data-cites="mckinney2017apache">@mckinney2017apache</span>, <a href="https://wesmckinney.com/blog/apache-arrow-pandas-internals/"><em>10 things I hate about pandas</em></a></p>
+</blockquote>
+<p>Sur disque, en sauvegardant en <code>CSV</code>, on
+obtient une base de 1.4GB. Si l’on suit la règle du pouce donnée plus haut, on va avoir besoin d’une RAM entre 7-14GB pour traiter la donnée, en fonction de nos traitements qui seront plus ou moins intensifs. Autrement dit, si on a moins de 8GB de RAM, il devient intéressant de faire appel à <code>dask</code>, sinon il vaut mieux privilégier <code>pandas</code> (sauf si on fait des
+traitements très intensifs en calculs).</p>
+<p>Il existe un autre objet <code>dask</code>, les <code>Array</code> pour reprendre la logique de <code>numpy</code>. De la même manière qu’un <code>dask.DataFrame</code> est en quelque sorte un ensemble de <code>pandas.DataFrame</code>, un <code>dask.Array</code> est un ensemble de <code>numpy.Array</code> qui sont plus importants en taille que la RAM. On pourra utiliser les opérations courantes <code>numpy</code> avec <code>dask</code> de la même manière que le <code>dask DataFrame</code> réplique la logique du <code>pandas DataFrame</code>.</p>
+<div class="cell markdown">
+<div class="alert alert-warning" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-lightbulb"></i> Hint</h3>
+<p>Le choix du nombre de partition (10) est arbitraire ici. Bien qu’on puisse
+trouver des règles du pouce pour fixer un nombre optimal de
+partitions, cela dépend de beaucoup de facteurs et, en pratique,
+rien ne remplace l’essai-erreur. Par exemple, <a href="https://docs.dask.org/en/stable/dataframe-best-practices.html">la documentation <code>Dask</code> recommande des blocs d’environ
+100MB</a>
+ce qui peut convenir pour des ordinateurs à la RAM limitée mais n’a pas
+forcément de sens pour des machines ayant 16GB de RAM.
+Un nombre important de partition va permettre de faire des opérations
+sur des petits blocs de données, ce qui permettra de gagner en vitesse
+d’exécution. Le prix à payer est beaucoup <em>d’input/output</em> car
+<code>Dask</code> va passer du temps à lire beaucoup de blocs de données et écrire
+des bases intermédiaires.</p>
+</div>
+</div>
+<p>On peut accéder aux index que couvrent les partitions de la manière suivante :</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dvf_dd.divisions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>(0,
+ 362713,
+ 725426,
+ 1088139,
+ 1450852,
+ 1813565,
+ 2176278,
+ 2538991,
+ 2901704,
+ 3264417,
+ 3627129)</code></pre>
+</div>
+</div>
+<p>Autrement dit, la première partition couvrira les lignes 0 à 362713. La deuxième les lignes 362714 à 725426, etc.</p>
+<p>Et on peut directement accéder à une partition grâce aux crochets <code>[]</code>:</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dvf_dd.partitions[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div><strong>Dask DataFrame Structure:</strong></div>
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Identifiant de document</th>
+<th data-quarto-table-cell-role="th">Reference document</th>
+<th data-quarto-table-cell-role="th">1 Articles CGI</th>
+<th data-quarto-table-cell-role="th">2 Articles CGI</th>
+<th data-quarto-table-cell-role="th">3 Articles CGI</th>
+<th data-quarto-table-cell-role="th">4 Articles CGI</th>
+<th data-quarto-table-cell-role="th">5 Articles CGI</th>
+<th data-quarto-table-cell-role="th">No disposition</th>
+<th data-quarto-table-cell-role="th">Date mutation</th>
+<th data-quarto-table-cell-role="th">Nature mutation</th>
+<th data-quarto-table-cell-role="th">Valeur fonciere</th>
+<th data-quarto-table-cell-role="th">No voie</th>
+<th data-quarto-table-cell-role="th">B/T/Q</th>
+<th data-quarto-table-cell-role="th">Type de voie</th>
+<th data-quarto-table-cell-role="th">Code voie</th>
+<th data-quarto-table-cell-role="th">Voie</th>
+<th data-quarto-table-cell-role="th">Code postal</th>
+<th data-quarto-table-cell-role="th">Commune</th>
+<th data-quarto-table-cell-role="th">Code departement</th>
+<th data-quarto-table-cell-role="th">Code commune</th>
+<th data-quarto-table-cell-role="th">Prefixe de section</th>
+<th data-quarto-table-cell-role="th">Section</th>
+<th data-quarto-table-cell-role="th">No plan</th>
+<th data-quarto-table-cell-role="th">No Volume</th>
+<th data-quarto-table-cell-role="th">1er lot</th>
+<th data-quarto-table-cell-role="th">Surface Carrez du 1er lot</th>
+<th data-quarto-table-cell-role="th">2eme lot</th>
+<th data-quarto-table-cell-role="th">Surface Carrez du 2eme lot</th>
+<th data-quarto-table-cell-role="th">3eme lot</th>
+<th data-quarto-table-cell-role="th">Surface Carrez du 3eme lot</th>
+<th data-quarto-table-cell-role="th">4eme lot</th>
+<th data-quarto-table-cell-role="th">Surface Carrez du 4eme lot</th>
+<th data-quarto-table-cell-role="th">5eme lot</th>
+<th data-quarto-table-cell-role="th">Surface Carrez du 5eme lot</th>
+<th data-quarto-table-cell-role="th">Nombre de lots</th>
+<th data-quarto-table-cell-role="th">Code type local</th>
+<th data-quarto-table-cell-role="th">Type local</th>
+<th data-quarto-table-cell-role="th">Identifiant local</th>
+<th data-quarto-table-cell-role="th">Surface reelle bati</th>
+<th data-quarto-table-cell-role="th">Nombre pieces principales</th>
+<th data-quarto-table-cell-role="th">Nature culture</th>
+<th data-quarto-table-cell-role="th">Nature culture speciale</th>
+<th data-quarto-table-cell-role="th">Surface terrain</th>
+<th data-quarto-table-cell-role="th">year</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">npartitions=1</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>float64</td>
+<td>float64</td>
+<td>float64</td>
+<td>float64</td>
+<td>float64</td>
+<td>float64</td>
+<td>float64</td>
+<td>int64</td>
+<td>string</td>
+<td>string</td>
+<td>float64</td>
+<td>float64</td>
+<td>string</td>
+<td>string</td>
+<td>string</td>
+<td>string</td>
+<td>float64</td>
+<td>string</td>
+<td>string</td>
+<td>int64</td>
+<td>float64</td>
+<td>string</td>
+<td>int64</td>
+<td>string</td>
+<td>string</td>
+<td>float64</td>
+<td>string</td>
+<td>float64</td>
+<td>string</td>
+<td>float64</td>
+<td>float64</td>
+<td>float64</td>
+<td>float64</td>
+<td>float64</td>
+<td>int64</td>
+<td>float64</td>
+<td>string</td>
+<td>float64</td>
+<td>float64</td>
+<td>float64</td>
+<td>string</td>
+<td>string</td>
+<td>float64</td>
+<td>string</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">362713</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<div>Dask Name: blocks, 3 graph layers</div>
+</div>
+</div>
+</section>
+<section id="la-lazy-evaluation" class="level3">
+<h3 class="anchored" data-anchor-id="la-lazy-evaluation">La <em>“lazy evaluation”</em></h3>
+<p><code>Dask</code> fait de la <strong>“lazy evaluation”</strong>. Cela signifie que le résultat n’est calculé que si on le demande explicitement. Dans le cas, contraire, ce que l’on appelle un <code>dask</code> <strong>task graph</strong> est produit (on verra plus bas comment voir ce <em>graph</em>).</p>
+<p>Pour demander explicitement le résultat d’un calcul, il faut utiliser la
+méthode <code>compute</code>.
+A noter que certaines méthodes vont déclencher un <code>compute</code> directement, comme par exemple <code>len</code> ou <code>head</code>.</p>
+<p>Par exemple, pour afficher le contenu des 100 premières lignes :</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dvf_dd.loc[<span class="dv">0</span>:<span class="dv">100</span>,:].compute()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Identifiant de document</th>
+<th data-quarto-table-cell-role="th">Reference document</th>
+<th data-quarto-table-cell-role="th">1 Articles CGI</th>
+<th data-quarto-table-cell-role="th">2 Articles CGI</th>
+<th data-quarto-table-cell-role="th">3 Articles CGI</th>
+<th data-quarto-table-cell-role="th">4 Articles CGI</th>
+<th data-quarto-table-cell-role="th">5 Articles CGI</th>
+<th data-quarto-table-cell-role="th">No disposition</th>
+<th data-quarto-table-cell-role="th">Date mutation</th>
+<th data-quarto-table-cell-role="th">Nature mutation</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Nombre de lots</th>
+<th data-quarto-table-cell-role="th">Code type local</th>
+<th data-quarto-table-cell-role="th">Type local</th>
+<th data-quarto-table-cell-role="th">Identifiant local</th>
+<th data-quarto-table-cell-role="th">Surface reelle bati</th>
+<th data-quarto-table-cell-role="th">Nombre pieces principales</th>
+<th data-quarto-table-cell-role="th">Nature culture</th>
+<th data-quarto-table-cell-role="th">Nature culture speciale</th>
+<th data-quarto-table-cell-role="th">Surface terrain</th>
+<th data-quarto-table-cell-role="th">year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>1</td>
+<td>04/01/2019</td>
+<td>Vente</td>
+<td>...</td>
+<td>1</td>
+<td>2.0</td>
+<td>Appartement</td>
+<td>NaN</td>
+<td>20.0</td>
+<td>1.0</td>
+<td>&lt;NA&gt;</td>
+<td>&lt;NA&gt;</td>
+<td>NaN</td>
+<td>2019</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>1</td>
+<td>04/01/2019</td>
+<td>Vente</td>
+<td>...</td>
+<td>1</td>
+<td>3.0</td>
+<td>Dépendance</td>
+<td>NaN</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>&lt;NA&gt;</td>
+<td>&lt;NA&gt;</td>
+<td>NaN</td>
+<td>2019</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>1</td>
+<td>04/01/2019</td>
+<td>Vente</td>
+<td>...</td>
+<td>2</td>
+<td>2.0</td>
+<td>Appartement</td>
+<td>NaN</td>
+<td>62.0</td>
+<td>3.0</td>
+<td>&lt;NA&gt;</td>
+<td>&lt;NA&gt;</td>
+<td>NaN</td>
+<td>2019</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>1</td>
+<td>08/01/2019</td>
+<td>Vente</td>
+<td>...</td>
+<td>0</td>
+<td>1.0</td>
+<td>Maison</td>
+<td>NaN</td>
+<td>90.0</td>
+<td>4.0</td>
+<td>S</td>
+<td>&lt;NA&gt;</td>
+<td>940.0</td>
+<td>2019</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>1</td>
+<td>07/01/2019</td>
+<td>Vente</td>
+<td>...</td>
+<td>0</td>
+<td>1.0</td>
+<td>Maison</td>
+<td>NaN</td>
+<td>101.0</td>
+<td>5.0</td>
+<td>S</td>
+<td>&lt;NA&gt;</td>
+<td>490.0</td>
+<td>2019</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">96</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>1</td>
+<td>04/01/2019</td>
+<td>Vente</td>
+<td>...</td>
+<td>0</td>
+<td>1.0</td>
+<td>Maison</td>
+<td>NaN</td>
+<td>48.0</td>
+<td>2.0</td>
+<td>S</td>
+<td>&lt;NA&gt;</td>
+<td>935.0</td>
+<td>2019</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">97</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>1</td>
+<td>07/01/2019</td>
+<td>Vente</td>
+<td>...</td>
+<td>0</td>
+<td>NaN</td>
+<td>&lt;NA&gt;</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>P</td>
+<td>&lt;NA&gt;</td>
+<td>3264.0</td>
+<td>2019</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">98</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>1</td>
+<td>18/01/2019</td>
+<td>Vente</td>
+<td>...</td>
+<td>0</td>
+<td>NaN</td>
+<td>&lt;NA&gt;</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>P</td>
+<td>&lt;NA&gt;</td>
+<td>2870.0</td>
+<td>2019</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">99</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>1</td>
+<td>07/01/2019</td>
+<td>Vente</td>
+<td>...</td>
+<td>0</td>
+<td>NaN</td>
+<td>&lt;NA&gt;</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>T</td>
+<td>&lt;NA&gt;</td>
+<td>1423.0</td>
+<td>2019</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">100</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>1</td>
+<td>03/01/2019</td>
+<td>Vente</td>
+<td>...</td>
+<td>0</td>
+<td>NaN</td>
+<td>&lt;NA&gt;</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>P</td>
+<td>&lt;NA&gt;</td>
+<td>93.0</td>
+<td>2019</td>
+</tr>
+</tbody>
+</table>
+
+<p>101 rows × 44 columns</p>
+</div>
+</div>
+</div>
+<p>Ce qui est pratique avec <code>dask.dataframe</code> c’est que de nombreuses méthodes sont semblables à celles de <code>pandas</code>. Par exemple, si l’on souhaite connaitre les types de locaux présents dans la base en 2019:</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dvf_dd.loc[:,<span class="st">"Type local"</span>].value_counts().compute()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>Type local
+Maison                                      712958
+Appartement                                 656819
+Dépendance                                  496414
+Local industriel. commercial ou assimilé    143265
+Name: count, dtype: int64[pyarrow]</code></pre>
+</div>
+</div>
+<p>A titre de comparaison, comparons les temps de calculs entre <code>pandas</code> et <code>dask</code> ici:</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>dvf_dd.loc[:,<span class="st">"Type local"</span>].value_counts().compute()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>time<span class="sc">.</span>time() <span class="op">-</span> start_time<span class="sc">}</span><span class="ss"> seconds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4.856146335601807 seconds</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>dvf.loc[:,<span class="st">"Type local"</span>].value_counts()</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>time<span class="sc">.</span>time() <span class="op">-</span> start_time<span class="sc">}</span><span class="ss"> seconds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.18592500686645508 seconds</code></pre>
+</div>
+</div>
+<p>On se rend compte que le <code>pandas.DataFrame</code> a un temps de calcul plus court, mais c’est parce que <code>dask</code> va nous servir avant tout à lire des bases dont le traitement excède notre RAM. Donc, cette comparaison n’existera tout simplement pas car le <code>pandas.DataFrame</code> n’aura pas été chargé en RAM. <strong>On voit dans cet exemple que lorsque le traitement du <code>DataFrame</code> tient en RAM, l’utilisation de <code>Dask</code> est inutile</strong>.</p>
+<p>Les méthodes dans <code>Dask</code> peuvent être chainées, comme dans <code>pandas</code>, par exemple, on pourra écrire:</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mean_by_year <span class="op">=</span> dvf_dd.loc[<span class="op">~</span>dvf_dd[<span class="st">"Surface terrain"</span>].isna(),[<span class="st">"Surface terrain"</span>, <span class="st">"year"</span>]].groupby(<span class="st">"year"</span>).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mean_by_year.compute()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Surface terrain</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2019</td>
+<td>3064.685954</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Le principe de la <em>lazy evaluation</em> est donc d’annoncer à <code>Dask</code>
+qu’on va effectuer une série d’opération qui ne vont se réaliser
+que lorsqu’on fera un appel à <code>compute</code>. <code>Dask</code>, quant à lui,
+se chargera d’optimiser les traitements.
+Comme le plan d’action peut devenir difficile à suivre si on
+désire effectuer beaucoup d’opérations enchaînées, on peut
+vouloir visualiser le <em>graph</em> de computation de <code>dask</code>.
+Avec celui-ci, on voit toutes les étapes que jusqu’ici <code>dask</code> n’a pas <em>executé</em>
+et qu’il va devoir exécuter pour calculer le résultat (<code>compute()</code>).</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mean_by_year.dask</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>En l’occurence on voit l’enchaînement des étapes
+<code>from_pandas()</code>, <code>getitem</code>, <code>isna</code>, <code>inv</code> et <code>loc-series</code> qui résultent de nos filtres sur le <code>DataFrame</code>. Ensuite,
+on voit les étapes de <code>groupby</code> et, enfin, pour calculer la moyenne il convient de faire la somme et la division. Toutes ces étapes vont être effectuées quand on appelle <code>compute()</code> et pas avant (<em>lazy evaluation</em>).</p>
+<p>Afin de voir la structure du <code>dask.DataFrame</code> on peut utiliser la méthode <code>visualize()</code></p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>dvf_dd.visualize() <span class="co"># attention graphviz est requis</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="07_dask_files/figure-html/cell-16-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="07_dask_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell markdown">
+<div class="alert alert-info" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-comment"></i> Note</h3>
+<p><code>graphviz</code> est requis pour ce graphique. S’il n’est pas installé dans votre environnement, faire :</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install graphviz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>Pour construire de véritables <em>pipelines</em> de données,
+les principes du <a href="https://docs.dask.org/en/stable/generated/dask.dataframe.Series.pipe.html"><code>pipe</code> de <code>pandas</code></a> évoqué <a href="#pandas/#les-pipe">dans cette partie du cours</a> et celui des <a href="https://ml.dask.org/compose.html">pipelines scikit</a>, évoqué <a href="#pipeline-scikit/">dans un chapitre dédié</a>
+ont été importés dans <code>dask</code>.</p>
+</section>
+<section id="problèmes-de-lecture-dus-à-des-types-problématiques" class="level3">
+<h3 class="anchored" data-anchor-id="problèmes-de-lecture-dus-à-des-types-problématiques">Problèmes de lecture dus à des types problématiques</h3>
+<p>La méthode <code>read_csv</code> de <code>dask</code> va inférer les types du <code>DataFrame</code> à partir d’échantillon, et va les implémenter sur tout le <code>DataFrame</code> seulement au moment d’une étape <code>compute</code>.</p>
+<p>Il peut donc y avoir des erreurs de types dûs à un échantillon ne prenant pas en compte certains cas particuliers, causant des erreurs dans la lecture du fichier.</p>
+<p>Dans ce cas, et comme de manière générale avec <code>pandas</code>, il peut être recommandé de faire appel au paramètre <code>dtype</code> de <code>read_csv</code> - qui est un <code>dict</code> - (la doc de <code>dask</code> nous dit aussi que l’on peut augmenter la taille de l’échantllon <code>sample</code>).</p>
+</section>
+</section>
+<section id="utiliser-dask-avec-le-format-parquet" class="level2">
+<h2 class="anchored" data-anchor-id="utiliser-dask-avec-le-format-parquet">Utiliser <code>Dask</code> avec le format parquet</h2>
+<p>Le format <code>parquet</code> tend à devenir le format
+de référence dans le monde de la <em>data science</em>.
+Une présentation extensive de celui-ci est disponible
+dans le <a href="#reads3">chapitre dédié</a>.</p>
+<p><code>dask</code> permet de lire le format <code>parquet</code>, et plus précisément d’utiliser des fonctionnalités spécifiques à ce format. La lecture et l’écriture en <code>parquet</code> reposent par défaut sur <code>pyarrow</code>. On peut aussi utiliser <code>fastparquet</code> et préciser dans la lecture/écriture ce que l’on souhaite des deux.</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>dvf_net <span class="op">=</span> dvf.loc[:,[ <span class="st">'Date mutation'</span>, <span class="st">'Nature mutation'</span>, <span class="st">'Valeur fonciere'</span>, <span class="st">'Commune'</span>, </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>       <span class="st">'Code commune'</span>, <span class="st">'Type local'</span>, <span class="st">'Identifiant local'</span>, <span class="st">'Surface reelle bati'</span>,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>       <span class="st">'Nombre pieces principales'</span>, <span class="st">'Nature culture'</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>       <span class="st">'Nature culture speciale'</span>, <span class="st">'Surface terrain'</span>, <span class="st">'year'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>On va utiliser l’<em>engine</em> par défaut pour
+l’écriture de <code>parquet</code> qui est <code>pyarrow</code> (faire <code>pip install pyarrow</code> si vous ne l’avez pas déjà installé). <code>to_parquet</code> qui est une méthode <code>pandas</code> a été également étendue aux objets <code>dask</code>:</p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dvf_net.to_parquet(<span class="st">"dvf/"</span>, partition_cols<span class="op">=</span><span class="st">"year"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Lorsqu’il est partitionné, le format <code>parquet</code> amène à une structure
+de fichiers similaire à <a href="https://spark.apache.org/docs/latest/sql-data-sources-parquet.html#partition-discovery">celle-ci</a>:</p>
+<pre class="raw"><code>path
+└── to
+    └── table
+        ├── gender=male
+        │   ├── ...
+        │   │
+        │   ├── country=US
+        │   │   └── data.parquet
+        │   ├── country=CN
+        │   │   └── data.parquet
+        │   └── ...
+        └── gender=female
+            ├── ...
+            │
+            ├── country=US
+            │   └── data.parquet
+            ├── country=CN
+            │   └── data.parquet
+            └── ...</code></pre>
+<p>On peut alors facilement traiter un sous-échantillon des données,
+par exemple l’année 2019:</p>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>dvf_2019 <span class="op">=</span> dd.read_parquet(<span class="st">"dvf/year=2019/"</span>, columns<span class="op">=</span>[<span class="st">"Date mutation"</span>, <span class="st">"Valeur fonciere"</span>]) <span class="co"># On peut sélectionner directement les deux colonnes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Lorsqu’il faudra passer à l’échelle, on changera le chemin en <code>"dvf/</code>
+pour utiliser l’ensemble des données.</p>
+</section>
+<section id="a-quoi-sert-persist" class="level2">
+<h2 class="anchored" data-anchor-id="a-quoi-sert-persist">A quoi sert <code>persist</code> ?</h2>
+<p>Par défaut, <code>compute</code> exécute l’ensemble du plan et ne conserve
+en mémoire que le résultat de celui-ci. Les données intermédiaires
+ne sont pas conservées. Si on désire réutiliser une partie de celui-ci,
+par exemple les premières étapes, on devra donc ré-effectuer
+les calculs.</p>
+<p>Il est possible de garder une partie des données en mémoire avec <code>persist()</code>. Les données sont sauvegardées dans des objets appelés <code>Futures</code>. Cela peut être intéressant si un bloc particulier de données est utilisé dans plusieurs <code>compute</code> ou si l’on a besoin de voir ce qu’il y a à l’intérieur souvent.</p>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>dvf_dd_mem <span class="op">=</span> dvf_dd.persist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>dvf_dd_mem.head()</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>time<span class="sc">.</span>time() <span class="op">-</span> start_time<span class="sc">}</span><span class="ss"> seconds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>dvf_dd.head()</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>time<span class="sc">.</span>time() <span class="op">-</span> start_time<span class="sc">}</span><span class="ss"> seconds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.511376142501831 seconds</code></pre>
+</div>
+</div>
+<p>On a bien un temps plus important avec le <code>dask.DataFrame</code> initial, comparé avec celui sur lequel on a utilisé <code>persist</code>. L’opération qu’on réalise ici étant peu complexe, la différence n’est pas substantielle. Elle serait beaucoup plus marquée avec un jeu de données plus volumineux ou des étapes intensives en calcul.</p>
+</section>
+<section id="aller-plus-loin-utiliser-le-decorator-dask.delayed-pour-paralléliser-du-code" class="level2">
+<h2 class="anchored" data-anchor-id="aller-plus-loin-utiliser-le-decorator-dask.delayed-pour-paralléliser-du-code">Aller plus loin: Utiliser le decorator <code>dask.delayed</code> pour paralléliser du code</h2>
+<p>Il est possible de paralléliser des fonctions par exemple en utilisant le <strong>decorator</strong> <code>dask.delayed</code>. Cela permet de rendre les fonctions <code>lazy</code>. Cela signifie que lorsqu’on appelle la fonction, un <code>delayed object</code> est construit. Pour avoir le résultat, il faut faire un <code>compute</code>. Pour aller plus loin: <a href="https://tutorial.dask.org/03_dask.delayed.html" class="uri">https://tutorial.dask.org/03_dask.delayed.html</a>.</p>
+<p>Prenons par exemple des fonctions permettant de calculer
+des aires et des périmètres. Comme il s’agit d’une opération
+très peu complexe, on ajoute un délai de calcul avec <code>time.sleep</code>
+pour que le <em>timer</em> ne nous suggère pas que l’opération est
+instantanée.</p>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> aire_carre(longueur):</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> longueur<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> perimetre_carre(longueur):</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">4</span><span class="op">*</span>longueur</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ajout_aire_perim(a, b):</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Sans <em>timer</em>, c’est-à-dire de manière classique,
+on ferait nos appels de fonctions de la
+manière suivante :</p>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>car1 <span class="op">=</span> aire_carre(<span class="dv">7</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>car2 <span class="op">=</span> perimetre_carre(<span class="dv">9</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>car3 <span class="op">=</span> ajout_aire_perim(car1, car2)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>car3</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(time.time() <span class="op">-</span> start_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2.002610445022583</code></pre>
+</div>
+</div>
+<p>Avec le décorateur <code>dask.delayed</code>, on définit
+nos fonctions de la manière suivante :</p>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dask</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="at">@dask.delayed</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> aire_carre(longueur):</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> longueur<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="at">@dask.delayed</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> perimetre_carre(longueur):</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">4</span><span class="op">*</span>longueur</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="at">@dask.delayed</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ajout_aire_perim(a, b):</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a <span class="op">+</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>L’appel de fonctions est identique</p>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>car1 <span class="op">=</span> aire_carre(<span class="dv">7</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>car2 <span class="op">=</span> perimetre_carre(<span class="dv">9</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>car3 <span class="op">=</span> ajout_aire_perim(car1, car2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Cependant, en fait rien n’a été calculé, si l’on souhaite le résultat, il faut appeler <code>compute</code>:</p>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>car3.compute()</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(time.time() <span class="op">-</span> start_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1.0024104118347168</code></pre>
+</div>
+</div>
+<p>Ici l’intérêt est assez limité, mais on voit que l’on réduit quand même de 2 à 1 seconde le temps de calcul. Mais l’idée derrière est que l’on a transformé <code>car3</code> en un objet <code>Delayed</code>. Cela a généré un <code>task graph</code> permettant de paralléliser certaines opérations.</p>
+<p>Ici il est important de noter que les fonctions que l’on parallélise doivent mettre un certain temps, sinon il n’y aura pas de gain de performance (si on retire le <code>time.sleep</code> il n’y a pas de gain de performance car le fait de paralléliser rajoute en fait du temps vu que chaque fonction a un temps de calcul trop faible pour que la parallélisation soit intéressante).</p>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>car3.visualize() <span class="co"># on peut visualiser le task graph et voir ce qui est fait en parallèle </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="07_dask_files/figure-html/cell-28-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="07_dask_files/figure-html/cell-28-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Il y a des exercices intéressants dans la doc de <code>Dask</code> sur les objets <code>Delayed</code>, notamment sur la parallélisation de séquence de traitement de données. Ils donnent l’exemple d’un ensemble de csv ayant le même format dont on veut résumer un indicateur final. On peut appliquer le decorator à une fonction permettant de lire le csv, puis utiliser une boucle <code>for</code> pour lire chaque fichier et appliquer les traitements. Ensuite, il faudra appeler <code>compute</code> sur l’objet final que l’on souhaite.</p>
+<p>Pour aller plus loin sur l’utilisation de <code>Dask</code> sur un cluster voir <a href="https://tutorial.dask.org/04_distributed.html" class="uri">https://tutorial.dask.org/04_distributed.html</a>.</p>
+</section>
+<section id="remerciements" class="level2">
+<h2 class="anchored" data-anchor-id="remerciements">Remerciements</h2>
+<p>Ce chapitre a été rédigé avec <a href="https://github.com/raphaeleadjerad">Raphaële Adjerad</a>.</p>
+
+
+</section>
+
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Ce site web est testé sur les serveurs d’intégration
+continue mis à disposition gratuitement par <code>Github</code>. Ces
+derniers sont des machines à la mémoire limitée. Il s’agit
+d’un bon exemple d’intérêt de <code>dask</code>: avec <code>pandas</code>, on ne
+peut tester les exemples sur les trois millésimes disponibles
+car la volumétrie accède la RAM disponible.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Ce site web est testé sur les serveurs d’intégration
+continue mis à disposition gratuitement par <code>Github</code>. Ces
+derniers sont des machines à la mémoire limitée. Il s’agit
+d’un bon exemple d’intérêt de <code>dask</code>: avec <code>pandas</code>, on ne
+peut tester les exemples sur les trois millésimes disponibles
+car la volumétrie accède la RAM disponible.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@book{galiana2023,
+  author = {Galiana, Lino},
+  title = {Python Pour La Data Science},
+  date = {2023},
+  url = {https://pythonds.linogaliana.fr/},
+  doi = {10.5281/zenodo.8229676},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-galiana2023" class="csl-entry quarto-appendix-citeas" role="listitem">
+Galiana, Lino. 2023. <em>Python Pour La Data Science</em>. <a href="https://doi.org/10.5281/zenodo.8229676">https://doi.org/10.5281/zenodo.8229676</a>.
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="linogaliana/python-datascientist" data-repo-id="MDEwOlJlcG9zaXRvcnkyODAxNjE2Nzc=" data-category="General" data-category-id="DIC_kwDOELLtjc4B-5TX" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../content/manipulation/04b_regex_TP.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Maîtriser les expressions régulières</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Python pour la <em>data science</em>, Lino Galiana.<br>
+Licence <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i><br>
+Code source disponible sur <a href="https://github.com/linogaliana/python-datascientist"><code>Github</code></a></div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">Site construit avec <i class="fa-brands fa-python" aria-label="python"></i> et <a href="https://quarto.org/"><code>Quarto</code></a><br>
+Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com">ici</a><br>
+<a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","loop":true,"descPosition":"bottom","openEffect":"zoom"});</script>
+
+
+
+</body></html>

@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Lino Galiana">
+<meta name="dcterms.date" content="2020-09-03">
+<meta name="description" content="Un chapitre plus approfondi sur ElasticSearch">
+
+<title>Python pour la data science - Approfondissement ElasticSearch pour des recherches de proximité géographique</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../content/modern-ds/elastic_intro.html" rel="next">
+<link href="../../content/modern-ds/s3.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+
+      .quarto-title-block .quarto-title-banner {
+        background: #e9f3fa;
+      }
+</style>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<meta name="twitter:title" content="Python pour la data science - Approfondissement ElasticSearch pour des recherches de proximité géographique">
+<meta name="twitter:description" content="Un chapitre plus approfondi sur ElasticSearch">
+<meta name="twitter:image" content="https://pythonds.linogaliana.fr/content/modern-ds/detective_map.png">
+<meta name="twitter:image-height" content="1024">
+<meta name="twitter:image-width" content="1024">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="citation_title" content="Python pour la data science">
+<meta name="citation_author" content="Lino Galiana">
+<meta name="citation_publication_date" content="2023">
+<meta name="citation_cover_date" content="2023">
+<meta name="citation_year" content="2023">
+<meta name="citation_online_date" content="2020-09-03">
+<meta name="citation_fulltext_html_url" content="https://pythonds.linogaliana.fr/">
+<meta name="citation_doi" content="10.5281/zenodo.8229676">
+<meta name="citation_language" content="en">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Python pour la data science</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-introduction" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Introduction</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-introduction">    
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/01_installation.html" rel="" target="">
+ <span class="dropdown-text">Configuration de Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/02_DS_environment.html" rel="" target="">
+ <span class="dropdown-text">L’environnement Python pour la data science</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/03_data_analysis.html" rel="" target="">
+ <span class="dropdown-text">Comment aborder un jeu de données</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/04_python_practice.html" rel="" target="">
+ <span class="dropdown-text">Bonne pratique de Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/05_rappels_types.html" rel="" target="">
+ <span class="dropdown-text">Quelques rappels sur les principes de base de Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/06_rappels_fonctions.html" rel="" target="">
+ <span class="dropdown-text">Modules, tests, boucles, fonctions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/07_rappels_classes.html" rel="" target="">
+ <span class="dropdown-text">Les classes en Python</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-manipuler" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Manipuler</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-manipuler">    
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/01_numpy.html" rel="" target="">
+ <span class="dropdown-text">Numpy, la brique de base de la data science</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/02a_pandas_tutorial.html" rel="" target="">
+ <span class="dropdown-text">Introduction à Pandas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/02b_pandas_TP.html" rel="" target="">
+ <span class="dropdown-text">Pratique de pandas : un exemple complet</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/03_geopandas_tutorial.html" rel="" target="">
+ <span class="dropdown-text">Données spatiales : découverte de geopandas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/03_geopandas_TP.html" rel="" target="">
+ <span class="dropdown-text">Pratique de geopandas avec les données vélib</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/04a_webscraping_TP.html" rel="" target="">
+ <span class="dropdown-text">Webscraping avec python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/04c_API_TP.html" rel="" target="">
+ <span class="dropdown-text">Récupérer des données avec des API depuis Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/04b_regex_TP.html" rel="" target="">
+ <span class="dropdown-text">Maîtriser les expressions régulières</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/07_dask.html" rel="" target="">
+ <span class="dropdown-text">Introduction à dask grâce aux données DVF</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-communiquer" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Communiquer</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-communiquer">    
+        <li>
+    <a class="dropdown-item" href="../../content/visualisation/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/visualisation/matplotlib.html" rel="" target="">
+ <span class="dropdown-text">De beaux graphiques avec python: mise en pratique</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/visualisation/maps.html" rel="" target="">
+ <span class="dropdown-text">De belles cartes avec python: mise en pratique</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-modéliser" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Modéliser</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-modéliser">    
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/0_preprocessing.html" rel="" target="">
+ <span class="dropdown-text">Préparation des données pour construire un modèle</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/1_modelevaluation.html" rel="" target="">
+ <span class="dropdown-text">Evaluer la qualité d’un modèle</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/2_SVM.html" rel="" target="">
+ <span class="dropdown-text">Classification: premier modèle avec les SVM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/3_regression.html" rel="" target="">
+ <span class="dropdown-text">Régression : une introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/4_featureselection.html" rel="" target="">
+ <span class="dropdown-text">Sélection de variables : une introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/5_clustering.html" rel="" target="">
+ <span class="dropdown-text">Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/6_pipeline.html" rel="" target="">
+ <span class="dropdown-text">Premier pas vers l’industrialisation avec les pipelines scikit</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-approfondissements" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Approfondissements</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-approfondissements">    
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/continuous_integration.html" rel="" target="">
+ <span class="dropdown-text">Intégration continue avec Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/dallE.html" rel="" target="">
+ <span class="dropdown-text">Génération d’images avec Python, DALL-E et StableDiffusion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/s3.html" rel="" target="">
+ <span class="dropdown-text">Les nouveaux modes d’accès aux données : le format parquet et les données sur le cloud</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/elastic_approfondissement.html" rel="" target="">
+ <span class="dropdown-text">Approfondissement ElasticSearch pour des recherches de proximité géographique</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/elastic_intro.html" rel="" target="">
+ <span class="dropdown-text">Introduction à ElasticSearch pour la recherche textuelle</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-git" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Git</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-git">    
+        <li>
+    <a class="dropdown-item" href="../../content/git/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/git/introgit.html" rel="" target="">
+ <span class="dropdown-text">Git : un élément essentiel au quotidien</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/git/exogit.html" rel="" target="">
+ <span class="dropdown-text">Un cadavre exquis pour découvrir Git</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-annexes" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Annexes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-annexes">    
+        <li>
+    <a class="dropdown-item" href="../../content/annexes/evaluation.html" rel="" target="">
+ <span class="dropdown-text">Evaluation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/annexes/corrections.html" rel="" target="">
+ <span class="dropdown-text">Corrections</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://linogaliana.github.io/python-datascientist-slides/#/title-slide" rel="" target="">
+ <span class="dropdown-text">Slides de présentation</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools ms-auto-item" href="https://github.com/linogaliana/python-datascientist">
+            Code source
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../content/modern-ds/elastic_approfondissement.html">Approfondissement ElasticSearch pour des recherches de proximité géographique</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Approfondissement ElasticSearch pour des recherches de proximité géographique</h1>
+                  <div>
+        <div class="description">
+          <p>Un chapitre plus approfondi sur <code>ElasticSearch</code></p>
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Tutoriel</div>
+                <div class="quarto-category">Avancé</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Lino Galiana </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 3, 2020</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/modern-ds/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/modern-ds/continuous_integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intégration continue avec Python</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/modern-ds/dallE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Génération d’images avec Python, DALL-E et StableDiffusion</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/modern-ds/s3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Les nouveaux modes d’accès aux données : le format parquet et les données sur le cloud</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/modern-ds/elastic_approfondissement.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Approfondissement ElasticSearch pour des recherches de proximité géographique</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/modern-ds/elastic_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction à ElasticSearch pour la recherche textuelle</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#objectif" id="toc-objectif" class="nav-link" data-scroll-target="#objectif">Objectif</a></li>
+  <li><a href="#réplication-de-ce-chapitre" id="toc-réplication-de-ce-chapitre" class="nav-link" data-scroll-target="#réplication-de-ce-chapitre">Réplication de ce chapitre</a></li>
+  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
+  </ul></li>
+  <li><a href="#préparation-des-données-à-identifier" id="toc-préparation-des-données-à-identifier" class="nav-link" data-scroll-target="#préparation-des-données-à-identifier">Préparation des données à identifier</a></li>
+  <li><a href="#constitution-du-référentiel-administratif-géolocalisé" id="toc-constitution-du-référentiel-administratif-géolocalisé" class="nav-link" data-scroll-target="#constitution-du-référentiel-administratif-géolocalisé">Constitution du référentiel administratif géolocalisé</a>
+  <ul class="collapse">
+  <li><a href="#importer-la-base-déjà-créée" id="toc-importer-la-base-déjà-créée" class="nav-link" data-scroll-target="#importer-la-base-déjà-créée">Importer la base déjà créée</a></li>
+  <li><a href="#reproduire-la-construction-de-la-base" id="toc-reproduire-la-construction-de-la-base" class="nav-link" data-scroll-target="#reproduire-la-construction-de-la-base">Reproduire la construction de la base</a></li>
+  </ul></li>
+  <li><a href="#connexion-à-elasticsearch" id="toc-connexion-à-elasticsearch" class="nav-link" data-scroll-target="#connexion-à-elasticsearch">Connexion à ElasticSearch</a></li>
+  <li><a href="#indexation-de-notre-base-sirène-géolocalisée" id="toc-indexation-de-notre-base-sirène-géolocalisée" class="nav-link" data-scroll-target="#indexation-de-notre-base-sirène-géolocalisée">Indexation de notre base Sirène géolocalisée</a>
+  <ul class="collapse">
+  <li><a href="#définition-du-mapping" id="toc-définition-du-mapping" class="nav-link" data-scroll-target="#définition-du-mapping">Définition du mapping</a></li>
+  <li><a href="#création-de-lindex" id="toc-création-de-lindex" class="nav-link" data-scroll-target="#création-de-lindex">Création de l’index</a></li>
+  <li><a href="#indexation-de-la-base-géolocalisée" id="toc-indexation-de-la-base-géolocalisée" class="nav-link" data-scroll-target="#indexation-de-la-base-géolocalisée">Indexation de la base géolocalisée</a></li>
+  </ul></li>
+  <li><a href="#recherche" id="toc-recherche" class="nav-link" data-scroll-target="#recherche">Recherche</a>
+  <ul class="collapse">
+  <li><a href="#premier-exemple-de-requête-géographique" id="toc-premier-exemple-de-requête-géographique" class="nav-link" data-scroll-target="#premier-exemple-de-requête-géographique">Premier exemple de requête géographique</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/linogaliana/python-datascientist/edit/master/content/modern-ds/elastic_approfondissement.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/linogaliana/python-datascientist/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>Pour essayer les exemples présents dans ce tutoriel :</p>
+<div class="cell markdown">
+<p class="badges">
+<a href="https://github.com/linogaliana/python-datascientist-notebooks/blob/main/notebooks/modern-ds/elastic_approfondissement.ipynb" class="github"><i class="fab fa-github"></i></a>
+<a href="https://downgit.github.io/#/home?url=https://github.com/linogaliana/python-datascientist-notebooks/blob/main/notebooks/modern-ds/elastic_approfondissement.ipynb" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Download-Notebook-important?logo=Jupyter" alt="Download"></a>
+<a href="https://nbviewer.jupyter.org/github/linogaliana/python-datascientist-notebooksblob/main/notebooks/modern-ds/elastic_approfondissement.ipynb" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Visualize-nbviewer-blue?logo=Jupyter" alt="nbviewer"></a>
+<a href="https://datalab.sspcloud.fr/launcher/ide/jupyter-python?autoLaunch=true&amp;onyxia.friendlyName=%C2%ABpython-datascience%C2%BB&amp;init.personalInit=%C2%ABhttps%3A%2F%2Fraw.githubusercontent.com%2Flinogaliana%2Fpython-datascientist%2Fmaster%2Fsspcloud%2Finit-jupyter.sh%C2%BB&amp;init.personalInitArgs=%C2%ABmodern-ds%20elastic_approfondissement%C2%BB&amp;security.allowlist.enabled=false" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/SSP%20Cloud-Tester_avec_Jupyter-orange?logo=Jupyter&amp;logoColor=orange" alt="Onyxia"></a>
+<a href="https://datalab.sspcloud.fr/launcher/ide/vscode-python?autoLaunch=true&amp;onyxia.friendlyName=%C2%ABpython-datascience%C2%BB&amp;init.personalInit=%C2%ABhttps%3A%2F%2Fraw.githubusercontent.com%2Flinogaliana%2Fpython-datascientist%2Fmaster%2Fsspcloud%2Finit-vscode.sh%C2%BB&amp;init.personalInitArgs=%C2%ABmodern-ds%20elastic_approfondissement%C2%BB&amp;security.allowlist.enabled=false" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/SSP%20Cloud-Tester_avec_VSCode-blue?logo=visualstudiocode&amp;logoColor=blue" alt="Onyxia"></a><br>
+<a href="https://mybinder.org/v2/gh/linogaliana/python-datascientist-notebooks/main?filepath={binder_path}" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Launch-Binder-E66581.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABZCAMAAABi1XidAAAB8lBMVEX///9XmsrmZYH1olJXmsr1olJXmsrmZYH1olJXmsr1olJXmsrmZYH1olL1olJXmsr1olJXmsrmZYH1olL1olJXmsrmZYH1olJXmsr1olL1olJXmsrmZYH1olL1olJXmsrmZYH1olL1olL0nFf1olJXmsrmZYH1olJXmsq8dZb1olJXmsrmZYH1olJXmspXmspXmsr1olL1olJXmsrmZYH1olJXmsr1olL1olJXmsrmZYH1olL1olLeaIVXmsrmZYH1olL1olL1olJXmsrmZYH1olLna31Xmsr1olJXmsr1olJXmsrmZYH1olLqoVr1olJXmsr1olJXmsrmZYH1olL1olKkfaPobXvviGabgadXmsqThKuofKHmZ4Dobnr1olJXmsr1olJXmspXmsr1olJXmsrfZ4TuhWn1olL1olJXmsqBi7X1olJXmspZmslbmMhbmsdemsVfl8ZgmsNim8Jpk8F0m7R4m7F5nLB6jbh7jbiDirOEibOGnKaMhq+PnaCVg6qWg6qegKaff6WhnpKofKGtnomxeZy3noG6dZi+n3vCcpPDcpPGn3bLb4/Mb47UbIrVa4rYoGjdaIbeaIXhoWHmZYHobXvpcHjqdHXreHLroVrsfG/uhGnuh2bwj2Hxk17yl1vzmljzm1j0nlX1olL3AJXWAAAAbXRSTlMAEBAQHx8gICAuLjAwMDw9PUBAQEpQUFBXV1hgYGBkcHBwcXl8gICAgoiIkJCQlJicnJ2goKCmqK+wsLC4usDAwMjP0NDQ1NbW3Nzg4ODi5+3v8PDw8/T09PX29vb39/f5+fr7+/z8/Pz9/v7+zczCxgAABC5JREFUeAHN1ul3k0UUBvCb1CTVpmpaitAGSLSpSuKCLWpbTKNJFGlcSMAFF63iUmRccNG6gLbuxkXU66JAUef/9LSpmXnyLr3T5AO/rzl5zj137p136BISy44fKJXuGN/d19PUfYeO67Znqtf2KH33Id1psXoFdW30sPZ1sMvs2D060AHqws4FHeJojLZqnw53cmfvg+XR8mC0OEjuxrXEkX5ydeVJLVIlV0e10PXk5k7dYeHu7Cj1j+49uKg7uLU61tGLw1lq27ugQYlclHC4bgv7VQ+TAyj5Zc/UjsPvs1sd5cWryWObtvWT2EPa4rtnWW3JkpjggEpbOsPr7F7EyNewtpBIslA7p43HCsnwooXTEc3UmPmCNn5lrqTJxy6nRmcavGZVt/3Da2pD5NHvsOHJCrdc1G2r3DITpU7yic7w/7Rxnjc0kt5GC4djiv2Sz3Fb2iEZg41/ddsFDoyuYrIkmFehz0HR2thPgQqMyQYb2OtB0WxsZ3BeG3+wpRb1vzl2UYBog8FfGhttFKjtAclnZYrRo9ryG9uG/FZQU4AEg8ZE9LjGMzTmqKXPLnlWVnIlQQTvxJf8ip7VgjZjyVPrjw1te5otM7RmP7xm+sK2Gv9I8Gi++BRbEkR9EBw8zRUcKxwp73xkaLiqQb+kGduJTNHG72zcW9LoJgqQxpP3/Tj//c3yB0tqzaml05/+orHLksVO+95kX7/7qgJvnjlrfr2Ggsyx0eoy9uPzN5SPd86aXggOsEKW2Prz7du3VID3/tzs/sSRs2w7ovVHKtjrX2pd7ZMlTxAYfBAL9jiDwfLkq55Tm7ifhMlTGPyCAs7RFRhn47JnlcB9RM5T97ASuZXIcVNuUDIndpDbdsfrqsOppeXl5Y+XVKdjFCTh+zGaVuj0d9zy05PPK3QzBamxdwtTCrzyg/2Rvf2EstUjordGwa/kx9mSJLr8mLLtCW8HHGJc2R5hS219IiF6PnTusOqcMl57gm0Z8kanKMAQg0qSyuZfn7zItsbGyO9QlnxY0eCuD1XL2ys/MsrQhltE7Ug0uFOzufJFE2PxBo/YAx8XPPdDwWN0MrDRYIZF0mSMKCNHgaIVFoBbNoLJ7tEQDKxGF0kcLQimojCZopv0OkNOyWCCg9XMVAi7ARJzQdM2QUh0gmBozjc3Skg6dSBRqDGYSUOu66Zg+I2fNZs/M3/f/Grl/XnyF1Gw3VKCez0PN5IUfFLqvgUN4C0qNqYs5YhPL+aVZYDE4IpUk57oSFnJm4FyCqqOE0jhY2SMyLFoo56zyo6becOS5UVDdj7Vih0zp+tcMhwRpBeLyqtIjlJKAIZSbI8SGSF3k0pA3mR5tHuwPFoa7N7reoq2bqCsAk1HqCu5uvI1n6JuRXI+S1Mco54YmYTwcn6Aeic+kssXi8XpXC4V3t7/ADuTNKaQJdScAAAAAElFTkSuQmCC" alt="Binder"></a>
+<a href="https://colab.research.google.com/github/linogaliana/python-datascientist-notebooks/blob/main/notebooks/modern-ds/elastic_approfondissement.ipynb" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>
+<a href="https://github.dev/linogaliana/python-datascientist-notebooks/notebooks/modern-ds/elastic_approfondissement.ipynb" target="_blank" rel="noopener"><img src="https://img.shields.io/static/v1?logo=visualstudiocode&amp;label=&amp;message=Open%20in%20Visual%20Studio%20Code&amp;labelColor=2c2c32&amp;color=007acc&amp;logoColor=007acc" alt="githubdev"></a>
+</p>
+<p></p>
+</div>
+<p>Ce chapitre est issu du travail produit
+dans le cadre d’un hackathon de l’Insee avec
+<a href="https://github.com/raphaeleadjerad">Raphaële Adjerad</a>
+et présente quelques éléments qui peuvent être utiles
+pour l’enrichissement de données d’entreprises
+à partir d’un répertoire officiel.</p>
+<p>:warning: Il nécessite une version particulière du package <code>elasticsearch</code> pour tenir compte de l’héritage de la version 7 du moteur Elastic. Pour cela, faire</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pip install elasticsearch<span class="op">==</span><span class="fl">8.2.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Dans le cadre particulier de l’identification des entreprises, Elasticsearch fait partie de la solution retenue par
+l’API “Sirene données ouvertes” (DINUM) (cf https://annuaire-entreprises.data.gouv.fr/) l’API de recherche d’entreprises Française de la Fabrique numérique des Ministères Sociaux (cf https://api.recherche-entreprises.fabrique.social.gouv.fr/)le projet de l’Insee “Amélioration de l’identification de l’employeur dans le recensement”, pour faire une première sélection des établissements pertinents pour un bulletin de recensement donné.
+Dans le cadre de l’identification des individus, Elasticsearch fait partie de la solution envisagée pour l’identification des individus au RNIPP (Répertoire national des personnes physiques) pour le projet CSNS (Code statistique non signifiant), et est la solution technique sous-jacente au projet matchID du ministère de l’intérieur.</p>
+<p>Au delà du secteur public, on peut citer qu’Amazon AWS fait partie des utilisateurs historiques d’Elasticsearch.</p>
+<section id="objectif" class="level2">
+<h2 class="anchored" data-anchor-id="objectif">Objectif</h2>
+<p>Ce chapitre vise à approfondir les éléments présentés sur Elastic précédemment. L’idée
+est de se placer dans un contexte opérationnel où on reçoit des informations
+sur des entreprises telles que l’adresse et la localisation et qu’on
+désire associer à des données administratives considérées plus fliables.</p>
+</section>
+<section id="réplication-de-ce-chapitre" class="level2">
+<h2 class="anchored" data-anchor-id="réplication-de-ce-chapitre">Réplication de ce chapitre</h2>
+<p>Comme le précédent, ce chapitre est plus exigeant en termes d’infrastructures que les précédents.
+Il nécessite un serveur Elastic. Les utilisateurs du
+<a href="datalab.sspcloud.fr/">SSP Cloud</a> pourront répliquer les exemples de ce cours
+car cette technologie est disponible (que ce soit pour indexer une base ou
+pour requêter une base existante).</p>
+<p>La première partie de ce tutoriel, qui consiste à créer une base Sirene géolocalisée
+à partir des données <em>open-data</em> ne nécessite pas d’architecture particulière et
+peut ainsi être exécutée en utilisant les packages suivants:</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="sources" class="level2">
+<h2 class="anchored" data-anchor-id="sources">Sources</h2>
+<p>Ce chapitre va utiliser plusieurs sources de diffusion de
+l’Insee:</p>
+<ul>
+<li>Le stock des établissements présents dans les <a href="https://www.insee.fr/fr/information/3591226">données de diffusion Sirene</a> ;</li>
+<li>Les <a href="https://www.data.gouv.fr/fr/datasets/geolocalisation-des-etablissements-du-repertoire-sirene-pour-les-etudes-statistiques/">données Sirene géolocalisées</a></li>
+</ul>
+<p>Les données à siretiser sont celles du registre Français des émissions polluantes
+établi par le Ministère de la Transition Energétique. Le jeu de données
+est disponible sur <a href="https://www.data.gouv.fr/fr/datasets/registre-francais-des-emissions-polluantes/">data.gouv</a></p>
+</section>
+</section>
+<section id="préparation-des-données-à-identifier" class="level1">
+<h1>Préparation des données à identifier</h1>
+<p>Le jeu de données présente déjà
+l’identifiant
+de l’établissement, dit numéro <code>siret</code>.
+Nous allons faire comme si nous étions
+en amont de cet appariement et que nous
+désirons trouver ce numéro. La présence
+dans la base de ce numéro nous permettra d’évaluer la qualité
+de notre méthode de recherche avec
+<code>Elastic</code>.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://www.data.gouv.fr/fr/datasets/r/9af639b9-e2b6-4d7d-8c5f-0c4953c48663"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>req <span class="op">=</span> requests.get(url)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"irep.zip"</span>,<span class="st">'wb'</span>) <span class="im">as</span> f:</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  f.write(req.content)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> zipfile.ZipFile(<span class="st">"irep.zip"</span>, <span class="st">'r'</span>) <span class="im">as</span> zip_ref:</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  zip_ref.extractall(<span class="st">"irep"</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>etablissements <span class="op">=</span> pd.read_csv(<span class="st">"irep/2019/etablissements.csv"</span>, sep <span class="op">=</span> <span class="st">";"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="constitution-du-référentiel-administratif-géolocalisé" class="level1">
+<h1>Constitution du référentiel administratif géolocalisé</h1>
+<p>Dans un premier temps, on va combiner ensemble les différentes sources
+<em>open-data</em> pour créer un référentiel fiable d’entreprises
+géolocalisées.</p>
+<section id="importer-la-base-déjà-créée" class="level2">
+<h2 class="anchored" data-anchor-id="importer-la-base-déjà-créée">Importer la base déjà créée</h2>
+<p>Les données à utiliser pour constuire une base Sirene géolocalisée
+sont trop volumineuses pour les serveurs mis à disposition
+gratuitement par <code>Github</code> pour la compilation de ce site web.
+Nous proposons ainsi une version déjà construite, stockée
+dans l’espace de mise à disposition du SSP Cloud. Ce fichier est
+au format <code>parquet</code> et est ouvert à
+tous, même pour les personnes ne disposant pas d’un compte.
+Le code ayant construit cette base est présenté ci-dessous.</p>
+<p>Pour importer cette base, on utilise les fonctionalités
+de <code>pyarrow</code> qui permettent d’importer un fichier sur
+un système de stockage <em>cloud</em> comme s’il était
+présent sur le disque :</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyarrow <span class="im">import</span> fs</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pyarrow <span class="im">as</span> pa</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pyarrow.parquet <span class="im">as</span> pq</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>bucket <span class="op">=</span> <span class="st">"lgaliana"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> <span class="st">"diffusion/sirene_geolocalized.parquet"</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>s3 <span class="op">=</span> fs.S3FileSystem(endpoint_override<span class="op">=</span><span class="st">"http://"</span><span class="op">+</span><span class="st">"minio.lab.sspcloud.fr"</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>df_geolocalized <span class="op">=</span> pq.ParquetDataset(<span class="ss">f'</span><span class="sc">{</span>bucket<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>path<span class="sc">}</span><span class="ss">'</span>, filesystem<span class="op">=</span>s3).read_pandas().to_pandas()</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>df_geolocalized.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="reproduire-la-construction-de-la-base" class="level2">
+<h2 class="anchored" data-anchor-id="reproduire-la-construction-de-la-base">Reproduire la construction de la base</h2>
+<p>La première base d’entrée à utiliser est disponible sur
+<a href="https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/">data.gouv</a></p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>url_download <span class="op">=</span> <span class="st">"https://www.data.gouv.fr/fr/datasets/r/0651fb76-bcf3-4f6a-a38d-bc04fa708576"</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>req <span class="op">=</span> requests.get(url_download)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"sirene.zip"</span>,<span class="st">'wb'</span>) <span class="im">as</span> f:</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  f.write(req.content)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> zipfile.ZipFile(<span class="st">"sirene.zip"</span>, <span class="st">'r'</span>) <span class="im">as</span> zip_ref:</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  zip_ref.extractall(<span class="st">"sirene"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>On va importer seulement les colonnes utiles et simplifier la structure
+pour être en mesure de ne garder que les informations qui nous
+intéressent (nom de l’entreprise, adresse, commune, code postal…)</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>list_cols <span class="op">=</span> [</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">'siren'</span>, <span class="st">'siret'</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">'activitePrincipaleRegistreMetiersEtablissement'</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">'complementAdresseEtablissement'</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">'numeroVoieEtablissement'</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">'typeVoieEtablissement'</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">'libelleVoieEtablissement'</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">'codePostalEtablissement'</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">'libelleCommuneEtablissement'</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">'codeCommuneEtablissement'</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">'etatAdministratifEtablissement'</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">'denominationUsuelleEtablissement'</span>,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">'activitePrincipaleEtablissement'</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">"sirene/StockEtablissement_utf8.csv"</span>,</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  usecols <span class="op">=</span> list_cols)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'numero'</span>] <span class="op">=</span> df[<span class="st">'numeroVoieEtablissement'</span>]<span class="op">\</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  .replace(<span class="st">'-'</span>, np.NaN).<span class="bu">str</span>.split().<span class="bu">str</span>[<span class="dv">0</span>]<span class="op">\</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  .<span class="bu">str</span>.extract(<span class="st">'(\d+)'</span>, expand<span class="op">=</span><span class="va">False</span>)<span class="op">\</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  .fillna(<span class="st">"0"</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'numero'</span>] <span class="op">=</span> df[<span class="st">'numero'</span>].astype(<span class="bu">str</span>).replace(<span class="st">"0"</span>,<span class="st">""</span>)</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'adresse'</span>] <span class="op">=</span> df[<span class="st">'numero'</span>] <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> <span class="op">\</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  df[<span class="st">'typeVoieEtablissement'</span>] <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> <span class="op">\</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>  df[<span class="st">'libelleVoieEtablissement'</span>]</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'adresse'</span>] <span class="op">=</span> df[<span class="st">'adresse'</span>].replace(np.nan, <span class="st">""</span>)</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.loc[df[<span class="st">'etatAdministratifEtablissement'</span>] <span class="op">==</span> <span class="st">"A"</span>]</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>df.rename(</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>  {<span class="st">"denominationUsuelleEtablissement"</span>: <span class="st">"denom"</span>,</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>  <span class="st">"libelleCommuneEtablissement"</span>: <span class="st">"commune"</span>,</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>  <span class="st">"codeCommuneEtablissement"</span> : <span class="st">"code_commune"</span>,</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>  <span class="st">"codePostalEtablissement"</span>: <span class="st">"code_postal"</span>},</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>  axis <span class="op">=</span> <span class="st">"columns"</span>, inplace <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'ape'</span>] <span class="op">=</span> df[<span class="st">'activitePrincipaleEtablissement'</span>].<span class="bu">str</span>.replace(<span class="st">"\."</span>, <span class="st">""</span>, regex <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'denom'</span>] <span class="op">=</span> df[<span class="st">"denom"</span>].replace(np.nan, <span class="st">""</span>)</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>df_siret <span class="op">=</span> df.loc[:, [<span class="st">'siren'</span>, <span class="st">'siret'</span>,<span class="st">'adresse'</span>, <span class="st">'ape'</span>, <span class="st">'denom'</span>, <span class="st">'commune'</span>, <span class="st">'code_commune'</span>,<span class="st">'code_postal'</span>]]</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>df_siret[<span class="st">'code_postal'</span>] <span class="op">=</span> df_siret[<span class="st">'code_postal'</span>].replace(np.nan, <span class="st">"0"</span>).astype(<span class="bu">int</span>).astype(<span class="bu">str</span>).replace(<span class="st">"0"</span>,<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>On importe ensuite les données géolocalisées</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> shutil</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#os.remove("sirene.zip")</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#shutil.rmtree('sirene/')</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>url_geoloc <span class="op">=</span> <span class="st">"https://files.data.gouv.fr/insee-sirene-geo/GeolocalisationEtablissement_Sirene_pour_etudes_statistiques_utf8.zip"</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> requests.get(url_geoloc)  </span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'geoloc.zip'</span>, <span class="st">'wb'</span>) <span class="im">as</span> f:</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    f.write(r.content)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> zipfile.ZipFile(<span class="st">"geoloc.zip"</span>, <span class="st">'r'</span>) <span class="im">as</span> zip_ref:</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  zip_ref.extractall(<span class="st">"geoloc"</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>df_geoloc <span class="op">=</span> pd.read_csv(</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"geoloc/GeolocalisationEtablissement_Sirene_pour_etudes_statistiques_utf8.csv"</span>,</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  usecols <span class="op">=</span> [<span class="st">"siret"</span>, <span class="st">"epsg"</span>, <span class="st">"x_longitude"</span>, <span class="st">"y_latitude"</span>] , sep <span class="op">=</span> <span class="st">";"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Il ne reste plus qu’à associer les deux jeux de données</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df_geolocalized <span class="op">=</span> df_siret.merge(df_geoloc, on <span class="op">=</span> <span class="st">"siret"</span>) </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df_geolocalized[<span class="st">'code_commune'</span>] <span class="op">=</span> df_geolocalized[<span class="st">'code_commune'</span>].astype(<span class="bu">str</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Si vous avez accès à un espace de stockage cloud de type
+<code>S3</code>, il est possible d’utiliser <code>pyarrow</code> pour enregister
+cette base. Afin de l’enregistrer dans un espace de stockage
+public, nous allons l’enregistrer dans un dossier <code>diffusion</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyarrow <span class="im">import</span> fs</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pyarrow <span class="im">as</span> pa</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pyarrow.parquet <span class="im">as</span> pq</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>bucket <span class="op">=</span> <span class="st">"lgaliana"</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> <span class="st">"diffusion/sirene_geolocalized.parquet"</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>s3 <span class="op">=</span> fs.S3FileSystem(endpoint_override<span class="op">=</span><span class="st">"http://"</span><span class="op">+</span><span class="st">"minio.lab.sspcloud.fr"</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>table <span class="op">=</span> pa.Table.from_pandas(df_geolocalized)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="connexion-à-elasticsearch" class="level1">
+<h1>Connexion à ElasticSearch</h1>
+<p>On va supposer que l’utilisateur dispose déjà d’un serveur Elastic
+fonctionnel mais désire créer un nouvel index. Si vous utilisez
+le SSPCloud, la démarche de création d’un service
+Elastic est disponible dans le chapitre précédent.</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> elasticsearch <span class="im">import</span> Elasticsearch</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>HOST <span class="op">=</span> <span class="st">'elasticsearch-master'</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> elastic():</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Connection avec Elastic sur le data lab"""</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    es <span class="op">=</span> Elasticsearch([{<span class="st">'host'</span>: HOST, <span class="st">'port'</span>: <span class="dv">9200</span>, <span class="st">'scheme'</span>: <span class="st">'http'</span>}], http_compress<span class="op">=</span><span class="va">True</span>, request_timeout<span class="op">=</span><span class="dv">200</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> es</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>es <span class="op">=</span> elastic()</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>es</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>&lt;Elasticsearch(['http://elasticsearch-master:9200'])&gt;</code></pre>
+</section>
+<section id="indexation-de-notre-base-sirène-géolocalisée" class="level1">
+<h1>Indexation de notre base Sirène géolocalisée</h1>
+<section id="définition-du-mapping" class="level2">
+<h2 class="anchored" data-anchor-id="définition-du-mapping">Définition du mapping</h2>
+<p>On va procéder par étape en essayant d’utiliser la structure la plus simple
+possible.</p>
+<p>:one: On s’occupe d’abord de définir le <em>mapping</em>
+pour les variables textuelles.</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>string_var <span class="op">=</span> [<span class="st">"adresse"</span>, <span class="st">"denom"</span>, <span class="st">"ape"</span>, <span class="st">"commune"</span>]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>map_string <span class="op">=</span> {<span class="st">"type"</span>: <span class="st">"text"</span>, <span class="st">"fields"</span>: {<span class="st">"keyword"</span>: {<span class="st">"type"</span>: <span class="st">"keyword"</span>, <span class="st">"ignore_above"</span>: <span class="dv">256</span>}}}</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>mapping_string <span class="op">=</span> {l: map_string <span class="cf">for</span> l <span class="kw">in</span> string_var}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>:two: Les variables catégorielles sont utilisées
+par le biais du type <code>keyword</code>:</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># keywords</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>keyword_var <span class="op">=</span> [<span class="st">"siren"</span>,<span class="st">"siret"</span>,<span class="st">"code_commune"</span>,<span class="st">"code_postal"</span>]</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>map_keywords <span class="op">=</span> {<span class="st">'type'</span>: <span class="st">'text'</span>, <span class="st">'fields'</span>: {<span class="st">'keyword'</span>: {<span class="st">'type'</span>: <span class="st">'keyword'</span>, <span class="st">'ignore_above'</span>: <span class="dv">256</span>}}}</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>mapping_keywords <span class="op">=</span> {l: map_keywords <span class="cf">for</span> l <span class="kw">in</span> keyword_var}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>:three: La nouveauté par rapport à la partie
+précédente est l’utilisation de la
+dimension géographique. <code>Elastic</code> propose
+le type <code>geo_point</code> pour cela.</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># geoloc</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>mapping_geoloc <span class="op">=</span> {</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"location"</span>: {</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"type"</span>: <span class="st">"geo_point"</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>}    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>On collecte tout cela ensemble dans un
+dictionnaire:</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mapping</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>mapping_elastic <span class="op">=</span> {<span class="st">"mappings"</span>:</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  {<span class="st">"properties"</span>:</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    {<span class="op">**</span>mapping_string, <span class="op">**</span>mapping_geoloc, <span class="op">**</span>mapping_keywords}</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Il est tout à fait possible de définir un <em>mapping</em>
+plus raffiné. Ici, on va privilégier
+l’utilisation d’un <em>mapping</em> simple pour
+illustrer la recherche par distance
+géographique en priorité.</p>
+</section>
+<section id="création-de-lindex" class="level2">
+<h2 class="anchored" data-anchor-id="création-de-lindex">Création de l’index</h2>
+<p>Pour créer le nouvel index, on s’assure d’abord de ne pas
+déjà l’avoir créé et on passe le <em>mapping</em> défini
+précédemment.</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> es.indices.exists(<span class="st">'sirene'</span>):</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    es.indices.delete(<span class="st">'sirene'</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>es.indices.create(index <span class="op">=</span> <span class="st">"sirene"</span>, body <span class="op">=</span> mapping_elastic)   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="indexation-de-la-base-géolocalisée" class="level2">
+<h2 class="anchored" data-anchor-id="indexation-de-la-base-géolocalisée">Indexation de la base géolocalisée</h2>
+<p>Pour le moment, l’index est vide. Il convient de
+le peupler.</p>
+<p>Il est néanmoins nécessaire de créer le champ <code>location</code>
+au format attendu par elastic: <code>lat, lon</code> à partir
+de nos colonnes.</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df_geolocalized[<span class="st">'location'</span>] <span class="op">=</span> df_geolocalized[<span class="st">'y_latitude'</span>].astype(<span class="bu">str</span>) <span class="op">+</span> <span class="st">", "</span> <span class="op">+</span> df_geolocalized[<span class="st">'x_longitude'</span>].astype(<span class="bu">str</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>La fonction suivante permet de structurer chaque
+ligne du <code>DataFrame</code> telle qu’Elastic l’attend:</p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gen_dict_from_pandas(index_name, df):</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Lit un dataframe pandas Open Food Facts, renvoi un itérable = dictionnaire des données à indexer, sous l'index fourni</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, row <span class="kw">in</span> df.iterrows():</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        header<span class="op">=</span> {<span class="st">"_op_type"</span>: <span class="st">"index"</span>,<span class="st">"_index"</span>: index_name,<span class="st">"_id"</span>: i}</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">yield</span> {<span class="op">**</span>header,<span class="op">**</span>row}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Enfin, on peut industrialiser l’indexation
+de notre <code>DataFrame</code> en faisant tourner de
+manière successive cette fonction:</p>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> elasticsearch.helpers <span class="im">import</span> bulk, parallel_bulk</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> deque</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>deque(parallel_bulk(client<span class="op">=</span>es, actions<span class="op">=</span>gen_dict_from_pandas(<span class="st">"sirene"</span>, df_geolocalized), chunk_size <span class="op">=</span> <span class="dv">1000</span>, thread_count <span class="op">=</span> <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>es.count(index <span class="op">=</span> <span class="st">'sirene'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>ObjectApiResponse({'count': 13059694, '_shards': {'total': 1, 'successful': 1, 'skipped': 0, 'failed': 0}})</code></pre>
+</section>
+</section>
+<section id="recherche" class="level1">
+<h1>Recherche</h1>
+<p>Pour se faciliter la création de cartes
+réactives, nous allons régulièrement
+utiliser la fonction suivante qui s’appuie
+sur un code déjà présenté dans un autre
+chapitre.</p>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_folium_sirene(df, yvar, xvar):</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    center <span class="op">=</span> df[[yvar, xvar]].mean().values.tolist()</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    sw <span class="op">=</span> df[[yvar, xvar]].<span class="bu">min</span>().values.tolist()</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    ne <span class="op">=</span> df[[yvar, xvar]].<span class="bu">max</span>().values.tolist()</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> folium.Map(location <span class="op">=</span> center, tiles<span class="op">=</span><span class="st">'Stamen Toner'</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># I can add marker one by one on the map</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="bu">len</span>(df)):</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>        folium.Marker(</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>            [df.iloc[i][yvar], df.iloc[i][xvar]],</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>            popup <span class="op">=</span> df.iloc[i][<span class="st">"_source.denom"</span>] <span class="op">+</span> <span class="ss">f'&lt;br&gt;(Score: </span><span class="sc">{</span>df<span class="sc">.</span>iloc[i][<span class="st">"_score"</span>]<span class="sc">:.2f}</span><span class="ss">)'</span>,</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>            icon<span class="op">=</span>folium.Icon(icon<span class="op">=</span><span class="st">"home"</span>)</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>        ).add_to(m)</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    m.fit_bounds([sw, ne])</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="premier-exemple-de-requête-géographique" class="level2">
+<h2 class="anchored" data-anchor-id="premier-exemple-de-requête-géographique">Premier exemple de requête géographique</h2>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ex1 <span class="op">=</span> es.search(index <span class="op">=</span> <span class="st">'sirene'</span>, body <span class="op">=</span> <span class="st">'''{</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="st">  "query": {</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="st">    "bool": {</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="st">      "must":</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="st">      { "match": { "denom":   "institut national de la statistique"</span><span class="sc">}}</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="st">      }</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span>)[<span class="st">'hits'</span>][<span class="st">'hits'</span>]</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>echo_insee <span class="op">=</span> pd.json_normalize(ex1)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>echo_insee</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>On remarque déjà que les intitulés ne sont
+pas bons. Quand est-il de leurs localisations ?</p>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>plot_folium_sirene(</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  echo_insee, yvar <span class="op">=</span> <span class="st">"_source.y_latitude"</span>,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  xvar <span class="op">=</span> <span class="st">"_source.x_longitude"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ce premier essai nous suggère qu’il est
+nécessaire d’améliorer notre recherche.
+Plusieurs voies sont possibles:</p>
+<ol type="1">
+<li>Améliorer le preprocessing de nos champs
+textuels en excluant, par exemple, les
+stopwords ;</li>
+<li>Effectuer une restriction géographique
+pour mieux cibler l’ensemble de recherche</li>
+<li>Trouver une variable catégorielle jouant
+le rôle de variable de blocage<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> pour
+mieux cibler les paires pertinentes</li>
+</ol>
+<p>Concernant la restriction
+géographique, Elastic fournit une approche
+très efficace de ciblage géographique.
+En connaissant une position approximative
+de l’entreprise à rechercher,
+il est ainsi possible de
+rechercher dans un rayon
+d’une taille plus ou moins grande.
+En supposant qu’on connaisse précisément
+la localisation de l’Insee, on peut
+chercher dans un rayon relativement
+restreint. Si notre position était plus
+approximative, on pourrait rechercher
+dans un rayon plus large.</p>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ex2 <span class="op">=</span> es.search(index <span class="op">=</span> <span class="st">'sirene'</span>, body <span class="op">=</span> <span class="st">'''{</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="st">  "query": {</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="st">    "bool": {</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="st">      "must":</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="st">      { "match": { "denom":   "institut national de la statistique"</span><span class="sc">}}</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="st">      ,</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="st">      "filter":</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="st">        {"geo_distance": {</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="st">          "distance": "1km",</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="st">          "location": {</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="st">            "lat": "48.8168",</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="st">            "lon": "2.3099"</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="st">          }</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="st">        }</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="st">      }</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="st">    }</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span>)[<span class="st">'hits'</span>][<span class="st">'hits'</span>]</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>echo_insee <span class="op">=</span> pd.json_normalize(ex2)</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>echo_insee</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell markdown">
+<div class="alert alert-warning" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-lightbulb"></i> Hint</h3>
+<p>Connaître la localisation précise d’une
+entreprise
+nécessite déjà une bonne remontée
+d’information sur celle-ci.
+Il est plus plausible de supposer
+qu’on dispose, dans une phase amont
+de la chaine de production,
+de l’adresse de celle-ci.
+Dans ce cas, il est utile
+d’utiliser un service de géocodage,
+comme l’<a href="https://adresse.data.gouv.fr/api-doc/adresse">API Adresse</a>
+développée par Etalab.</p>
+</div>
+</div>
+<p>Les résultats sont par construction mieux
+ciblés. Néanmoins ils sont toujours décevants
+puisqu’on ne parvient pas à identifier l’Insee
+dans les dix meilleurs échos.</p>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>specificsearch <span class="op">=</span> es.search(index <span class="op">=</span> <span class="st">'sirus_2020'</span>, body <span class="op">=</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="st">'''{</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="st">  "query": {</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="st">    "bool": {</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="st">      "should":</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="st">          { "match": { "rs_denom":   "CPCU - CENTRALE DE BERCY"</span><span class="sc">}}</span><span class="st">,</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="st">      "filter": [</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="st">          {"geo_distance": {</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="st">                  "distance": "0.5km",</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="st">                  "location": {</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="st">                        "lat": "48.84329", </span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="st">                        "lon": "2.37396"</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="st">                              }</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="st">                            }</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="st">            }, </span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="st">            { "prefix":  { "apet": "3530" </span><span class="sc">}}</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="st">                ]</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="st">            }</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="st">          }</span></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="st">}'''</span></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Concernant la première piste, il aurait
+fallu mieux définir notre mapping pour
+autoriser des <em>analyzers</em>. A défaut,
+nous pourrons
+utiliser <code>nltk</code> ou <code>spacy</code> pour transformer
+les champs textuels avant d’envoyer la requête.
+Cette solution présente l’inconvénient
+de ne pas formatter de la même manière l’ensemble
+indexé mais pourrait malgré tout améliorer la pertinence
+des recherches.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Concernant la première piste, il aurait
+fallu mieux définir notre mapping pour
+autoriser des <em>analyzers</em>. A défaut,
+nous pourrons
+utiliser <code>nltk</code> ou <code>spacy</code> pour transformer
+les champs textuels avant d’envoyer la requête.
+Cette solution présente l’inconvénient
+de ne pas formatter de la même manière l’ensemble
+indexé mais pourrait malgré tout améliorer la pertinence
+des recherches.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@book{galiana2023,
+  author = {Galiana, Lino},
+  title = {Python Pour La Data Science},
+  date = {2023},
+  url = {https://pythonds.linogaliana.fr/},
+  doi = {10.5281/zenodo.8229676},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-galiana2023" class="csl-entry quarto-appendix-citeas" role="listitem">
+Galiana, Lino. 2023. <em>Python Pour La Data Science</em>. <a href="https://doi.org/10.5281/zenodo.8229676">https://doi.org/10.5281/zenodo.8229676</a>.
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="linogaliana/python-datascientist" data-repo-id="MDEwOlJlcG9zaXRvcnkyODAxNjE2Nzc=" data-category="General" data-category-id="DIC_kwDOELLtjc4B-5TX" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../content/modern-ds/s3.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Les nouveaux modes d’accès aux données : le format parquet et les données sur le cloud</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../content/modern-ds/elastic_intro.html" class="pagination-link">
+        <span class="nav-page-text">Introduction à ElasticSearch pour la recherche textuelle</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Python pour la <em>data science</em>, Lino Galiana.<br>
+Licence <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i><br>
+Code source disponible sur <a href="https://github.com/linogaliana/python-datascientist"><code>Github</code></a></div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">Site construit avec <i class="fa-brands fa-python" aria-label="python"></i> et <a href="https://quarto.org/"><code>Quarto</code></a><br>
+Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com">ici</a><br>
+<a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
+  </div>
+</footer>
+
+
+
+</body></html>
