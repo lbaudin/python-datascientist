@@ -744,7 +744,7 @@ géographiques :</p>
 
 The Shapely GEOS version (3.12.0-CAPI-1.18.0) is incompatible with the GEOS version PyGEOS was compiled with (3.10.4-CAPI-1.16.2). Conversions between both will be slow.
 
-/tmp/ipykernel_1133/2008334648.py:2: UserWarning:
+/tmp/ipykernel_1130/2008334648.py:2: UserWarning:
 
 Shapely 2.0 is installed, but because PyGEOS is also installed, GeoPandas will still use PyGEOS by default for now. To force to use and test Shapely 2.0, you have to set the environment variable USE_PYGEOS=0. You can do this before starting the Python process, or in your code before importing geopandas:
 
@@ -1109,7 +1109,7 @@ les auto-écoles ayant présenté au moins 20 personnes à l’examen.</p>
 <span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.loc[df[<span class="st">"B_NB"</span>]<span class="op">&gt;</span><span class="dv">20</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_1133/1059845781.py:16: UserWarning:
+<pre><code>/tmp/ipykernel_1130/1059845781.py:16: UserWarning:
 
 This pattern is interpreted as a regular expression, and has match groups. To actually get the groups, use str.extract.
 </code></pre>
@@ -1269,7 +1269,7 @@ utilisant <code>io.StringIO</code> pour éviter d’écrire des données interm�
 </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>--- 18.95437002182007 seconds ---</code></pre>
+<pre><code>--- 20.690221071243286 seconds ---</code></pre>
 </div>
 </div>
 <p>Cette méthode est beaucoup plus rapide et permet ainsi, une fois retourné à nos
@@ -1299,94 +1299,94 @@ données initiales, d’avoir un jeu de données géolocalisé</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">487</td>
-<td>DRIVER</td>
-<td>43 bd wilson</td>
-<td>06600</td>
-<td>antibes</td>
-<td>43.576483</td>
-<td>7.117682</td>
+<td data-quarto-table-cell-role="th">7633</td>
+<td>LIONEL</td>
+<td>19 rue marcellin berthelot</td>
+<td>74300</td>
+<td>cluses</td>
+<td>46.060407</td>
+<td>6.578510</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">7621</td>
-<td>VALLEES - THONON</td>
-<td>11 avenue des vallees</td>
-<td>74200</td>
-<td>thonon les bains</td>
-<td>46.370526</td>
-<td>6.488060</td>
+<td data-quarto-table-cell-role="th">5822</td>
+<td>AUTO ECOLE DUBRULLE</td>
+<td>42 rue du docteur vanuxeem</td>
+<td>59850</td>
+<td>nieppe</td>
+<td>50.703774</td>
+<td>2.838082</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">9308</td>
-<td>1 GUIET POI</td>
-<td>12 rue de l ancien prieure</td>
-<td>85170</td>
-<td>le poire sur vie</td>
-<td>46.766539</td>
-<td>-1.504393</td>
+<td data-quarto-table-cell-role="th">8784</td>
+<td>C - AUTO ECOLE THIERRY</td>
+<td>19 rue jean guyon</td>
+<td>80300</td>
+<td>albert</td>
+<td>50.001535</td>
+<td>2.649663</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">5766</td>
-<td>AUTO ECOLE DEMARET MICHEL</td>
-<td>7 rue de l'hopital</td>
-<td>59570</td>
-<td>bavay</td>
-<td>50.300338</td>
-<td>3.791977</td>
+<td data-quarto-table-cell-role="th">6770</td>
+<td>ZZ PATRICK SARRE-UNION</td>
+<td>4 rue vincent d'indy</td>
+<td>67260</td>
+<td>sarre-union</td>
+<td>48.936054</td>
+<td>7.088920</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">1866</td>
-<td>BE MARULAZ</td>
-<td>5 rue marulaz</td>
-<td>25000</td>
-<td>besancon</td>
-<td>47.239453</td>
-<td>6.017970</td>
+<td data-quarto-table-cell-role="th">5433</td>
+<td>AUTO ECOLE PERMIS TRANQUILLE</td>
+<td>155 rue du faubourg des postes</td>
+<td>59000</td>
+<td>lille</td>
+<td>50.610487</td>
+<td>3.045501</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">11260</td>
-<td>AUTO ECOLE FANNY</td>
-<td>119 h cd11</td>
-<td>97424</td>
-<td>piton st leu</td>
-<td>-21.209130</td>
-<td>55.314952</td>
+<td data-quarto-table-cell-role="th">10241</td>
+<td>ECOLE DE CONDUITE LEADER</td>
+<td>15 boulevard marx dormoy</td>
+<td>93190</td>
+<td>livry-gargan</td>
+<td>48.909592</td>
+<td>2.526938</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">11395</td>
-<td>CEFR DIJIOUX</td>
-<td>49 rue du père maitre la ravine des cabris</td>
-<td>97432</td>
-<td>saint pierre</td>
-<td>-21.281852</td>
-<td>55.473472</td>
+<td data-quarto-table-cell-role="th">6020</td>
+<td>ZENITH FORMATION</td>
+<td>8 rue de paris</td>
+<td>61100</td>
+<td>flers</td>
+<td>48.750204</td>
+<td>-0.565581</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">4240</td>
-<td>FALCAO / COTE CONDUITE</td>
-<td>172 route de joseph</td>
-<td>44300</td>
-<td>nantes</td>
-<td>47.243164</td>
-<td>-1.533878</td>
+<td data-quarto-table-cell-role="th">4671</td>
+<td>Berthenet AE</td>
+<td>147 rue du val de saire</td>
+<td>50100</td>
+<td>cherbourg octeville</td>
+<td>49.638566</td>
+<td>-1.609247</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">11166</td>
-<td>SECURITE PLUS</td>
-<td>11 rue schoelcher</td>
-<td>97230</td>
-<td>sainte marie</td>
-<td>14.784887</td>
-<td>-60.991972</td>
+<td data-quarto-table-cell-role="th">1800</td>
+<td>ECOLE DE CONDUITE SIMONNET</td>
+<td>20 rue de la mairie</td>
+<td>23240</td>
+<td>le grand bourg</td>
+<td>46.160078</td>
+<td>1.646427</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">9404</td>
-<td>MANU ECOLE DE CONDUITE JAUNAY</td>
-<td>16 avenue gérard girault</td>
-<td>86130</td>
-<td>jaunay clan</td>
-<td>46.682068</td>
-<td>0.372927</td>
+<td data-quarto-table-cell-role="th">2230</td>
+<td>ECOLE DE CONDUITE ALAIN</td>
+<td>6 bld toutain</td>
+<td>28200</td>
+<td>chateaudun</td>
+<td>48.070919</td>
+<td>1.337554</td>
 </tr>
 </tbody>
 </table>
@@ -2159,7 +2159,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","selector":".lightbox","loop":true,"openEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","loop":true,"selector":".lightbox","closeEffect":"zoom","openEffect":"zoom"});</script>
 
 
 
