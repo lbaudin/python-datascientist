@@ -744,7 +744,7 @@ géographiques :</p>
 
 The Shapely GEOS version (3.12.0-CAPI-1.18.0) is incompatible with the GEOS version PyGEOS was compiled with (3.10.4-CAPI-1.16.2). Conversions between both will be slow.
 
-/tmp/ipykernel_1130/2008334648.py:2: UserWarning:
+/tmp/ipykernel_1128/2008334648.py:2: UserWarning:
 
 Shapely 2.0 is installed, but because PyGEOS is also installed, GeoPandas will still use PyGEOS by default for now. To force to use and test Shapely 2.0, you have to set the environment variable USE_PYGEOS=0. You can do this before starting the Python process, or in your code before importing geopandas:
 
@@ -1109,7 +1109,7 @@ les auto-écoles ayant présenté au moins 20 personnes à l’examen.</p>
 <span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.loc[df[<span class="st">"B_NB"</span>]<span class="op">&gt;</span><span class="dv">20</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_1130/1059845781.py:16: UserWarning:
+<pre><code>/tmp/ipykernel_1128/1059845781.py:16: UserWarning:
 
 This pattern is interpreted as a regular expression, and has match groups. To actually get the groups, use str.extract.
 </code></pre>
@@ -1269,7 +1269,7 @@ utilisant <code>io.StringIO</code> pour éviter d’écrire des données interm�
 </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>--- 20.690221071243286 seconds ---</code></pre>
+<pre><code>--- 22.275028228759766 seconds ---</code></pre>
 </div>
 </div>
 <p>Cette méthode est beaucoup plus rapide et permet ainsi, une fois retourné à nos
@@ -1299,94 +1299,94 @@ données initiales, d’avoir un jeu de données géolocalisé</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">7633</td>
-<td>LIONEL</td>
-<td>19 rue marcellin berthelot</td>
-<td>74300</td>
-<td>cluses</td>
-<td>46.060407</td>
-<td>6.578510</td>
+<td data-quarto-table-cell-role="th">3896</td>
+<td>AUTO-ECOLE DIRECTION</td>
+<td>47 rue andré bonnet</td>
+<td>41130</td>
+<td>gievres</td>
+<td>47.275079</td>
+<td>1.665574</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">5822</td>
-<td>AUTO ECOLE DUBRULLE</td>
-<td>42 rue du docteur vanuxeem</td>
-<td>59850</td>
-<td>nieppe</td>
-<td>50.703774</td>
-<td>2.838082</td>
+<td data-quarto-table-cell-role="th">1622</td>
+<td>LIGNE JEAN JAURES</td>
+<td>104 avenue jean jaurès</td>
+<td>21000</td>
+<td>dijon</td>
+<td>47.306560</td>
+<td>5.023973</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">8784</td>
-<td>C - AUTO ECOLE THIERRY</td>
-<td>19 rue jean guyon</td>
-<td>80300</td>
-<td>albert</td>
-<td>50.001535</td>
-<td>2.649663</td>
+<td data-quarto-table-cell-role="th">3567</td>
+<td>INTER CONDUITE</td>
+<td>7 place hubert dubedout</td>
+<td>38000</td>
+<td>grenoble</td>
+<td>45.192238</td>
+<td>5.719637</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">6770</td>
-<td>ZZ PATRICK SARRE-UNION</td>
-<td>4 rue vincent d'indy</td>
-<td>67260</td>
-<td>sarre-union</td>
-<td>48.936054</td>
-<td>7.088920</td>
+<td data-quarto-table-cell-role="th">8492</td>
+<td>AUTO MOTO ECOLE ESCAPADE</td>
+<td>12 place des droits de l'homme</td>
+<td>78200</td>
+<td>magnanville</td>
+<td>48.966247</td>
+<td>1.681114</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">5433</td>
-<td>AUTO ECOLE PERMIS TRANQUILLE</td>
-<td>155 rue du faubourg des postes</td>
-<td>59000</td>
-<td>lille</td>
-<td>50.610487</td>
-<td>3.045501</td>
+<td data-quarto-table-cell-role="th">9190</td>
+<td>ORANGE CONDUITE SARL</td>
+<td>22 avenue henri fabre</td>
+<td>84100</td>
+<td>orange</td>
+<td>44.138429</td>
+<td>4.813841</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">10241</td>
-<td>ECOLE DE CONDUITE LEADER</td>
-<td>15 boulevard marx dormoy</td>
-<td>93190</td>
-<td>livry-gargan</td>
-<td>48.909592</td>
-<td>2.526938</td>
+<td data-quarto-table-cell-role="th">531</td>
+<td>ANNONAY CONDUITE</td>
+<td>imm.berlioz domaine de la gare</td>
+<td>07100</td>
+<td>annonay</td>
+<td>45.243820</td>
+<td>4.675101</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">6020</td>
-<td>ZENITH FORMATION</td>
-<td>8 rue de paris</td>
-<td>61100</td>
-<td>flers</td>
-<td>48.750204</td>
-<td>-0.565581</td>
+<td data-quarto-table-cell-role="th">2733</td>
+<td>LES 2 CASTEL'S 1</td>
+<td>23 grand place</td>
+<td>31780</td>
+<td>castelginest</td>
+<td>43.696199</td>
+<td>1.430671</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">4671</td>
-<td>Berthenet AE</td>
-<td>147 rue du val de saire</td>
-<td>50100</td>
-<td>cherbourg octeville</td>
-<td>49.638566</td>
-<td>-1.609247</td>
+<td data-quarto-table-cell-role="th">5006</td>
+<td>LUN ADLIS/CROIX ROUGE</td>
+<td>chemin du grand pre avenue de gerbeviller bp 26</td>
+<td>54300</td>
+<td>luneville</td>
+<td>48.582996</td>
+<td>6.481220</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">1800</td>
-<td>ECOLE DE CONDUITE SIMONNET</td>
-<td>20 rue de la mairie</td>
-<td>23240</td>
-<td>le grand bourg</td>
-<td>46.160078</td>
-<td>1.646427</td>
+<td data-quarto-table-cell-role="th">7767</td>
+<td>13 GLACIERE</td>
+<td>21 rue de la glaciere</td>
+<td>75013</td>
+<td>paris</td>
+<td>48.834504</td>
+<td>2.345000</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">2230</td>
-<td>ECOLE DE CONDUITE ALAIN</td>
-<td>6 bld toutain</td>
-<td>28200</td>
-<td>chateaudun</td>
-<td>48.070919</td>
-<td>1.337554</td>
+<td data-quarto-table-cell-role="th">4319</td>
+<td>SEGUI / SARL LE VIRAGE</td>
+<td>3 rue du commandant l'herminier</td>
+<td>44600</td>
+<td>st nazaire</td>
+<td>47.285323</td>
+<td>-2.212567</td>
 </tr>
 </tbody>
 </table>
@@ -2159,7 +2159,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","loop":true,"selector":".lightbox","closeEffect":"zoom","openEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","closeEffect":"zoom","loop":true,"selector":".lightbox","openEffect":"zoom"});</script>
 
 
 
