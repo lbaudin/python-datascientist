@@ -405,47 +405,49 @@ de l’Ademe.">
   </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body">
-      <h1 class="title">Pratique de pandas : un exemple complet</h1>
-                  <div>
-        <div class="description">
-          <p>Après avoir présenté la logique de <code>Pandas</code> dans le chapitre précédent,
-          ce chapitre vise à illustrer les fonctionalités du <em>package</em>
-          à partir de données d’émissions de gaz à effet de serre
-          de l’<a href="https://data.ademe.fr/"><code>Ademe</code></a>.</p>
+<header id="title-block-header" class="quarto-title-block default page-columns">
+                <div id="title-block-header-title" class="quarto-title page-columns page-full page-layout-full featured-image p-4" style="background-image: url(panda_stretching.png);">
+                <h1 class="title">Pratique de pandas : un exemple complet</h1>
+                                    <div class="quarto-categories">
+                        <div class="quarto-category">Manipulation</div>
+                        <div class="quarto-category">Exercice</div>
+                      </div>
+                          </div>
+        
+                <div>
+          <div id="title-block-title-desc" class="description pt-4">
+            <p>Après avoir présenté la logique de <code>Pandas</code> dans le chapitre précédent,
+            ce chapitre vise à illustrer les fonctionalités du <em>package</em>
+            à partir de données d’émissions de gaz à effet de serre
+            de l’<a href="https://data.ademe.fr/"><code>Ademe</code></a>.</p>
+          </div>
         </div>
-      </div>
-                          <div class="quarto-categories">
-                <div class="quarto-category">Manipulation</div>
-                <div class="quarto-category">Exercice</div>
-              </div>
-                  </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta">
+                
+        
+        <div class="quarto-title-meta">
 
-      <div>
-      <div class="quarto-title-meta-heading">Author</div>
-      <div class="quarto-title-meta-contents">
-               <p>Lino Galiana </p>
+            <div>
+            <div class="quarto-title-meta-heading">Author</div>
+            <div class="quarto-title-meta-contents">
+                     <p>Lino Galiana </p>
+                  </div>
+          </div>
+            
+            <div>
+            <div class="quarto-title-meta-heading">Published</div>
+            <div class="quarto-title-meta-contents">
+              <p class="date">July 1, 2023</p>
             </div>
-    </div>
-      
-      <div>
-      <div class="quarto-title-meta-heading">Published</div>
-      <div class="quarto-title-meta-contents">
-        <p class="date">July 1, 2023</p>
-      </div>
-    </div>
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+          </div>
+          
+            
+          </div>
+          
+        
+        
+        
+
+        </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="sidebar-menu-container"> 
@@ -542,8 +544,15 @@ de l’Ademe.">
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
-
-
+<!-- source: https://github.com/gadenbuie/garrickadenbuie-com/blob/main/_partials/title-block-link-buttons/title-block.html -->
+<!-- source: https://raw.githubusercontent.com/spcanelon/silvia/32853dd0e70a71514b0922ee306f80ed5897f776/_partials/title-block-link-buttons/title-block.html -->
+<!-- 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title"> 
+-->
+<!-- <header id="title-block-header" class="quarto-title-block default page-columns"> -->
+<!-- <div class="quarto-title page-columns page-full featured-image p-4" style="background-image: url(featured.png), url(featured.jpg), url(../featured.jpg);"> -->
+    
 
 <p>Les exemples de ce TP sont visualisables sous forme de <code>Jupyter Notebooks</code>:</p>
 <div class="cell markdown">
@@ -633,18 +642,18 @@ de données. Les principales sont rappelées ici :</p>
 <div class="quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><a href="select_pandas.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Sélectionner des colonnes"><img src="select_pandas.png" class="img-fluid" alt="Sélectionner des colonnes"></a>
-<a href="rename_pandas.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Renommer des colonnes"><img src="rename_pandas.png" class="img-fluid" alt="Renommer des colonnes"></a></p>
+<p><a href="select_pandas.png" class="lightbox" title="Sélectionner des colonnes" data-gallery="quarto-lightbox-gallery-12"><img src="select_pandas.png" class="img-fluid" alt="Sélectionner des colonnes"></a>
+<a href="rename_pandas.png" class="lightbox" title="Renommer des colonnes" data-gallery="quarto-lightbox-gallery-13"><img src="rename_pandas.png" class="img-fluid" alt="Renommer des colonnes"></a></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><a href="mutate_pandas.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Créer de nouvelles colonnes"><img src="mutate_pandas.png" class="img-fluid" alt="Créer de nouvelles colonnes"></a>
-<a href="filter_pandas.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Sélectionner des lignes"><img src="filter_pandas.png" class="img-fluid" alt="Sélectionner des lignes"></a></p>
+<p><a href="mutate_pandas.png" class="lightbox" title="Créer de nouvelles colonnes" data-gallery="quarto-lightbox-gallery-14"><img src="mutate_pandas.png" class="img-fluid" alt="Créer de nouvelles colonnes"></a>
+<a href="filter_pandas.png" class="lightbox" title="Sélectionner des lignes" data-gallery="quarto-lightbox-gallery-15"><img src="filter_pandas.png" class="img-fluid" alt="Sélectionner des lignes"></a></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
 <figure class="figure">
-<p><a href="arrange_pandas.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Réordonner le DataFrame"><img src="arrange_pandas.png" class="img-fluid figure-img"></a></p>
+<p><a href="arrange_pandas.png" class="lightbox" title="Réordonner le DataFrame" data-gallery="quarto-lightbox-gallery-16"><img src="arrange_pandas.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">Réordonner le <em>DataFrame</em></figcaption>
 </figure>
 </div>
@@ -655,7 +664,7 @@ fonctions. Il est recommandé de régulièrement
 la consulter :</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://cdn-images-1.medium.com/max/2000/1*YhTbz8b8Svi22wNVvqzneg.jpeg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Cheasheet Pandas"><img src="https://cdn-images-1.medium.com/max/2000/1*YhTbz8b8Svi22wNVvqzneg.jpeg" class="img-fluid figure-img" style="width:70.0%"></a></p>
+<p><a href="https://cdn-images-1.medium.com/max/2000/1*YhTbz8b8Svi22wNVvqzneg.jpeg" class="lightbox" title="Cheasheet Pandas" data-gallery="quarto-lightbox-gallery-1"><img src="https://cdn-images-1.medium.com/max/2000/1*YhTbz8b8Svi22wNVvqzneg.jpeg" class="img-fluid figure-img" style="width:70.0%"></a></p>
 <figcaption class="figure-caption">Cheasheet <code>Pandas</code></figcaption>
 </figure>
 </div>
@@ -1214,60 +1223,12 @@ les principales fonctionnalités de <code>Pandas</code></p>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">5364</td>
-<td>16184</td>
-<td>Lichères</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>...</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2013</td>
-<td>06144</td>
-<td>La Tour</td>
-<td>175</td>
-<td>406</td>
-<td>18947.61904761905</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>...</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">22556</td>
-<td>60098</td>
-<td>Bouvresse</td>
-<td>61</td>
-<td>149</td>
-<td>23536</td>
+<td data-quarto-table-cell-role="th">2719</td>
+<td>08396</td>
+<td>Saint-Quentin-le-Petit</td>
+<td>55</td>
+<td>113</td>
+<td>22131.153846153844</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -1286,52 +1247,100 @@ les principales fonctionnalités de <code>Pandas</code></p>
 <td>NaN</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">11006</td>
-<td>30084</td>
-<td>Codolet</td>
-<td>269</td>
-<td>654.5</td>
-<td>20239.23076923077</td>
-<td>NaN</td>
+<td data-quarto-table-cell-role="th">30663</td>
+<td>78367</td>
+<td>Mareil-Marly</td>
+<td>1249</td>
+<td>3612.5</td>
+<td>36737.096774193546</td>
+<td>84</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>...</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">16387</td>
-<td>44175</td>
-<td>Saint-Lyphard</td>
-<td>1816</td>
-<td>4742</td>
-<td>21539.85714285714</td>
-<td>53</td>
-<td>6</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>...</td>
-<td>28.1</td>
-<td>8</td>
-<td>3.8</td>
-<td>2.4</td>
+<td>22.7</td>
+<td>14</td>
+<td>1.2</td>
 <td>0.8</td>
-<td>0.6</td>
-<td>-15.9</td>
-<td>13733.75</td>
-<td>35534</td>
-<td>2.58734868480932</td>
+<td>0.2</td>
+<td>0.2</td>
+<td>-27.5</td>
+<td>19461.33333333333</td>
+<td>71829.5238095238</td>
+<td>3.6908839995302043</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">30770</td>
+<td>78647</td>
+<td>Vert</td>
+<td>339</td>
+<td>837.5</td>
+<td>27841.5</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9168</td>
+<td>26201</td>
+<td>Montguers</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">122</td>
+<td>01140</td>
+<td>Curtafond</td>
+<td>295</td>
+<td>755.5</td>
+<td>22356.5</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
 </tr>
 </tbody>
 </table>
@@ -1420,7 +1429,7 @@ retrouve généralement deux types de structure de données :</p>
 <p>Un exemple de la distinction entre les deux peut être pris à l’ouvrage de référence d’Hadley Wickham, <a href="https://r4ds.hadley.nz/"><em>R for Data Science</em></a>:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://d33wubrfki0l68.cloudfront.net/3aea19108d39606bbe49981acda07696c0c7fcd8/2de65/images/tidy-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Données long et wide"><img src="https://d33wubrfki0l68.cloudfront.net/3aea19108d39606bbe49981acda07696c0c7fcd8/2de65/images/tidy-9.png" class="img-fluid figure-img"></a></p>
+<p><a href="https://d33wubrfki0l68.cloudfront.net/3aea19108d39606bbe49981acda07696c0c7fcd8/2de65/images/tidy-9.png" class="lightbox" title="Données long et wide" data-gallery="quarto-lightbox-gallery-7"><img src="https://d33wubrfki0l68.cloudfront.net/3aea19108d39606bbe49981acda07696c0c7fcd8/2de65/images/tidy-9.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">Données <em>long</em> et <em>wide</em></figcaption>
 </figure>
 </div>
@@ -1858,7 +1867,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","loop":true,"selector":".lightbox","openEffect":"zoom","closeEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","openEffect":"zoom","closeEffect":"zoom","loop":true});</script>
 
 
 

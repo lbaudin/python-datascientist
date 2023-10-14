@@ -453,53 +453,55 @@ ses propres images rigolotes.">
   </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body">
-      <h1 class="title">Génération d’images avec Python, DALL-E et StableDiffusion</h1>
-                  <div>
-        <div class="description">
-          <p>La <em>hype</em> autour du
-          modèle de génération d’image <code>Dall-E</code> a amené
-          une grande attention sur les modèles
-          autogénératifs de contenu. <code>Dall-E</code> est, à l’heure
-          actuelle, le modèle le plus célèbre de génération
-          d’image à partir de texte. Il est maintenant
-          possible de créer, depuis <code>Python</code> grâce à
-          l’implémentation de <a href="https://huggingface.co/CompVis/stable-diffusion-v1-4"><code>StableDiffusion</code></a>,
-          soit-même
-          ses propres images rigolotes.</p>
+<header id="title-block-header" class="quarto-title-block default page-columns">
+                <div id="title-block-header-title" class="quarto-title page-columns page-full page-layout-full featured-image p-4" style="background-image: url(featured_dallE.png);">
+                <h1 class="title">Génération d’images avec Python, DALL-E et StableDiffusion</h1>
+                                    <div class="quarto-categories">
+                        <div class="quarto-category">Tutoriel</div>
+                        <div class="quarto-category">Avancé</div>
+                      </div>
+                          </div>
+        
+                <div>
+          <div id="title-block-title-desc" class="description pt-4">
+            <p>La <em>hype</em> autour du
+            modèle de génération d’image <code>Dall-E</code> a amené
+            une grande attention sur les modèles
+            autogénératifs de contenu. <code>Dall-E</code> est, à l’heure
+            actuelle, le modèle le plus célèbre de génération
+            d’image à partir de texte. Il est maintenant
+            possible de créer, depuis <code>Python</code> grâce à
+            l’implémentation de <a href="https://huggingface.co/CompVis/stable-diffusion-v1-4"><code>StableDiffusion</code></a>,
+            soit-même
+            ses propres images rigolotes.</p>
+          </div>
         </div>
-      </div>
-                          <div class="quarto-categories">
-                <div class="quarto-category">Tutoriel</div>
-                <div class="quarto-category">Avancé</div>
-              </div>
-                  </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta">
+                
+        
+        <div class="quarto-title-meta">
 
-      <div>
-      <div class="quarto-title-meta-heading">Author</div>
-      <div class="quarto-title-meta-contents">
-               <p>Lino Galiana </p>
+            <div>
+            <div class="quarto-title-meta-heading">Author</div>
+            <div class="quarto-title-meta-contents">
+                     <p>Lino Galiana </p>
+                  </div>
+          </div>
+            
+            <div>
+            <div class="quarto-title-meta-heading">Published</div>
+            <div class="quarto-title-meta-contents">
+              <p class="date">August 26, 2022</p>
             </div>
-    </div>
-      
-      <div>
-      <div class="quarto-title-meta-heading">Published</div>
-      <div class="quarto-title-meta-contents">
-        <p class="date">August 26, 2022</p>
-      </div>
-    </div>
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+          </div>
+          
+            
+          </div>
+          
+        
+        
+        
+
+        </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="sidebar-menu-container"> 
@@ -566,8 +568,15 @@ ses propres images rigolotes.">
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
-
-
+<!-- source: https://github.com/gadenbuie/garrickadenbuie-com/blob/main/_partials/title-block-link-buttons/title-block.html -->
+<!-- source: https://raw.githubusercontent.com/spcanelon/silvia/32853dd0e70a71514b0922ee306f80ed5897f776/_partials/title-block-link-buttons/title-block.html -->
+<!-- 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title"> 
+-->
+<!-- <header id="title-block-header" class="quarto-title-block default page-columns"> -->
+<!-- <div class="quarto-title page-columns page-full featured-image p-4" style="background-image: url(featured.png), url(featured.jpg), url(../featured.jpg);"> -->
+    
 
 <p>Pour tester les exemples présentés dans ce chapitre:</p>
 <div class="cell markdown">
@@ -680,7 +689,7 @@ crééra le contenu suivant avec
 l’instruction <em>“A photograph of an astronaut riding a horse”</em> :</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/A_photograph_of_an_astronaut_riding_a_horse_2022-08-28.png/250px-A_photograph_of_an_astronaut_riding_a_horse_2022-08-28.png" class="lightbox" title="“A photograph of an astronaut riding a horse”" data-gallery="quarto-lightbox-gallery-3"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/A_photograph_of_an_astronaut_riding_a_horse_2022-08-28.png/250px-A_photograph_of_an_astronaut_riding_a_horse_2022-08-28.png" class="img-fluid figure-img"></a></p>
+<p><a href="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/A_photograph_of_an_astronaut_riding_a_horse_2022-08-28.png/250px-A_photograph_of_an_astronaut_riding_a_horse_2022-08-28.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="“A photograph of an astronaut riding a horse”"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/A_photograph_of_an_astronaut_riding_a_horse_2022-08-28.png/250px-A_photograph_of_an_astronaut_riding_a_horse_2022-08-28.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">“A photograph of an astronaut riding a horse”</figcaption>
 </figure>
 </div>
@@ -1290,7 +1299,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","closeEffect":"zoom","loop":true,"selector":".lightbox","openEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","selector":".lightbox","descPosition":"bottom","loop":true,"closeEffect":"zoom"});</script>
 
 
 

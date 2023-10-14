@@ -454,49 +454,51 @@ précédemment.">
   </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body">
-      <h1 class="title">Nettoyer un texte: des exercices pour découvrir l’approche bag-of-words</h1>
-                  <div>
-        <div class="description">
-          <p>Ce chapitre continue de présenter l’approche de <strong>nettoyage de données</strong>
-          du <code>NLP</code> en s’appuyant sur le corpus de trois auteurs
-          anglo-saxons : Mary Shelley, Edgar Allan Poe, H.P. Lovecraft.
-          Dans cette série d’exercice nous mettons en oeuvre de manière
-          plus approfondie les différentes méthodes présentées
-          précédemment.</p>
+<header id="title-block-header" class="quarto-title-block default page-columns">
+                <div id="title-block-header-title" class="quarto-title page-columns page-full page-layout-full featured-image p-4" style="background-image: url(featured_nlp_exo.png);">
+                <h1 class="title">Nettoyer un texte: des exercices pour découvrir l’approche bag-of-words</h1>
+                                    <div class="quarto-categories">
+                        <div class="quarto-category">NLP</div>
+                        <div class="quarto-category">Exercice</div>
+                      </div>
+                          </div>
+        
+                <div>
+          <div id="title-block-title-desc" class="description pt-4">
+            <p>Ce chapitre continue de présenter l’approche de <strong>nettoyage de données</strong>
+            du <code>NLP</code> en s’appuyant sur le corpus de trois auteurs
+            anglo-saxons : Mary Shelley, Edgar Allan Poe, H.P. Lovecraft.
+            Dans cette série d’exercice nous mettons en oeuvre de manière
+            plus approfondie les différentes méthodes présentées
+            précédemment.</p>
+          </div>
         </div>
-      </div>
-                          <div class="quarto-categories">
-                <div class="quarto-category">NLP</div>
-                <div class="quarto-category">Exercice</div>
-              </div>
-                  </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta">
+                
+        
+        <div class="quarto-title-meta">
 
-      <div>
-      <div class="quarto-title-meta-heading">Author</div>
-      <div class="quarto-title-meta-contents">
-               <p>Lino Galiana </p>
+            <div>
+            <div class="quarto-title-meta-heading">Author</div>
+            <div class="quarto-title-meta-contents">
+                     <p>Lino Galiana </p>
+                  </div>
+          </div>
+            
+            <div>
+            <div class="quarto-title-meta-heading">Published</div>
+            <div class="quarto-title-meta-contents">
+              <p class="date">October 29, 2020</p>
             </div>
-    </div>
-      
-      <div>
-      <div class="quarto-title-meta-heading">Published</div>
-      <div class="quarto-title-meta-contents">
-        <p class="date">October 29, 2020</p>
-      </div>
-    </div>
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+          </div>
+          
+            
+          </div>
+          
+        
+        
+        
+
+        </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="sidebar-menu-container"> 
@@ -564,8 +566,15 @@ précédemment.">
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
-
-
+<!-- source: https://github.com/gadenbuie/garrickadenbuie-com/blob/main/_partials/title-block-link-buttons/title-block.html -->
+<!-- source: https://raw.githubusercontent.com/spcanelon/silvia/32853dd0e70a71514b0922ee306f80ed5897f776/_partials/title-block-link-buttons/title-block.html -->
+<!-- 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title"> 
+-->
+<!-- <header id="title-block-header" class="quarto-title-block default page-columns"> -->
+<!-- <div class="quarto-title page-columns page-full featured-image p-4" style="background-image: url(featured.png), url(featured.jpg), url(../featured.jpg);"> -->
+    
 
 <div class="cell markdown">
 <p class="badges">
@@ -904,7 +913,7 @@ de fréquence suivant:</p>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <div id="fig-waffle-fear" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><a href="02_exoclean_files/figure-html/fig-waffle-fear-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Répartition du terme fear dans le corpus de nos trois auteurs"><img src="02_exoclean_files/figure-html/fig-waffle-fear-output-1.png" width="662" height="359" class="figure-img"></a></p>
+<p><a href="02_exoclean_files/figure-html/fig-waffle-fear-output-1.png" class="lightbox" title="Répartition du terme fear dans le corpus de nos trois auteurs" data-gallery="quarto-lightbox-gallery-3"><img src="02_exoclean_files/figure-html/fig-waffle-fear-output-1.png" width="662" height="359" class="figure-img"></a></p>
 <figcaption class="figure-caption">Figure&nbsp;2: Répartition du terme fear dans le corpus de nos trois auteurs</figcaption>
 </figure>
 </div>
@@ -1042,8 +1051,8 @@ Model:                            GLM   Df Residuals:                    69299
 Model Family:                 Poisson   Df Model:                            1
 Link Function:                    Log   Scale:                          1.0000
 Method:                          IRLS   Log-Likelihood:                -23.011
-Date:                Fri, 13 Oct 2023   Deviance:                     0.065676
-Time:                        16:57:24   Pearson chi2:                   0.0656
+Date:                Sat, 14 Oct 2023   Deviance:                     0.065676
+Time:                        16:16:32   Pearson chi2:                   0.0656
 No. Iterations:                     5   Pseudo R-squ. (CS):          0.0002431
 Covariance Type:            nonrobust                                         
 ==============================================================================
@@ -2001,7 +2010,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","loop":true,"closeEffect":"zoom","selector":".lightbox","descPosition":"bottom"});</script>
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","closeEffect":"zoom","selector":".lightbox","loop":true,"descPosition":"bottom"});</script>
 
 
 

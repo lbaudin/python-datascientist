@@ -405,49 +405,51 @@ la base.">
   </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body">
-      <h1 class="title">Récupérer des données avec des API depuis Python</h1>
-                  <div>
-        <div class="description">
-          <p>Les <strong>API</strong> (<em>Application Programming Interface</em>) sont un mode d’accès aux
-          données en expansion. Grâce aux API, l’automatisation de scripts
-          est facilitée puisqu’il n’est plus nécessaire de stocker un fichier,
-          et gérer ses différentes versions, mais uniquement de requêter une base
-          et laisser au producteur de données le soin de gérer les mises à jour de
-          la base.</p>
+<header id="title-block-header" class="quarto-title-block default page-columns">
+                <div id="title-block-header-title" class="quarto-title page-columns page-full page-layout-full featured-image p-4" style="background-image: url(map_buffer.png);">
+                <h1 class="title">Récupérer des données avec des API depuis Python</h1>
+                                    <div class="quarto-categories">
+                        <div class="quarto-category">Exercice</div>
+                        <div class="quarto-category">Manipulation</div>
+                      </div>
+                          </div>
+        
+                <div>
+          <div id="title-block-title-desc" class="description pt-4">
+            <p>Les <strong>API</strong> (<em>Application Programming Interface</em>) sont un mode d’accès aux
+            données en expansion. Grâce aux API, l’automatisation de scripts
+            est facilitée puisqu’il n’est plus nécessaire de stocker un fichier,
+            et gérer ses différentes versions, mais uniquement de requêter une base
+            et laisser au producteur de données le soin de gérer les mises à jour de
+            la base.</p>
+          </div>
         </div>
-      </div>
-                          <div class="quarto-categories">
-                <div class="quarto-category">Exercice</div>
-                <div class="quarto-category">Manipulation</div>
-              </div>
-                  </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta">
+                
+        
+        <div class="quarto-title-meta">
 
-      <div>
-      <div class="quarto-title-meta-heading">Author</div>
-      <div class="quarto-title-meta-contents">
-               <p>Lino Galiana </p>
+            <div>
+            <div class="quarto-title-meta-heading">Author</div>
+            <div class="quarto-title-meta-contents">
+                     <p>Lino Galiana </p>
+                  </div>
+          </div>
+            
+            <div>
+            <div class="quarto-title-meta-heading">Published</div>
+            <div class="quarto-title-meta-contents">
+              <p class="date">July 8, 2023</p>
             </div>
-    </div>
-      
-      <div>
-      <div class="quarto-title-meta-heading">Published</div>
-      <div class="quarto-title-meta-contents">
-        <p class="date">July 8, 2023</p>
-      </div>
-    </div>
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+          </div>
+          
+            
+          </div>
+          
+        
+        
+        
+
+        </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="sidebar-menu-container"> 
@@ -549,8 +551,15 @@ la base.">
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
-
-
+<!-- source: https://github.com/gadenbuie/garrickadenbuie-com/blob/main/_partials/title-block-link-buttons/title-block.html -->
+<!-- source: https://raw.githubusercontent.com/spcanelon/silvia/32853dd0e70a71514b0922ee306f80ed5897f776/_partials/title-block-link-buttons/title-block.html -->
+<!-- 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title"> 
+-->
+<!-- <header id="title-block-header" class="quarto-title-block default page-columns"> -->
+<!-- <div class="quarto-title page-columns page-full featured-image p-4" style="background-image: url(featured.png), url(featured.jpg), url(../featured.jpg);"> -->
+    
 
 <div class="cell markdown">
 <p class="badges">
@@ -744,7 +753,7 @@ géographiques :</p>
 
 The Shapely GEOS version (3.12.0-CAPI-1.18.0) is incompatible with the GEOS version PyGEOS was compiled with (3.10.4-CAPI-1.16.2). Conversions between both will be slow.
 
-/tmp/ipykernel_1128/2008334648.py:2: UserWarning:
+/tmp/ipykernel_1131/2008334648.py:2: UserWarning:
 
 Shapely 2.0 is installed, but because PyGEOS is also installed, GeoPandas will still use PyGEOS by default for now. To force to use and test Shapely 2.0, you have to set the environment variable USE_PYGEOS=0. You can do this before starting the Python process, or in your code before importing geopandas:
 
@@ -1109,7 +1118,7 @@ les auto-écoles ayant présenté au moins 20 personnes à l’examen.</p>
 <span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.loc[df[<span class="st">"B_NB"</span>]<span class="op">&gt;</span><span class="dv">20</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_1128/1059845781.py:16: UserWarning:
+<pre><code>/tmp/ipykernel_1131/1059845781.py:16: UserWarning:
 
 This pattern is interpreted as a regular expression, and has match groups. To actually get the groups, use str.extract.
 </code></pre>
@@ -1269,7 +1278,7 @@ utilisant <code>io.StringIO</code> pour éviter d’écrire des données interm�
 </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>--- 22.275028228759766 seconds ---</code></pre>
+<pre><code>--- 26.163530111312866 seconds ---</code></pre>
 </div>
 </div>
 <p>Cette méthode est beaucoup plus rapide et permet ainsi, une fois retourné à nos
@@ -1299,94 +1308,94 @@ données initiales, d’avoir un jeu de données géolocalisé</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">3896</td>
-<td>AUTO-ECOLE DIRECTION</td>
-<td>47 rue andré bonnet</td>
-<td>41130</td>
-<td>gievres</td>
-<td>47.275079</td>
-<td>1.665574</td>
+<td data-quarto-table-cell-role="th">7360</td>
+<td>AE DESIRE AUTUN</td>
+<td>20 avenue charles de gaulle</td>
+<td>71400</td>
+<td>autun</td>
+<td>46.952252</td>
+<td>4.296882</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1622</td>
-<td>LIGNE JEAN JAURES</td>
-<td>104 avenue jean jaurès</td>
-<td>21000</td>
-<td>dijon</td>
-<td>47.306560</td>
-<td>5.023973</td>
+<td data-quarto-table-cell-role="th">5999</td>
+<td>ACTIV'CONDUITE</td>
+<td>38 rue de cerise</td>
+<td>61000</td>
+<td>alencon</td>
+<td>48.434982</td>
+<td>0.106444</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">3567</td>
-<td>INTER CONDUITE</td>
-<td>7 place hubert dubedout</td>
-<td>38000</td>
-<td>grenoble</td>
-<td>45.192238</td>
-<td>5.719637</td>
+<td data-quarto-table-cell-role="th">4559</td>
+<td>A JL49</td>
+<td>2 bis rue de montreuil</td>
+<td>49070</td>
+<td>beaucouze</td>
+<td>47.476693</td>
+<td>-0.631123</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">8492</td>
-<td>AUTO MOTO ECOLE ESCAPADE</td>
-<td>12 place des droits de l'homme</td>
-<td>78200</td>
-<td>magnanville</td>
-<td>48.966247</td>
-<td>1.681114</td>
+<td data-quarto-table-cell-role="th">6343</td>
+<td>DELAPLACE</td>
+<td>6 avenue du limousin</td>
+<td>63000</td>
+<td>clermont ferrand</td>
+<td>45.781726</td>
+<td>3.095412</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">9190</td>
-<td>ORANGE CONDUITE SARL</td>
-<td>22 avenue henri fabre</td>
-<td>84100</td>
-<td>orange</td>
-<td>44.138429</td>
-<td>4.813841</td>
+<td data-quarto-table-cell-role="th">117</td>
+<td>Auto-école MIRIBEL AVENUE</td>
+<td>1186 grande rue</td>
+<td>01700</td>
+<td>miribel</td>
+<td>45.824854</td>
+<td>4.955220</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">531</td>
-<td>ANNONAY CONDUITE</td>
-<td>imm.berlioz domaine de la gare</td>
-<td>07100</td>
-<td>annonay</td>
-<td>45.243820</td>
-<td>4.675101</td>
+<td data-quarto-table-cell-role="th">1991</td>
+<td>SERGE MOREL AUTO-ECOLE</td>
+<td>30 boulevard gignier</td>
+<td>26100</td>
+<td>romans-sur-isere</td>
+<td>45.047840</td>
+<td>5.066752</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2733</td>
-<td>LES 2 CASTEL'S 1</td>
-<td>23 grand place</td>
-<td>31780</td>
-<td>castelginest</td>
-<td>43.696199</td>
-<td>1.430671</td>
+<td data-quarto-table-cell-role="th">2556</td>
+<td>AUTO ECOLE ST CESAIRE</td>
+<td>25 rue mascard</td>
+<td>30900</td>
+<td>nimes</td>
+<td>43.815787</td>
+<td>4.328711</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">5006</td>
-<td>LUN ADLIS/CROIX ROUGE</td>
-<td>chemin du grand pre avenue de gerbeviller bp 26</td>
-<td>54300</td>
-<td>luneville</td>
-<td>48.582996</td>
-<td>6.481220</td>
+<td data-quarto-table-cell-role="th">2910</td>
+<td>DUSSORT II</td>
+<td>44 avenue de la liberation</td>
+<td>33360</td>
+<td>latresne</td>
+<td>44.784546</td>
+<td>-0.496384</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">7767</td>
-<td>13 GLACIERE</td>
-<td>21 rue de la glaciere</td>
-<td>75013</td>
-<td>paris</td>
-<td>48.834504</td>
-<td>2.345000</td>
+<td data-quarto-table-cell-role="th">6090</td>
+<td>MATHILDE MUSTIN</td>
+<td>54 rue saint michel</td>
+<td>62000</td>
+<td>arras</td>
+<td>50.288896</td>
+<td>2.785032</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">4319</td>
-<td>SEGUI / SARL LE VIRAGE</td>
-<td>3 rue du commandant l'herminier</td>
-<td>44600</td>
-<td>st nazaire</td>
-<td>47.285323</td>
-<td>-2.212567</td>
+<td data-quarto-table-cell-role="th">2936</td>
+<td>TOP CHRONO 2</td>
+<td>13 cours ausone</td>
+<td>33430</td>
+<td>bazas</td>
+<td>44.432195</td>
+<td>-0.213258</td>
 </tr>
 </tbody>
 </table>
@@ -2159,7 +2168,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","closeEffect":"zoom","loop":true,"selector":".lightbox","openEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","openEffect":"zoom","closeEffect":"zoom","loop":true});</script>
 
 
 

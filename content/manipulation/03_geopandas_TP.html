@@ -409,49 +409,51 @@ le chapitre précédent avec des données un petit peu plus complexes
   </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body">
-      <h1 class="title">Pratique de geopandas avec les données vélib</h1>
-                  <div>
-        <div class="description">
-          <p>Ce chapitre illustre les fonctionalités de <code>GeoPandas</code> à partir des
-          décomptes de vélo fournis par la ville de Paris
-          en <a href="https://opendata.paris.fr/explore/dataset/comptage-velo-donnees-compteurs/map/?disjunctive.id_compteur&amp;disjunctive.nom_compteur&amp;disjunctive.id&amp;disjunctive.name&amp;basemap=jawg.dark&amp;location=12,48.85855,2.33754">opendata</a>.
-          Il prolonge
-          le chapitre précédent avec des données un petit peu plus complexes
-          à manipuler.</p>
+<header id="title-block-header" class="quarto-title-block default page-columns">
+                <div id="title-block-header-title" class="quarto-title page-columns page-full page-layout-full featured-image p-4" style="background-image: url(velib.png);">
+                <h1 class="title">Pratique de geopandas avec les données vélib</h1>
+                                    <div class="quarto-categories">
+                        <div class="quarto-category">Manipulation</div>
+                        <div class="quarto-category">Exercice</div>
+                      </div>
+                          </div>
+        
+                <div>
+          <div id="title-block-title-desc" class="description pt-4">
+            <p>Ce chapitre illustre les fonctionalités de <code>GeoPandas</code> à partir des
+            décomptes de vélo fournis par la ville de Paris
+            en <a href="https://opendata.paris.fr/explore/dataset/comptage-velo-donnees-compteurs/map/?disjunctive.id_compteur&amp;disjunctive.nom_compteur&amp;disjunctive.id&amp;disjunctive.name&amp;basemap=jawg.dark&amp;location=12,48.85855,2.33754">opendata</a>.
+            Il prolonge
+            le chapitre précédent avec des données un petit peu plus complexes
+            à manipuler.</p>
+          </div>
         </div>
-      </div>
-                          <div class="quarto-categories">
-                <div class="quarto-category">Manipulation</div>
-                <div class="quarto-category">Exercice</div>
-              </div>
-                  </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta">
+                
+        
+        <div class="quarto-title-meta">
 
-      <div>
-      <div class="quarto-title-meta-heading">Author</div>
-      <div class="quarto-title-meta-contents">
-               <p>Lino Galiana </p>
+            <div>
+            <div class="quarto-title-meta-heading">Author</div>
+            <div class="quarto-title-meta-contents">
+                     <p>Lino Galiana </p>
+                  </div>
+          </div>
+            
+            <div>
+            <div class="quarto-title-meta-heading">Published</div>
+            <div class="quarto-title-meta-contents">
+              <p class="date">July 9, 2023</p>
             </div>
-    </div>
-      
-      <div>
-      <div class="quarto-title-meta-heading">Published</div>
-      <div class="quarto-title-meta-contents">
-        <p class="date">July 9, 2023</p>
-      </div>
-    </div>
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+          </div>
+          
+            
+          </div>
+          
+        
+        
+        
+
+        </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="sidebar-menu-container"> 
@@ -538,8 +540,15 @@ le chapitre précédent avec des données un petit peu plus complexes
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
-
-
+<!-- source: https://github.com/gadenbuie/garrickadenbuie-com/blob/main/_partials/title-block-link-buttons/title-block.html -->
+<!-- source: https://raw.githubusercontent.com/spcanelon/silvia/32853dd0e70a71514b0922ee306f80ed5897f776/_partials/title-block-link-buttons/title-block.html -->
+<!-- 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title"> 
+-->
+<!-- <header id="title-block-header" class="quarto-title-block default page-columns"> -->
+<!-- <div class="quarto-title page-columns page-full featured-image p-4" style="background-image: url(featured.png), url(featured.jpg), url(../featured.jpg);"> -->
+    
 
 <div class="cell markdown">
 <p class="badges">
@@ -941,13 +950,13 @@ forme de cartes :</p>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div id="fig-effet-mercator-1" class="quarto-figure quarto-figure-center anchored" style="flex-basis: 43.5%;justify-content: center;">
 <figure class="figure">
-<p><a href="03_geopandas_TP_files/figure-html/fig-effet-mercator-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Mercator WGS84 (EPSG: 4326)"><img src="03_geopandas_TP_files/figure-html/fig-effet-mercator-output-1.png" class="img-fluid figure-img" width="416"></a></p>
+<p><a href="03_geopandas_TP_files/figure-html/fig-effet-mercator-output-1.png" class="lightbox" title="Mercator WGS84 (EPSG: 4326)" data-gallery="quarto-lightbox-gallery-4"><img src="03_geopandas_TP_files/figure-html/fig-effet-mercator-output-1.png" class="img-fluid figure-img" width="416"></a></p>
 <figcaption class="figure-caption">(a) Mercator WGS84 (EPSG: 4326)</figcaption>
 </figure>
 </div>
 <div id="fig-effet-mercator-2" class="quarto-figure quarto-figure-center anchored" style="flex-basis: 56.5%;justify-content: center;">
 <figure class="figure">
-<p><a href="03_geopandas_TP_files/figure-html/fig-effet-mercator-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Projection healpix (+proj=healpix +lon_0=0 +a=1)"><img src="03_geopandas_TP_files/figure-html/fig-effet-mercator-output-2.png" class="img-fluid figure-img" width="540"></a></p>
+<p><a href="03_geopandas_TP_files/figure-html/fig-effet-mercator-output-2.png" class="lightbox" title="Projection healpix (+proj=healpix +lon_0=0 +a=1)" data-gallery="quarto-lightbox-gallery-5"><img src="03_geopandas_TP_files/figure-html/fig-effet-mercator-output-2.png" class="img-fluid figure-img" width="540"></a></p>
 <figcaption class="figure-caption">(b) Projection healpix (+proj=healpix +lon_0=0 +a=1)</figcaption>
 </figure>
 </div>
@@ -955,13 +964,13 @@ forme de cartes :</p>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div id="fig-effet-mercator-3" class="quarto-figure quarto-figure-center anchored" style="flex-basis: 61.1%;justify-content: center;">
 <figure class="figure">
-<p><a href="03_geopandas_TP_files/figure-html/fig-effet-mercator-output-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Projection prévue pour Tahiti (EPSG: 3304)"><img src="03_geopandas_TP_files/figure-html/fig-effet-mercator-output-3.png" class="img-fluid figure-img" width="494"></a></p>
+<p><a href="03_geopandas_TP_files/figure-html/fig-effet-mercator-output-3.png" class="lightbox" title="Projection prévue pour Tahiti (EPSG: 3304)" data-gallery="quarto-lightbox-gallery-6"><img src="03_geopandas_TP_files/figure-html/fig-effet-mercator-output-3.png" class="img-fluid figure-img" width="494"></a></p>
 <figcaption class="figure-caption">(c) Projection prévue pour Tahiti (EPSG: 3304)</figcaption>
 </figure>
 </div>
 <div id="fig-effet-mercator-4" class="quarto-figure quarto-figure-center anchored" style="flex-basis: 38.9%;justify-content: center;">
 <figure class="figure">
-<p><a href="03_geopandas_TP_files/figure-html/fig-effet-mercator-output-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Projection Albers prévue pour Etats-Unis (EPSG: 5070)"><img src="03_geopandas_TP_files/figure-html/fig-effet-mercator-output-4.png" class="img-fluid figure-img" width="315"></a></p>
+<p><a href="03_geopandas_TP_files/figure-html/fig-effet-mercator-output-4.png" class="lightbox" title="Projection Albers prévue pour Etats-Unis (EPSG: 5070)" data-gallery="quarto-lightbox-gallery-7"><img src="03_geopandas_TP_files/figure-html/fig-effet-mercator-output-4.png" class="img-fluid figure-img" width="315"></a></p>
 <figcaption class="figure-caption">(d) Projection Albers prévue pour Etats-Unis (EPSG: 5070)</figcaption>
 </figure>
 </div>
@@ -996,13 +1005,13 @@ surtout lorqu’on se rapproche de l’équateur ou des pôles.</p>
 <figure class="figure">
 <div id="fig-surus" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><a href="https://pythonds.linogaliana.fr/content/manipulation/truesize.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Exemple de reprojection de pays depuis le site thetruesize.com"><img src="https://pythonds.linogaliana.fr/content/manipulation/truesize.png" class="img-fluid figure-img"></a></p>
+<p><a href="https://pythonds.linogaliana.fr/content/manipulation/truesize.png" class="lightbox" title="Exemple de reprojection de pays depuis le site thetruesize.com" data-gallery="quarto-lightbox-gallery-9"><img src="https://pythonds.linogaliana.fr/content/manipulation/truesize.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">(a) Exemple de reprojection de pays depuis le site <a href="https://www.thetruesize.com/">thetruesize.com</a></figcaption>
 </figure>
 </div>
 <div id="fig-mercator-funny" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><a href="https://rgeo.linogaliana.fr/exercises/img/mercator.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="“Don’t trust the Mercator projection” sur Reddit"><img src="https://rgeo.linogaliana.fr/exercises/img/mercator.jpg" class="img-fluid figure-img"></a></p>
+<p><a href="https://rgeo.linogaliana.fr/exercises/img/mercator.jpg" class="lightbox" title="“Don’t trust the Mercator projection” sur Reddit" data-gallery="quarto-lightbox-gallery-10"><img src="https://rgeo.linogaliana.fr/exercises/img/mercator.jpg" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">(b) “Don’t trust the Mercator projection” sur <code>Reddit</code></figcaption>
 </figure>
 </div>
@@ -1595,7 +1604,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","selector":".lightbox","loop":true,"openEffect":"zoom","closeEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","closeEffect":"zoom","descPosition":"bottom","selector":".lightbox","loop":true});</script>
 
 
 

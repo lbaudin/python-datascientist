@@ -412,47 +412,49 @@ visualisation réactives (plotly, folium, etc.)">
   </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body">
-      <h1 class="title">Partie 2: visualiser les données</h1>
-                  <div>
-        <div class="description">
-          <p>Cette partie présente les outils pour visualiser des
-          données avec <code>Python</code>, qu’il s’agisse de graphiques
-          figés (<code>matplotlib</code>, <code>seaborn</code>, <code>geoplot</code>…) ou de
-          visualisation réactives (<code>plotly</code>, <code>folium</code>, etc.)</p>
+<header id="title-block-header" class="quarto-title-block default page-columns">
+                <div id="title-block-header-title" class="quarto-title page-columns page-full page-layout-full featured-image p-4" style="background-image: url(snake-chart.png);">
+                <h1 class="title">Partie 2: visualiser les données</h1>
+                                    <div class="quarto-categories">
+                        <div class="quarto-category">Introduction</div>
+                        <div class="quarto-category">Visualisation</div>
+                      </div>
+                          </div>
+        
+                <div>
+          <div id="title-block-title-desc" class="description pt-4">
+            <p>Cette partie présente les outils pour visualiser des
+            données avec <code>Python</code>, qu’il s’agisse de graphiques
+            figés (<code>matplotlib</code>, <code>seaborn</code>, <code>geoplot</code>…) ou de
+            visualisation réactives (<code>plotly</code>, <code>folium</code>, etc.)</p>
+          </div>
         </div>
-      </div>
-                          <div class="quarto-categories">
-                <div class="quarto-category">Introduction</div>
-                <div class="quarto-category">Visualisation</div>
-              </div>
-                  </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta">
+                
+        
+        <div class="quarto-title-meta">
 
-      <div>
-      <div class="quarto-title-meta-heading">Author</div>
-      <div class="quarto-title-meta-contents">
-               <p>Lino Galiana </p>
+            <div>
+            <div class="quarto-title-meta-heading">Author</div>
+            <div class="quarto-title-meta-contents">
+                     <p>Lino Galiana </p>
+                  </div>
+          </div>
+            
+            <div>
+            <div class="quarto-title-meta-heading">Published</div>
+            <div class="quarto-title-meta-contents">
+              <p class="date">July 16, 2023</p>
             </div>
-    </div>
-      
-      <div>
-      <div class="quarto-title-meta-heading">Published</div>
-      <div class="quarto-title-meta-contents">
-        <p class="date">July 16, 2023</p>
-      </div>
-    </div>
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+          </div>
+          
+            
+          </div>
+          
+        
+        
+        
+
+        </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="sidebar-menu-container"> 
@@ -497,8 +499,15 @@ visualisation réactives (plotly, folium, etc.)">
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
-
-
+<!-- source: https://github.com/gadenbuie/garrickadenbuie-com/blob/main/_partials/title-block-link-buttons/title-block.html -->
+<!-- source: https://raw.githubusercontent.com/spcanelon/silvia/32853dd0e70a71514b0922ee306f80ed5897f776/_partials/title-block-link-buttons/title-block.html -->
+<!-- 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title"> 
+-->
+<!-- <header id="title-block-header" class="quarto-title-block default page-columns"> -->
+<!-- <div class="quarto-title page-columns page-full featured-image p-4" style="background-image: url(featured.png), url(featured.jpg), url(../featured.jpg);"> -->
+    
 
 <p>La visualisation de données est l’art et la science de représenter visuellement des informations complexes et abstraites à l’aide d’éléments visuels.
 Son objectif principal est de synthétiser l’information présente dans un ensemble de données afin de faciliter
@@ -546,13 +555,13 @@ par des figures :</p>
 <div class="quarto-layout-row quarto-layout-valign-bottom">
 <div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
 <figure class="figure">
-<p><a href="https://www.icem7.fr/wp-content/uploads/2023/08/recreation-aires1.png" class="lightbox" title="Figure 1 originale" data-gallery="figure1-mauviere"><img src="https://www.icem7.fr/wp-content/uploads/2023/08/recreation-aires1.png" class="img-fluid figure-img"></a></p>
+<p><a href="https://www.icem7.fr/wp-content/uploads/2023/08/recreation-aires1.png" class="lightbox" data-gallery="figure1-mauviere" title="Figure 1 originale"><img src="https://www.icem7.fr/wp-content/uploads/2023/08/recreation-aires1.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">Figure 1 originale</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
 <figure class="figure">
-<p><a href="https://www.icem7.fr/wp-content/uploads/2023/08/recreation-aires35.png" class="lightbox" title="Figure 1 modifiée" data-gallery="figure1-mauviere"><img src="https://www.icem7.fr/wp-content/uploads/2023/08/recreation-aires35.png" class="img-fluid figure-img"></a></p>
+<p><a href="https://www.icem7.fr/wp-content/uploads/2023/08/recreation-aires35.png" class="lightbox" data-gallery="figure1-mauviere" title="Figure 1 modifiée"><img src="https://www.icem7.fr/wp-content/uploads/2023/08/recreation-aires35.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">Figure 1 modifiée</figcaption>
 </figure>
 </div>
@@ -565,13 +574,13 @@ par des figures :</p>
 <div class="quarto-layout-row quarto-layout-valign-bottom">
 <div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
 <figure class="figure">
-<p><a href="https://www.icem7.fr/wp-content/uploads/2023/08/recreation-barres1.png" class="lightbox" title="Figure 2 originale" data-gallery="figure2-mauviere"><img src="https://www.icem7.fr/wp-content/uploads/2023/08/recreation-barres1.png" class="img-fluid figure-img"></a></p>
+<p><a href="https://www.icem7.fr/wp-content/uploads/2023/08/recreation-barres1.png" class="lightbox" data-gallery="figure2-mauviere" title="Figure 2 originale"><img src="https://www.icem7.fr/wp-content/uploads/2023/08/recreation-barres1.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">Figure 2 originale</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
 <figure class="figure">
-<p><a href="https://www.icem7.fr/wp-content/uploads/2023/08/recreation-barres35.png" class="lightbox" title="Figure 2 modifiée" data-gallery="figure2-mauviere"><img src="https://www.icem7.fr/wp-content/uploads/2023/08/recreation-barres35.png" class="img-fluid figure-img"></a></p>
+<p><a href="https://www.icem7.fr/wp-content/uploads/2023/08/recreation-barres35.png" class="lightbox" data-gallery="figure2-mauviere" title="Figure 2 modifiée"><img src="https://www.icem7.fr/wp-content/uploads/2023/08/recreation-barres35.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">Figure 2 modifiée</figcaption>
 </figure>
 </div>
@@ -1001,7 +1010,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","closeEffect":"zoom","selector":".lightbox","descPosition":"bottom","loop":true});</script>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","openEffect":"zoom","loop":true,"descPosition":"bottom","selector":".lightbox"});</script>
 
 
 
