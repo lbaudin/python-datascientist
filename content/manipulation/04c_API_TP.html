@@ -753,7 +753,7 @@ géographiques :</p>
 
 The Shapely GEOS version (3.12.0-CAPI-1.18.0) is incompatible with the GEOS version PyGEOS was compiled with (3.10.4-CAPI-1.16.2). Conversions between both will be slow.
 
-/tmp/ipykernel_3635/2008334648.py:2: UserWarning:
+/tmp/ipykernel_3638/2008334648.py:2: UserWarning:
 
 Shapely 2.0 is installed, but because PyGEOS is also installed, GeoPandas will still use PyGEOS by default for now. To force to use and test Shapely 2.0, you have to set the environment variable USE_PYGEOS=0. You can do this before starting the Python process, or in your code before importing geopandas:
 
@@ -1118,7 +1118,7 @@ les auto-écoles ayant présenté au moins 20 personnes à l’examen.</p>
 <span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.loc[df[<span class="st">"B_NB"</span>]<span class="op">&gt;</span><span class="dv">20</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_3635/1059845781.py:16: UserWarning:
+<pre><code>/tmp/ipykernel_3638/1059845781.py:16: UserWarning:
 
 This pattern is interpreted as a regular expression, and has match groups. To actually get the groups, use str.extract.
 </code></pre>
@@ -1278,7 +1278,7 @@ utilisant <code>io.StringIO</code> pour éviter d’écrire des données interm�
 </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>--- 25.71860384941101 seconds ---</code></pre>
+<pre><code>--- 29.329617738723755 seconds ---</code></pre>
 </div>
 </div>
 <p>Cette méthode est beaucoup plus rapide et permet ainsi, une fois retourné à nos
@@ -1308,94 +1308,94 @@ données initiales, d’avoir un jeu de données géolocalisé</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2297</td>
-<td>DREAU MARC AUTO ECOLE</td>
-<td>9 rue des carmes</td>
-<td>29120</td>
-<td>pont l abbe</td>
-<td>47.865355</td>
-<td>-4.220134</td>
+<td data-quarto-table-cell-role="th">4278</td>
+<td>MICHEL / AE du 8 Mai</td>
+<td>4 bis rue victor hugo</td>
+<td>44400</td>
+<td>reze</td>
+<td>47.189189</td>
+<td>-1.552765</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3353</td>
-<td>GAIGNET</td>
-<td>26 rue de brest</td>
-<td>35360</td>
-<td>montauban de bretagne</td>
-<td>48.202031</td>
-<td>-2.050954</td>
+<td data-quarto-table-cell-role="th">10774</td>
+<td>AMIA</td>
+<td>26 rue saint lazare</td>
+<td>95290</td>
+<td>l isle adam</td>
+<td>49.110458</td>
+<td>2.217425</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4253</td>
-<td>BAUDRY / ALPHA CONDUITE</td>
-<td>12 rue de beaulieu</td>
-<td>44340</td>
-<td>bouguenais</td>
-<td>47.178758</td>
-<td>-1.624312</td>
+<td data-quarto-table-cell-role="th">3306</td>
+<td>GWEN COND</td>
+<td>23 rue de bel air</td>
+<td>35150</td>
+<td>janze</td>
+<td>47.955604</td>
+<td>-1.502829</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">9905</td>
-<td>GO PERMIS</td>
-<td>19 route des gardes</td>
-<td>92190</td>
-<td>meudon</td>
-<td>48.818717</td>
-<td>2.239151</td>
+<td data-quarto-table-cell-role="th">4818</td>
+<td>V CENTRE D EDUCATION ROUTIERE</td>
+<td>9 rue pavee</td>
+<td>51300</td>
+<td>vitry le francois</td>
+<td>48.727460</td>
+<td>4.582761</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">7304</td>
-<td>ZZZ 2000 MACON</td>
-<td>20 rue lacretelle</td>
-<td>71000</td>
-<td>macon</td>
-<td>46.304797</td>
-<td>4.828548</td>
+<td data-quarto-table-cell-role="th">5870</td>
+<td>D.ZEN AUTO ECOLE SARL</td>
+<td>28 rue jules juillet</td>
+<td>60100</td>
+<td>creil</td>
+<td>49.264382</td>
+<td>2.471582</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">682</td>
-<td>AUTO ECOLE POPEYE FLORIAN</td>
-<td>place de la libération</td>
-<td>10000</td>
-<td>troyes</td>
-<td>48.297977</td>
-<td>4.077335</td>
+<td data-quarto-table-cell-role="th">881</td>
+<td>AE MIGNARD SEVIGNE</td>
+<td>11 place mignard</td>
+<td>13009</td>
+<td>marseille</td>
+<td>43.262578</td>
+<td>5.402632</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4431</td>
-<td>SEMOY AE</td>
-<td>30 place françois miterrand</td>
-<td>45400</td>
-<td>semoy</td>
-<td>47.932040</td>
-<td>1.949179</td>
+<td data-quarto-table-cell-role="th">11540</td>
+<td>ECOLE DE CONDUITE SUBRA</td>
+<td>107 rue du commerce</td>
+<td>97600</td>
+<td>mamoudzou</td>
+<td>-12.783088</td>
+<td>45.218911</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3935</td>
-<td>AUTO ECOLE LIGNE DE CONDUITE</td>
-<td>15 rue sonnier</td>
-<td>41290</td>
-<td>oucques</td>
-<td>47.823396</td>
-<td>1.294352</td>
+<td data-quarto-table-cell-role="th">9513</td>
+<td>6 JANOT</td>
+<td>87 rue jules ferry</td>
+<td>88110</td>
+<td>raon l etape</td>
+<td>48.405328</td>
+<td>6.846363</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">8192</td>
-<td>PINK PERMIS</td>
-<td>2 rue jean jaures</td>
-<td>77100</td>
-<td>meaux</td>
-<td>48.958512</td>
-<td>2.887430</td>
+<td data-quarto-table-cell-role="th">8602</td>
+<td>EDUC'AUTO</td>
+<td>23 rue de l'enclos</td>
+<td>78550</td>
+<td>houdan</td>
+<td>48.790083</td>
+<td>1.599996</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">2420</td>
-<td>AUTO ECOLE DU PHARE</td>
-<td>6 rue du docteur morvan</td>
-<td>29870</td>
-<td>lannilis</td>
-<td>48.570549</td>
-<td>-4.522733</td>
+<td data-quarto-table-cell-role="th">3350</td>
+<td>CAP CONDUITE 35</td>
+<td>76-78 rue de rennes</td>
+<td>35340</td>
+<td>liffre</td>
+<td>48.212199</td>
+<td>-1.512347</td>
 </tr>
 </tbody>
 </table>
@@ -2168,7 +2168,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":true,"closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","openEffect":"zoom","loop":true,"descPosition":"bottom"});</script>
 
 
 
