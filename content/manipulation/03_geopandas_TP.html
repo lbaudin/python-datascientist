@@ -596,7 +596,7 @@ une version très proche de ce TP est disponible dans <a href="https://rgeo.lino
 <p>Avant de se lancer dans le TD, il est nécessaire d’installer quelques
 librairies qui ne sont pas disponibles par défaut, dans l’environnement <code>Python</code>
 de base de la <em>data science</em>. Pour installer celles-ci depuis une
-cellule de <em>notebook</em> <code>Jupyter</code>, le code suivant est à exécuter:</p>
+cellule de <em>notebook</em> <code>Jupyter</code>, le code suivant est à exécuter :</p>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install pandas fiona shapely pyproj rtree <span class="co"># à faire obligatoirement en premier pour utiliser rtree ou pygeos pour les jointures spatiales</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install contextily</span>
@@ -606,8 +606,8 @@ cellule de <em>notebook</em> <code>Jupyter</code>, le code suivant est à exécu
 </div>
 <p>Après installations,
 les <em>packages</em> à importer pour progresser
-dans ce chapitre sont les suivants:</p>
-<div class="cell" data-execution_count="4">
+dans ce chapitre sont les suivants :</p>
+<div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> contextily <span class="im">as</span> ctx</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -615,7 +615,7 @@ dans ce chapitre sont les suivants:</p>
 <p>Les instructions d’installation du package <code>cartiflette</code>
 sont quant à elles détaillées dans le chapitre
 précédent.</p>
-<div class="cell" data-execution_count="6">
+<div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> cartiflette.s3 <span class="im">import</span> download_vectorfile_url_all</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -639,7 +639,7 @@ des départements de la petite couronne (75, 92, 93 et 94)
 de manière simplifiée grâce au <em>package</em>
 <code>cartiflette</code>:</li>
 </ol>
-<div class="cell" data-execution_count="7">
+<div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>communes_borders <span class="op">=</span> download_vectorfile_url_all(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    crs <span class="op">=</span> <span class="dv">4326</span>,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    values <span class="op">=</span> [<span class="st">"75"</span>, <span class="st">"92"</span>, <span class="st">"93"</span>, <span class="st">"94"</span>],</span>
@@ -657,8 +657,8 @@ un <em>dataframe</em> standard.</li>
 <summary>
 Premières lignes des données
 </summary>
-<div class="cell" data-execution_count="8">
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
 
@@ -795,20 +795,20 @@ Convertir en Lambert 93.</li>
 </ol>
 </div>
 </div>
-<div class="cell" data-execution_count="12">
+<div class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="03_geopandas_TP_files/figure-html/cell-13-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="03_geopandas_TP_files/figure-html/cell-13-output-1.png" width="229" height="389" class="figure-img"></a></p>
+<p><a href="03_geopandas_TP_files/figure-html/cell-12-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="03_geopandas_TP_files/figure-html/cell-12-output-1.png" width="229" height="389" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="13">
+<div class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="03_geopandas_TP_files/figure-html/cell-14-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="03_geopandas_TP_files/figure-html/cell-14-output-1.png" width="540" height="298" class="figure-img"></a></p>
+<p><a href="03_geopandas_TP_files/figure-html/cell-13-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="03_geopandas_TP_files/figure-html/cell-13-output-1.png" width="540" height="298" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -824,7 +824,7 @@ tout SIG, permet une gestion cohérente des projections.</p>
 de proportions pour certains pays selon les projections
 choisies:</p>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="304" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 303;"><span id="cb5-304"><a href="#cb5-304" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;div&gt;</span><span class="sc">${</span>container_projection<span class="sc">}</span><span class="vs">&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="298" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 297;"><span id="cb5-298"><a href="#cb5-298" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;div&gt;</span><span class="sc">${</span>container_projection<span class="sc">}</span><span class="vs">&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="expression">
 
@@ -832,19 +832,19 @@ choisies:</p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="311" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 310;"><span id="cb6-311"><a href="#cb6-311" aria-hidden="true" tabindex="-1"></a>container_projection <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;div class="container"&gt;</span></span>
+<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="305" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 304;"><span id="cb6-305"><a href="#cb6-305" aria-hidden="true" tabindex="-1"></a>container_projection <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;div class="container"&gt;</span></span>
+<span id="cb6-306"><a href="#cb6-306" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div class="row"&gt;</span></span>
+<span id="cb6-307"><a href="#cb6-307" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;div class="projection"&gt;</span></span>
+<span id="cb6-308"><a href="#cb6-308" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;div class="projection-label"&gt;Choisir une projection&lt;/div&gt;</span></span>
+<span id="cb6-309"><a href="#cb6-309" aria-hidden="true" tabindex="-1"></a><span class="vs">      </span><span class="sc">${</span>viewof projection<span class="sc">}</span></span>
+<span id="cb6-310"><a href="#cb6-310" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/div&gt;</span></span>
+<span id="cb6-311"><a href="#cb6-311" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;</span></span>
 <span id="cb6-312"><a href="#cb6-312" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div class="row"&gt;</span></span>
-<span id="cb6-313"><a href="#cb6-313" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;div class="projection"&gt;</span></span>
-<span id="cb6-314"><a href="#cb6-314" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;div class="projection-label"&gt;Choisir une projection&lt;/div&gt;</span></span>
-<span id="cb6-315"><a href="#cb6-315" aria-hidden="true" tabindex="-1"></a><span class="vs">      </span><span class="sc">${</span>viewof projection<span class="sc">}</span></span>
-<span id="cb6-316"><a href="#cb6-316" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/div&gt;</span></span>
-<span id="cb6-317"><a href="#cb6-317" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;</span></span>
-<span id="cb6-318"><a href="#cb6-318" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div class="row"&gt;</span></span>
-<span id="cb6-319"><a href="#cb6-319" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;div class="projectedMap"&gt;</span></span>
-<span id="cb6-320"><a href="#cb6-320" aria-hidden="true" tabindex="-1"></a><span class="vs">      </span><span class="sc">${</span>projectedMap<span class="sc">}</span></span>
-<span id="cb6-321"><a href="#cb6-321" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/div&gt;</span></span>
-<span id="cb6-322"><a href="#cb6-322" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;</span></span>
-<span id="cb6-323"><a href="#cb6-323" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-313"><a href="#cb6-313" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;div class="projectedMap"&gt;</span></span>
+<span id="cb6-314"><a href="#cb6-314" aria-hidden="true" tabindex="-1"></a><span class="vs">      </span><span class="sc">${</span>projectedMap<span class="sc">}</span></span>
+<span id="cb6-315"><a href="#cb6-315" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/div&gt;</span></span>
+<span id="cb6-316"><a href="#cb6-316" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;</span></span>
+<span id="cb6-317"><a href="#cb6-317" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-2" data-nodetype="declaration">
 
@@ -852,10 +852,10 @@ choisies:</p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb7" data-startfrom="457" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 456;"><span id="cb7-457"><a href="#cb7-457" aria-hidden="true" tabindex="-1"></a>viewof projection <span class="op">=</span> <span class="fu">projectionInput</span>({</span>
-<span id="cb7-458"><a href="#cb7-458" aria-hidden="true" tabindex="-1"></a>  <span class="dt">name</span><span class="op">:</span> <span class="st">""</span><span class="op">,</span></span>
-<span id="cb7-459"><a href="#cb7-459" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="st">"Mercator"</span></span>
-<span id="cb7-460"><a href="#cb7-460" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb7" data-startfrom="451" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 450;"><span id="cb7-451"><a href="#cb7-451" aria-hidden="true" tabindex="-1"></a>viewof projection <span class="op">=</span> <span class="fu">projectionInput</span>({</span>
+<span id="cb7-452"><a href="#cb7-452" aria-hidden="true" tabindex="-1"></a>  <span class="dt">name</span><span class="op">:</span> <span class="st">""</span><span class="op">,</span></span>
+<span id="cb7-453"><a href="#cb7-453" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="st">"Mercator"</span></span>
+<span id="cb7-454"><a href="#cb7-454" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-3" data-nodetype="declaration">
 
@@ -863,8 +863,8 @@ choisies:</p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb8" data-startfrom="468" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 467;"><span id="cb8-468"><a href="#cb8-468" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {projectionInput} <span class="im">from</span> <span class="st">"@fil/d3-projections"</span></span>
-<span id="cb8-469"><a href="#cb8-469" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {map} <span class="im">from</span> <span class="st">"@linogaliana/base-map"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb8" data-startfrom="462" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 461;"><span id="cb8-462"><a href="#cb8-462" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {projectionInput} <span class="im">from</span> <span class="st">"@fil/d3-projections"</span></span>
+<span id="cb8-463"><a href="#cb8-463" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {map} <span class="im">from</span> <span class="st">"@linogaliana/base-map"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-4-1" data-nodetype="declaration">
@@ -914,7 +914,7 @@ choisies:</p>
 <p>Voici un code utilisant encore
 <code>cartiflette</code>
 pour récupérer les frontières françaises (découpées par région):</p>
-<div class="cell" data-execution_count="15">
+<div class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>france <span class="op">=</span> download_vectorfile_url_all(</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>      values <span class="op">=</span> <span class="st">"metropole"</span>,</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>      crs <span class="op">=</span> <span class="dv">4326</span>,</span>
@@ -945,7 +945,7 @@ pour chaque région.</li>
 on comprend que les projections ont un effet déformant
 qui se voit bien lorsqu’on les représente côte à côte sous
 forme de cartes :</p>
-<div id="fig-effet-mercator" class="cell quarto-layout-panel" data-execution_count="18">
+<div id="fig-effet-mercator" class="cell quarto-layout-panel" data-execution_count="17">
 <figure class="figure">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div id="fig-effet-mercator-1" class="quarto-figure quarto-figure-center anchored" style="flex-basis: 43.5%;justify-content: center;">
@@ -983,7 +983,7 @@ numérique. Les calculs géométriques amènent à des différences
 assez notables selon le système de référence utilisé.</p>
 <p>On peut représenter ces approximations sur une carte<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> pour se faire
 une idée des régions où l’erreur de mesure est la plus importante.</p>
-<div class="cell" data-execution_count="20">
+<div class="cell" data-execution_count="19">
 <div class="cell-output cell-output-stderr">
 <pre><code>/opt/mamba/lib/python3.9/site-packages/geopandas/plotting.py:730: FutureWarning:
 
@@ -993,7 +993,7 @@ is_categorical_dtype is deprecated and will be removed in a future version. Use 
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="03_geopandas_TP_files/figure-html/cell-21-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="03_geopandas_TP_files/figure-html/cell-21-output-2.png" width="416" height="389" class="figure-img"></a></p>
+<p><a href="03_geopandas_TP_files/figure-html/cell-20-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="03_geopandas_TP_files/figure-html/cell-20-output-2.png" width="416" height="389" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1066,7 +1066,7 @@ un autre jeu de données.</p>
 stations velib,
 disponibles <a href="https://opendata.paris.fr/explore/dataset/velib-emplacement-des-stations/table/">sur le site d’open data de la ville de Paris</a> et
 requêtables directement en utilisant un URL</p>
-<div class="cell" data-execution_count="21">
+<div class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://opendata.paris.fr/explore/dataset/velib-emplacement-des-stations/download/?format=geojson&amp;timezone=Europe/Berlin&amp;lang=fr"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Dans le prochain exercice, nous proposons de créer rapidement une
@@ -1083,7 +1083,7 @@ toujours utile dans un travail exploratoire.</p>
 <p>En amont de l’exercice,
 utiliser la fonction suivante du <em>package</em> <code>cartiflette</code> pour récupérer
 le fonds de carte des départements de la petite couronne:</p>
-<div class="cell" data-execution_count="22">
+<div class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>idf <span class="op">=</span> download_vectorfile_url_all(</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>      values <span class="op">=</span> <span class="st">"11"</span>,</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>      crs <span class="op">=</span> <span class="dv">4326</span>,</span>
@@ -1127,14 +1127,14 @@ et ajuster la taille en fonction de la variable <code>capacity</code>. L’esth�
 <summary>
 La couche de base obtenue à l’issue de la question 4.
 </summary>
-<div class="cell" data-execution_count="26">
-<div class="cell-output cell-output-display" data-execution_count="25">
+<div class="cell" data-execution_count="25">
+<div class="cell-output cell-output-display" data-execution_count="24">
 <pre><code>&lt;Axes: &gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="03_geopandas_TP_files/figure-html/cell-27-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="03_geopandas_TP_files/figure-html/cell-27-output-2.png" width="420" height="425" class="figure-img"></a></p>
+<p><a href="03_geopandas_TP_files/figure-html/cell-26-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="03_geopandas_TP_files/figure-html/cell-26-output-2.png" width="420" height="425" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1144,14 +1144,14 @@ La couche de base obtenue à l’issue de la question 4.
 <summary>
 Puis en y ajoutant les limites départementales (question 5).
 </summary>
-<div class="cell" data-execution_count="27">
-<div class="cell-output cell-output-display" data-execution_count="26">
+<div class="cell" data-execution_count="26">
+<div class="cell-output cell-output-display" data-execution_count="25">
 <pre><code>&lt;Axes: &gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="03_geopandas_TP_files/figure-html/cell-28-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="03_geopandas_TP_files/figure-html/cell-28-output-2.png" width="420" height="425" class="figure-img"></a></p>
+<p><a href="03_geopandas_TP_files/figure-html/cell-27-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="03_geopandas_TP_files/figure-html/cell-27-output-2.png" width="420" height="425" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1161,6 +1161,26 @@ Puis en y ajoutant les limites départementales (question 5).
 <summary>
 Puis les stations (question 6).
 </summary>
+<div class="cell" data-execution_count="27">
+<div class="cell-output cell-output-stderr">
+<pre><code>/opt/mamba/lib/python3.9/site-packages/geopandas/plotting.py:656: UserWarning:
+
+Only specify one of 'column' or 'color'. Using 'color'.
+</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>&lt;Axes: &gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="03_geopandas_TP_files/figure-html/cell-28-output-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="03_geopandas_TP_files/figure-html/cell-28-output-3.png" width="420" height="425" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</details>
+<p>La carte finale, après mise en forme:</p>
 <div class="cell" data-execution_count="28">
 <div class="cell-output cell-output-stderr">
 <pre><code>/opt/mamba/lib/python3.9/site-packages/geopandas/plotting.py:656: UserWarning:
@@ -1169,32 +1189,12 @@ Only specify one of 'column' or 'color'. Using 'color'.
 </code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="27">
-<pre><code>&lt;Axes: &gt;</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="03_geopandas_TP_files/figure-html/cell-29-output-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="03_geopandas_TP_files/figure-html/cell-29-output-3.png" width="420" height="425" class="figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-</details>
-<p>La carte finale, après mise en forme:</p>
-<div class="cell" data-execution_count="29">
-<div class="cell-output cell-output-stderr">
-<pre><code>/opt/mamba/lib/python3.9/site-packages/geopandas/plotting.py:656: UserWarning:
-
-Only specify one of 'column' or 'color'. Using 'color'.
-</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="28">
 <pre><code>&lt;Axes: title={'center': 'Les 50 principales stations de Vélib'}&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="03_geopandas_TP_files/figure-html/cell-30-output-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="03_geopandas_TP_files/figure-html/cell-30-output-3.png" width="372" height="410" class="figure-img"></a></p>
+<p><a href="03_geopandas_TP_files/figure-html/cell-29-output-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="03_geopandas_TP_files/figure-html/cell-29-output-3.png" width="372" height="410" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1235,19 +1235,39 @@ les stations appartenant au 19e et les limites de l’arrondissement.</li>
 </ol>
 </div>
 </div>
-<div class="cell" data-execution_count="32">
-<div class="cell-output cell-output-display" data-execution_count="31">
+<div class="cell" data-execution_count="31">
+<div class="cell-output cell-output-display" data-execution_count="30">
 <pre><code>&lt;Axes: title={'center': 'Les stations Vélib du 19e arrondissement'}&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="03_geopandas_TP_files/figure-html/cell-33-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="03_geopandas_TP_files/figure-html/cell-33-output-2.png" width="540" height="317" class="figure-img"></a></p>
+<p><a href="03_geopandas_TP_files/figure-html/cell-32-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="03_geopandas_TP_files/figure-html/cell-32-output-2.png" width="540" height="317" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Carte obtenue à la question 4 :</p>
+<div class="cell" data-execution_count="32">
+<div class="cell-output cell-output-stderr">
+<pre><code>/opt/mamba/lib/python3.9/site-packages/geopandas/plotting.py:730: FutureWarning:
+
+is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
+</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="31">
+<pre><code>&lt;Axes: &gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="03_geopandas_TP_files/figure-html/cell-33-output-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="03_geopandas_TP_files/figure-html/cell-33-output-3.png" width="524" height="389" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Avec la carte de la question 4, basée sur des aplats de couleurs (choropleth map), le lecteur est victime d’une illusion classique. Les arrondissements les plus visibles sur la carte sont les plus grands. D’ailleurs c’est assez logique qu’ils soient également mieux pourvus en velib. Même si l’offre de velib est probablement plus reliée à la densité de population et d’équipements, on peut penser que l’effet taille joue et qu’ainsi on est victime d’une illusion avec la carte précédente.</p>
+<p>Si on représente plutôt la capacité sous forme de densité, pour tenir compte de la taille différente des arrondissements, les conclusions sont inversées et correspondent mieux aux attentes d’un modèle centre-périphérie. Les arrondissements centraux sont mieux pourvus, cela se voit encore mieux avec des ronds proportionnels plutôt qu’une carte chorolèpthe.</p>
 <div class="cell" data-execution_count="33">
 <div class="cell-output cell-output-stderr">
 <pre><code>/opt/mamba/lib/python3.9/site-packages/geopandas/plotting.py:730: FutureWarning:
@@ -1261,27 +1281,7 @@ is_categorical_dtype is deprecated and will be removed in a future version. Use 
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="03_geopandas_TP_files/figure-html/cell-34-output-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="03_geopandas_TP_files/figure-html/cell-34-output-3.png" width="524" height="389" class="figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Avec la carte de la question 4, basée sur des aplats de couleurs (choropleth map), le lecteur est victime d’une illusion classique. Les arrondissements les plus visibles sur la carte sont les plus grands. D’ailleurs c’est assez logique qu’ils soient également mieux pourvus en velib. Même si l’offre de velib est probablement plus reliée à la densité de population et d’équipements, on peut penser que l’effet taille joue et qu’ainsi on est victime d’une illusion avec la carte précédente.</p>
-<p>Si on représente plutôt la capacité sous forme de densité, pour tenir compte de la taille différente des arrondissements, les conclusions sont inversées et correspondent mieux aux attentes d’un modèle centre-périphérie. Les arrondissements centraux sont mieux pourvus, cela se voit encore mieux avec des ronds proportionnels plutôt qu’une carte chorolèpthe.</p>
-<div class="cell" data-execution_count="34">
-<div class="cell-output cell-output-stderr">
-<pre><code>/opt/mamba/lib/python3.9/site-packages/geopandas/plotting.py:730: FutureWarning:
-
-is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
-</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="33">
-<pre><code>&lt;Axes: &gt;</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="03_geopandas_TP_files/figure-html/cell-35-output-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="03_geopandas_TP_files/figure-html/cell-35-output-3.png" width="532" height="389" class="figure-img"></a></p>
+<p><a href="03_geopandas_TP_files/figure-html/cell-34-output-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="03_geopandas_TP_files/figure-html/cell-34-output-3.png" width="515" height="389" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1604,7 +1604,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom","loop":true});</script>
+<script>var lightboxQuarto = GLightbox({"loop":true,"selector":".lightbox","openEffect":"zoom","descPosition":"bottom","closeEffect":"zoom"});</script>
 
 
 

@@ -538,7 +538,7 @@ de manipuler des données géographiques complexes de manière simple.">
   </ul></li>
   <li><a href="#importer-des-données-spatiales" id="toc-importer-des-données-spatiales" class="nav-link" data-scroll-target="#importer-des-données-spatiales">Importer des données spatiales</a>
   <ul class="collapse">
-  <li><a href="#exemple-récupérer-les-découpages-territoriaux" id="toc-exemple-récupérer-les-découpages-territoriaux" class="nav-link" data-scroll-target="#exemple-récupérer-les-découpages-territoriaux">Exemple: récupérer les découpages territoriaux</a></li>
+  <li><a href="#exemple-récupérer-les-découpages-territoriaux" id="toc-exemple-récupérer-les-découpages-territoriaux" class="nav-link" data-scroll-target="#exemple-récupérer-les-découpages-territoriaux">Exemple : récupérer les découpages territoriaux</a></li>
   </ul></li>
   <li><a href="#opérations-sur-les-attributs-et-les-géométries" id="toc-opérations-sur-les-attributs-et-les-géométries" class="nav-link" data-scroll-target="#opérations-sur-les-attributs-et-les-géométries">Opérations sur les attributs et les géométries</a>
   <ul class="collapse">
@@ -597,14 +597,84 @@ l’objet de ce chapitre porte davantage sur la manipulation des données géogr
 <a href="https://www.book.utilitr.org/fiche_donnees_spatiales">dans la documentation <code>utilitr</code></a>.
 Il peut servir de pendant à celui-ci pour l’utilisateur de <code>R</code>.</p>
 <p>Quelques installations préalables sont nécessaires :</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install pandas fiona shapely pyproj rtree <span class="co"># à faire obligatoirement en premier pour utiliser rtree ou pygeos pour les jointures spatiales</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install contextily</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install geopandas</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install topojson</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install pandas fiona shapely pyproj rtree <span class="co"># à faire obligatoirement en premier pour utiliser rtree ou pygeos pour les jointures spatiales</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install contextily</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install geopandas</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install topojson</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Requirement already satisfied: topojson in /opt/mamba/lib/python3.9/site-packages (1.5)
+<pre><code>Requirement already satisfied: pandas in /opt/mamba/lib/python3.9/site-packages (2.1.1)
+Requirement already satisfied: fiona in /opt/mamba/lib/python3.9/site-packages (1.9.4)
+Requirement already satisfied: shapely in /opt/mamba/lib/python3.9/site-packages (2.0.1)
+Requirement already satisfied: pyproj in /opt/mamba/lib/python3.9/site-packages (3.6.1)
+Requirement already satisfied: rtree in /opt/mamba/lib/python3.9/site-packages (1.0.1)
+Requirement already satisfied: numpy&gt;=1.22.4 in /opt/mamba/lib/python3.9/site-packages (from pandas) (1.26.0)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /opt/mamba/lib/python3.9/site-packages (from pandas) (2.8.2)
+Requirement already satisfied: pytz&gt;=2020.1 in /opt/mamba/lib/python3.9/site-packages (from pandas) (2022.5)
+Requirement already satisfied: tzdata&gt;=2022.1 in /opt/mamba/lib/python3.9/site-packages (from pandas) (2023.3)
+Requirement already satisfied: attrs&gt;=19.2.0 in /opt/mamba/lib/python3.9/site-packages (from fiona) (23.1.0)
+Requirement already satisfied: certifi in /opt/mamba/lib/python3.9/site-packages (from fiona) (2022.9.24)
+Requirement already satisfied: click~=8.0 in /opt/mamba/lib/python3.9/site-packages (from fiona) (8.1.7)
+Requirement already satisfied: click-plugins&gt;=1.0 in /opt/mamba/lib/python3.9/site-packages (from fiona) (1.1.1)
+Requirement already satisfied: cligj&gt;=0.5 in /opt/mamba/lib/python3.9/site-packages (from fiona) (0.7.2)
+Requirement already satisfied: six in /opt/mamba/lib/python3.9/site-packages (from fiona) (1.16.0)
+Requirement already satisfied: importlib-metadata in /opt/mamba/lib/python3.9/site-packages (from fiona) (6.8.0)
+Requirement already satisfied: zipp&gt;=0.5 in /opt/mamba/lib/python3.9/site-packages (from importlib-metadata-&gt;fiona) (3.9.0)
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+Requirement already satisfied: contextily in /opt/mamba/lib/python3.9/site-packages (1.3.0)
+Requirement already satisfied: geopy in /opt/mamba/lib/python3.9/site-packages (from contextily) (2.4.0)
+Requirement already satisfied: matplotlib in /opt/mamba/lib/python3.9/site-packages (from contextily) (3.8.0)
+Requirement already satisfied: mercantile in /opt/mamba/lib/python3.9/site-packages (from contextily) (1.2.1)
+Requirement already satisfied: pillow in /opt/mamba/lib/python3.9/site-packages (from contextily) (10.0.0)
+Requirement already satisfied: rasterio in /opt/mamba/lib/python3.9/site-packages (from contextily) (1.3.8)
+Requirement already satisfied: requests in /opt/mamba/lib/python3.9/site-packages (from contextily) (2.31.0)
+Requirement already satisfied: joblib in /opt/mamba/lib/python3.9/site-packages (from contextily) (1.3.2)
+Requirement already satisfied: xyzservices in /opt/mamba/lib/python3.9/site-packages (from contextily) (2023.7.0)
+Requirement already satisfied: geographiclib&lt;3,&gt;=1.52 in /opt/mamba/lib/python3.9/site-packages (from geopy-&gt;contextily) (1.52)
+Requirement already satisfied: contourpy&gt;=1.0.1 in /opt/mamba/lib/python3.9/site-packages (from matplotlib-&gt;contextily) (1.1.1)
+Requirement already satisfied: cycler&gt;=0.10 in /opt/mamba/lib/python3.9/site-packages (from matplotlib-&gt;contextily) (0.11.0)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/mamba/lib/python3.9/site-packages (from matplotlib-&gt;contextily) (4.42.1)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /opt/mamba/lib/python3.9/site-packages (from matplotlib-&gt;contextily) (1.4.5)
+Requirement already satisfied: numpy&lt;2,&gt;=1.21 in /opt/mamba/lib/python3.9/site-packages (from matplotlib-&gt;contextily) (1.26.0)
+Requirement already satisfied: packaging&gt;=20.0 in /opt/mamba/lib/python3.9/site-packages (from matplotlib-&gt;contextily) (21.3)
+Requirement already satisfied: pyparsing&gt;=2.3.1 in /opt/mamba/lib/python3.9/site-packages (from matplotlib-&gt;contextily) (3.0.9)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/mamba/lib/python3.9/site-packages (from matplotlib-&gt;contextily) (2.8.2)
+Requirement already satisfied: importlib-resources&gt;=3.2.0 in /opt/mamba/lib/python3.9/site-packages (from matplotlib-&gt;contextily) (5.10.0)
+Requirement already satisfied: click&gt;=3.0 in /opt/mamba/lib/python3.9/site-packages (from mercantile-&gt;contextily) (8.1.7)
+Requirement already satisfied: affine in /opt/mamba/lib/python3.9/site-packages (from rasterio-&gt;contextily) (2.4.0)
+Requirement already satisfied: attrs in /opt/mamba/lib/python3.9/site-packages (from rasterio-&gt;contextily) (23.1.0)
+Requirement already satisfied: certifi in /opt/mamba/lib/python3.9/site-packages (from rasterio-&gt;contextily) (2022.9.24)
+Requirement already satisfied: cligj&gt;=0.5 in /opt/mamba/lib/python3.9/site-packages (from rasterio-&gt;contextily) (0.7.2)
+Requirement already satisfied: snuggs&gt;=1.4.1 in /opt/mamba/lib/python3.9/site-packages (from rasterio-&gt;contextily) (1.4.7)
+Requirement already satisfied: click-plugins in /opt/mamba/lib/python3.9/site-packages (from rasterio-&gt;contextily) (1.1.1)
+Requirement already satisfied: setuptools in /opt/mamba/lib/python3.9/site-packages (from rasterio-&gt;contextily) (65.5.0)
+Requirement already satisfied: charset-normalizer&lt;4,&gt;=2 in /opt/mamba/lib/python3.9/site-packages (from requests-&gt;contextily) (2.1.1)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /opt/mamba/lib/python3.9/site-packages (from requests-&gt;contextily) (3.3)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /opt/mamba/lib/python3.9/site-packages (from requests-&gt;contextily) (1.26.11)
+Requirement already satisfied: zipp&gt;=3.1.0 in /opt/mamba/lib/python3.9/site-packages (from importlib-resources&gt;=3.2.0-&gt;matplotlib-&gt;contextily) (3.9.0)
+Requirement already satisfied: six&gt;=1.5 in /opt/mamba/lib/python3.9/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib-&gt;contextily) (1.16.0)
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+Requirement already satisfied: geopandas in /opt/mamba/lib/python3.9/site-packages (0.12.2)
+Requirement already satisfied: pandas&gt;=1.0.0 in /opt/mamba/lib/python3.9/site-packages (from geopandas) (2.1.1)
+Requirement already satisfied: shapely&gt;=1.7 in /opt/mamba/lib/python3.9/site-packages (from geopandas) (2.0.1)
+Requirement already satisfied: fiona&gt;=1.8 in /opt/mamba/lib/python3.9/site-packages (from geopandas) (1.9.4)
+Requirement already satisfied: pyproj&gt;=2.6.1.post1 in /opt/mamba/lib/python3.9/site-packages (from geopandas) (3.6.1)
+Requirement already satisfied: packaging in /opt/mamba/lib/python3.9/site-packages (from geopandas) (21.3)
+Requirement already satisfied: attrs&gt;=19.2.0 in /opt/mamba/lib/python3.9/site-packages (from fiona&gt;=1.8-&gt;geopandas) (23.1.0)
+Requirement already satisfied: certifi in /opt/mamba/lib/python3.9/site-packages (from fiona&gt;=1.8-&gt;geopandas) (2022.9.24)
+Requirement already satisfied: click~=8.0 in /opt/mamba/lib/python3.9/site-packages (from fiona&gt;=1.8-&gt;geopandas) (8.1.7)
+Requirement already satisfied: click-plugins&gt;=1.0 in /opt/mamba/lib/python3.9/site-packages (from fiona&gt;=1.8-&gt;geopandas) (1.1.1)
+Requirement already satisfied: cligj&gt;=0.5 in /opt/mamba/lib/python3.9/site-packages (from fiona&gt;=1.8-&gt;geopandas) (0.7.2)
+Requirement already satisfied: six in /opt/mamba/lib/python3.9/site-packages (from fiona&gt;=1.8-&gt;geopandas) (1.16.0)
+Requirement already satisfied: importlib-metadata in /opt/mamba/lib/python3.9/site-packages (from fiona&gt;=1.8-&gt;geopandas) (6.8.0)
+Requirement already satisfied: numpy&gt;=1.22.4 in /opt/mamba/lib/python3.9/site-packages (from pandas&gt;=1.0.0-&gt;geopandas) (1.26.0)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /opt/mamba/lib/python3.9/site-packages (from pandas&gt;=1.0.0-&gt;geopandas) (2.8.2)
+Requirement already satisfied: pytz&gt;=2020.1 in /opt/mamba/lib/python3.9/site-packages (from pandas&gt;=1.0.0-&gt;geopandas) (2022.5)
+Requirement already satisfied: tzdata&gt;=2022.1 in /opt/mamba/lib/python3.9/site-packages (from pandas&gt;=1.0.0-&gt;geopandas) (2023.3)
+Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /opt/mamba/lib/python3.9/site-packages (from packaging-&gt;geopandas) (3.0.9)
+Requirement already satisfied: zipp&gt;=0.5 in /opt/mamba/lib/python3.9/site-packages (from importlib-metadata-&gt;fiona&gt;=1.8-&gt;geopandas) (3.9.0)
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+Requirement already satisfied: topojson in /opt/mamba/lib/python3.9/site-packages (1.5)
 Requirement already satisfied: numpy in /opt/mamba/lib/python3.9/site-packages (from topojson) (1.26.0)
 Requirement already satisfied: shapely in /opt/mamba/lib/python3.9/site-packages (from topojson) (2.0.1)
 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv</code></pre>
@@ -623,19 +693,19 @@ seront utiles.</p>
 <h3 class="anchored" data-anchor-id="quelle-différence-avec-des-données-traditionnelles">Quelle différence avec des données traditionnelles ?</h3>
 <p><strong>Le terme “données spatiales” désigne les données qui portent sur les caractéristiques géographiques des objets (localisation, contours, liens)</strong>.
 Les caractéristiques géographiques des objets sont décrites à l’aide d’un <strong>système de coordonnées</strong>
-qui permettent une représentation dans un espace euclidien (<span class="math inline">\((x,y)\)</span>).
+qui permettent une représentation dans un espace euclidien <span class="math inline">\((x,y)\)</span>.
 Le passage de l’espace réel (la Terre, qui est une sphère) à l’espace plan
 se fait grâce à un <strong>système de projection</strong>. Voici quelques exemples
 de données spatiales :</p>
 <ul>
-<li>Une table décrivant des bâtiments, avec les coordonnées géographiques de chaque bâtiment;</li>
-<li>Le découpage communal du territoire, avec le contour du territoire de chaque commune;</li>
+<li>Une table décrivant des bâtiments, avec les coordonnées géographiques de chaque bâtiment ;</li>
+<li>Le découpage communal du territoire, avec le contour du territoire de chaque commune ;</li>
 <li>Les routes terrestres, avec les coordonnées décrivant leur parcours en 3 dimensions (longitude, latitude, altitude).</li>
 </ul>
 <p>Les données spatiales rassemblent classiquement deux types de données :</p>
 <ol type="1">
-<li>des <strong>données géographiques</strong> (ou géométries): objets géométriques tels que des points, des vecteurs, des polygones, ou des maillages (<em>raster</em>). Exemple: la forme de chaque chaque commune, les coordonnées d’un bâtiment;</li>
-<li>des <strong>données attributaires</strong> (ou attributs): des mesures et des caractéristiques associés aux objets géométriques. Exemple: la population de chaque commune, le nombre de fenêtres et le nombre d’étages d’un bâtiment.</li>
+<li>des <strong>données géographiques</strong> (ou géométries) : objets géométriques tels que des points, des vecteurs, des polygones, ou des maillages (<em>raster</em>). Exemple: la forme de chaque commune, les coordonnées d’un bâtiment;</li>
+<li>des <strong>données attributaires</strong> (ou attributs) : des mesures et des caractéristiques associées aux objets géométriques. Exemple: la population de chaque commune, le nombre de fenêtres et le nombre d’étages d’un bâtiment.</li>
 </ol>
 <p><strong>Les données spatiales sont fréquemment traitées à l’aide d’un système d’information géographique (SIG)</strong>, c’est-à-dire un système d’information capable de stocker, d’organiser et de présenter des données alphanumériques spatialement référencées par des coordonnées dans un système de référence (CRS). <code>Python</code> dispose de fonctionnalités lui permettant de réaliser les mêmes tâches qu’un SIG (traitement de données spatiales, représentations cartographiques).</p>
 </section>
@@ -648,11 +718,11 @@ objets géographiques (ou ensemble de coordonnées s’agissant de contours). Un
 DataFrame <code>Pandas</code> mais propose des méthodes adaptées au traitement des données spatiales.</p>
 <p>Ainsi, grâce à <code>Geopandas</code>, on pourra effectuer des manipulations sur les attributs des données comme avec <code>pandas</code> mais on pourra également faire des manipulations sur la dimension spatiale des données. En particulier,</p>
 <ul>
-<li>Calculer des distances et des surfaces;</li>
-<li>Agréger rapidement des zonages (regrouper les communes en département par exemple);</li>
-<li>Trouver dans quelle commune se trouve un bâtiment à partir de ses coordonnées géographiques;</li>
-<li>Recalculer des coordonnées dans un autre système de projection.</li>
-<li>Faire une carte, rapidement et simplement</li>
+<li>Calculer des distances et des surfaces ;</li>
+<li>Agréger rapidement des zonages (regrouper les communes en département par exemple) ;</li>
+<li>Trouver dans quelle commune se trouve un bâtiment à partir de ses coordonnées géographiques ;</li>
+<li>Recalculer des coordonnées dans un autre système de projection ;</li>
+<li>Faire une carte, rapidement et simplement.</li>
 </ul>
 <div class="cell markdown">
 <div class="alert alert-warning" role="alert">
@@ -669,7 +739,7 @@ d’automatiser le traitement et la représentation des données. D’ailleurs,
 </section>
 <section id="résumé" class="level3">
 <h3 class="anchored" data-anchor-id="résumé">Résumé</h3>
-<p>En résumé, un objet <code>GeoPandas</code> comporte les éléments suivantes:</p>
+<p>En résumé, un objet <code>GeoPandas</code> comporte les éléments suivantes :</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="https://rgeo.linogaliana.fr/slides/img/sf.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="https://rgeo.linogaliana.fr/slides/img/sf.png" class="img-fluid figure-img"></a></p>
@@ -726,11 +796,11 @@ pour des tâches différentes.
 Un mauvais système de représentation
 fausse l’appréciation visuelle mais peut aussi entraîner des erreurs dans
 les calculs sur la dimension spatiale.</p>
-<p><strong>Les systèmes de projection font l’objet de standards internationaux et sont souvent désignés par des codes dits codes EPSG</strong>. Ce <a href="https://epsg.io/">site</a> est un bon aide-mémoire. Les plus fréquents, pour les utilisateurs français, sont les suivants (plus d’infos <a href="https://geodesie.ign.fr/contenu/fichiers/documentation/SRCfrance.pdf">ici</a>):</p>
+<p><strong>Les systèmes de projection font l’objet de standards internationaux et sont souvent désignés par des codes dits codes EPSG</strong>. Ce <a href="https://epsg.io/">site</a> est un bon aide-mémoire. Les plus fréquents, pour les utilisateurs français, sont les suivants (plus d’infos <a href="https://geodesie.ign.fr/contenu/fichiers/documentation/SRCfrance.pdf">ici</a>) :</p>
 <ul>
-<li><code>2154</code>: système de projection Lambert 93. Il s’agit du système de projection officiel. La plupart des données diffusées par l’administration pour la métropole sont disponibles dans ce système de projection.</li>
-<li><code>27572</code>: Lambert II étendu. Il s’agit de l’ancien système de projection officiel. Les données spatiales anciennes peuvent être dans ce format.</li>
-<li><code>4326</code>: WGS 84 ou système de pseudo-Mercator ou encore <em>Web Mercator</em>. Ce n’est en réalité pas un système de projection mais un système de coordonnées (longitude / latitude) qui permet simplement un repérage angulaire sur l’ellipsoïde. Il est utilisé pour les données GPS. Il s’agit du système le plus
+<li><code>2154</code> : système de projection Lambert 93. Il s’agit du système de projection officiel. La plupart des données diffusées par l’administration pour la métropole sont disponibles dans ce système de projection.</li>
+<li><code>27572</code> : Lambert II étendu. Il s’agit de l’ancien système de projection officiel. Les données spatiales anciennes peuvent être dans ce format.</li>
+<li><code>4326</code> : WGS 84 ou système de pseudo-Mercator ou encore <em>Web Mercator</em>. Ce n’est en réalité pas un système de projection mais un système de coordonnées (longitude / latitude) qui permet simplement un repérage angulaire sur l’ellipsoïde. Il est utilisé pour les données GPS. Il s’agit du système le plus
 usuel, notamment quand on travaille avec des fonds de carte <em>web</em>.</li>
 </ul>
 <p>Comme évoqué plus haut, l’une des projections les plus connues est la
@@ -754,7 +824,7 @@ GPS et ainsi dans les fonds de carte de navigation du type <em>Google Maps</em>.
 de proportions pour certains pays selon les projections
 choisies:</p>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="232" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 231;"><span id="cb4-232"><a href="#cb4-232" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;div&gt;</span><span class="sc">${</span>container_projection<span class="sc">}</span><span class="vs">&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="227" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 226;"><span id="cb4-227"><a href="#cb4-227" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;div&gt;</span><span class="sc">${</span>container_projection<span class="sc">}</span><span class="vs">&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="expression">
 
@@ -762,19 +832,19 @@ choisies:</p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="239" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 238;"><span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a>container_projection <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;div class="container"&gt;</span></span>
-<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div class="row"&gt;</span></span>
-<span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;div class="projection"&gt;</span></span>
-<span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;div class="projection-label"&gt;Choisir une projection&lt;/div&gt;</span></span>
-<span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a><span class="vs">      </span><span class="sc">${</span>viewof projection<span class="sc">}</span></span>
+<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="234" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 233;"><span id="cb5-234"><a href="#cb5-234" aria-hidden="true" tabindex="-1"></a>container_projection <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;div class="container"&gt;</span></span>
+<span id="cb5-235"><a href="#cb5-235" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div class="row"&gt;</span></span>
+<span id="cb5-236"><a href="#cb5-236" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;div class="projection"&gt;</span></span>
+<span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;div class="projection-label"&gt;Choisir une projection&lt;/div&gt;</span></span>
+<span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a><span class="vs">      </span><span class="sc">${</span>viewof projection<span class="sc">}</span></span>
+<span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/div&gt;</span></span>
+<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;</span></span>
+<span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div class="row"&gt;</span></span>
+<span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;div class="projectedMap"&gt;</span></span>
+<span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a><span class="vs">      </span><span class="sc">${</span>projectedMap<span class="sc">}</span></span>
 <span id="cb5-244"><a href="#cb5-244" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/div&gt;</span></span>
 <span id="cb5-245"><a href="#cb5-245" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;</span></span>
-<span id="cb5-246"><a href="#cb5-246" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div class="row"&gt;</span></span>
-<span id="cb5-247"><a href="#cb5-247" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;div class="projectedMap"&gt;</span></span>
-<span id="cb5-248"><a href="#cb5-248" aria-hidden="true" tabindex="-1"></a><span class="vs">      </span><span class="sc">${</span>projectedMap<span class="sc">}</span></span>
-<span id="cb5-249"><a href="#cb5-249" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/div&gt;</span></span>
-<span id="cb5-250"><a href="#cb5-250" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;</span></span>
-<span id="cb5-251"><a href="#cb5-251" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-246"><a href="#cb5-246" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-2" data-nodetype="declaration">
 
@@ -782,10 +852,10 @@ choisies:</p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="258" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 257;"><span id="cb6-258"><a href="#cb6-258" aria-hidden="true" tabindex="-1"></a>viewof projection <span class="op">=</span> <span class="fu">projectionInput</span>({</span>
-<span id="cb6-259"><a href="#cb6-259" aria-hidden="true" tabindex="-1"></a>  <span class="dt">name</span><span class="op">:</span> <span class="st">""</span><span class="op">,</span></span>
-<span id="cb6-260"><a href="#cb6-260" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="st">"Mercator"</span></span>
-<span id="cb6-261"><a href="#cb6-261" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="253" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 252;"><span id="cb6-253"><a href="#cb6-253" aria-hidden="true" tabindex="-1"></a>viewof projection <span class="op">=</span> <span class="fu">projectionInput</span>({</span>
+<span id="cb6-254"><a href="#cb6-254" aria-hidden="true" tabindex="-1"></a>  <span class="dt">name</span><span class="op">:</span> <span class="st">""</span><span class="op">,</span></span>
+<span id="cb6-255"><a href="#cb6-255" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="st">"Mercator"</span></span>
+<span id="cb6-256"><a href="#cb6-256" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-3" data-nodetype="declaration">
 
@@ -793,8 +863,8 @@ choisies:</p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb7" data-startfrom="270" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 269;"><span id="cb7-270"><a href="#cb7-270" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {projectionInput} <span class="im">from</span> <span class="st">"@fil/d3-projections"</span></span>
-<span id="cb7-271"><a href="#cb7-271" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {map} <span class="im">from</span> <span class="st">"@linogaliana/base-map"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb7" data-startfrom="265" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 264;"><span id="cb7-265"><a href="#cb7-265" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {projectionInput} <span class="im">from</span> <span class="st">"@fil/d3-projections"</span></span>
+<span id="cb7-266"><a href="#cb7-266" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {map} <span class="im">from</span> <span class="st">"@linogaliana/base-map"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-4-1" data-nodetype="declaration">
@@ -811,19 +881,19 @@ choisies:</p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb8" data-startfrom="287" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 286;"><span id="cb8-287"><a href="#cb8-287" aria-hidden="true" tabindex="-1"></a>projectedMap <span class="op">=</span> <span class="fu">map</span>(projection<span class="op">,</span></span>
-<span id="cb8-288"><a href="#cb8-288" aria-hidden="true" tabindex="-1"></a>                   {</span>
-<span id="cb8-289"><a href="#cb8-289" aria-hidden="true" tabindex="-1"></a>                     <span class="co">//svg: true,</span></span>
-<span id="cb8-290"><a href="#cb8-290" aria-hidden="true" tabindex="-1"></a>                     <span class="dt">value</span><span class="op">:</span> projection<span class="op">.</span><span class="at">options</span><span class="op">,</span></span>
-<span id="cb8-291"><a href="#cb8-291" aria-hidden="true" tabindex="-1"></a>                     <span class="dt">width</span><span class="op">:</span> width_projected_map<span class="op">,</span></span>
-<span id="cb8-292"><a href="#cb8-292" aria-hidden="true" tabindex="-1"></a>                     <span class="co">//height: 300,</span></span>
-<span id="cb8-293"><a href="#cb8-293" aria-hidden="true" tabindex="-1"></a>                     <span class="co">//rotate: [0, -90],</span></span>
-<span id="cb8-294"><a href="#cb8-294" aria-hidden="true" tabindex="-1"></a>                     <span class="co">//inertia: true,</span></span>
-<span id="cb8-295"><a href="#cb8-295" aria-hidden="true" tabindex="-1"></a>                     <span class="dt">show_equator</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb8-296"><a href="#cb8-296" aria-hidden="true" tabindex="-1"></a>                     <span class="dt">background</span><span class="op">:</span> <span class="st">"#f1f0eb"</span></span>
-<span id="cb8-297"><a href="#cb8-297" aria-hidden="true" tabindex="-1"></a>                     </span>
-<span id="cb8-298"><a href="#cb8-298" aria-hidden="true" tabindex="-1"></a>                     <span class="co">//show_structure: true</span></span>
-<span id="cb8-299"><a href="#cb8-299" aria-hidden="true" tabindex="-1"></a>                   })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb8" data-startfrom="282" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 281;"><span id="cb8-282"><a href="#cb8-282" aria-hidden="true" tabindex="-1"></a>projectedMap <span class="op">=</span> <span class="fu">map</span>(projection<span class="op">,</span></span>
+<span id="cb8-283"><a href="#cb8-283" aria-hidden="true" tabindex="-1"></a>                   {</span>
+<span id="cb8-284"><a href="#cb8-284" aria-hidden="true" tabindex="-1"></a>                     <span class="co">//svg: true,</span></span>
+<span id="cb8-285"><a href="#cb8-285" aria-hidden="true" tabindex="-1"></a>                     <span class="dt">value</span><span class="op">:</span> projection<span class="op">.</span><span class="at">options</span><span class="op">,</span></span>
+<span id="cb8-286"><a href="#cb8-286" aria-hidden="true" tabindex="-1"></a>                     <span class="dt">width</span><span class="op">:</span> width_projected_map<span class="op">,</span></span>
+<span id="cb8-287"><a href="#cb8-287" aria-hidden="true" tabindex="-1"></a>                     <span class="co">//height: 300,</span></span>
+<span id="cb8-288"><a href="#cb8-288" aria-hidden="true" tabindex="-1"></a>                     <span class="co">//rotate: [0, -90],</span></span>
+<span id="cb8-289"><a href="#cb8-289" aria-hidden="true" tabindex="-1"></a>                     <span class="co">//inertia: true,</span></span>
+<span id="cb8-290"><a href="#cb8-290" aria-hidden="true" tabindex="-1"></a>                     <span class="dt">show_equator</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb8-291"><a href="#cb8-291" aria-hidden="true" tabindex="-1"></a>                     <span class="dt">background</span><span class="op">:</span> <span class="st">"#f1f0eb"</span></span>
+<span id="cb8-292"><a href="#cb8-292" aria-hidden="true" tabindex="-1"></a>                     </span>
+<span id="cb8-293"><a href="#cb8-293" aria-hidden="true" tabindex="-1"></a>                     <span class="co">//show_structure: true</span></span>
+<span id="cb8-294"><a href="#cb8-294" aria-hidden="true" tabindex="-1"></a>                   })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-5" data-nodetype="declaration">
 
@@ -831,7 +901,7 @@ choisies:</p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb9" data-startfrom="293" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 292;"><span id="cb9-293"><a href="#cb9-293" aria-hidden="true" tabindex="-1"></a>width_projected_map <span class="op">=</span> <span class="bu">screen</span><span class="op">.</span><span class="at">width</span><span class="op">/</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb9" data-startfrom="288" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 287;"><span id="cb9-288"><a href="#cb9-288" aria-hidden="true" tabindex="-1"></a>width_projected_map <span class="op">=</span> <span class="bu">screen</span><span class="op">.</span><span class="at">width</span><span class="op">/</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-6" data-nodetype="declaration">
 
@@ -848,11 +918,11 @@ sur notre perception de la taille des pays.</p>
 Voir la carte interactive
 </summary>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb10" data-startfrom="342" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 341;"><span id="cb10-342"><a href="#cb10-342" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;div class="grid-container"&gt;</span></span>
-<span id="cb10-343"><a href="#cb10-343" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div class="viewof-projection"&gt;</span><span class="sc">${</span>viewof projectionBertin<span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
-<span id="cb10-344"><a href="#cb10-344" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div class="viewof-mycountry"&gt;</span><span class="sc">${</span>viewof mycountry<span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
-<span id="cb10-345"><a href="#cb10-345" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div class="map-bertin"&gt;</span><span class="sc">${</span>mapBertin<span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
-<span id="cb10-346"><a href="#cb10-346" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb10" data-startfrom="337" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 336;"><span id="cb10-337"><a href="#cb10-337" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;div class="grid-container"&gt;</span></span>
+<span id="cb10-338"><a href="#cb10-338" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div class="viewof-projection"&gt;</span><span class="sc">${</span>viewof projectionBertin<span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb10-339"><a href="#cb10-339" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div class="viewof-mycountry"&gt;</span><span class="sc">${</span>viewof mycountry<span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb10-340"><a href="#cb10-340" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div class="map-bertin"&gt;</span><span class="sc">${</span>mapBertin<span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb10-341"><a href="#cb10-341" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-7" data-nodetype="expression">
 
@@ -964,23 +1034,23 @@ cette raison qu’on parle parfois de monde tel que vu par les poissons
 <h2 class="anchored" data-anchor-id="importer-des-données-spatiales">Importer des données spatiales</h2>
 <p>Les formats les plus communs de données spatiales sont les suivants :</p>
 <ul>
-<li><em>shapefile</em> (<code>.shp</code>): format (<strong>propriétaire</strong>) le plus commun de données géographiques.
+<li><em>shapefile</em> (<code>.shp</code>) : format (<strong>propriétaire</strong>) le plus commun de données géographiques.
 La table de données (attributs) est stockée dans un fichier séparé des
 données spatiales. En faisant <code>geopandas.read_file("monfichier.shp")</code>, le
-package fait lui-même le lien entre les observations et leur représentation spatiale ;</li>
+package fait lui-même le lien entre les observations et leur représentation spatiale.</li>
 <li><em>geopackage</em> (<code>.gpkg</code>) : ce (relativement) nouveau format <strong>libre</strong> en un seul fichier également (lui recommandé par l’OGC) vise progressivement à se substituer au shapefile. Il est par exemple le format par défaut dans QGIS.</li>
 <li><em>geojson</em> (<code>.json</code>) : ce format, non préconisé par l’OGC, est largement utilisé pour le développement <em>web</em>
 comme dans la librairie <code>leaflet.js</code>.
 La dimension spatiale est stockée dans le même fichier que les attributs.
 Ces fichiers sont généralement beaucoup plus légers que les <em>shapefiles</em> mais possèdent des limites s’agissant de gros jeux de données.</li>
-<li><em>topojson</em> (<code>.json</code>): une variante du <code>geojson</code> qui se développe progressivement pour assister les visualisations <em>web</em>. Au lieu de stocker l’ensemble des points permettant de représenter une
+<li><em>topojson</em> (<code>.json</code>) : une variante du <code>geojson</code> qui se développe progressivement pour assister les visualisations <em>web</em>. Au lieu de stocker l’ensemble des points permettant de représenter une
 géométrie, seuls les arcs sont conservés. Cela allège substantiellement le poids du fichier et
 permet, avec une librairie adaptée, de reconstruire l’ensemble des contours géographiques.</li>
 </ul>
 <p>Cette <a href="https://si.ecrins-parcnational.com/blog/2020-02-geojson-shapefile-geopackage.html">page</a> compare plus en détail les principes formats de données géographiques.
 L’aide de <a href="https://geopandas.org/io.html"><code>Geopandas</code></a> propose des bouts de code en fonction des différentes situations dans lesquelles on se trouve.</p>
 <section id="exemple-récupérer-les-découpages-territoriaux" class="level3">
-<h3 class="anchored" data-anchor-id="exemple-récupérer-les-découpages-territoriaux">Exemple: récupérer les découpages territoriaux</h3>
+<h3 class="anchored" data-anchor-id="exemple-récupérer-les-découpages-territoriaux">Exemple : récupérer les découpages territoriaux</h3>
 <p>L’un des fonds de carte les plus fréquents qu’on utilise est celui des
 limites administratives des communes.
 Celui-ci peut être récupéré de plusieurs manières.
@@ -1338,7 +1408,7 @@ grâce à <code>cartiflette</code>:</p>
 <pre><code>https://minio.lab.sspcloud.fr/projet-cartiflette/diffusion/shapefiles-test1/year=2022/administrative_level=COMMUNE_ARRONDISSEMENT/crs=4326/DEPARTEMENT=75/vectorfile_format=topojson/provider=IGN/source=EXPRESS-COG-CARTO-TERRITOIRE/raw.topojson</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Downloading: : 0.00iB [00:00, ?iB/s]Downloading: : 8.00kiB [00:00, 61.0kiB/s]Downloading: : 28.0kiB [00:00, 109kiB/s] Downloading: : 40.1kiB [00:00, 141kiB/s]</code></pre>
+<pre><code>Downloading: : 0.00iB [00:00, ?iB/s]Downloading: : 32.0kiB [00:00, 284kiB/s]Downloading: : 40.1kiB [00:00, 348kiB/s]</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="14">
@@ -1417,7 +1487,7 @@ Datum: World Geodetic System 1984 ensemble
 </div>
 <p>Les données sont dans le système de projection WGS84 qui est celui du
 système GPS. Celui-ci s’intègre bien avec les fonds de carte
-<code>Stamen</code>, <code>OpenStreetMap</code> ou <code>Google Maps</code>. En toute rigueur, si on
+<code>OpenStreetMap</code> ou <code>Google Maps</code>. En toute rigueur, si on
 désire effectuer certains calculs géométriques (mesurer des surfaces…), il est
 nécessaire de re-projeter les données dans un système qui préserve la géométrie
 (c’est le cas du Lambert 93).</p>
@@ -1433,7 +1503,7 @@ plus esthétique:</p>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>stations.sample(<span class="dv">200</span>).to_crs(<span class="dv">3857</span>).plot(ax <span class="op">=</span> ax, color <span class="op">=</span> <span class="st">'red'</span>, alpha <span class="op">=</span> <span class="fl">0.4</span>, zorder<span class="op">=</span><span class="dv">2</span>)</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>shp_communes.to_crs(<span class="dv">3857</span>).plot(ax <span class="op">=</span> ax, zorder<span class="op">=</span><span class="dv">1</span>, edgecolor <span class="op">=</span> <span class="st">"black"</span>, facecolor<span class="op">=</span><span class="st">"none"</span>,</span>
 <span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>                                                           color <span class="op">=</span> <span class="va">None</span>)</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co">#ctx.add_basemap(ax, source = ctx.providers.Stamen.Watercolor)</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>ctx.add_basemap(ax, source <span class="op">=</span> ctx.providers.OpenStreetMap.Mapnik)</span>
 <span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1455,7 +1525,7 @@ plus esthétique:</p>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="03_geopandas_tutorial_files/figure-html/cell-21-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="03_geopandas_tutorial_files/figure-html/cell-21-output-2.png" width="815" height="706" class="figure-img"></a></p>
+<p><a href="03_geopandas_tutorial_files/figure-html/cell-21-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="03_geopandas_tutorial_files/figure-html/cell-21-output-2.png" width="811" height="624" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1483,7 +1553,7 @@ plus esthétique:</p>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>stations.sample(<span class="dv">200</span>).to_crs(<span class="dv">3857</span>).plot(ax <span class="op">=</span> ax, color <span class="op">=</span> <span class="st">'red'</span>, alpha <span class="op">=</span> <span class="fl">0.4</span>, zorder<span class="op">=</span><span class="dv">2</span>)</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>shp_communes.to_crs(<span class="dv">3857</span>).plot(ax <span class="op">=</span> ax, zorder<span class="op">=</span><span class="dv">1</span>, edgecolor <span class="op">=</span> <span class="st">"black"</span>, facecolor<span class="op">=</span><span class="st">"none"</span>,</span>
 <span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>                                                           color <span class="op">=</span> <span class="va">None</span>)</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co">#ctx.add_basemap(ax, source = ctx.providers.Stamen.Watercolor)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>ctx.add_basemap(ax, source <span class="op">=</span> ctx.providers.OpenStreetMap.Mapnik)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="24">
 <div class="cell-output cell-output-display" data-execution_count="23">
@@ -1502,7 +1572,7 @@ esthétique.</p>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>stations.sample(<span class="dv">200</span>).to_crs(<span class="dv">3857</span>).plot(ax <span class="op">=</span> ax, color <span class="op">=</span> <span class="st">'red'</span>, alpha <span class="op">=</span> <span class="fl">0.4</span>, zorder<span class="op">=</span><span class="dv">2</span>)</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>shp_communes.to_crs(<span class="dv">3857</span>).plot(ax <span class="op">=</span> ax, zorder<span class="op">=</span><span class="dv">1</span>, edgecolor <span class="op">=</span> <span class="st">"black"</span>, facecolor<span class="op">=</span><span class="st">"none"</span>,</span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>                                                           color <span class="op">=</span> <span class="va">None</span>)</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co">#ctx.add_basemap(ax, source = ctx.providers.Stamen.Watercolor)</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>ctx.add_basemap(ax, source <span class="op">=</span> ctx.providers.OpenStreetMap.Mapnik)</span>
 <span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span>
 <span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>ax</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -2166,7 +2236,7 @@ fera</p>
 <pre><code>https://minio.lab.sspcloud.fr/projet-cartiflette/diffusion/shapefiles-test1/year=2022/administrative_level=COMMUNE/crs=4326/DEPARTEMENT=31/vectorfile_format=topojson/provider=IGN/source=EXPRESS-COG-CARTO-TERRITOIRE/raw.topojson</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Downloading: : 0.00iB [00:00, ?iB/s]Downloading: : 8.00kiB [00:00, 62.8kiB/s]Downloading: : 37.0kiB [00:00, 149kiB/s] Downloading: : 85.0kiB [00:00, 236kiB/s]Downloading: : 189kiB [00:00, 432kiB/s] Downloading: : 389kiB [00:00, 882kiB/s]Downloading: : 745kiB [00:00, 1.66MiB/s]Downloading: : 928kiB [00:00, 1.70MiB/s]Downloading: : 1.58MiB [00:01, 2.95MiB/s]Downloading: : 1.60MiB [00:01, 1.65MiB/s]</code></pre>
+<pre><code>Downloading: : 0.00iB [00:00, ?iB/s]Downloading: : 12.0kiB [00:00, 116kiB/s]Downloading: : 45.0kiB [00:00, 235kiB/s]Downloading: : 101kiB [00:00, 374kiB/s] Downloading: : 213kiB [00:00, 651kiB/s]Downloading: : 437kiB [00:00, 1.19MiB/s]Downloading: : 877kiB [00:00, 2.23MiB/s]Downloading: : 1.60MiB [00:00, 2.30MiB/s]</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="36">
 <pre><code>&lt;Axes: &gt;</code></pre>
@@ -2193,7 +2263,7 @@ d’origine :</p>
 <p>Concernant la gestion des projections avec <code>GeoPandas</code>,
 la <a href="https://geopandas.org/projections.html">documentation officielle</a> est très bien
 faite. Elle fournit notamment l’avertissement suivant qu’il est
-bon d’avoir en tête:</p>
+bon d’avoir en tête :</p>
 <blockquote class="blockquote">
 <p>Be aware that most of the time you don’t have to set a projection. Data loaded from a reputable source (using the geopandas.read_file() command) should always include projection information. You can see an objects current CRS through the GeoSeries.crs attribute.</p>
 <p>From time to time, however, you may get data that does not include a projection. In this situation, you have to set the CRS so geopandas knows how to interpret the coordinates.</p>
@@ -2204,7 +2274,7 @@ bon d’avoir en tête:</p>
 <figcaption class="figure-caption"><em>Image empruntée à XKCD <a href="https://xkcd.com/2256/" class="uri">https://xkcd.com/2256/</a> qu’on peut également trouver sur <a href="https://blog.chrislansdown.com/2020/01/17/a-great-map-projection-joke/" class="uri">https://blog.chrislansdown.com/2020/01/17/a-great-map-projection-joke/</a></em></figcaption>
 </figure>
 </div>
-<p>Pour déterminer le système de projection d’une base de données, on peut vérifier l’attribut <code>crs</code>:</p>
+<p>Pour déterminer le système de projection d’une base de données, on peut vérifier l’attribut <code>crs</code> :</p>
 <div class="cell" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>communes.crs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="38">
@@ -2226,11 +2296,11 @@ Datum: Reseau Geodesique Francais 1993 v1
 </div>
 <p>Les deux principales méthodes pour définir le système de projection utilisé sont :</p>
 <ul>
-<li><strong><code>df.set_crs</code></strong>: cette commande sert à préciser quel est le système de projection utilisé, c’est-à-dire comment les coordonnées <em>(x,y)</em> sont reliées à la surface terrestre. <strong>Cette commande ne doit pas être utilisée pour transformer le système de coordonnées, seulement pour le définir</strong>.</li>
-<li><strong><code>df.to_crs</code></strong>: <strong>cette commande sert à projeter les points d’une géométrie dans une autre, c’est-à-dire à recalculer les coordonnées selon un autre système de projection.</strong></li>
+<li><strong><code>df.set_crs</code></strong> : cette commande sert à préciser quel est le système de projection utilisé, c’est-à-dire comment les coordonnées <em>(x,y)</em> sont reliées à la surface terrestre. <strong>Cette commande ne doit pas être utilisée pour transformer le système de coordonnées, seulement pour le définir</strong>.</li>
+<li><strong><code>df.to_crs</code></strong> : <strong>cette commande sert à projeter les points d’une géométrie dans une autre, c’est-à-dire à recalculer les coordonnées selon un autre système de projection.</strong></li>
 </ul>
 <p>Dans le cas particulier de production de carte avec un fond <code>OpenStreetMaps</code> ou une carte dynamique <code>leaflet</code>, il est nécessaire de dé-projeter les données (par exemple à partir du Lambert-93) pour atterrir dans le système non-projeté WGS 84 (code EPSG 4326). Ce site <a href="https://epsg.io/">dédié aux projections géographiques</a> peut-être utile pour retrouver le système de projection d’un fichier où il n’est pas indiqué.</p>
-<p>La définition du système de projection se fait de la manière suivante (:warning: avant de le faire, se souvenir de l’avertissement !):</p>
+<p>La définition du système de projection se fait de la manière suivante (:warning: avant de le faire, se souvenir de l’avertissement !) :</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>communes <span class="op">=</span> communes.set_crs(<span class="dv">2154</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Alors que la reprojection (projection Albers : <code>5070</code>) s’obtient de la manière suivante :</p>
 <div class="cell" data-execution_count="40">
@@ -2250,7 +2320,7 @@ Datum: Reseau Geodesique Francais 1993 v1
 <pre><code>https://minio.lab.sspcloud.fr/projet-cartiflette/diffusion/shapefiles-test1/year=2022/administrative_level=REGION/crs=4326/FRANCE_ENTIERE=metropole/vectorfile_format=topojson/provider=IGN/source=EXPRESS-COG-CARTO-TERRITOIRE/raw.topojson</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Downloading: : 0.00iB [00:00, ?iB/s]Downloading: : 8.00kiB [00:00, 65.0kiB/s]Downloading: : 32.0kiB [00:00, 130kiB/s] Downloading: : 80.0kiB [00:00, 229kiB/s]Downloading: : 160kiB [00:00, 402kiB/s] Downloading: : 312kiB [00:00, 664kiB/s]Downloading: : 612kiB [00:00, 1.20MiB/s]Downloading: : 812kiB [00:01, 1.03MiB/s]Downloading: : 2.38MiB [00:01, 4.34MiB/s]Downloading: : 2.96MiB [00:01, 4.45MiB/s]Downloading: : 3.68MiB [00:01, 5.15MiB/s]Downloading: : 4.31MiB [00:01, 5.53MiB/s]Downloading: : 4.76MiB [00:01, 3.13MiB/s]</code></pre>
+<pre><code>Downloading: : 0.00iB [00:00, ?iB/s]Downloading: : 12.0kiB [00:00, 118kiB/s]Downloading: : 41.0kiB [00:00, 214kiB/s]Downloading: : 93.0kiB [00:00, 345kiB/s]Downloading: : 189kiB [00:00, 575kiB/s] Downloading: : 389kiB [00:00, 1.06MiB/s]Downloading: : 789kiB [00:00, 2.01MiB/s]Downloading: : 1.55MiB [00:00, 3.88MiB/s]Downloading: : 2.77MiB [00:00, 6.60MiB/s]Downloading: : 4.76MiB [00:00, 5.32MiB/s]</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="39">
 <pre><code>&lt;Axes: &gt;</code></pre>
@@ -2623,7 +2693,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","loop":true,"openEffect":"zoom","selector":".lightbox","closeEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","closeEffect":"zoom","openEffect":"zoom","loop":true,"selector":".lightbox"});</script>
 
 
 

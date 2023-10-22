@@ -662,8 +662,8 @@ où le <em>web scraping</em> est plus proche du comportement dans le <em>Far Wes
 <section id="les-bonnes-pratiques" class="level3">
 <h3 class="anchored" data-anchor-id="les-bonnes-pratiques">Les bonnes pratiques</h3>
 <p>La possibilité de récupérer des données par l’intermédiaire
-d’un robot ne signifie pas qu’on peut se permettre de n’être
-pas civilisé. En effet, lorsqu’il est non-maîtrisé, le
+d’un robot ne signifie pas qu’on peut se permettre de ne pas être
+civilisé. En effet, lorsqu’il est non-maîtrisé, le
 <em>webscraping</em> peut ressembler à une attaque informatique
 classique pour faire sauter un site <em>web</em> : le déni de service.
 Le cours d’<a href="https://inseefrlab.github.io/formation-webscraping/">Antoine Palazzolo</a> revient
@@ -856,7 +856,7 @@ de comprendre la structure d’une page web et dissocier les éléments exportab
 de faire communiquer <code>Python</code> avec un navigateur <em>web</em> (Firefox ou Chromium).
 Le <em>package</em> <code>webdriver-manager</code> permet de faire savoir à <code>Python</code> où
 se trouve ce navigateur s’il est déjà installé dans un chemin standard.
-Pour l’installer, le code de la cellule ci-dessous peut être utilisé</p>
+Pour l’installer, le code de la cellule ci-dessous peut être utilisé.</p>
 </div>
 </div>
 <p>Pour faire fonctionner <code>Selenium</code>, il faut utiliser un package
@@ -887,7 +887,7 @@ WARNING: Running pip as the 'root' user can result in broken permissions and con
 <h3 class="anchored" data-anchor-id="récupérer-le-contenu-dune-page-html">Récupérer le contenu d’une page HTML</h3>
 <p>On va commencer doucement. Prenons une page <em>wikipedia</em>,
 par exemple celle de la Ligue 1 de football, millésime 2019-2020 : <a href="https://fr.wikipedia.org/wiki/Championnat_de_France_de_football_2019-2020">Championnat de France de football 2019-2020</a>. On va souhaiter récupérer la liste des équipes, ainsi que les url des pages Wikipedia de ces équipes.</p>
-<p>Etape :one: : se connecter à la page wikipedia et obtenir le code source.
+<p>Etape 1️⃣ : se connecter à la page wikipedia et obtenir le code source.
 Pour cela, le plus simple est d’utiliser le package <code>urllib</code> ou, mieux, <code>requests</code>.
 Nous allons ici utiliser la fonction <code>request</code> du <em>package</em> <code>urllib</code>:</p>
 <div class="cell" data-execution_count="4">
@@ -902,7 +902,7 @@ Nous allons ici utiliser la fonction <code>request</code> du <em>package</em> <c
 <pre><code>bytes</code></pre>
 </div>
 </div>
-<p>Etape :two: : utiliser le package BeautifulSoup
+<p>Etape 2️⃣ : utiliser le package BeautifulSoup
 qui permet de rechercher efficacement
 les balises contenues dans la chaine de caractères
 renvoyée par la fonction <code>request</code>:</p>
@@ -925,7 +925,7 @@ On peut à présent chercher des élements à l’intérieur de ces balises.</p>
 <p>La methode <code>.find</code> ne renvoie que la première occurence de l’élément.</p>
 <p>Pour vous en assurer vous pouvez :</p>
 <ul>
-<li>copier le bout de code source obtenu,</li>
+<li>copier le bout de code source obtenu lorsque vous chercher une <code>table</code>,</li>
 <li>le coller dans une cellule de votre notebook</li>
 <li>et passer la cellule en <em>“Markdown”</em></li>
 </ul>
@@ -1081,7 +1081,7 @@ on a le tableau avec les résultats de l’année.</p>
 </ol>
 </div>
 </div>
-<p>1️ Trouver le tableau</p>
+<p>1️⃣ Trouver le tableau</p>
 <div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># on identifie le tableau en question : c'est le premier qui a cette classe "wikitable sortable"</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>tableau_participants <span class="op">=</span> page.find(<span class="st">'table'</span>, {<span class="st">'class'</span> : <span class="st">'wikitable sortable'</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1704,7 +1704,7 @@ Nombre<br>de saisons<br>en L1
 
 </table>
 </div>
-<p>2️ Récupérer chaque ligne du tableau.</p>
+<p>2️⃣ Récupérer chaque ligne du tableau</p>
 <p>On recherche d’abord toutes les lignes du tableau avec la balise <code>tr</code></p>
 <div class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>table_body <span class="op">=</span> tableau_participants.find(<span class="st">'tbody'</span>)</span>
@@ -1762,7 +1762,7 @@ Celle-ci correspont aux entêtes de colonne:</p>
 &lt;/td&gt;&lt;/tr&gt;</code></pre>
 </div>
 </div>
-<p>3️ Nettoyer les sorties en ne gardant que le texte sur une ligne</p>
+<p>3️⃣ Nettoyer les sorties en ne gardant que le texte sur une ligne</p>
 <p>On va utiliser l’attribut <code>text</code> afin de se débarasser de toute la couche de HTML qu’on obtient à l’étape 2.</p>
 <p>Un exemple sur la ligne du premier club :
 - on commence par prendre toutes les cellules de cette ligne, avec la balise <code>td</code>.
@@ -1793,7 +1793,7 @@ Parc des Princes
 46</code></pre>
 </div>
 </div>
-<p>4️ Généraliser sur toutes les lignes :</p>
+<p>4️⃣ Généraliser sur toutes les lignes :</p>
 <div class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> rows:</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    cols <span class="op">=</span> row.find_all(<span class="st">'td'</span>)</span>
@@ -2081,7 +2081,7 @@ Mais la première ligne est étrange : c’est une liste vide …</p>
 </div>
 </div>
 </div>
-<p>5️ Récupérer les en-têtes du tableau:</p>
+<p>5️⃣ Récupérer les en-têtes du tableau:</p>
 <div class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> rows:</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    cols <span class="op">=</span> row.find_all(<span class="st">'th'</span>)</span>
@@ -2136,7 +2136,7 @@ Mais la première ligne est étrange : c’est une liste vide …</p>
  'Nombre De Saisons En L1']</code></pre>
 </div>
 </div>
-<p>6️ Finalisation du tableau</p>
+<p>6️⃣ Finalisation du tableau</p>
 <div class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>data_participants.columns <span class="op">=</span> columns_participants[<span class="dv">1</span>:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -2239,77 +2239,71 @@ Mais la première ligne est étrange : c’est une liste vide …</p>
 <span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>latitude_stade<span class="op">=</span>[]        </span>
 <span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>longitude_stade<span class="op">=</span>[]     </span>
 <span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dms2dd(degrees, minutes, seconds, direction):</span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    dd <span class="op">=</span> <span class="bu">float</span>(degrees) <span class="op">+</span> <span class="bu">float</span>(minutes)<span class="op">/</span><span class="dv">60</span> <span class="op">+</span> <span class="bu">float</span>(seconds)<span class="op">/</span>(<span class="dv">60</span><span class="op">*</span><span class="dv">60</span>)<span class="op">;</span></span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> direction <span class="op">==</span> <span class="st">'S'</span> <span class="kw">or</span> direction <span class="op">==</span> <span class="st">'O'</span>:</span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>        dd <span class="op">*=</span> <span class="op">-</span><span class="dv">1</span></span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dd<span class="op">;</span></span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>url_list<span class="op">=</span>[<span class="st">"http://fr.wikipedia.org/wiki/Championnat_de_France_de_football_2019-2020"</span>, <span class="st">"http://fr.wikipedia.org/wiki/Championnat_de_France_de_football_de_Ligue_2_2019-2020"</span>]</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>url_list<span class="op">=</span>[<span class="st">"http://fr.wikipedia.org/wiki/Championnat_de_France_de_football_2019-2020"</span>, <span class="st">"http://fr.wikipedia.org/wiki/Championnat_de_France_de_football_de_Ligue_2_2019-2020"</span>]</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> url_ligue <span class="kw">in</span> url_list :</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(url_ligue)</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>    sock <span class="op">=</span> urllib.request.urlopen(url_ligue).read() </span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>    page<span class="op">=</span>bs4.BeautifulSoup(sock)</span>
 <span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> url_ligue <span class="kw">in</span> url_list :</span>
-<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(url_ligue)</span>
-<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>    sock <span class="op">=</span> urllib.request.urlopen(url_ligue).read() </span>
-<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>    page<span class="op">=</span>bs4.BeautifulSoup(sock)</span>
-<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Rechercher les liens des équipes dans la liste disponible sur wikipedia </span></span>
-<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> team <span class="kw">in</span> page.findAll(<span class="st">'span'</span> , {<span class="st">'class'</span> : <span class="st">'toponyme'</span>}) :  </span>
-<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Indiquer si c'est de la ligue 1 ou de la ligue 2</span></span>
-<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> url_ligue<span class="op">==</span>url_list[<span class="dv">0</span>] :</span>
-<span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a>            division.append(<span class="st">"L1"</span>)</span>
-<span id="cb40-33"><a href="#cb40-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> :</span>
-<span id="cb40-34"><a href="#cb40-34" aria-hidden="true" tabindex="-1"></a>            division.append(<span class="st">"L2"</span>)</span>
-<span id="cb40-35"><a href="#cb40-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-36"><a href="#cb40-36" aria-hidden="true" tabindex="-1"></a>       <span class="co"># Trouver le nom et le lien de l'équipe</span></span>
-<span id="cb40-37"><a href="#cb40-37" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb40-38"><a href="#cb40-38" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> team.find(<span class="st">'a'</span>)<span class="op">!=</span><span class="va">None</span> :</span>
-<span id="cb40-39"><a href="#cb40-39" aria-hidden="true" tabindex="-1"></a>            team_url<span class="op">=</span>team.find(<span class="st">'a'</span>).get(<span class="st">'href'</span>)</span>
-<span id="cb40-40"><a href="#cb40-40" aria-hidden="true" tabindex="-1"></a>            name_team<span class="op">=</span>team.find(<span class="st">'a'</span>).get(<span class="st">'title'</span>)</span>
-<span id="cb40-41"><a href="#cb40-41" aria-hidden="true" tabindex="-1"></a>            equipe.append(name_team)</span>
-<span id="cb40-42"><a href="#cb40-42" aria-hidden="true" tabindex="-1"></a>            url_get_info <span class="op">=</span> <span class="st">"http://fr.wikipedia.org"</span><span class="op">+</span>team_url</span>
-<span id="cb40-43"><a href="#cb40-43" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(url_get_info)</span>
-<span id="cb40-44"><a href="#cb40-44" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb40-45"><a href="#cb40-45" aria-hidden="true" tabindex="-1"></a>       <span class="co"># aller sur la page de l'équipe</span></span>
-<span id="cb40-46"><a href="#cb40-46" aria-hidden="true" tabindex="-1"></a>           </span>
-<span id="cb40-47"><a href="#cb40-47" aria-hidden="true" tabindex="-1"></a>            search <span class="op">=</span> urllib.request.urlopen(url_get_info).read()</span>
-<span id="cb40-48"><a href="#cb40-48" aria-hidden="true" tabindex="-1"></a>            search_team<span class="op">=</span>bs4.BeautifulSoup(search)</span>
-<span id="cb40-49"><a href="#cb40-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-50"><a href="#cb40-50" aria-hidden="true" tabindex="-1"></a>       <span class="co"># trouver le stade             </span></span>
-<span id="cb40-51"><a href="#cb40-51" aria-hidden="true" tabindex="-1"></a>            compteur <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb40-52"><a href="#cb40-52" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> stadium <span class="kw">in</span> search_team.findAll(<span class="st">'tr'</span>):</span>
-<span id="cb40-53"><a href="#cb40-53" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> x <span class="kw">in</span> stadium.findAll(<span class="st">'th'</span> , {<span class="st">'scope'</span> : <span class="st">'row'</span>} ) :</span>
-<span id="cb40-54"><a href="#cb40-54" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> x.contents[<span class="dv">0</span>].string<span class="op">==</span><span class="st">"Stade"</span> <span class="kw">and</span> compteur <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb40-55"><a href="#cb40-55" aria-hidden="true" tabindex="-1"></a>                        compteur <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb40-56"><a href="#cb40-56" aria-hidden="true" tabindex="-1"></a>                        <span class="co"># trouver le lien du stade et son nom</span></span>
-<span id="cb40-57"><a href="#cb40-57" aria-hidden="true" tabindex="-1"></a>                        url_stade<span class="op">=</span>stadium.findAll(<span class="st">'a'</span>)[<span class="dv">1</span>].get(<span class="st">'href'</span>)</span>
-<span id="cb40-58"><a href="#cb40-58" aria-hidden="true" tabindex="-1"></a>                        name_stadium<span class="op">=</span>stadium.findAll(<span class="st">'a'</span>)[<span class="dv">1</span>].get(<span class="st">'title'</span>)</span>
-<span id="cb40-59"><a href="#cb40-59" aria-hidden="true" tabindex="-1"></a>                        stade.append(name_stadium)</span>
-<span id="cb40-60"><a href="#cb40-60" aria-hidden="true" tabindex="-1"></a>                        url_get_stade <span class="op">=</span> <span class="st">"http://fr.wikipedia.org"</span><span class="op">+</span>url_stade</span>
-<span id="cb40-61"><a href="#cb40-61" aria-hidden="true" tabindex="-1"></a>                        <span class="bu">print</span>(url_get_stade)</span>
-<span id="cb40-62"><a href="#cb40-62" aria-hidden="true" tabindex="-1"></a>                        </span>
-<span id="cb40-63"><a href="#cb40-63" aria-hidden="true" tabindex="-1"></a>                        <span class="co"># Aller sur la page du stade et trouver ses coodronnées géographiques</span></span>
-<span id="cb40-64"><a href="#cb40-64" aria-hidden="true" tabindex="-1"></a>                        </span>
-<span id="cb40-65"><a href="#cb40-65" aria-hidden="true" tabindex="-1"></a>                        search_stade <span class="op">=</span> urllib.request.urlopen(url_get_stade).read()</span>
-<span id="cb40-66"><a href="#cb40-66" aria-hidden="true" tabindex="-1"></a>                        soup_stade<span class="op">=</span>bs4.BeautifulSoup(search_stade) </span>
-<span id="cb40-67"><a href="#cb40-67" aria-hidden="true" tabindex="-1"></a>                        kartographer <span class="op">=</span> soup_stade.find(<span class="st">'a'</span>,{<span class="st">'class'</span>: <span class="st">"mw-kartographer-maplink"</span>})</span>
-<span id="cb40-68"><a href="#cb40-68" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">if</span> kartographer <span class="op">==</span> <span class="va">None</span> :</span>
-<span id="cb40-69"><a href="#cb40-69" aria-hidden="true" tabindex="-1"></a>                          latitude_stade.append(<span class="va">None</span>)</span>
-<span id="cb40-70"><a href="#cb40-70" aria-hidden="true" tabindex="-1"></a>                          longitude_stade.append(<span class="va">None</span>) </span>
-<span id="cb40-71"><a href="#cb40-71" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">else</span> :</span>
-<span id="cb40-72"><a href="#cb40-72" aria-hidden="true" tabindex="-1"></a>                            <span class="cf">for</span> coordinates <span class="kw">in</span> kartographer :</span>
-<span id="cb40-73"><a href="#cb40-73" aria-hidden="true" tabindex="-1"></a>                                <span class="bu">print</span>(coordinates)</span>
-<span id="cb40-74"><a href="#cb40-74" aria-hidden="true" tabindex="-1"></a>                                liste <span class="op">=</span>   coordinates.split(<span class="st">","</span>)          </span>
-<span id="cb40-75"><a href="#cb40-75" aria-hidden="true" tabindex="-1"></a>                                latitude_stade.append(<span class="bu">str</span>(liste[<span class="dv">0</span>]).replace(<span class="st">" "</span>, <span class="st">""</span>) <span class="op">+</span> <span class="st">"'"</span>)</span>
-<span id="cb40-76"><a href="#cb40-76" aria-hidden="true" tabindex="-1"></a>                                longitude_stade.append(<span class="bu">str</span>(liste[<span class="dv">1</span>]).replace(<span class="st">" "</span>, <span class="st">""</span>) <span class="op">+</span> <span class="st">"'"</span>)</span>
-<span id="cb40-77"><a href="#cb40-77" aria-hidden="true" tabindex="-1"></a>                            </span>
-<span id="cb40-78"><a href="#cb40-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-79"><a href="#cb40-79" aria-hidden="true" tabindex="-1"></a><span class="bu">dict</span> <span class="op">=</span> {<span class="st">'division'</span> : division , <span class="st">'equipe'</span>: equipe, <span class="st">'stade'</span>: stade, <span class="st">'latitude'</span>: latitude_stade, <span class="st">'longitude'</span> : longitude_stade}</span>
-<span id="cb40-80"><a href="#cb40-80" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.DataFrame(<span class="bu">dict</span>)</span>
-<span id="cb40-81"><a href="#cb40-81" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data.dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Rechercher les liens des équipes dans la liste disponible sur wikipedia </span></span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> team <span class="kw">in</span> page.findAll(<span class="st">'span'</span> , {<span class="st">'class'</span> : <span class="st">'toponyme'</span>}) :  </span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Indiquer si c'est de la ligue 1 ou de la ligue 2</span></span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> url_ligue<span class="op">==</span>url_list[<span class="dv">0</span>] :</span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>            division.append(<span class="st">"L1"</span>)</span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> :</span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>            division.append(<span class="st">"L2"</span>)</span>
+<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a>       <span class="co"># Trouver le nom et le lien de l'équipe</span></span>
+<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> team.find(<span class="st">'a'</span>)<span class="op">!=</span><span class="va">None</span> :</span>
+<span id="cb40-33"><a href="#cb40-33" aria-hidden="true" tabindex="-1"></a>            team_url<span class="op">=</span>team.find(<span class="st">'a'</span>).get(<span class="st">'href'</span>)</span>
+<span id="cb40-34"><a href="#cb40-34" aria-hidden="true" tabindex="-1"></a>            name_team<span class="op">=</span>team.find(<span class="st">'a'</span>).get(<span class="st">'title'</span>)</span>
+<span id="cb40-35"><a href="#cb40-35" aria-hidden="true" tabindex="-1"></a>            equipe.append(name_team)</span>
+<span id="cb40-36"><a href="#cb40-36" aria-hidden="true" tabindex="-1"></a>            url_get_info <span class="op">=</span> <span class="st">"http://fr.wikipedia.org"</span><span class="op">+</span>team_url</span>
+<span id="cb40-37"><a href="#cb40-37" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(url_get_info)</span>
+<span id="cb40-38"><a href="#cb40-38" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb40-39"><a href="#cb40-39" aria-hidden="true" tabindex="-1"></a>       <span class="co"># aller sur la page de l'équipe</span></span>
+<span id="cb40-40"><a href="#cb40-40" aria-hidden="true" tabindex="-1"></a>           </span>
+<span id="cb40-41"><a href="#cb40-41" aria-hidden="true" tabindex="-1"></a>            search <span class="op">=</span> urllib.request.urlopen(url_get_info).read()</span>
+<span id="cb40-42"><a href="#cb40-42" aria-hidden="true" tabindex="-1"></a>            search_team<span class="op">=</span>bs4.BeautifulSoup(search)</span>
+<span id="cb40-43"><a href="#cb40-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-44"><a href="#cb40-44" aria-hidden="true" tabindex="-1"></a>       <span class="co"># trouver le stade             </span></span>
+<span id="cb40-45"><a href="#cb40-45" aria-hidden="true" tabindex="-1"></a>            compteur <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb40-46"><a href="#cb40-46" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> stadium <span class="kw">in</span> search_team.findAll(<span class="st">'tr'</span>):</span>
+<span id="cb40-47"><a href="#cb40-47" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> x <span class="kw">in</span> stadium.findAll(<span class="st">'th'</span> , {<span class="st">'scope'</span> : <span class="st">'row'</span>} ) :</span>
+<span id="cb40-48"><a href="#cb40-48" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> x.contents[<span class="dv">0</span>].string<span class="op">==</span><span class="st">"Stade"</span> <span class="kw">and</span> compteur <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb40-49"><a href="#cb40-49" aria-hidden="true" tabindex="-1"></a>                        compteur <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb40-50"><a href="#cb40-50" aria-hidden="true" tabindex="-1"></a>                        <span class="co"># trouver le lien du stade et son nom</span></span>
+<span id="cb40-51"><a href="#cb40-51" aria-hidden="true" tabindex="-1"></a>                        url_stade<span class="op">=</span>stadium.findAll(<span class="st">'a'</span>)[<span class="dv">1</span>].get(<span class="st">'href'</span>)</span>
+<span id="cb40-52"><a href="#cb40-52" aria-hidden="true" tabindex="-1"></a>                        name_stadium<span class="op">=</span>stadium.findAll(<span class="st">'a'</span>)[<span class="dv">1</span>].get(<span class="st">'title'</span>)</span>
+<span id="cb40-53"><a href="#cb40-53" aria-hidden="true" tabindex="-1"></a>                        stade.append(name_stadium)</span>
+<span id="cb40-54"><a href="#cb40-54" aria-hidden="true" tabindex="-1"></a>                        url_get_stade <span class="op">=</span> <span class="st">"http://fr.wikipedia.org"</span><span class="op">+</span>url_stade</span>
+<span id="cb40-55"><a href="#cb40-55" aria-hidden="true" tabindex="-1"></a>                        <span class="bu">print</span>(url_get_stade)</span>
+<span id="cb40-56"><a href="#cb40-56" aria-hidden="true" tabindex="-1"></a>                        </span>
+<span id="cb40-57"><a href="#cb40-57" aria-hidden="true" tabindex="-1"></a>                        <span class="co"># Aller sur la page du stade et trouver ses coodronnées géographiques</span></span>
+<span id="cb40-58"><a href="#cb40-58" aria-hidden="true" tabindex="-1"></a>                        </span>
+<span id="cb40-59"><a href="#cb40-59" aria-hidden="true" tabindex="-1"></a>                        search_stade <span class="op">=</span> urllib.request.urlopen(url_get_stade).read()</span>
+<span id="cb40-60"><a href="#cb40-60" aria-hidden="true" tabindex="-1"></a>                        soup_stade<span class="op">=</span>bs4.BeautifulSoup(search_stade) </span>
+<span id="cb40-61"><a href="#cb40-61" aria-hidden="true" tabindex="-1"></a>                        kartographer <span class="op">=</span> soup_stade.find(<span class="st">'a'</span>,{<span class="st">'class'</span>: <span class="st">"mw-kartographer-maplink"</span>})</span>
+<span id="cb40-62"><a href="#cb40-62" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">if</span> kartographer <span class="op">==</span> <span class="va">None</span> :</span>
+<span id="cb40-63"><a href="#cb40-63" aria-hidden="true" tabindex="-1"></a>                          latitude_stade.append(<span class="va">None</span>)</span>
+<span id="cb40-64"><a href="#cb40-64" aria-hidden="true" tabindex="-1"></a>                          longitude_stade.append(<span class="va">None</span>) </span>
+<span id="cb40-65"><a href="#cb40-65" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">else</span> :</span>
+<span id="cb40-66"><a href="#cb40-66" aria-hidden="true" tabindex="-1"></a>                            <span class="cf">for</span> coordinates <span class="kw">in</span> kartographer :</span>
+<span id="cb40-67"><a href="#cb40-67" aria-hidden="true" tabindex="-1"></a>                                <span class="bu">print</span>(coordinates)</span>
+<span id="cb40-68"><a href="#cb40-68" aria-hidden="true" tabindex="-1"></a>                                liste <span class="op">=</span>   coordinates.split(<span class="st">","</span>)          </span>
+<span id="cb40-69"><a href="#cb40-69" aria-hidden="true" tabindex="-1"></a>                                latitude_stade.append(<span class="bu">str</span>(liste[<span class="dv">0</span>]).replace(<span class="st">" "</span>, <span class="st">""</span>) <span class="op">+</span> <span class="st">"'"</span>)</span>
+<span id="cb40-70"><a href="#cb40-70" aria-hidden="true" tabindex="-1"></a>                                longitude_stade.append(<span class="bu">str</span>(liste[<span class="dv">1</span>]).replace(<span class="st">" "</span>, <span class="st">""</span>) <span class="op">+</span> <span class="st">"'"</span>)</span>
+<span id="cb40-71"><a href="#cb40-71" aria-hidden="true" tabindex="-1"></a>                            </span>
+<span id="cb40-72"><a href="#cb40-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-73"><a href="#cb40-73" aria-hidden="true" tabindex="-1"></a><span class="bu">dict</span> <span class="op">=</span> {<span class="st">'division'</span> : division , <span class="st">'equipe'</span>: equipe, <span class="st">'stade'</span>: stade, <span class="st">'latitude'</span>: latitude_stade, <span class="st">'longitude'</span> : longitude_stade}</span>
+<span id="cb40-74"><a href="#cb40-74" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.DataFrame(<span class="bu">dict</span>)</span>
+<span id="cb40-75"><a href="#cb40-75" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data.dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>http://fr.wikipedia.org/wiki/Championnat_de_France_de_football_2019-2020
 http://fr.wikipedia.org/wiki/Paris_Saint-Germain_Football_Club
@@ -3332,7 +3326,7 @@ pouvez faire <code>click droit &gt; Copier &gt; XPath</code>.</p>
 <div class="cell" data-execution_count="53">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>['https://news.yahoo.com/built-empire-lies-trump-org-144226883.html', 'https://www.msn.com/en-us/news/politics/ramaswamys-dilemma-why-support-the-america-first-20-candidate-when-trumps-in-the-2024-race/ar-AA1ipR4S', 'https://www.msn.com/en-us/news/politics/aileen-cannon-just-made-trumps-life-easier/ar-AA1innLk', 'https://www.msn.com/en-us/news/us/trump-s-statements-pose-grave-threats-to-court-proceedings-judge-chutkan-says-in-written-gag-order/ar-AA1insaz', 'https://www.msn.com/en-us/news/politics/trump-appeals-partial-gag-order-against-him-in-special-counsel-jack-smiths-jan-6-case/ar-AA1inL0R', 'https://www.msn.com/en-us/news/politics/desantis-and-haley-split-over-palestinian-refugees-as-rivalry-to-be-top-trump-alternative-intensifies/ar-AA1irumz', 'https://www.msn.com/en-us/news/politics/trump-pledges-to-expel-immigrants-who-support-hamas-ban-muslims-from-the-us/ar-AA1inIA8', 'https://www.msn.com/en-us/news/other/rfk-jr-poll-spells-disaster-for-donald-trump/ar-AA1irnDl']</code></pre>
+<pre><code>['https://www.msn.com/en-us/news/other/donald-trump-congratulates-joe-biden/ar-AA1iCrRD', 'https://www.msn.com/en-us/news/other/back-to-back-plea-deals-pose-grave-legal-threat-to-donald-trump/ar-AA1iChwT', 'https://www.msn.com/en-us/news/other/attorney-explains-most-significant-fact-of-trump-lawyers-guilty-pleas/ar-AA1iCIgT', 'https://www.theguardian.com/world/2023/oct/22/argentina-javier-milei-presidential-election?ref=upstract.com', 'https://news.yahoo.com/day-oct-22-pipe-bomb-070007588.html', 'https://www.msn.com/en-us/news/politics/sidney-powell-was-trump-s-biggest-fighter-now-she-s-a-big-threat/ar-AA1iD8CV', 'https://www.msn.com/en-us/news/us/new-york-judge-fines-trump-5k-for-violating-partial-gag-order-in-civil-fraud-trial/ar-AA1iAoWW', 'https://www.msn.com/en-us/news/politics/judge-temporarily-lifts-narrow-gag-order-on-trump-in-2020-election-interference-case/ar-AA1iAyTB']</code></pre>
 </div>
 </div>
 <p>Les autres méthodes utiles de <code>Selenium</code>:</p>
@@ -3672,7 +3666,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","loop":true,"descPosition":"bottom","selector":".lightbox","openEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":true,"descPosition":"bottom","closeEffect":"zoom","openEffect":"zoom"});</script>
 
 
 
