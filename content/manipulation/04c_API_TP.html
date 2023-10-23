@@ -754,7 +754,7 @@ géographiques :</p>
 
 The Shapely GEOS version (3.12.0-CAPI-1.18.0) is incompatible with the GEOS version PyGEOS was compiled with (3.10.4-CAPI-1.16.2). Conversions between both will be slow.
 
-/tmp/ipykernel_3638/2008334648.py:2: UserWarning:
+/tmp/ipykernel_3637/2008334648.py:2: UserWarning:
 
 Shapely 2.0 is installed, but because PyGEOS is also installed, GeoPandas will still use PyGEOS by default for now. To force to use and test Shapely 2.0, you have to set the environment variable USE_PYGEOS=0. You can do this before starting the Python process, or in your code before importing geopandas:
 
@@ -1064,7 +1064,7 @@ les auto-écoles ayant présenté au moins 20 personnes à l’examen.</p>
 <span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.loc[df[<span class="st">"B_NB"</span>]<span class="op">&gt;</span><span class="dv">20</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_3638/1059845781.py:16: UserWarning:
+<pre><code>/tmp/ipykernel_3637/1059845781.py:16: UserWarning:
 
 This pattern is interpreted as a regular expression, and has match groups. To actually get the groups, use str.extract.
 </code></pre>
@@ -1224,7 +1224,7 @@ utilisant <code>io.StringIO</code> pour éviter d’écrire des données interm�
 </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>--- 26.666884422302246 seconds ---</code></pre>
+<pre><code>--- 33.37414312362671 seconds ---</code></pre>
 </div>
 </div>
 <p>Cette méthode est beaucoup plus rapide et permet ainsi, une fois retourné à nos
@@ -1254,94 +1254,94 @@ données initiales, d’avoir un jeu de données géolocalisé</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">6473</td>
-<td>POUR VOUS C EST PERMIS</td>
-<td>1 place de la monnaie</td>
-<td>64000</td>
-<td>pau</td>
-<td>43.293933</td>
-<td>-0.375446</td>
+<td data-quarto-table-cell-role="th">1083</td>
+<td>AUTO ECOLE MARCO</td>
+<td>44 boulevard de la republique</td>
+<td>13400</td>
+<td>aubagne</td>
+<td>43.291801</td>
+<td>5.569064</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">4224</td>
-<td>BERLY/ LA CHAPELLE CONDUITE</td>
-<td>1 rue du plessis</td>
-<td>44240</td>
-<td>la chapelle sur erdre</td>
-<td>47.300744</td>
-<td>-1.552344</td>
+<td data-quarto-table-cell-role="th">3917</td>
+<td>RAPID'PERMIS</td>
+<td>49 rue faubourg chartrain</td>
+<td>41100</td>
+<td>vendome</td>
+<td>47.796805</td>
+<td>1.068391</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">10104</td>
-<td>AUTO ECOLE DE COLOMBES</td>
-<td>4 avenue menelotte</td>
-<td>92700</td>
-<td>colombes</td>
-<td>48.924110</td>
-<td>2.259510</td>
+<td data-quarto-table-cell-role="th">10469</td>
+<td>AUTO ECOLE DE BRETAGNE</td>
+<td>103 boulevard de creteil</td>
+<td>94100</td>
+<td>saint maur des fosses</td>
+<td>48.798121</td>
+<td>2.486878</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">5790</td>
-<td>AUTO ECOLE STEPHANIE DOUAY</td>
-<td>26 chausse de l hotel de ville</td>
-<td>59650</td>
-<td>villeneuve d ascq</td>
-<td>50.618554</td>
-<td>3.132959</td>
+<td data-quarto-table-cell-role="th">5869</td>
+<td>D.JULES AUTO ECOLE</td>
+<td>24 rue de la république</td>
+<td>60100</td>
+<td>creil</td>
+<td>49.260013</td>
+<td>2.474995</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">6045</td>
-<td>Car' in conduite</td>
-<td>25 place de la république</td>
-<td>61400</td>
-<td>mortagne au perche</td>
-<td>48.520856</td>
-<td>0.544141</td>
+<td data-quarto-table-cell-role="th">8846</td>
+<td>ZITOUNI. ALAIN</td>
+<td>24 rue cayrol</td>
+<td>81100</td>
+<td>castres</td>
+<td>43.603302</td>
+<td>2.246440</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1379</td>
-<td>AUTO ECOLE PLAZER SAINT YRIEIX</td>
-<td>rue des arcades</td>
-<td>16710</td>
-<td>saint yrieix</td>
-<td>45.674544</td>
-<td>0.126381</td>
+<td data-quarto-table-cell-role="th">6137</td>
+<td>LINDA</td>
+<td>215 rue du général de gaulle</td>
+<td>62138</td>
+<td>billy-berclau</td>
+<td>50.522565</td>
+<td>2.873210</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">298</td>
-<td>AE BRUNA ROSSO GAP</td>
-<td>8 cours victor hugo</td>
-<td>05000</td>
-<td>gap</td>
-<td>44.561829</td>
-<td>6.077824</td>
+<td data-quarto-table-cell-role="th">6025</td>
+<td>AUTO ECOLE ECUBEENNE</td>
+<td>5 place saint denis</td>
+<td>61150</td>
+<td>ecouche</td>
+<td>48.717834</td>
+<td>-0.123664</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">10430</td>
-<td>AUTO MOTO ECOLE L'ILO</td>
-<td>74 avenue d'enghien</td>
-<td>93800</td>
-<td>epinay-sur-seine</td>
-<td>48.960725</td>
-<td>2.306745</td>
+<td data-quarto-table-cell-role="th">10511</td>
+<td>CER DU MARCHE</td>
+<td>24 rue henri barbusse</td>
+<td>94450</td>
+<td>limeil-brévannes</td>
+<td>48.751449</td>
+<td>2.487921</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">7617</td>
-<td>LA GRANGETTE - ALLINGES</td>
-<td>40 route blaves</td>
-<td>74200</td>
-<td>allinges</td>
-<td>46.334859</td>
-<td>6.479736</td>
+<td data-quarto-table-cell-role="th">1557</td>
+<td>ANTONIOL GERARD</td>
+<td>avenue du midi</td>
+<td>19230</td>
+<td>arnac-pompadour</td>
+<td>45.393915</td>
+<td>1.376973</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">6818</td>
-<td>STARTER</td>
-<td>42 rue de général leclerc</td>
-<td>67550</td>
-<td>vendenheim</td>
-<td>48.669568</td>
-<td>7.707401</td>
+<td data-quarto-table-cell-role="th">8901</td>
+<td>J'M CONDUIRE LACAPELLE</td>
+<td>76 faubourg lacapelle</td>
+<td>82000</td>
+<td>montauban</td>
+<td>44.014475</td>
+<td>1.358988</td>
 </tr>
 </tbody>
 </table>
@@ -2114,7 +2114,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"loop":true,"openEffect":"zoom","descPosition":"bottom","selector":".lightbox","closeEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","loop":true,"selector":".lightbox","descPosition":"bottom","closeEffect":"zoom"});</script>
 
 
 
