@@ -636,7 +636,7 @@ avec restrictions d’accès.</p>
 <p><a href="https://www.book.utilitr.org/api.html"><code>utilitR</code></a></p>
 </blockquote>
 <p>Voici les éléments importants à avoir en tête sur les requêtes (j’emprunte encore
-à <a href="https://www.book.utilitr.org/api.html"><code>utilitR</code></a>):</p>
+à <a href="https://www.book.utilitr.org/api.html"><code>utilitR</code></a>) :</p>
 <ul>
 <li>Le <strong>point d’entrée</strong> d’un service offert par une API se présente sous la forme d’une URL (adresse web).
 Chaque service proposé par une API a sa propre URL. Par exemple, dans le cas de l’OpenFood Facts,
@@ -683,11 +683,11 @@ package <code>request</code>
 sur un url dont la structure est la suivante :</p>
 <ul>
 <li>il commencera par <code>https://koumoul.com/data-fair/api/v1/datasets/dpe-france/values/</code> ;</li>
-<li>il sera ensuite suivi par des paramètres de recherche? Le champ <code>{field}</code>
-commande ainsi généralement par un <code>?</code> qui permet ensuite de spécifier des paramètres
+<li>il sera ensuite suivi par des paramètres de recherche. Le champ <code>{field}</code>
+commence ainsi généralement par un <code>?</code> qui permet ensuite de spécifier des paramètres
 sous la forme <code>nom_parameter=value</code></li>
 </ul>
-<p>A la lecture de la documentation, les premiers paramètres qu’on désire:</p>
+<p>A la lecture de la documentation, les premiers paramètres qu’on désire :</p>
 <ul>
 <li>Le nombre de pages, ce qui nous permet d’obtenir un certain nombre d’échos. On
 va seulement récupérer 10 pages ce qui correspond à une centaine d’échos. On va
@@ -700,7 +700,8 @@ fichiers</li>
 on va récupérer les données dont le code commune est <code>01450</code>. D’après la doc,
 il convient de passer le code commune sous le format:
 <code>code_insee_commune_actualise:{code_commune}</code>. Pour éviter tout risque de
-mauvais formatage, on va utiliser <code>%3A%</code> pour signifier <code>:</code></li>
+mauvais formatage, on va utiliser <code>%3A</code> pour signifier <code>:</code>, <code>%2A</code> pour signifier <code>*</code> et
+<code>%22</code> pour signifier <code>"</code>.</li>
 <li>D’autres paramètres annexes, suggérés par la documentation</li>
 </ul>
 <p>Cela nous donne ainsi un URL dont la structure est la suivante :</p>
@@ -712,7 +713,7 @@ mauvais formatage, on va utiliser <code>%3A%</code> pour signifier <code>:</code
 </div>
 <p>Si vous introduisez cet URL dans votre navigateur, vous devriez aboutir
 sur un <code>JSON</code> non formaté<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. En <code>Python</code>,
-on peut utiliser <code>requests</code> pour récupérer les données<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>:</p>
+on peut utiliser <code>requests</code> pour récupérer les données<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> :</p>
 <div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -753,7 +754,7 @@ géographiques :</p>
 
 The Shapely GEOS version (3.12.0-CAPI-1.18.0) is incompatible with the GEOS version PyGEOS was compiled with (3.10.4-CAPI-1.16.2). Conversions between both will be slow.
 
-/tmp/ipykernel_3629/2008334648.py:2: UserWarning:
+/tmp/ipykernel_3638/2008334648.py:2: UserWarning:
 
 Shapely 2.0 is installed, but because PyGEOS is also installed, GeoPandas will still use PyGEOS by default for now. To force to use and test Shapely 2.0, you have to set the environment variable USE_PYGEOS=0. You can do this before starting the Python process, or in your code before importing geopandas:
 
@@ -872,7 +873,7 @@ Avec <code>folium</code>, on obtient la carte interactive suivante :</p>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    sw <span class="op">=</span> dpe[[<span class="st">'latitude'</span>, <span class="st">'longitude'</span>]].<span class="bu">min</span>().values.tolist()</span>
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    ne <span class="op">=</span> dpe[[<span class="st">'latitude'</span>, <span class="st">'longitude'</span>]].<span class="bu">max</span>().values.tolist()</span>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> folium.Map(location <span class="op">=</span> center, tiles<span class="op">=</span><span class="st">'Stamen Toner'</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> folium.Map(location <span class="op">=</span> center, tiles<span class="op">=</span><span class="st">'OpenStreetMap'</span>)</span>
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># I can add marker one by one on the map</span></span>
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="bu">len</span>(dpe)):</span>
@@ -899,61 +900,6 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Afficher la carte</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>On remarque un problème dans les données : un logement qui n’a
-rien à voir avec les autres. Il faudrait donc idéalement
-nettoyer un peu le jeu de données pour filtrer en fonction de
-limites géographiques.</p>
-<p>Un des paramètres qui peut permettre ceci est <code>geo_distance</code>.
-Pour commencer, on va tricher un petit peu pour déterminer
-les longitudes et latitudes de départ. Idéalement, on
-récupérerait le découpage de la commune et utiliserait, par
-exemple, le centroid de cette commune. Cela nécessite
-néanmoins l’appel à une autre API que nous n’avons
-pour le moment pas décrite. Nous allons donc
-nous contenter d’utiliser les longitudes et latitudes
-du point médian et fixer un rayon de plusieurs kilomètres
-pour exclure les points aberrants.</p>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x_median <span class="op">=</span> dpe[<span class="st">'longitude'</span>].median()</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>y_median <span class="op">=</span> dpe[<span class="st">'latitude'</span>].median()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>La documentation nous informe du format à utiliser:</p>
-<blockquote class="blockquote">
-<p>Le format est ‘lon,lat,distance’. La distance optionnelle (0 par défaut) et est exprimée en mètres.</p>
-</blockquote>
-<div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>param_distance <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>x_median<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>y_median<span class="sc">}</span><span class="ss">,1000'</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(param_distance)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>5.223777,45.922457,1000</code></pre>
-</div>
-</div>
-<p>Notre requête devient ainsi:</p>
-<div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>url_api <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>api_root<span class="sc">}</span><span class="ss">?page=1&amp;after=10&amp;format=json&amp;q_mode=simple&amp;qs=code_insee_commune_actualise"</span> <span class="op">+</span> <span class="st">"%3A%22"</span> <span class="op">+</span> <span class="ss">f"</span><span class="sc">{</span>code_commune<span class="sc">}</span><span class="ss">"</span> <span class="op">+</span> <span class="st">"%22"</span> <span class="op">+</span> <span class="ss">f"&amp;size=</span><span class="sc">{</span>size<span class="sc">}</span><span class="ss">&amp;select="</span> <span class="op">+</span> <span class="st">"%2A&amp;sampling=neighbors"</span> <span class="op">+</span> <span class="ss">f"&amp;geodistance=</span><span class="sc">{</span>param_distance<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(url_api)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>https://koumoul.com/data-fair/api/v1/datasets/dpe-france/lines?page=1&amp;after=10&amp;format=json&amp;q_mode=simple&amp;qs=code_insee_commune_actualise%3A%2201450%22&amp;size=100&amp;select=%2A&amp;sampling=neighbors&amp;geodistance=5.223777,45.922457,1000</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>dpe_geo_filter <span class="op">=</span> get_dpe_from_url(url_api)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>m_geo_filter <span class="op">=</span> interactive_map_dpe(dpe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/opt/mamba/lib/python3.9/site-packages/geopandas/geodataframe.py:1443: SettingWithCopyWarning:
-
-
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Afficher la carte</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>m_geo_filter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="un-catalogue-incomplet-dapi-existantes" class="level3">
@@ -1025,51 +971,51 @@ consacrés à la visualisation de données.</p>
 <p>Supposons que le DataFrame des ventes s’appelle <code>ventes</code>. Il faut d’abord le
 convertir
 en objet <code>geopandas</code>.</p>
-<div class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ventes <span class="op">=</span> ventes.dropna(subset <span class="op">=</span> [<span class="st">'lat'</span>,<span class="st">'lon'</span>])</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>ventes <span class="op">=</span> gpd.GeoDataFrame(ventes, geometry<span class="op">=</span>gpd.points_from_xy(ventes.lon, ventes.lat))</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>ventes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ventes <span class="op">=</span> ventes.dropna(subset <span class="op">=</span> [<span class="st">'lat'</span>,<span class="st">'lon'</span>])</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ventes <span class="op">=</span> gpd.GeoDataFrame(ventes, geometry<span class="op">=</span>gpd.points_from_xy(ventes.lon, ventes.lat))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>ventes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Avant de faire une carte, on va convertir
 les limites de la commune de Plogoff en geoJSON pour faciliter
 sa représentation avec <code>folium</code>
 (<a href="https://geopandas.readthedocs.io/en/latest/gallery/polygon_plotting_with_folium.html#Add-polygons-to-map">voir la doc <code>geopandas</code> à ce propos</a>):</p>
-<div class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>geo_j <span class="op">=</span> plgf.to_json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>geo_j <span class="op">=</span> plgf.to_json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Pour représenter graphiquement, on peut utiliser le code suivant (essayez de
 le comprendre et pas uniquement de l’exécuter).</p>
-<div class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>ventes[<span class="st">'map_color'</span>] <span class="op">=</span> pd.qcut(ventes[<span class="st">'valeur_fonciere'</span>], [<span class="dv">0</span>,<span class="fl">0.8</span>,<span class="dv">1</span>], labels <span class="op">=</span> [<span class="st">'lightblue'</span>,<span class="st">'red'</span>])</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>ventes[<span class="st">'icon'</span>] <span class="op">=</span> np.where(ventes[<span class="st">'type_local'</span>]<span class="op">==</span> <span class="st">'Maison'</span>, <span class="st">"home"</span>, <span class="st">""</span>)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>ventes[<span class="st">'num_voie_clean'</span>] <span class="op">=</span> np.where(ventes[<span class="st">'numero_voie'</span>].isnull(), <span class="st">""</span>, ventes[<span class="st">'numero_voie'</span>])</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>ventes[<span class="st">'text'</span>] <span class="op">=</span> ventes.<span class="bu">apply</span>(<span class="kw">lambda</span> s: <span class="st">"Adresse: </span><span class="sc">{num}</span><span class="st"> </span><span class="sc">{voie}</span><span class="st"> &lt;br&gt;Vente en </span><span class="sc">{annee}</span><span class="st"> &lt;br&gt;Prix </span><span class="sc">{prix:.0f}</span><span class="st"> €"</span>.<span class="bu">format</span>(</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>                        num <span class="op">=</span> s[<span class="st">'num_voie_clean'</span>],</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>                        voie <span class="op">=</span> s[<span class="st">"voie"</span>],</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>                        annee <span class="op">=</span> s[<span class="st">'date_mutation'</span>].split(<span class="st">"-"</span>)[<span class="dv">0</span>],</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>                        prix <span class="op">=</span> s[<span class="st">"valeur_fonciere"</span>]),</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>             axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>             </span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>center <span class="op">=</span> ventes[[<span class="st">'lat'</span>, <span class="st">'lon'</span>]].mean().values.tolist()</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>sw <span class="op">=</span> ventes[[<span class="st">'lat'</span>, <span class="st">'lon'</span>]].<span class="bu">min</span>().values.tolist()</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>ne <span class="op">=</span> ventes[[<span class="st">'lat'</span>, <span class="st">'lon'</span>]].<span class="bu">max</span>().values.tolist()</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> folium.Map(location <span class="op">=</span> center, tiles<span class="op">=</span><span class="st">'Stamen Toner'</span>)</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="co"># I can add marker one by one on the map</span></span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="bu">len</span>(ventes)):</span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    folium.Marker([ventes.iloc[i][<span class="st">'lat'</span>], ventes.iloc[i][<span class="st">'lon'</span>]],</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>                  popup<span class="op">=</span>ventes.iloc[i][<span class="st">'text'</span>],</span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>                  icon<span class="op">=</span>folium.Icon(color<span class="op">=</span>ventes.iloc[i][<span class="st">'map_color'</span>], icon<span class="op">=</span>ventes.iloc[i][<span class="st">'icon'</span>])).add_to(m)</span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>m.fit_bounds([sw, ne])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>ventes[<span class="st">'map_color'</span>] <span class="op">=</span> pd.qcut(ventes[<span class="st">'valeur_fonciere'</span>], [<span class="dv">0</span>,<span class="fl">0.8</span>,<span class="dv">1</span>], labels <span class="op">=</span> [<span class="st">'lightblue'</span>,<span class="st">'red'</span>])</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>ventes[<span class="st">'icon'</span>] <span class="op">=</span> np.where(ventes[<span class="st">'type_local'</span>]<span class="op">==</span> <span class="st">'Maison'</span>, <span class="st">"home"</span>, <span class="st">""</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>ventes[<span class="st">'num_voie_clean'</span>] <span class="op">=</span> np.where(ventes[<span class="st">'numero_voie'</span>].isnull(), <span class="st">""</span>, ventes[<span class="st">'numero_voie'</span>])</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>ventes[<span class="st">'text'</span>] <span class="op">=</span> ventes.<span class="bu">apply</span>(<span class="kw">lambda</span> s: <span class="st">"Adresse: </span><span class="sc">{num}</span><span class="st"> </span><span class="sc">{voie}</span><span class="st"> &lt;br&gt;Vente en </span><span class="sc">{annee}</span><span class="st"> &lt;br&gt;Prix </span><span class="sc">{prix:.0f}</span><span class="st"> €"</span>.<span class="bu">format</span>(</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>                        num <span class="op">=</span> s[<span class="st">'num_voie_clean'</span>],</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                        voie <span class="op">=</span> s[<span class="st">"voie"</span>],</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>                        annee <span class="op">=</span> s[<span class="st">'date_mutation'</span>].split(<span class="st">"-"</span>)[<span class="dv">0</span>],</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                        prix <span class="op">=</span> s[<span class="st">"valeur_fonciere"</span>]),</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>             axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>             </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>center <span class="op">=</span> ventes[[<span class="st">'lat'</span>, <span class="st">'lon'</span>]].mean().values.tolist()</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>sw <span class="op">=</span> ventes[[<span class="st">'lat'</span>, <span class="st">'lon'</span>]].<span class="bu">min</span>().values.tolist()</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>ne <span class="op">=</span> ventes[[<span class="st">'lat'</span>, <span class="st">'lon'</span>]].<span class="bu">max</span>().values.tolist()</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> folium.Map(location <span class="op">=</span> center, tiles<span class="op">=</span><span class="st">'Stamen Toner'</span>)</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co"># I can add marker one by one on the map</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="bu">len</span>(ventes)):</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    folium.Marker([ventes.iloc[i][<span class="st">'lat'</span>], ventes.iloc[i][<span class="st">'lon'</span>]],</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>                  popup<span class="op">=</span>ventes.iloc[i][<span class="st">'text'</span>],</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>                  icon<span class="op">=</span>folium.Icon(color<span class="op">=</span>ventes.iloc[i][<span class="st">'map_color'</span>], icon<span class="op">=</span>ventes.iloc[i][<span class="st">'icon'</span>])).add_to(m)</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>m.fit_bounds([sw, ne])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Afficher la carte</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Afficher la carte</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="géocoder-des-données-grâce-aux-api-officielles" class="level2">
@@ -1095,30 +1041,30 @@ analyse statistique.
 Après avoir renommé les colonnes, nous n’allons conserver que
 les informations relatives au permis B (permis voiture classique) et
 les auto-écoles ayant présenté au moins 20 personnes à l’examen.</p>
-<div class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xlrd</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_excel(<span class="st">"https://www.data.gouv.fr/fr/datasets/r/d4b6b072-8a7d-4e04-a029-8cdbdbaf36a5"</span>, header <span class="op">=</span> [<span class="dv">0</span>,<span class="dv">1</span>])</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>index_0 <span class="op">=</span> [<span class="st">""</span> <span class="cf">if</span> df.columns[i][<span class="dv">0</span>].startswith(<span class="st">"Unnamed"</span>) <span class="cf">else</span> df.columns[i][<span class="dv">0</span>] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(df.columns))]</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>index_1 <span class="op">=</span> [df.columns[i][<span class="dv">1</span>] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(df.columns))]</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>keep_index <span class="op">=</span> [<span class="va">True</span> <span class="cf">if</span> el <span class="kw">in</span> (<span class="st">''</span>, <span class="st">"B"</span>) <span class="cf">else</span> <span class="va">False</span> <span class="cf">for</span> el <span class="kw">in</span> index_0] </span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> [index_0[i] <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> index_1[i].replace(<span class="st">"+"</span>, <span class="st">"_"</span>) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(df.columns))]</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>df.columns <span class="op">=</span> cols</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.loc[:, keep_index]</span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>df.columns <span class="op">=</span> df.columns.<span class="bu">str</span>.replace(<span class="st">"(^ |°)"</span>, <span class="st">""</span>, regex <span class="op">=</span> <span class="va">True</span>).<span class="bu">str</span>.replace(<span class="st">" "</span>, <span class="st">"_"</span>)</span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.dropna(subset <span class="op">=</span> [<span class="st">'B_NB'</span>])</span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.loc[<span class="op">~</span>df[<span class="st">"B_NB"</span>].astype(<span class="bu">str</span>).<span class="bu">str</span>.contains(<span class="st">"(\%|\.)"</span>),:]</span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'B_NB'</span>] <span class="op">=</span> df[<span class="st">'B_NB'</span>].astype(<span class="bu">int</span>)</span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'B_TR'</span>] <span class="op">=</span> df[<span class="st">'B_TR'</span>].<span class="bu">str</span>.replace(<span class="st">","</span>, <span class="st">"."</span>).<span class="bu">str</span>.replace(<span class="st">"%"</span>,<span class="st">""</span>).astype(<span class="bu">float</span>)</span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.loc[df[<span class="st">"B_NB"</span>]<span class="op">&gt;</span><span class="dv">20</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xlrd</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_excel(<span class="st">"https://www.data.gouv.fr/fr/datasets/r/d4b6b072-8a7d-4e04-a029-8cdbdbaf36a5"</span>, header <span class="op">=</span> [<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>index_0 <span class="op">=</span> [<span class="st">""</span> <span class="cf">if</span> df.columns[i][<span class="dv">0</span>].startswith(<span class="st">"Unnamed"</span>) <span class="cf">else</span> df.columns[i][<span class="dv">0</span>] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(df.columns))]</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>index_1 <span class="op">=</span> [df.columns[i][<span class="dv">1</span>] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(df.columns))]</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>keep_index <span class="op">=</span> [<span class="va">True</span> <span class="cf">if</span> el <span class="kw">in</span> (<span class="st">''</span>, <span class="st">"B"</span>) <span class="cf">else</span> <span class="va">False</span> <span class="cf">for</span> el <span class="kw">in</span> index_0] </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> [index_0[i] <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> index_1[i].replace(<span class="st">"+"</span>, <span class="st">"_"</span>) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(df.columns))]</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>df.columns <span class="op">=</span> cols</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.loc[:, keep_index]</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>df.columns <span class="op">=</span> df.columns.<span class="bu">str</span>.replace(<span class="st">"(^ |°)"</span>, <span class="st">""</span>, regex <span class="op">=</span> <span class="va">True</span>).<span class="bu">str</span>.replace(<span class="st">" "</span>, <span class="st">"_"</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.dropna(subset <span class="op">=</span> [<span class="st">'B_NB'</span>])</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.loc[<span class="op">~</span>df[<span class="st">"B_NB"</span>].astype(<span class="bu">str</span>).<span class="bu">str</span>.contains(<span class="st">"(\%|\.)"</span>),:]</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'B_NB'</span>] <span class="op">=</span> df[<span class="st">'B_NB'</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'B_TR'</span>] <span class="op">=</span> df[<span class="st">'B_TR'</span>].<span class="bu">str</span>.replace(<span class="st">","</span>, <span class="st">"."</span>).<span class="bu">str</span>.replace(<span class="st">"%"</span>,<span class="st">""</span>).astype(<span class="bu">float</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.loc[df[<span class="st">"B_NB"</span>]<span class="op">&gt;</span><span class="dv">20</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_3629/1059845781.py:16: UserWarning:
+<pre><code>/tmp/ipykernel_3638/1059845781.py:16: UserWarning:
 
 This pattern is interpreted as a regular expression, and has match groups. To actually get the groups, use str.extract.
 </code></pre>
@@ -1126,9 +1072,9 @@ This pattern is interpreted as a regular expression, and has match groups. To ac
 </div>
 <p>Sur cet échantillon, le taux de réussite moyen était, en 2018, de 58.02%</p>
 <p>Nos informations géographiques prennent la forme suivante :</p>
-<div class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df.loc[:,[<span class="st">'Adresse'</span>,<span class="st">'CP'</span>,<span class="st">'Ville'</span>]].head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df.loc[:,[<span class="st">'Adresse'</span>,<span class="st">'CP'</span>,<span class="st">'Ville'</span>]].head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
 
@@ -1202,22 +1148,22 @@ pour offrir des performances satisfaisantes.</p>
 <p>Pour vous en convaincre, vous pouvez exécuter le code suivant sur un petit
 échantillon de données (par exemple 100 comme ici) et remarquer que le temps
 d’exécution est assez important</p>
-<div class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>dfgeoloc <span class="op">=</span> df.loc[:, [<span class="st">'Adresse'</span>,<span class="st">'CP'</span>,<span class="st">'Ville'</span>]].<span class="bu">apply</span>(<span class="kw">lambda</span> s: s.<span class="bu">str</span>.lower().<span class="bu">str</span>.replace(<span class="st">","</span>,<span class="st">" "</span>))</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>dfgeoloc[<span class="st">'url'</span>] <span class="op">=</span> (dfgeoloc[<span class="st">'Adresse'</span>] <span class="op">+</span> <span class="st">"+"</span> <span class="op">+</span> dfgeoloc[<span class="st">'Ville'</span>].<span class="bu">str</span>.replace(<span class="st">"-"</span>,<span class="st">'+'</span>)).<span class="bu">str</span>.replace(<span class="st">" "</span>,<span class="st">"+"</span>)</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>dfgeoloc[<span class="st">'url'</span>] <span class="op">=</span> <span class="st">'https://api-adresse.data.gouv.fr/search/?q='</span> <span class="op">+</span> dfgeoloc[<span class="st">'url'</span>] <span class="op">+</span> <span class="st">"&amp;postcode="</span> <span class="op">+</span> df[<span class="st">'CP'</span>] <span class="op">+</span> <span class="st">"&amp;limit=1"</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>dfgeoloc <span class="op">=</span> dfgeoloc.dropna()</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_geoloc(i):</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> gpd.GeoDataFrame.from_features(requests.get(dfgeoloc[<span class="st">'url'</span>].iloc[i]).json()[<span class="st">'features'</span>])</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>local <span class="op">=</span> [get_geoloc(i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(dfgeoloc.head(<span class="dv">10</span>)))]</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"--- </span><span class="sc">%s</span><span class="st"> seconds ---"</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>dfgeoloc <span class="op">=</span> df.loc[:, [<span class="st">'Adresse'</span>,<span class="st">'CP'</span>,<span class="st">'Ville'</span>]].<span class="bu">apply</span>(<span class="kw">lambda</span> s: s.<span class="bu">str</span>.lower().<span class="bu">str</span>.replace(<span class="st">","</span>,<span class="st">" "</span>))</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>dfgeoloc[<span class="st">'url'</span>] <span class="op">=</span> (dfgeoloc[<span class="st">'Adresse'</span>] <span class="op">+</span> <span class="st">"+"</span> <span class="op">+</span> dfgeoloc[<span class="st">'Ville'</span>].<span class="bu">str</span>.replace(<span class="st">"-"</span>,<span class="st">'+'</span>)).<span class="bu">str</span>.replace(<span class="st">" "</span>,<span class="st">"+"</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>dfgeoloc[<span class="st">'url'</span>] <span class="op">=</span> <span class="st">'https://api-adresse.data.gouv.fr/search/?q='</span> <span class="op">+</span> dfgeoloc[<span class="st">'url'</span>] <span class="op">+</span> <span class="st">"&amp;postcode="</span> <span class="op">+</span> df[<span class="st">'CP'</span>] <span class="op">+</span> <span class="st">"&amp;limit=1"</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>dfgeoloc <span class="op">=</span> dfgeoloc.dropna()</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_geoloc(i):</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> gpd.GeoDataFrame.from_features(requests.get(dfgeoloc[<span class="st">'url'</span>].iloc[i]).json()[<span class="st">'features'</span>])</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>local <span class="op">=</span> [get_geoloc(i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(dfgeoloc.head(<span class="dv">10</span>)))]</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"--- </span><span class="sc">%s</span><span class="st"> seconds ---"</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Comme l’indique la documentation, si on désire industrialiser notre processus
 de géocodage, on va privilégier l’API CSV.</p>
@@ -1247,30 +1193,30 @@ chaîne de caractère, nous pouvons directement la lire avec <code>pandas</code>
 utilisant <code>io.StringIO</code> pour éviter d’écrire des données intermédiaires.</p>
 <p>Le nombre d’échos semblant être limité, je propose de procéder par morceaux
 (ici je découpe mon jeu de données en 5 morceaux).</p>
-<div class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> io   </span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'columns'</span>: [<span class="st">'Adresse'</span>, <span class="st">'Ville'</span>],</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'postcode'</span>: <span class="st">'CP'</span>,</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'result_columns'</span>: [<span class="st">'result_score'</span>, <span class="st">'latitude'</span>, <span class="st">'longitude'</span>],</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">'Adresse'</span>,<span class="st">'CP'</span>,<span class="st">'Ville'</span>]] <span class="op">=</span> df.loc[:, [<span class="st">'Adresse'</span>,<span class="st">'CP'</span>,<span class="st">'Ville'</span>]].<span class="bu">apply</span>(<span class="kw">lambda</span> s: s.<span class="bu">str</span>.lower().<span class="bu">str</span>.replace(<span class="st">","</span>,<span class="st">" "</span>))</span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> geoloc_chunk(x):</span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    dfgeoloc <span class="op">=</span> x.loc[:, [<span class="st">'Adresse'</span>,<span class="st">'CP'</span>,<span class="st">'Ville'</span>]]</span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    dfgeoloc.to_csv(<span class="st">"datageocodage.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> requests.post(<span class="st">'https://api-adresse.data.gouv.fr/search/csv/'</span>, data<span class="op">=</span>params, files<span class="op">=</span>{<span class="st">'data'</span>: (<span class="st">'datageocodage.csv'</span>, <span class="bu">open</span>(<span class="st">'datageocodage.csv'</span>, <span class="st">'rb'</span>))})</span>
-<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>    geoloc <span class="op">=</span> pd.read_csv(io.StringIO(response.text), dtype <span class="op">=</span> {<span class="st">'CP'</span>: <span class="st">'str'</span>})</span>
-<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> geoloc</span>
-<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
-<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>geodata <span class="op">=</span> [geoloc_chunk(dd) <span class="cf">for</span> dd <span class="kw">in</span> np.array_split(df, <span class="dv">10</span>)]</span>
-<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"--- </span><span class="sc">%s</span><span class="st"> seconds ---"</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> io   </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'columns'</span>: [<span class="st">'Adresse'</span>, <span class="st">'Ville'</span>],</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'postcode'</span>: <span class="st">'CP'</span>,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'result_columns'</span>: [<span class="st">'result_score'</span>, <span class="st">'latitude'</span>, <span class="st">'longitude'</span>],</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">'Adresse'</span>,<span class="st">'CP'</span>,<span class="st">'Ville'</span>]] <span class="op">=</span> df.loc[:, [<span class="st">'Adresse'</span>,<span class="st">'CP'</span>,<span class="st">'Ville'</span>]].<span class="bu">apply</span>(<span class="kw">lambda</span> s: s.<span class="bu">str</span>.lower().<span class="bu">str</span>.replace(<span class="st">","</span>,<span class="st">" "</span>))</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> geoloc_chunk(x):</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    dfgeoloc <span class="op">=</span> x.loc[:, [<span class="st">'Adresse'</span>,<span class="st">'CP'</span>,<span class="st">'Ville'</span>]]</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    dfgeoloc.to_csv(<span class="st">"datageocodage.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> requests.post(<span class="st">'https://api-adresse.data.gouv.fr/search/csv/'</span>, data<span class="op">=</span>params, files<span class="op">=</span>{<span class="st">'data'</span>: (<span class="st">'datageocodage.csv'</span>, <span class="bu">open</span>(<span class="st">'datageocodage.csv'</span>, <span class="st">'rb'</span>))})</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    geoloc <span class="op">=</span> pd.read_csv(io.StringIO(response.text), dtype <span class="op">=</span> {<span class="st">'CP'</span>: <span class="st">'str'</span>})</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> geoloc</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>start_time <span class="op">=</span> time.time()</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>geodata <span class="op">=</span> [geoloc_chunk(dd) <span class="cf">for</span> dd <span class="kw">in</span> np.array_split(df, <span class="dv">10</span>)]</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"--- </span><span class="sc">%s</span><span class="st"> seconds ---"</span> <span class="op">%</span> (time.time() <span class="op">-</span> start_time))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>/opt/mamba/lib/python3.9/site-packages/numpy/core/fromnumeric.py:59: FutureWarning:
 
@@ -1278,19 +1224,19 @@ utilisant <code>io.StringIO</code> pour éviter d’écrire des données interm�
 </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>--- 18.56296968460083 seconds ---</code></pre>
+<pre><code>--- 26.666884422302246 seconds ---</code></pre>
 </div>
 </div>
 <p>Cette méthode est beaucoup plus rapide et permet ainsi, une fois retourné à nos
 données initiales, d’avoir un jeu de données géolocalisé</p>
-<div class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>geodata <span class="op">=</span> pd.concat(geodata, ignore_index <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>df_xy <span class="op">=</span> df.merge(geodata, on <span class="op">=</span> [<span class="st">'Adresse'</span>,<span class="st">'CP'</span>,<span class="st">'Ville'</span>])</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>df_xy <span class="op">=</span> df_xy.dropna(subset <span class="op">=</span> [<span class="st">'latitude'</span>,<span class="st">'longitude'</span>])</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>df_xy[<span class="st">'text'</span>] <span class="op">=</span> df_xy[<span class="st">'Raison_Sociale'</span>] <span class="op">+</span> <span class="st">'&lt;br&gt;'</span> <span class="op">+</span> df_xy[<span class="st">'Adresse'</span>] <span class="op">+</span> <span class="st">'&lt;br&gt;'</span> <span class="op">+</span> df_xy[<span class="st">'Ville'</span>] <span class="op">+</span> <span class="st">'&lt;br&gt;Nombre de candidats:'</span> <span class="op">+</span> df_xy[<span class="st">'B_NB'</span>].astype(<span class="bu">str</span>)</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>df_xy.<span class="bu">filter</span>([<span class="st">'Raison_Sociale'</span>,<span class="st">'Adresse'</span>,<span class="st">'CP'</span>,<span class="st">'Ville'</span>,<span class="st">'latitude'</span>,<span class="st">'longitude'</span>], axis <span class="op">=</span> <span class="st">"columns"</span>).sample(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>geodata <span class="op">=</span> pd.concat(geodata, ignore_index <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>df_xy <span class="op">=</span> df.merge(geodata, on <span class="op">=</span> [<span class="st">'Adresse'</span>,<span class="st">'CP'</span>,<span class="st">'Ville'</span>])</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>df_xy <span class="op">=</span> df_xy.dropna(subset <span class="op">=</span> [<span class="st">'latitude'</span>,<span class="st">'longitude'</span>])</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>df_xy[<span class="st">'text'</span>] <span class="op">=</span> df_xy[<span class="st">'Raison_Sociale'</span>] <span class="op">+</span> <span class="st">'&lt;br&gt;'</span> <span class="op">+</span> df_xy[<span class="st">'Adresse'</span>] <span class="op">+</span> <span class="st">'&lt;br&gt;'</span> <span class="op">+</span> df_xy[<span class="st">'Ville'</span>] <span class="op">+</span> <span class="st">'&lt;br&gt;Nombre de candidats:'</span> <span class="op">+</span> df_xy[<span class="st">'B_NB'</span>].astype(<span class="bu">str</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>df_xy.<span class="bu">filter</span>([<span class="st">'Raison_Sociale'</span>,<span class="st">'Adresse'</span>,<span class="st">'CP'</span>,<span class="st">'Ville'</span>,<span class="st">'latitude'</span>,<span class="st">'longitude'</span>], axis <span class="op">=</span> <span class="st">"columns"</span>).sample(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
 <div>
 
 
@@ -1308,94 +1254,94 @@ données initiales, d’avoir un jeu de données géolocalisé</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">1466</td>
-<td>PAPIN Archiac</td>
-<td>20 place de la mairie</td>
-<td>17520</td>
-<td>archiac</td>
-<td>45.521602</td>
-<td>-0.301668</td>
+<td data-quarto-table-cell-role="th">6473</td>
+<td>POUR VOUS C EST PERMIS</td>
+<td>1 place de la monnaie</td>
+<td>64000</td>
+<td>pau</td>
+<td>43.293933</td>
+<td>-0.375446</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">10989</td>
-<td>AUTO-ECOLE PENELOPE</td>
-<td>15 rue bragelogne</td>
-<td>97111</td>
-<td>morne a l eau</td>
-<td>16.331421</td>
-<td>-61.457803</td>
+<td data-quarto-table-cell-role="th">4224</td>
+<td>BERLY/ LA CHAPELLE CONDUITE</td>
+<td>1 rue du plessis</td>
+<td>44240</td>
+<td>la chapelle sur erdre</td>
+<td>47.300744</td>
+<td>-1.552344</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">10558</td>
-<td>AR-MEN FORMATION</td>
-<td>2 quai gabriel péri</td>
-<td>94340</td>
-<td>joinville le pont</td>
-<td>48.819205</td>
-<td>2.469995</td>
+<td data-quarto-table-cell-role="th">10104</td>
+<td>AUTO ECOLE DE COLOMBES</td>
+<td>4 avenue menelotte</td>
+<td>92700</td>
+<td>colombes</td>
+<td>48.924110</td>
+<td>2.259510</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">6398</td>
-<td>Pelissier 2 auto école 3D</td>
-<td>12 avenue anatole france</td>
-<td>63290</td>
-<td>puy guillaume</td>
-<td>45.960975</td>
-<td>3.474535</td>
+<td data-quarto-table-cell-role="th">5790</td>
+<td>AUTO ECOLE STEPHANIE DOUAY</td>
+<td>26 chausse de l hotel de ville</td>
+<td>59650</td>
+<td>villeneuve d ascq</td>
+<td>50.618554</td>
+<td>3.132959</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">8261</td>
-<td>AMILCAR II</td>
-<td>101 rue de paris</td>
-<td>77200</td>
-<td>torcy</td>
-<td>48.849398</td>
-<td>2.643127</td>
+<td data-quarto-table-cell-role="th">6045</td>
+<td>Car' in conduite</td>
+<td>25 place de la république</td>
+<td>61400</td>
+<td>mortagne au perche</td>
+<td>48.520856</td>
+<td>0.544141</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">6483</td>
-<td>CASTELAIN</td>
-<td>1 place des basques 06 09 75 19 89</td>
-<td>64100</td>
-<td>bayonne</td>
-<td>43.493679</td>
-<td>-1.478404</td>
+<td data-quarto-table-cell-role="th">1379</td>
+<td>AUTO ECOLE PLAZER SAINT YRIEIX</td>
+<td>rue des arcades</td>
+<td>16710</td>
+<td>saint yrieix</td>
+<td>45.674544</td>
+<td>0.126381</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">346</td>
-<td>NICE NORD AE</td>
-<td>61 avenue cyrille besset</td>
-<td>06100</td>
-<td>nice</td>
-<td>43.717197</td>
-<td>7.255089</td>
+<td data-quarto-table-cell-role="th">298</td>
+<td>AE BRUNA ROSSO GAP</td>
+<td>8 cours victor hugo</td>
+<td>05000</td>
+<td>gap</td>
+<td>44.561829</td>
+<td>6.077824</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">11279</td>
-<td>CAROLINE</td>
-<td>229 rue mahé de labourdonnais</td>
-<td>97429</td>
-<td>petite-ile</td>
-<td>-21.355130</td>
-<td>55.565303</td>
+<td data-quarto-table-cell-role="th">10430</td>
+<td>AUTO MOTO ECOLE L'ILO</td>
+<td>74 avenue d'enghien</td>
+<td>93800</td>
+<td>epinay-sur-seine</td>
+<td>48.960725</td>
+<td>2.306745</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">8945</td>
-<td>LIGNE DE CONDUITE</td>
-<td>34 boulevard de chanzy</td>
-<td>83330</td>
-<td>le beausset</td>
-<td>43.196769</td>
-<td>5.805188</td>
+<td data-quarto-table-cell-role="th">7617</td>
+<td>LA GRANGETTE - ALLINGES</td>
+<td>40 route blaves</td>
+<td>74200</td>
+<td>allinges</td>
+<td>46.334859</td>
+<td>6.479736</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">341</td>
-<td>CLUB</td>
-<td>16 avenue alfred borriglione</td>
-<td>06100</td>
-<td>nice</td>
-<td>43.712010</td>
-<td>7.261881</td>
+<td data-quarto-table-cell-role="th">6818</td>
+<td>STARTER</td>
+<td>42 rue de général leclerc</td>
+<td>67550</td>
+<td>vendenheim</td>
+<td>48.669568</td>
+<td>7.707401</td>
 </tr>
 </tbody>
 </table>
@@ -1405,60 +1351,60 @@ données initiales, d’avoir un jeu de données géolocalisé</p>
 </div>
 <p>Il ne reste plus qu’à utiliser <code>geopandas</code>
 et nous serons en mesure de faire une carte des localisations des auto-écoles :</p>
-<div class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>dfgeo <span class="op">=</span> gpd.GeoDataFrame(df_xy, geometry<span class="op">=</span>gpd.points_from_xy(df_xy.longitude, df_xy.latitude))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>dfgeo <span class="op">=</span> gpd.GeoDataFrame(df_xy, geometry<span class="op">=</span>gpd.points_from_xy(df_xy.longitude, df_xy.latitude))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Nous allons représenter les stations dans l’Essonne avec un zoom initialement
 sur les villes de Massy et Palaiseau. Le code est le suivant:</p>
-<div class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Représenter toutes les autoécoles de l'Essonne</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>df_91 <span class="op">=</span> df_xy.loc[df_xy[<span class="st">"Dept"</span>] <span class="op">==</span> <span class="st">"091"</span>]</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Centrer la vue initiale sur Massy-Palaiseau</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>df_pal <span class="op">=</span> df_xy.loc[df_xy[<span class="st">'Ville'</span>].isin([<span class="st">"massy"</span>, <span class="st">"palaiseau"</span>])]</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>center <span class="op">=</span> df_pal[[<span class="st">'latitude'</span>, <span class="st">'longitude'</span>]].mean().values.tolist()</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>sw <span class="op">=</span> df_pal[[<span class="st">'latitude'</span>, <span class="st">'longitude'</span>]].<span class="bu">min</span>().values.tolist()</span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>ne <span class="op">=</span> df_pal[[<span class="st">'latitude'</span>, <span class="st">'longitude'</span>]].<span class="bu">max</span>().values.tolist()</span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> folium.Map(location <span class="op">=</span> center, tiles<span class="op">=</span><span class="st">'Stamen Toner'</span>)</span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="co"># I can add marker one by one on the map</span></span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="bu">len</span>(df_91)):</span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>    folium.Marker([df_91.iloc[i][<span class="st">'latitude'</span>], df_91.iloc[i][<span class="st">'longitude'</span>]],</span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>                  popup<span class="op">=</span>df_91.iloc[i][<span class="st">'text'</span>],</span>
-<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>                  icon<span class="op">=</span>folium.Icon(icon<span class="op">=</span><span class="st">'car'</span>, prefix<span class="op">=</span><span class="st">'fa'</span>)).add_to(m)</span>
-<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>m.fit_bounds([sw, ne])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Représenter toutes les autoécoles de l'Essonne</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>df_91 <span class="op">=</span> df_xy.loc[df_xy[<span class="st">"Dept"</span>] <span class="op">==</span> <span class="st">"091"</span>]</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Centrer la vue initiale sur Massy-Palaiseau</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>df_pal <span class="op">=</span> df_xy.loc[df_xy[<span class="st">'Ville'</span>].isin([<span class="st">"massy"</span>, <span class="st">"palaiseau"</span>])]</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>center <span class="op">=</span> df_pal[[<span class="st">'latitude'</span>, <span class="st">'longitude'</span>]].mean().values.tolist()</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>sw <span class="op">=</span> df_pal[[<span class="st">'latitude'</span>, <span class="st">'longitude'</span>]].<span class="bu">min</span>().values.tolist()</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>ne <span class="op">=</span> df_pal[[<span class="st">'latitude'</span>, <span class="st">'longitude'</span>]].<span class="bu">max</span>().values.tolist()</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> folium.Map(location <span class="op">=</span> center, tiles<span class="op">=</span><span class="st">'Stamen Toner'</span>)</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co"># I can add marker one by one on the map</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="bu">len</span>(df_91)):</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    folium.Marker([df_91.iloc[i][<span class="st">'latitude'</span>], df_91.iloc[i][<span class="st">'longitude'</span>]],</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>                  popup<span class="op">=</span>df_91.iloc[i][<span class="st">'text'</span>],</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>                  icon<span class="op">=</span>folium.Icon(icon<span class="op">=</span><span class="st">'car'</span>, prefix<span class="op">=</span><span class="st">'fa'</span>)).add_to(m)</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>m.fit_bounds([sw, ne])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Ce qui permet d’obtenir la carte:</p>
-<div class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Afficher la carte</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Afficher la carte</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Vous pouvez aller plus loin avec l’exercice suivant.
 Celui-ci nécessite une fonction pour créer un cercle autour d’un point (source <a href="https://gis.stackexchange.com/questions/289044/creating-buffer-circle-x-kilometers-from-point-using-python/289923">ici</a>),
 la voici:</p>
-<div class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> partial</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pyproj</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> shapely.ops <span class="im">import</span> transform</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> shapely.geometry <span class="im">import</span> Point</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>proj_wgs84 <span class="op">=</span> pyproj.Proj(<span class="st">'+proj=longlat +datum=WGS84'</span>)</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> geodesic_point_buffer(lat, lon, km):</span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Azimuthal equidistant projection</span></span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    aeqd_proj <span class="op">=</span> <span class="st">'+proj=aeqd +lat_0=</span><span class="sc">{lat}</span><span class="st"> +lon_0=</span><span class="sc">{lon}</span><span class="st"> +x_0=0 +y_0=0'</span></span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>    project <span class="op">=</span> partial(</span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>        pyproj.transform,</span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>        pyproj.Proj(aeqd_proj.<span class="bu">format</span>(lat<span class="op">=</span>lat, lon<span class="op">=</span>lon)),</span>
-<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>        proj_wgs84)</span>
-<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>    buf <span class="op">=</span> Point(<span class="dv">0</span>, <span class="dv">0</span>).<span class="bu">buffer</span>(km <span class="op">*</span> <span class="dv">1000</span>)  <span class="co"># distance in metres</span></span>
-<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> transform(project, buf).exterior.coords[:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> partial</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pyproj</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> shapely.ops <span class="im">import</span> transform</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> shapely.geometry <span class="im">import</span> Point</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>proj_wgs84 <span class="op">=</span> pyproj.Proj(<span class="st">'+proj=longlat +datum=WGS84'</span>)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> geodesic_point_buffer(lat, lon, km):</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Azimuthal equidistant projection</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    aeqd_proj <span class="op">=</span> <span class="st">'+proj=aeqd +lat_0=</span><span class="sc">{lat}</span><span class="st"> +lon_0=</span><span class="sc">{lon}</span><span class="st"> +x_0=0 +y_0=0'</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    project <span class="op">=</span> partial(</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>        pyproj.transform,</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>        pyproj.Proj(aeqd_proj.<span class="bu">format</span>(lat<span class="op">=</span>lat, lon<span class="op">=</span>lon)),</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>        proj_wgs84)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    buf <span class="op">=</span> Point(<span class="dv">0</span>, <span class="dv">0</span>).<span class="bu">buffer</span>(km <span class="op">*</span> <span class="dv">1000</span>)  <span class="co"># distance in metres</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> transform(project, buf).exterior.coords[:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell markdown">
 <div class="alert alert-success" role="alert">
@@ -1474,12 +1420,12 @@ pour la ville de Palaiseau</li>
 <p><strong>Si vous avez la réponse à la question 3, n’hésitez pas à la soumettre sur <code>Github</code> afin que je complète la correction</strong> :wink: !</p>
 </div>
 </div>
-<div class="cell" data-execution_count="31">
+<div class="cell" data-execution_count="26">
 <div class="cell-output cell-output-stderr">
 <pre><code>ERROR 1: PROJ: proj_create_from_database: Open of /opt/mamba/share/proj failed</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="32">
+<div class="cell" data-execution_count="27">
 <div class="cell-output cell-output-stderr">
 <pre><code>/opt/mamba/lib/python3.9/site-packages/shapely/ops.py:276: FutureWarning:
 
@@ -1490,22 +1436,22 @@ This function is deprecated. See: https://pyproj4.github.io/pyproj/stable/gotcha
 <p>Pour se convaincre, de notre cercle constitué lors de
 la question 2, on peut représenter une carte.
 On a bien un cercle centré autour de Palaiseau:</p>
-<div class="cell" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> contextily <span class="im">as</span> ctx</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>))</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>circle.to_crs(<span class="st">"EPSG:3857"</span>).plot(ax <span class="op">=</span> ax, color <span class="op">=</span> <span class="st">'red'</span>)</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>pal.to_crs(<span class="st">"EPSG:3857"</span>).plot(ax <span class="op">=</span> ax, color <span class="op">=</span> <span class="st">'green'</span>)</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="co">#ctx.add_basemap(ax, source = ctx.providers.Stamen.Toner)</span></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>ax</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> contextily <span class="im">as</span> ctx</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>))</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>circle.to_crs(<span class="st">"EPSG:3857"</span>).plot(ax <span class="op">=</span> ax, color <span class="op">=</span> <span class="st">'red'</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>pal.to_crs(<span class="st">"EPSG:3857"</span>).plot(ax <span class="op">=</span> ax, color <span class="op">=</span> <span class="st">'green'</span>)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co">#ctx.add_basemap(ax, source = ctx.providers.Stamen.Toner)</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>ax</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>&lt;Axes: &gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="04c_API_TP_files/figure-html/cell-34-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="04c_API_TP_files/figure-html/cell-34-output-2.png" width="804" height="795" class="figure-img"></a></p>
+<p><a href="04c_API_TP_files/figure-html/cell-29-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="04c_API_TP_files/figure-html/cell-29-output-2.png" width="804" height="795" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1549,9 +1495,9 @@ que celles telles que <code>incomeLevel=LMC</code> (<em>“Lower middle income�
 qui ressemblent pas mal à ce qu’on a vu plus tôt avec le scraping : une structure avec des balises qui s’ouvrent et qui se ferment.</p>
 <p>Pour obtenir la même information en <code>Python</code>, il faut revenir aux fondamentaux : on va avoir besoin du module <code>requests</code>. Suivant les API, nous avons soit besoin de rien de plus si nous parvenons directement à obtenir un json, soit devoir utiliser un <em>parser</em> comme <code>BeautifulSoup</code> dans le cas contraire.</p>
 <p>Avec l’API de la banque mondiale, on va utiliser le module <code>requests</code> et sa méthode <code>get</code> : on lui donne l’url de l’API qui nous intéresse, on lui demande d’en faire un json et le tour est <em>en apparence</em> joué.</p>
-<div class="cell" data-execution_count="41">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>req <span class="op">=</span> requests.get(<span class="st">'http://api.worldbank.org/v2/countries?incomeLevel=LMC'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>req <span class="op">=</span> requests.get(<span class="st">'http://api.worldbank.org/v2/countries?incomeLevel=LMC'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Quand on regarde de plus près, on voit que les informations suivantes apparaissent :</p>
 <ul>
@@ -1569,15 +1515,15 @@ En utilisant désormais un autre URL, on obtient un JSON, plus pratique pour tra
 <blockquote class="blockquote">
 <p>http://api.worldbank.org/v2/countries?incomeLevel=LMC&amp;format=json</p>
 </blockquote>
-<div class="cell" data-execution_count="42">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>req <span class="op">=</span> requests.get(<span class="st">'http://api.worldbank.org/v2/countries?incomeLevel=LMC&amp;format=json'</span>)</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>wb <span class="op">=</span> req.json()</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>wb <span class="op">=</span> pd.json_normalize(wb[<span class="dv">1</span>])</span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>wb.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="30">
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>req <span class="op">=</span> requests.get(<span class="st">'http://api.worldbank.org/v2/countries?incomeLevel=LMC&amp;format=json'</span>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>wb <span class="op">=</span> req.json()</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>wb <span class="op">=</span> pd.json_normalize(wb[<span class="dv">1</span>])</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>wb.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
 <div>
 
 
@@ -1722,12 +1668,12 @@ chiffre rond (50 lignes). Ceci est suspect et un petit tour dans la
 documentation de l’API nous apprendrait que c’est le nombre maximal de
 retour possible. Il faut donc faire attention à la documentation et
 ajouter un paramètre <code>page=2</code> pour rattraper les derniers échos:</p>
-<div class="cell" data-execution_count="43">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>wb2 <span class="op">=</span> pd.json_normalize(</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    requests.get(<span class="st">"http://api.worldbank.org/v2/countries?incomeLevel=LMC&amp;format=json&amp;page=2"</span>).json()[<span class="dv">1</span>]</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>pd.concat([wb, wb2]).head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="31">
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>wb2 <span class="op">=</span> pd.json_normalize(</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    requests.get(<span class="st">"http://api.worldbank.org/v2/countries?incomeLevel=LMC&amp;format=json&amp;page=2"</span>).json()[<span class="dv">1</span>]</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>pd.concat([wb, wb2]).head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
 <div>
 
 
@@ -1871,9 +1817,9 @@ ajouter un paramètre <code>page=2</code> pour rattraper les derniers échos:</p
 présente sous forme <code>lendingType.value</code>. C’est parce que <code>pandas</code> a
 concaténé les différents niveaux de notre dictionnaire. Si on désire
 s’en assurer, on peut regarder sur un exemple:</p>
-<div class="cell" data-execution_count="44">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>req.json()[<span class="dv">1</span>][<span class="dv">0</span>][<span class="st">'incomeLevel'</span>][<span class="st">'value'</span>] <span class="op">==</span> wb.loc[<span class="dv">0</span>, <span class="st">'incomeLevel.value'</span>] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="32">
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>req.json()[<span class="dv">1</span>][<span class="dv">0</span>][<span class="st">'incomeLevel'</span>][<span class="st">'value'</span>] <span class="op">==</span> wb.loc[<span class="dv">0</span>, <span class="st">'incomeLevel.value'</span>] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
 <pre><code>True</code></pre>
 </div>
 </div>
@@ -1891,7 +1837,7 @@ s’en assurer, on peut regarder sur un exemple:</p>
 car il permet de stocker de manière intelligente des données
 de structures diverses. Il
 s’agit d’un des formats privilégiés du paradigme No-SQL pour lequel
-cet <a href="http://b3d.bdpedia.fr/">excellent cours</a> propose plus de détails<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+cet <a href="http://b3d.bdpedia.fr/">excellent cours</a> propose plus de détails.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>Suivant les API, nous avons soit besoin de rien de plus si nous parvenons directement à obtenir un json, soit devoir utiliser un <em>parser</em> comme <code>BeautifulSoup</code> dans le cas contraire. Ici, le JSON peut être formaté relativement aisément.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>Cette API utilise un protocole HTTP qui est de moins en moins utilisé. Il
 est recommandé de privilégier les protocoles HTTPS, plus sécurisés.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
@@ -2168,7 +2114,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"loop":true,"closeEffect":"zoom","selector":".lightbox","openEffect":"zoom","descPosition":"bottom"});</script>
+<script>var lightboxQuarto = GLightbox({"loop":true,"openEffect":"zoom","descPosition":"bottom","selector":".lightbox","closeEffect":"zoom"});</script>
 
 
 

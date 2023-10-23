@@ -2583,7 +2583,7 @@ Les informations que nous aimerions obtenir au final dans un <code>DataFrame</co
 </div>
 <p>Pour la question 1, l’objectif est d’obtenir le code source d’un tableau comme
 celui qui suit
-(Pokemon <a href="http://pokemondb.net/pokedex/nincada">Nincada</a>.)</p>
+(Pokemon <a href="http://pokemondb.net/pokedex/nincada">Nincada</a>).</p>
 <div class="cell markdown">
 <div class="grid-col span-md-6 span-lg-4">
 <h2 class="anchored" data-anchor-id="version-non-guidée">
@@ -2969,9 +2969,9 @@ vous devriez obtenir une liste de caractéristiques proche de celle-ci:</p>
 </div>
 </div>
 <p>La structure est ici en dictionnaire, ce qui est pratique.</p>
-<p>Enfin, vous les
-informations sur les dix premiers pokémons de la liste intégrées dans un
-<code>DataFrame</code> prendront l’aspect suivant:</p>
+<p>Enfin, vous pouvez intégrer les informations
+des dix premiers pokémons à un
+<code>DataFrame</code>, qui aura l’aspect suivant :</p>
 <div class="cell" data-execution_count="38">
 <div class="cell-output cell-output-display" data-execution_count="36">
 <div>
@@ -3148,11 +3148,28 @@ et enregistrer en local les images.</li>
 </ul>
 </div>
 </div>
-<div class="cell" data-execution_count="40">
-<div class="cell-output cell-output-display" data-execution_count="38">
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install scikit<span class="op">-</span>image</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Requirement already satisfied: scikit-image in /opt/mamba/lib/python3.9/site-packages (0.21.0)
+Requirement already satisfied: numpy&gt;=1.21.1 in /opt/mamba/lib/python3.9/site-packages (from scikit-image) (1.26.0)
+Requirement already satisfied: scipy&gt;=1.8 in /opt/mamba/lib/python3.9/site-packages (from scikit-image) (1.11.2)
+Requirement already satisfied: networkx&gt;=2.8 in /opt/mamba/lib/python3.9/site-packages (from scikit-image) (3.1)
+Requirement already satisfied: pillow&gt;=9.0.1 in /opt/mamba/lib/python3.9/site-packages (from scikit-image) (10.0.0)
+Requirement already satisfied: imageio&gt;=2.27 in /opt/mamba/lib/python3.9/site-packages (from scikit-image) (2.31.4)
+Requirement already satisfied: tifffile&gt;=2022.8.12 in /opt/mamba/lib/python3.9/site-packages (from scikit-image) (2023.9.18)
+Requirement already satisfied: PyWavelets&gt;=1.1.1 in /opt/mamba/lib/python3.9/site-packages (from scikit-image) (1.4.1)
+Requirement already satisfied: packaging&gt;=21 in /opt/mamba/lib/python3.9/site-packages (from scikit-image) (21.3)
+Requirement already satisfied: lazy_loader&gt;=0.2 in /opt/mamba/lib/python3.9/site-packages (from scikit-image) (0.3)
+Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /opt/mamba/lib/python3.9/site-packages (from packaging&gt;=21-&gt;scikit-image) (3.0.9)
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="41">
+<div class="cell-output cell-output-display" data-execution_count="39">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="04a_webscraping_TP_files/figure-html/cell-41-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="04a_webscraping_TP_files/figure-html/cell-41-output-1.png" width="912" height="200" class="figure-img"></a></p>
+<p><a href="04a_webscraping_TP_files/figure-html/cell-42-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="04a_webscraping_TP_files/figure-html/cell-42-output-1.png" width="912" height="200" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -3195,30 +3212,30 @@ de travail. Pour installer cette version minimaliste de <code>Chrome</code> sur 
 <h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> `Installation de Selenium`</h3>
 <p>D’abord, il convient d’installer les dépendances.
 Sur <code>Colab</code>, vous pouvez utiliser les commandes suivantes :</p>
-<div class="cell" data-execution_count="42">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sudo apt<span class="op">-</span>get update</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sudo apt install <span class="op">-</span>y unzip xvfb libxi6 libgconf<span class="op">-</span><span class="dv">2</span><span class="op">-</span><span class="dv">4</span> <span class="op">-</span>y</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sudo apt install chromium<span class="op">-</span>chromedriver <span class="op">-</span>y</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cp <span class="op">/</span>usr<span class="op">/</span>lib<span class="op">/</span>chromium<span class="op">-</span>browser<span class="op">/</span>chromedriver <span class="op">/</span>usr<span class="op">/</span><span class="bu">bin</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sudo apt<span class="op">-</span>get update</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sudo apt install <span class="op">-</span>y unzip xvfb libxi6 libgconf<span class="op">-</span><span class="dv">2</span><span class="op">-</span><span class="dv">4</span> <span class="op">-</span>y</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sudo apt install chromium<span class="op">-</span>chromedriver <span class="op">-</span>y</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cp <span class="op">/</span>usr<span class="op">/</span>lib<span class="op">/</span>chromium<span class="op">-</span>browser<span class="op">/</span>chromedriver <span class="op">/</span>usr<span class="op">/</span><span class="bu">bin</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <p>Si vous êtes sur le <code>SSP Cloud</code>, vous pouvez
 exécuter les commandes suivantes :</p>
-<div class="cell" data-execution_count="43">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wget https:<span class="op">//</span>dl.google.com<span class="op">/</span>linux<span class="op">/</span>direct<span class="op">/</span>google<span class="op">-</span>chrome<span class="op">-</span>stable_current_amd64.deb <span class="op">-</span>O <span class="op">/</span>tmp<span class="op">/</span>chrome.deb</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sudo apt<span class="op">-</span>get update</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sudo <span class="op">-</span>E apt<span class="op">-</span>get install <span class="op">-</span>y <span class="op">/</span>tmp<span class="op">/</span>chrome.deb</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install chromedriver<span class="op">-</span>autoinstaller selenium</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> chromedriver_autoinstaller</span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>chromedriver_autoinstaller.install()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wget https:<span class="op">//</span>dl.google.com<span class="op">/</span>linux<span class="op">/</span>direct<span class="op">/</span>google<span class="op">-</span>chrome<span class="op">-</span>stable_current_amd64.deb <span class="op">-</span>O <span class="op">/</span>tmp<span class="op">/</span>chrome.deb</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sudo apt<span class="op">-</span>get update</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sudo <span class="op">-</span>E apt<span class="op">-</span>get install <span class="op">-</span>y <span class="op">/</span>tmp<span class="op">/</span>chrome.deb</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install chromedriver<span class="op">-</span>autoinstaller selenium</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> chromedriver_autoinstaller</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>chromedriver_autoinstaller.install()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <p>Vous pouvez ensuite installer <code>Selenium</code>.
 Par exemple, depuis une
 cellule de <code>Notebook</code> :</p>
-<div class="cell" data-execution_count="44">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install selenium</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install selenium</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -3226,67 +3243,67 @@ cellule de <code>Notebook</code> :</p>
 il est nécessaire d’indiquer à <code>Python</code> où
 le trouver. Si vous êtes sur <code>Linux</code> et que vous
 avez suivi les consignes précédentes, vous pouvez faire :</p>
-<div class="cell" data-execution_count="45">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> selenium</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> webdriver_manager.chrome <span class="im">import</span> ChromeDriverManager</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>path_to_web_driver <span class="op">=</span> ChromeDriverManager().install()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> selenium</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> webdriver_manager.chrome <span class="im">import</span> ChromeDriverManager</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>path_to_web_driver <span class="op">=</span> ChromeDriverManager().install()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>En premier lieu, il convient d’initialiser le comportement
 de <code>Selenium</code> en répliquant les paramètres
 du navigateur. Pour cela, on va d’abord initialiser
 notre navigateur avec quelques options :</p>
-<div class="cell" data-execution_count="46">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium <span class="im">import</span> webdriver</span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.common.keys <span class="im">import</span> Keys</span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>chrome_options <span class="op">=</span> webdriver.ChromeOptions()</span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>chrome_options.add_argument(<span class="st">'--headless'</span>)</span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>chrome_options.add_argument(<span class="st">'--no-sandbox'</span>)</span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>chrome_options.add_argument(<span class="st">'--disable-dev-shm-usage'</span>)</span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a><span class="co">#chrome_options.add_argument('--verbose') </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium <span class="im">import</span> webdriver</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.common.keys <span class="im">import</span> Keys</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>chrome_options <span class="op">=</span> webdriver.ChromeOptions()</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>chrome_options.add_argument(<span class="st">'--headless'</span>)</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>chrome_options.add_argument(<span class="st">'--no-sandbox'</span>)</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>chrome_options.add_argument(<span class="st">'--disable-dev-shm-usage'</span>)</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="co">#chrome_options.add_argument('--verbose') </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Puis on lance le navigateur :</p>
-<div class="cell" data-execution_count="47">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.chrome.service <span class="im">import</span> Service</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>service <span class="op">=</span> Service(executable_path<span class="op">=</span>path_to_web_driver)</span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>browser <span class="op">=</span> webdriver.Chrome(service<span class="op">=</span>service,</span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>                           options<span class="op">=</span>chrome_options)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.chrome.service <span class="im">import</span> Service</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>service <span class="op">=</span> Service(executable_path<span class="op">=</span>path_to_web_driver)</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>browser <span class="op">=</span> webdriver.Chrome(service<span class="op">=</span>service,</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>                           options<span class="op">=</span>chrome_options)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>On va sur le site de <code>Bing Actualités</code>, et on lui indique le mot clé que nous souhaitons chercher.
 En l’occurrence, on s’intéresse aux actualités de Donald Trump.
 Après avoir inspecté la page depuis les outils de développement du navigateur,
 on voit que la barre de recherche est un élement du code appelé <code>q</code> (comme <em>query</em>).
 On va ainsi demander à <code>selenium</code> de chercher cet élément:</p>
-<div class="cell" data-execution_count="48">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>browser.get(<span class="st">'https://www.bing.com/news'</span>)</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>search <span class="op">=</span> browser.find_element(<span class="st">"name"</span>, <span class="st">"q"</span>)</span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(search)</span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>([search.text, search.tag_name, search.<span class="bu">id</span>])</span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="co"># on envoie à cet endroit le mot qu'on aurait tapé dans la barre de recherche</span></span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>search.send_keys(<span class="st">"Trump"</span>)</span>
-<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>search_button <span class="op">=</span> browser.find_element(<span class="st">"xpath"</span>, <span class="st">"//input[@id='sb_form_go']"</span>) </span>
-<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>search_button.click()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>browser.get(<span class="st">'https://www.bing.com/news'</span>)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>search <span class="op">=</span> browser.find_element(<span class="st">"name"</span>, <span class="st">"q"</span>)</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(search)</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>([search.text, search.tag_name, search.<span class="bu">id</span>])</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="co"># on envoie à cet endroit le mot qu'on aurait tapé dans la barre de recherche</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>search.send_keys(<span class="st">"Trump"</span>)</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>search_button <span class="op">=</span> browser.find_element(<span class="st">"xpath"</span>, <span class="st">"//input[@id='sb_form_go']"</span>) </span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>search_button.click()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>selenium</code> permet de capturer l’image qu’on verrait dans le navigateur
 avec <code>get_screenshot_as_png</code>. Cela peut être utile pour vérifier qu’on
 a fait la bonne action:</p>
-<div class="cell" data-execution_count="49">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>png <span class="op">=</span> browser.get_screenshot_as_png()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <div class="cell" data-execution_count="50">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> Image</span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>Image(png, width<span class="op">=</span><span class="st">'500'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>png <span class="op">=</span> browser.get_screenshot_as_png()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> Image</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>Image(png, width<span class="op">=</span><span class="st">'500'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="48">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="04a_webscraping_TP_files/figure-html/cell-51-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="04a_webscraping_TP_files/figure-html/cell-51-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="04a_webscraping_TP_files/figure-html/cell-52-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="04a_webscraping_TP_files/figure-html/cell-52-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -3304,29 +3321,29 @@ de développeurs de votre site <em>web</em> sont pratiques.
 Par exemple, sous <code>Firefox</code>, une fois que vous
 avez trouvé un élément dans l’inspecteur, vous
 pouvez faire <code>click droit &gt; Copier &gt; XPath</code>.</p>
-<div class="cell" data-execution_count="51">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.common.exceptions <span class="im">import</span> StaleElementReferenceException</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>links <span class="op">=</span> browser.find_elements(<span class="st">"xpath"</span>, <span class="st">"//div/a[@class='title'][@href]"</span>)</span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> []</span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> link <span class="kw">in</span> links:</span>
-<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>        url <span class="op">=</span> link.get_attribute(<span class="st">'href'</span>)</span>
-<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> StaleElementReferenceException <span class="im">as</span> e:</span>
-<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Issue with '</span><span class="sc">{0}</span><span class="st">' and '</span><span class="sc">{1}</span><span class="st">'"</span>.<span class="bu">format</span>(url, link))</span>
-<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"It might be due to slow javascript which produces the HTML page."</span>)</span>
-<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>    results.append(url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="52">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.common.exceptions <span class="im">import</span> StaleElementReferenceException</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>links <span class="op">=</span> browser.find_elements(<span class="st">"xpath"</span>, <span class="st">"//div/a[@class='title'][@href]"</span>)</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> []</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> link <span class="kw">in</span> links:</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>        url <span class="op">=</span> link.get_attribute(<span class="st">'href'</span>)</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> StaleElementReferenceException <span class="im">as</span> e:</span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Issue with '</span><span class="sc">{0}</span><span class="st">' and '</span><span class="sc">{1}</span><span class="st">'"</span>.<span class="bu">format</span>(url, link))</span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"It might be due to slow javascript which produces the HTML page."</span>)</span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>    results.append(url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Enfin, pour mettre fin à notre session, on demande
 à <code>Python</code> de quitter le navigateur</p>
-<div class="cell" data-execution_count="52">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>browser.quit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>browser.quit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>On a obtenu les résultats suivants:</p>
-<div class="cell" data-execution_count="53">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>['https://www.msn.com/en-us/news/other/donald-trump-congratulates-joe-biden/ar-AA1iCrRD', 'https://www.msn.com/en-us/news/other/back-to-back-plea-deals-pose-grave-legal-threat-to-donald-trump/ar-AA1iChwT', 'https://www.msn.com/en-us/news/other/attorney-explains-most-significant-fact-of-trump-lawyers-guilty-pleas/ar-AA1iCIgT', 'https://www.theguardian.com/world/2023/oct/22/argentina-javier-milei-presidential-election?ref=upstract.com', 'https://news.yahoo.com/day-oct-22-pipe-bomb-070007588.html', 'https://www.msn.com/en-us/news/politics/sidney-powell-was-trump-s-biggest-fighter-now-she-s-a-big-threat/ar-AA1iD8CV', 'https://www.msn.com/en-us/news/us/new-york-judge-fines-trump-5k-for-violating-partial-gag-order-in-civil-fraud-trial/ar-AA1iAoWW', 'https://www.msn.com/en-us/news/politics/judge-temporarily-lifts-narrow-gag-order-on-trump-in-2020-election-interference-case/ar-AA1iAyTB']</code></pre>
+<pre><code>['https://www.theguardian.com/us-news/2023/oct/23/donald-trump-judge-attacks', 'https://news.yahoo.com/trump-claims-never-spoke-billionaire-092245642.html', 'https://www.nytimes.com/2023/10/23/us/politics/trump-trial-tv.html', 'https://www.msn.com/en-us/news/politics/exclusive-poll-biden-and-trump-tie-at-37-as-rfk-jr-costs-trump-a-narrow-lead/ar-AA1iGGrD', 'https://www.msn.com/en-us/news/politics/trump-now-claims-sidney-powell-never-represented-him-and-more-campaign-takeaways/ar-AA1iFrl8', 'https://www.cnn.com/2023/10/22/opinions/trump-colorado-ballot-lawsuit-14th-amendment-obeidallah/index.html', 'https://news.yahoo.com/news/donald-trump-fined-5-000-195239752.html', 'https://www.msn.com/en-us/news/politics/back-to-back-plea-deals-pose-grave-legal-threat-to-donald-trump/ar-AA1iChwT']</code></pre>
 </div>
 </div>
 <p>Les autres méthodes utiles de <code>Selenium</code>:</p>
@@ -3339,46 +3356,46 @@ pouvez faire <code>click droit &gt; Copier &gt; XPath</code>.</p>
 appuie lui même sur les touches du clavier afin de jouer à 2048.</p>
 <p>Note : ce bout de code ne donne pas une solution à 2048,
 il permet juste de voir ce qu’on peut faire avec <code>Selenium</code></p>
-<div class="cell" data-execution_count="54">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium <span class="im">import</span> webdriver</span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.chrome.service <span class="im">import</span> Service</span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.common.keys <span class="im">import</span> Keys</span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="co"># on ouvre la page internet du jeu 2048</span></span>
-<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>service <span class="op">=</span> Service(executable_path<span class="op">=</span>path_to_web_driver)</span>
-<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>browser <span class="op">=</span> webdriver.Chrome(service<span class="op">=</span>service,</span>
-<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>                           options<span class="op">=</span>chrome_options)</span>
-<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a>browser.get(<span class="st">'https://play2048.co//'</span>)</span>
-<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Ce qu'on va faire : une boucle qui répète inlassablement la même chose : haut / droite / bas / gauche</span></span>
-<span id="cb61-13"><a href="#cb61-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-14"><a href="#cb61-14" aria-hidden="true" tabindex="-1"></a><span class="co"># on commence par cliquer sur la page pour que les touches sachent </span></span>
-<span id="cb61-15"><a href="#cb61-15" aria-hidden="true" tabindex="-1"></a>button <span class="op">=</span> browser.find_element(<span class="st">"class name"</span>, <span class="st">'grid-container'</span>)</span>
-<span id="cb61-16"><a href="#cb61-16" aria-hidden="true" tabindex="-1"></a>browser.execute_script(<span class="st">"arguments[0].click();"</span>, button)</span>
-<span id="cb61-17"><a href="#cb61-17" aria-hidden="true" tabindex="-1"></a>time.sleep(<span class="fl">0.5</span>)</span>
-<span id="cb61-18"><a href="#cb61-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-19"><a href="#cb61-19" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> browser.find_element(<span class="st">"tag name"</span>, <span class="st">'body'</span>)</span>
-<span id="cb61-20"><a href="#cb61-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-21"><a href="#cb61-21" aria-hidden="true" tabindex="-1"></a><span class="co"># pour savoir quels coups faire à quel moment, on crée un dictionnaire</span></span>
-<span id="cb61-22"><a href="#cb61-22" aria-hidden="true" tabindex="-1"></a>direction <span class="op">=</span> {<span class="dv">0</span>: Keys.UP, <span class="dv">1</span>: Keys.RIGHT, <span class="dv">2</span>: Keys.DOWN, <span class="dv">3</span>: Keys.LEFT}</span>
-<span id="cb61-23"><a href="#cb61-23" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb61-24"><a href="#cb61-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-25"><a href="#cb61-25" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
-<span id="cb61-26"><a href="#cb61-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>: <span class="co"># on vérifie que le bouton "Try again" n'est pas là - sinon ça veut dire que le jeu est fini</span></span>
-<span id="cb61-27"><a href="#cb61-27" aria-hidden="true" tabindex="-1"></a>        retryButton <span class="op">=</span> browser.find_element(<span class="st">"link text"</span>,<span class="st">'Try again'</span>)</span>
-<span id="cb61-28"><a href="#cb61-28" aria-hidden="true" tabindex="-1"></a>        scoreElem <span class="op">=</span> browser.find_element(<span class="st">"class name"</span>, <span class="st">'score-container'</span>)</span>
-<span id="cb61-29"><a href="#cb61-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
-<span id="cb61-30"><a href="#cb61-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span>:</span>
-<span id="cb61-31"><a href="#cb61-31" aria-hidden="true" tabindex="-1"></a>        <span class="co">#Do nothing.  Game is not over yet</span></span>
-<span id="cb61-32"><a href="#cb61-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
-<span id="cb61-33"><a href="#cb61-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># on continue le jeu - on appuie sur la touche suivante pour le coup d'après</span></span>
-<span id="cb61-34"><a href="#cb61-34" aria-hidden="true" tabindex="-1"></a>    count <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb61-35"><a href="#cb61-35" aria-hidden="true" tabindex="-1"></a>    grid.send_keys(direction[count <span class="op">%</span> <span class="dv">4</span>]) </span>
-<span id="cb61-36"><a href="#cb61-36" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="fl">0.1</span>)</span>
-<span id="cb61-37"><a href="#cb61-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-38"><a href="#cb61-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Score final : </span><span class="sc">{}</span><span class="st"> en </span><span class="sc">{}</span><span class="st"> coups'</span>.<span class="bu">format</span>(scoreElem.text, count))    </span>
-<span id="cb61-39"><a href="#cb61-39" aria-hidden="true" tabindex="-1"></a>browser.quit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium <span class="im">import</span> webdriver</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.chrome.service <span class="im">import</span> Service</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.common.keys <span class="im">import</span> Keys</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="co"># on ouvre la page internet du jeu 2048</span></span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>service <span class="op">=</span> Service(executable_path<span class="op">=</span>path_to_web_driver)</span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>browser <span class="op">=</span> webdriver.Chrome(service<span class="op">=</span>service,</span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a>                           options<span class="op">=</span>chrome_options)</span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a>browser.get(<span class="st">'https://play2048.co//'</span>)</span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Ce qu'on va faire : une boucle qui répète inlassablement la même chose : haut / droite / bas / gauche</span></span>
+<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a><span class="co"># on commence par cliquer sur la page pour que les touches sachent </span></span>
+<span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a>button <span class="op">=</span> browser.find_element(<span class="st">"class name"</span>, <span class="st">'grid-container'</span>)</span>
+<span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a>browser.execute_script(<span class="st">"arguments[0].click();"</span>, button)</span>
+<span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a>time.sleep(<span class="fl">0.5</span>)</span>
+<span id="cb63-18"><a href="#cb63-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-19"><a href="#cb63-19" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> browser.find_element(<span class="st">"tag name"</span>, <span class="st">'body'</span>)</span>
+<span id="cb63-20"><a href="#cb63-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-21"><a href="#cb63-21" aria-hidden="true" tabindex="-1"></a><span class="co"># pour savoir quels coups faire à quel moment, on crée un dictionnaire</span></span>
+<span id="cb63-22"><a href="#cb63-22" aria-hidden="true" tabindex="-1"></a>direction <span class="op">=</span> {<span class="dv">0</span>: Keys.UP, <span class="dv">1</span>: Keys.RIGHT, <span class="dv">2</span>: Keys.DOWN, <span class="dv">3</span>: Keys.LEFT}</span>
+<span id="cb63-23"><a href="#cb63-23" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb63-24"><a href="#cb63-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-25"><a href="#cb63-25" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb63-26"><a href="#cb63-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>: <span class="co"># on vérifie que le bouton "Try again" n'est pas là - sinon ça veut dire que le jeu est fini</span></span>
+<span id="cb63-27"><a href="#cb63-27" aria-hidden="true" tabindex="-1"></a>        retryButton <span class="op">=</span> browser.find_element(<span class="st">"link text"</span>,<span class="st">'Try again'</span>)</span>
+<span id="cb63-28"><a href="#cb63-28" aria-hidden="true" tabindex="-1"></a>        scoreElem <span class="op">=</span> browser.find_element(<span class="st">"class name"</span>, <span class="st">'score-container'</span>)</span>
+<span id="cb63-29"><a href="#cb63-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb63-30"><a href="#cb63-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span>:</span>
+<span id="cb63-31"><a href="#cb63-31" aria-hidden="true" tabindex="-1"></a>        <span class="co">#Do nothing.  Game is not over yet</span></span>
+<span id="cb63-32"><a href="#cb63-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb63-33"><a href="#cb63-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># on continue le jeu - on appuie sur la touche suivante pour le coup d'après</span></span>
+<span id="cb63-34"><a href="#cb63-34" aria-hidden="true" tabindex="-1"></a>    count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb63-35"><a href="#cb63-35" aria-hidden="true" tabindex="-1"></a>    grid.send_keys(direction[count <span class="op">%</span> <span class="dv">4</span>]) </span>
+<span id="cb63-36"><a href="#cb63-36" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="fl">0.1</span>)</span>
+<span id="cb63-37"><a href="#cb63-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-38"><a href="#cb63-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Score final : </span><span class="sc">{}</span><span class="st"> en </span><span class="sc">{}</span><span class="st"> coups'</span>.<span class="bu">format</span>(scoreElem.text, count))    </span>
+<span id="cb63-39"><a href="#cb63-39" aria-hidden="true" tabindex="-1"></a>browser.quit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -3666,7 +3683,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":true,"descPosition":"bottom","closeEffect":"zoom","openEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","loop":true,"openEffect":"zoom","descPosition":"bottom"});</script>
 
 
 
