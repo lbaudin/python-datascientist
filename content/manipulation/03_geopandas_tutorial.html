@@ -1,0 +1,2700 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Lino Galiana">
+<meta name="dcterms.date" content="2023-07-09">
+<meta name="description" content="Les données géolocalisées se sont multipliées depuis quelques années, qu’il s’agisse de données open-data ou de traces numériques géolocalisées de type big-data. Pour les données spatiales, le package GeoPandas étend les fonctionalités de l’écosystème Pandas afin de permettre de manipuler des données géographiques complexes de manière simple.">
+
+<title>Python pour la data science - Données spatiales : découverte de geopandas</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../content/manipulation/03_geopandas_TP.html" rel="next">
+<link href="../../content/manipulation/02b_pandas_TP.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+
+      .quarto-title-block .quarto-title-banner {
+        background: #e9f3fa;
+      }
+</style>
+<script type="module" src="../../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../styles.css">
+<meta name="twitter:title" content="Python pour la data science - Données spatiales : découverte de geopandas">
+<meta name="twitter:description" content="Les données géolocalisées se sont multipliées depuis quelques années, qu’il
+s’agisse de données open-data ou de traces numériques géolocalisées de
+type big-data. Pour les données spatiales, le package GeoPandas
+étend les fonctionalités de l’écosystème Pandas afin de permettre
+de manipuler des données géographiques complexes de manière simple.">
+<meta name="twitter:image" content="https://pythonds.linogaliana.fr/content/manipulation/featured_geopandas_tutorial.png">
+<meta name="twitter:image-height" content="960">
+<meta name="twitter:image-width" content="960">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="citation_title" content="Python pour la data science">
+<meta name="citation_author" content="Lino Galiana">
+<meta name="citation_publication_date" content="2023">
+<meta name="citation_cover_date" content="2023">
+<meta name="citation_year" content="2023">
+<meta name="citation_online_date" content="2023-07-09">
+<meta name="citation_fulltext_html_url" content="https://pythonds.linogaliana.fr/">
+<meta name="citation_doi" content="10.5281/zenodo.8229676">
+<meta name="citation_language" content="en">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Python pour la data science</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-introduction" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Introduction</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-introduction">    
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/01_installation.html" rel="" target="">
+ <span class="dropdown-text">Configuration de Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/02_DS_environment.html" rel="" target="">
+ <span class="dropdown-text">L’environnement Python pour la data science</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/03_data_analysis.html" rel="" target="">
+ <span class="dropdown-text">Comment aborder un jeu de données</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/04_python_practice.html" rel="" target="">
+ <span class="dropdown-text">Bonne pratique de Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/05_rappels_types.html" rel="" target="">
+ <span class="dropdown-text">Quelques rappels sur les principes de base de Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/06_rappels_fonctions.html" rel="" target="">
+ <span class="dropdown-text">Modules, tests, boucles, fonctions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/07_rappels_classes.html" rel="" target="">
+ <span class="dropdown-text">Les classes en Python</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-manipuler" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Manipuler</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-manipuler">    
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/01_numpy.html" rel="" target="">
+ <span class="dropdown-text">Numpy, la brique de base de la data science</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/02a_pandas_tutorial.html" rel="" target="">
+ <span class="dropdown-text">Introduction à Pandas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/02b_pandas_TP.html" rel="" target="">
+ <span class="dropdown-text">Pratique de pandas : un exemple complet</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/03_geopandas_tutorial.html" rel="" target="">
+ <span class="dropdown-text">Données spatiales : découverte de geopandas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/03_geopandas_TP.html" rel="" target="">
+ <span class="dropdown-text">Pratique de geopandas avec les données vélib</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/04a_webscraping_TP.html" rel="" target="">
+ <span class="dropdown-text">Webscraping avec Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/04c_API_TP.html" rel="" target="">
+ <span class="dropdown-text">Récupérer des données avec des API depuis Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/04b_regex_TP.html" rel="" target="">
+ <span class="dropdown-text">Maîtriser les expressions régulières</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/07_dask.html" rel="" target="">
+ <span class="dropdown-text">Introduction à dask grâce aux données DVF</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-communiquer" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Communiquer</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-communiquer">    
+        <li>
+    <a class="dropdown-item" href="../../content/visualisation/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/visualisation/matplotlib.html" rel="" target="">
+ <span class="dropdown-text">De beaux graphiques avec python: mise en pratique</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/visualisation/maps.html" rel="" target="">
+ <span class="dropdown-text">De belles cartes avec python: mise en pratique</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-modéliser" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Modéliser</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-modéliser">    
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/0_preprocessing.html" rel="" target="">
+ <span class="dropdown-text">Préparation des données pour construire un modèle</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/1_modelevaluation.html" rel="" target="">
+ <span class="dropdown-text">Evaluer la qualité d’un modèle</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/2_SVM.html" rel="" target="">
+ <span class="dropdown-text">Classification: premier modèle avec les SVM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/3_regression.html" rel="" target="">
+ <span class="dropdown-text">Régression : une introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/4_featureselection.html" rel="" target="">
+ <span class="dropdown-text">Sélection de variables : une introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/5_clustering.html" rel="" target="">
+ <span class="dropdown-text">Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/6_pipeline.html" rel="" target="">
+ <span class="dropdown-text">Premier pas vers l’industrialisation avec les pipelines scikit</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-approfondissements" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Approfondissements</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-approfondissements">    
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/continuous_integration.html" rel="" target="">
+ <span class="dropdown-text">Intégration continue avec Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/dallE.html" rel="" target="">
+ <span class="dropdown-text">Génération d’images avec Python, DALL-E et StableDiffusion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/s3.html" rel="" target="">
+ <span class="dropdown-text">Les nouveaux modes d’accès aux données : le format parquet et les données sur le cloud</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/elastic_approfondissement.html" rel="" target="">
+ <span class="dropdown-text">Approfondissement ElasticSearch pour des recherches de proximité géographique</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/elastic_intro.html" rel="" target="">
+ <span class="dropdown-text">Introduction à ElasticSearch pour la recherche textuelle</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-git" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Git</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-git">    
+        <li>
+    <a class="dropdown-item" href="../../content/git/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/git/introgit.html" rel="" target="">
+ <span class="dropdown-text">Git : un élément essentiel au quotidien</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/git/exogit.html" rel="" target="">
+ <span class="dropdown-text">Un cadavre exquis pour découvrir Git</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-annexes" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Annexes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-annexes">    
+        <li>
+    <a class="dropdown-item" href="../../content/annexes/evaluation.html" rel="" target="">
+ <span class="dropdown-text">Evaluation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/annexes/corrections.html" rel="" target="">
+ <span class="dropdown-text">Corrections</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://linogaliana.github.io/python-datascientist-slides/#/title-slide" rel="" target="">
+ <span class="dropdown-text">Slides de présentation</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools ms-auto-item" href="https://github.com/linogaliana/python-datascientist">
+            Code source
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../content/manipulation/03_geopandas_tutorial.html">Données spatiales : découverte de geopandas</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns">
+                <div id="title-block-header-title" class="quarto-title page-columns page-full page-layout-full featured-image p-4" style="background-image: url(featured_geopandas_tutorial.png);">
+                <h1 class="title">Données spatiales : découverte de geopandas</h1>
+                                    <div class="quarto-categories">
+                        <div class="quarto-category">Tutoriel</div>
+                        <div class="quarto-category">Manipulation</div>
+                      </div>
+                          </div>
+        
+                <div>
+          <div id="title-block-title-desc" class="description pt-4">
+            <p>Les données géolocalisées se sont multipliées depuis quelques années, qu’il
+            s’agisse de données open-data ou de traces numériques géolocalisées de
+            type <em>big-data</em>. Pour les données spatiales, le package <code>GeoPandas</code>
+            étend les fonctionalités de l’écosystème <code>Pandas</code> afin de permettre
+            de manipuler des données géographiques complexes de manière simple.</p>
+          </div>
+        </div>
+                
+        
+        <div class="quarto-title-meta">
+
+            <div>
+            <div class="quarto-title-meta-heading">Author</div>
+            <div class="quarto-title-meta-contents">
+                     <p>Lino Galiana </p>
+                  </div>
+          </div>
+            
+            <div>
+            <div class="quarto-title-meta-heading">Published</div>
+            <div class="quarto-title-meta-contents">
+              <p class="date">July 9, 2023</p>
+            </div>
+          </div>
+          
+            
+          </div>
+          
+        
+        
+        
+
+        </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/01_numpy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Numpy, la brique de base de la data science</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/02a_pandas_tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction à Pandas</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/02b_pandas_TP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pratique de pandas : un exemple complet</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/03_geopandas_tutorial.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Données spatiales : découverte de geopandas</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/03_geopandas_TP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pratique de geopandas avec les données vélib</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/04a_webscraping_TP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Webscraping avec Python</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/04c_API_TP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Récupérer des données avec des API depuis Python</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/04b_regex_TP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Maîtriser les expressions régulières</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/07_dask.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction à dask grâce aux données DVF</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#données-spatiales" id="toc-données-spatiales" class="nav-link active" data-scroll-target="#données-spatiales">Données spatiales</a>
+  <ul class="collapse">
+  <li><a href="#quelle-différence-avec-des-données-traditionnelles" id="toc-quelle-différence-avec-des-données-traditionnelles" class="nav-link" data-scroll-target="#quelle-différence-avec-des-données-traditionnelles">Quelle différence avec des données traditionnelles ?</a></li>
+  <li><a href="#de-pandas-à-geopandas" id="toc-de-pandas-à-geopandas" class="nav-link" data-scroll-target="#de-pandas-à-geopandas">De <code>Pandas</code> à <code>Geopandas</code></a></li>
+  <li><a href="#résumé" id="toc-résumé" class="nav-link" data-scroll-target="#résumé">Résumé</a></li>
+  </ul></li>
+  <li><a href="#le-système-de-projection-cartographique" id="toc-le-système-de-projection-cartographique" class="nav-link" data-scroll-target="#le-système-de-projection-cartographique">Le système de projection cartographique</a>
+  <ul class="collapse">
+  <li><a href="#principe" id="toc-principe" class="nav-link" data-scroll-target="#principe">Principe</a></li>
+  </ul></li>
+  <li><a href="#importer-des-données-spatiales" id="toc-importer-des-données-spatiales" class="nav-link" data-scroll-target="#importer-des-données-spatiales">Importer des données spatiales</a>
+  <ul class="collapse">
+  <li><a href="#exemple-récupérer-les-découpages-territoriaux" id="toc-exemple-récupérer-les-découpages-territoriaux" class="nav-link" data-scroll-target="#exemple-récupérer-les-découpages-territoriaux">Exemple : récupérer les découpages territoriaux</a></li>
+  </ul></li>
+  <li><a href="#opérations-sur-les-attributs-et-les-géométries" id="toc-opérations-sur-les-attributs-et-les-géométries" class="nav-link" data-scroll-target="#opérations-sur-les-attributs-et-les-géométries">Opérations sur les attributs et les géométries</a>
+  <ul class="collapse">
+  <li><a href="#import-des-données-vélib" id="toc-import-des-données-vélib" class="nav-link" data-scroll-target="#import-des-données-vélib">Import des données vélib</a></li>
+  <li><a href="#opérations-sur-les-attributs" id="toc-opérations-sur-les-attributs" class="nav-link" data-scroll-target="#opérations-sur-les-attributs">Opérations sur les attributs</a></li>
+  <li><a href="#opérations-sur-les-géométries" id="toc-opérations-sur-les-géométries" class="nav-link" data-scroll-target="#opérations-sur-les-géométries">Opérations sur les géométries</a></li>
+  </ul></li>
+  <li><a href="#gérer-le-système-de-projection" id="toc-gérer-le-système-de-projection" class="nav-link" data-scroll-target="#gérer-le-système-de-projection">Gérer le système de projection</a></li>
+  <li><a href="#joindre-des-données" id="toc-joindre-des-données" class="nav-link" data-scroll-target="#joindre-des-données">Joindre des données</a>
+  <ul class="collapse">
+  <li><a href="#joindre-des-données-sur-des-attributs" id="toc-joindre-des-données-sur-des-attributs" class="nav-link" data-scroll-target="#joindre-des-données-sur-des-attributs">Joindre des données sur des attributs</a></li>
+  <li><a href="#prolongation-possible-joindre-des-données-sur-dimension-géographique" id="toc-prolongation-possible-joindre-des-données-sur-dimension-géographique" class="nav-link" data-scroll-target="#prolongation-possible-joindre-des-données-sur-dimension-géographique">Prolongation possible : joindre des données sur dimension géographique</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/linogaliana/python-datascientist/edit/master/content/manipulation/03_geopandas_tutorial.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/linogaliana/python-datascientist/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+<!-- source: https://github.com/gadenbuie/garrickadenbuie-com/blob/main/_partials/title-block-link-buttons/title-block.html -->
+<!-- source: https://raw.githubusercontent.com/spcanelon/silvia/32853dd0e70a71514b0922ee306f80ed5897f776/_partials/title-block-link-buttons/title-block.html -->
+<!-- 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title"> 
+-->
+<!-- <header id="title-block-header" class="quarto-title-block default page-columns"> -->
+<!-- <div class="quarto-title page-columns page-full featured-image p-4" style="background-image: url(featured.png), url(featured.jpg), url(../featured.jpg);"> -->
+    
+
+<div class="cell markdown">
+<p class="badges">
+<a href="https://github.com/linogaliana/python-datascientist-notebooks/blob/main/notebooks/manipulation/03_geopandas_tutorial.ipynb" class="github"><i class="fab fa-github"></i></a>
+<a href="https://downgit.github.io/#/home?url=https://github.com/linogaliana/python-datascientist-notebooks/blob/main/notebooks/manipulation/03_geopandas_tutorial.ipynb" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Download-Notebook-important?logo=Jupyter" alt="Download"></a>
+<a href="https://nbviewer.jupyter.org/github/linogaliana/python-datascientist-notebooksblob/main/notebooks/manipulation/03_geopandas_tutorial.ipynb" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Visualize-nbviewer-blue?logo=Jupyter" alt="nbviewer"></a>
+<a href="https://datalab.sspcloud.fr/launcher/ide/jupyter-python?autoLaunch=true&amp;onyxia.friendlyName=%C2%ABpython-datascience%C2%BB&amp;init.personalInit=%C2%ABhttps%3A%2F%2Fraw.githubusercontent.com%2Flinogaliana%2Fpython-datascientist%2Fmaster%2Fsspcloud%2Finit-jupyter.sh%C2%BB&amp;init.personalInitArgs=%C2%ABmanipulation%2003_geopandas_tutorial%C2%BB&amp;security.allowlist.enabled=false" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/SSP%20Cloud-Tester_avec_Jupyter-orange?logo=Jupyter&amp;logoColor=orange" alt="Onyxia"></a>
+<a href="https://datalab.sspcloud.fr/launcher/ide/vscode-python?autoLaunch=true&amp;onyxia.friendlyName=%C2%ABpython-datascience%C2%BB&amp;init.personalInit=%C2%ABhttps%3A%2F%2Fraw.githubusercontent.com%2Flinogaliana%2Fpython-datascientist%2Fmaster%2Fsspcloud%2Finit-vscode.sh%C2%BB&amp;init.personalInitArgs=%C2%ABmanipulation%2003_geopandas_tutorial%C2%BB&amp;security.allowlist.enabled=false" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/SSP%20Cloud-Tester_avec_VSCode-blue?logo=visualstudiocode&amp;logoColor=blue" alt="Onyxia"></a><br>
+<a href="https://mybinder.org/v2/gh/linogaliana/python-datascientist-notebooks/main?filepath={binder_path}" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Launch-Binder-E66581.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABZCAMAAABi1XidAAAB8lBMVEX///9XmsrmZYH1olJXmsr1olJXmsrmZYH1olJXmsr1olJXmsrmZYH1olL1olJXmsr1olJXmsrmZYH1olL1olJXmsrmZYH1olJXmsr1olL1olJXmsrmZYH1olL1olJXmsrmZYH1olL1olL0nFf1olJXmsrmZYH1olJXmsq8dZb1olJXmsrmZYH1olJXmspXmspXmsr1olL1olJXmsrmZYH1olJXmsr1olL1olJXmsrmZYH1olL1olLeaIVXmsrmZYH1olL1olL1olJXmsrmZYH1olLna31Xmsr1olJXmsr1olJXmsrmZYH1olLqoVr1olJXmsr1olJXmsrmZYH1olL1olKkfaPobXvviGabgadXmsqThKuofKHmZ4Dobnr1olJXmsr1olJXmspXmsr1olJXmsrfZ4TuhWn1olL1olJXmsqBi7X1olJXmspZmslbmMhbmsdemsVfl8ZgmsNim8Jpk8F0m7R4m7F5nLB6jbh7jbiDirOEibOGnKaMhq+PnaCVg6qWg6qegKaff6WhnpKofKGtnomxeZy3noG6dZi+n3vCcpPDcpPGn3bLb4/Mb47UbIrVa4rYoGjdaIbeaIXhoWHmZYHobXvpcHjqdHXreHLroVrsfG/uhGnuh2bwj2Hxk17yl1vzmljzm1j0nlX1olL3AJXWAAAAbXRSTlMAEBAQHx8gICAuLjAwMDw9PUBAQEpQUFBXV1hgYGBkcHBwcXl8gICAgoiIkJCQlJicnJ2goKCmqK+wsLC4usDAwMjP0NDQ1NbW3Nzg4ODi5+3v8PDw8/T09PX29vb39/f5+fr7+/z8/Pz9/v7+zczCxgAABC5JREFUeAHN1ul3k0UUBvCb1CTVpmpaitAGSLSpSuKCLWpbTKNJFGlcSMAFF63iUmRccNG6gLbuxkXU66JAUef/9LSpmXnyLr3T5AO/rzl5zj137p136BISy44fKJXuGN/d19PUfYeO67Znqtf2KH33Id1psXoFdW30sPZ1sMvs2D060AHqws4FHeJojLZqnw53cmfvg+XR8mC0OEjuxrXEkX5ydeVJLVIlV0e10PXk5k7dYeHu7Cj1j+49uKg7uLU61tGLw1lq27ugQYlclHC4bgv7VQ+TAyj5Zc/UjsPvs1sd5cWryWObtvWT2EPa4rtnWW3JkpjggEpbOsPr7F7EyNewtpBIslA7p43HCsnwooXTEc3UmPmCNn5lrqTJxy6nRmcavGZVt/3Da2pD5NHvsOHJCrdc1G2r3DITpU7yic7w/7Rxnjc0kt5GC4djiv2Sz3Fb2iEZg41/ddsFDoyuYrIkmFehz0HR2thPgQqMyQYb2OtB0WxsZ3BeG3+wpRb1vzl2UYBog8FfGhttFKjtAclnZYrRo9ryG9uG/FZQU4AEg8ZE9LjGMzTmqKXPLnlWVnIlQQTvxJf8ip7VgjZjyVPrjw1te5otM7RmP7xm+sK2Gv9I8Gi++BRbEkR9EBw8zRUcKxwp73xkaLiqQb+kGduJTNHG72zcW9LoJgqQxpP3/Tj//c3yB0tqzaml05/+orHLksVO+95kX7/7qgJvnjlrfr2Ggsyx0eoy9uPzN5SPd86aXggOsEKW2Prz7du3VID3/tzs/sSRs2w7ovVHKtjrX2pd7ZMlTxAYfBAL9jiDwfLkq55Tm7ifhMlTGPyCAs7RFRhn47JnlcB9RM5T97ASuZXIcVNuUDIndpDbdsfrqsOppeXl5Y+XVKdjFCTh+zGaVuj0d9zy05PPK3QzBamxdwtTCrzyg/2Rvf2EstUjordGwa/kx9mSJLr8mLLtCW8HHGJc2R5hS219IiF6PnTusOqcMl57gm0Z8kanKMAQg0qSyuZfn7zItsbGyO9QlnxY0eCuD1XL2ys/MsrQhltE7Ug0uFOzufJFE2PxBo/YAx8XPPdDwWN0MrDRYIZF0mSMKCNHgaIVFoBbNoLJ7tEQDKxGF0kcLQimojCZopv0OkNOyWCCg9XMVAi7ARJzQdM2QUh0gmBozjc3Skg6dSBRqDGYSUOu66Zg+I2fNZs/M3/f/Grl/XnyF1Gw3VKCez0PN5IUfFLqvgUN4C0qNqYs5YhPL+aVZYDE4IpUk57oSFnJm4FyCqqOE0jhY2SMyLFoo56zyo6becOS5UVDdj7Vih0zp+tcMhwRpBeLyqtIjlJKAIZSbI8SGSF3k0pA3mR5tHuwPFoa7N7reoq2bqCsAk1HqCu5uvI1n6JuRXI+S1Mco54YmYTwcn6Aeic+kssXi8XpXC4V3t7/ADuTNKaQJdScAAAAAElFTkSuQmCC" alt="Binder"></a>
+<a href="https://colab.research.google.com/github/linogaliana/python-datascientist-notebooks/blob/main/notebooks/manipulation/03_geopandas_tutorial.ipynb" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>
+<a href="https://github.dev/linogaliana/python-datascientist-notebooks/notebooks/manipulation/03_geopandas_tutorial.ipynb" target="_blank" rel="noopener"><img src="https://img.shields.io/static/v1?logo=visualstudiocode&amp;label=&amp;message=Open%20in%20Visual%20Studio%20Code&amp;labelColor=2c2c32&amp;color=007acc&amp;logoColor=007acc" alt="githubdev"></a>
+</p>
+<p></p>
+</div>
+<p>Dans ce tutoriel, nous allons utiliser les données suivantes :</p>
+<ul>
+<li><a href="https://opendata.paris.fr/explore/dataset/velib-emplacement-des-stations/download/?format=geojson&amp;timezone=Europe/Berlin&amp;lang=fr">Localisations des stations velib</a> ;</li>
+<li><a href="https://geoservices.ign.fr/adminexpress">fonds de carte <code>AdminExpress</code></a> à
+travers un package <code>Python</code> nommé <a href="https://github.com/InseeFrLab/cartogether"><code>cartiflette</code></a>
+facilitant la récupération de cette source.</li>
+</ul>
+<p>La représentation des données, notamment la cartographie, est présentée plus
+amplement dans la partie <a href="#visualiser">visualiser</a>. Quelques méthodes
+pour faire rapidement des cartes seront présentées ici, mais
+l’objet de ce chapitre porte davantage sur la manipulation des données géographiques.</p>
+<p>Ce tutoriel s’inspire beaucoup d’un autre tutoriel que j’ai fait pour
+<code>R</code> disponible
+<a href="https://www.book.utilitr.org/fiche_donnees_spatiales">dans la documentation <code>utilitr</code></a>.
+Il peut servir de pendant à celui-ci pour l’utilisateur de <code>R</code>.</p>
+<p>Quelques installations préalables sont nécessaires :</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install pandas fiona shapely pyproj rtree <span class="co"># à faire obligatoirement en premier pour utiliser rtree ou pygeos pour les jointures spatiales</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install contextily</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install geopandas</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install topojson</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Requirement already satisfied: pandas in /opt/mamba/lib/python3.9/site-packages (2.1.1)
+Requirement already satisfied: fiona in /opt/mamba/lib/python3.9/site-packages (1.9.4)
+Requirement already satisfied: shapely in /opt/mamba/lib/python3.9/site-packages (2.0.1)
+Requirement already satisfied: pyproj in /opt/mamba/lib/python3.9/site-packages (3.6.1)
+Requirement already satisfied: rtree in /opt/mamba/lib/python3.9/site-packages (1.0.1)
+Requirement already satisfied: numpy&gt;=1.22.4 in /opt/mamba/lib/python3.9/site-packages (from pandas) (1.26.0)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /opt/mamba/lib/python3.9/site-packages (from pandas) (2.8.2)
+Requirement already satisfied: pytz&gt;=2020.1 in /opt/mamba/lib/python3.9/site-packages (from pandas) (2022.5)
+Requirement already satisfied: tzdata&gt;=2022.1 in /opt/mamba/lib/python3.9/site-packages (from pandas) (2023.3)
+Requirement already satisfied: attrs&gt;=19.2.0 in /opt/mamba/lib/python3.9/site-packages (from fiona) (23.1.0)
+Requirement already satisfied: certifi in /opt/mamba/lib/python3.9/site-packages (from fiona) (2022.9.24)
+Requirement already satisfied: click~=8.0 in /opt/mamba/lib/python3.9/site-packages (from fiona) (8.1.7)
+Requirement already satisfied: click-plugins&gt;=1.0 in /opt/mamba/lib/python3.9/site-packages (from fiona) (1.1.1)
+Requirement already satisfied: cligj&gt;=0.5 in /opt/mamba/lib/python3.9/site-packages (from fiona) (0.7.2)
+Requirement already satisfied: six in /opt/mamba/lib/python3.9/site-packages (from fiona) (1.16.0)
+Requirement already satisfied: importlib-metadata in /opt/mamba/lib/python3.9/site-packages (from fiona) (6.8.0)
+Requirement already satisfied: zipp&gt;=0.5 in /opt/mamba/lib/python3.9/site-packages (from importlib-metadata-&gt;fiona) (3.9.0)
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+Requirement already satisfied: contextily in /opt/mamba/lib/python3.9/site-packages (1.3.0)
+Requirement already satisfied: geopy in /opt/mamba/lib/python3.9/site-packages (from contextily) (2.4.0)
+Requirement already satisfied: matplotlib in /opt/mamba/lib/python3.9/site-packages (from contextily) (3.8.0)
+Requirement already satisfied: mercantile in /opt/mamba/lib/python3.9/site-packages (from contextily) (1.2.1)
+Requirement already satisfied: pillow in /opt/mamba/lib/python3.9/site-packages (from contextily) (10.0.0)
+Requirement already satisfied: rasterio in /opt/mamba/lib/python3.9/site-packages (from contextily) (1.3.8)
+Requirement already satisfied: requests in /opt/mamba/lib/python3.9/site-packages (from contextily) (2.31.0)
+Requirement already satisfied: joblib in /opt/mamba/lib/python3.9/site-packages (from contextily) (1.3.2)
+Requirement already satisfied: xyzservices in /opt/mamba/lib/python3.9/site-packages (from contextily) (2023.7.0)
+Requirement already satisfied: geographiclib&lt;3,&gt;=1.52 in /opt/mamba/lib/python3.9/site-packages (from geopy-&gt;contextily) (1.52)
+Requirement already satisfied: contourpy&gt;=1.0.1 in /opt/mamba/lib/python3.9/site-packages (from matplotlib-&gt;contextily) (1.1.1)
+Requirement already satisfied: cycler&gt;=0.10 in /opt/mamba/lib/python3.9/site-packages (from matplotlib-&gt;contextily) (0.11.0)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/mamba/lib/python3.9/site-packages (from matplotlib-&gt;contextily) (4.42.1)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /opt/mamba/lib/python3.9/site-packages (from matplotlib-&gt;contextily) (1.4.5)
+Requirement already satisfied: numpy&lt;2,&gt;=1.21 in /opt/mamba/lib/python3.9/site-packages (from matplotlib-&gt;contextily) (1.26.0)
+Requirement already satisfied: packaging&gt;=20.0 in /opt/mamba/lib/python3.9/site-packages (from matplotlib-&gt;contextily) (21.3)
+Requirement already satisfied: pyparsing&gt;=2.3.1 in /opt/mamba/lib/python3.9/site-packages (from matplotlib-&gt;contextily) (3.0.9)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /opt/mamba/lib/python3.9/site-packages (from matplotlib-&gt;contextily) (2.8.2)
+Requirement already satisfied: importlib-resources&gt;=3.2.0 in /opt/mamba/lib/python3.9/site-packages (from matplotlib-&gt;contextily) (5.10.0)
+Requirement already satisfied: click&gt;=3.0 in /opt/mamba/lib/python3.9/site-packages (from mercantile-&gt;contextily) (8.1.7)
+Requirement already satisfied: affine in /opt/mamba/lib/python3.9/site-packages (from rasterio-&gt;contextily) (2.4.0)
+Requirement already satisfied: attrs in /opt/mamba/lib/python3.9/site-packages (from rasterio-&gt;contextily) (23.1.0)
+Requirement already satisfied: certifi in /opt/mamba/lib/python3.9/site-packages (from rasterio-&gt;contextily) (2022.9.24)
+Requirement already satisfied: cligj&gt;=0.5 in /opt/mamba/lib/python3.9/site-packages (from rasterio-&gt;contextily) (0.7.2)
+Requirement already satisfied: snuggs&gt;=1.4.1 in /opt/mamba/lib/python3.9/site-packages (from rasterio-&gt;contextily) (1.4.7)
+Requirement already satisfied: click-plugins in /opt/mamba/lib/python3.9/site-packages (from rasterio-&gt;contextily) (1.1.1)
+Requirement already satisfied: setuptools in /opt/mamba/lib/python3.9/site-packages (from rasterio-&gt;contextily) (65.5.0)
+Requirement already satisfied: charset-normalizer&lt;4,&gt;=2 in /opt/mamba/lib/python3.9/site-packages (from requests-&gt;contextily) (2.1.1)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /opt/mamba/lib/python3.9/site-packages (from requests-&gt;contextily) (3.3)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /opt/mamba/lib/python3.9/site-packages (from requests-&gt;contextily) (1.26.11)
+Requirement already satisfied: zipp&gt;=3.1.0 in /opt/mamba/lib/python3.9/site-packages (from importlib-resources&gt;=3.2.0-&gt;matplotlib-&gt;contextily) (3.9.0)
+Requirement already satisfied: six&gt;=1.5 in /opt/mamba/lib/python3.9/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib-&gt;contextily) (1.16.0)
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+Requirement already satisfied: geopandas in /opt/mamba/lib/python3.9/site-packages (0.12.2)
+Requirement already satisfied: pandas&gt;=1.0.0 in /opt/mamba/lib/python3.9/site-packages (from geopandas) (2.1.1)
+Requirement already satisfied: shapely&gt;=1.7 in /opt/mamba/lib/python3.9/site-packages (from geopandas) (2.0.1)
+Requirement already satisfied: fiona&gt;=1.8 in /opt/mamba/lib/python3.9/site-packages (from geopandas) (1.9.4)
+Requirement already satisfied: pyproj&gt;=2.6.1.post1 in /opt/mamba/lib/python3.9/site-packages (from geopandas) (3.6.1)
+Requirement already satisfied: packaging in /opt/mamba/lib/python3.9/site-packages (from geopandas) (21.3)
+Requirement already satisfied: attrs&gt;=19.2.0 in /opt/mamba/lib/python3.9/site-packages (from fiona&gt;=1.8-&gt;geopandas) (23.1.0)
+Requirement already satisfied: certifi in /opt/mamba/lib/python3.9/site-packages (from fiona&gt;=1.8-&gt;geopandas) (2022.9.24)
+Requirement already satisfied: click~=8.0 in /opt/mamba/lib/python3.9/site-packages (from fiona&gt;=1.8-&gt;geopandas) (8.1.7)
+Requirement already satisfied: click-plugins&gt;=1.0 in /opt/mamba/lib/python3.9/site-packages (from fiona&gt;=1.8-&gt;geopandas) (1.1.1)
+Requirement already satisfied: cligj&gt;=0.5 in /opt/mamba/lib/python3.9/site-packages (from fiona&gt;=1.8-&gt;geopandas) (0.7.2)
+Requirement already satisfied: six in /opt/mamba/lib/python3.9/site-packages (from fiona&gt;=1.8-&gt;geopandas) (1.16.0)
+Requirement already satisfied: importlib-metadata in /opt/mamba/lib/python3.9/site-packages (from fiona&gt;=1.8-&gt;geopandas) (6.8.0)
+Requirement already satisfied: numpy&gt;=1.22.4 in /opt/mamba/lib/python3.9/site-packages (from pandas&gt;=1.0.0-&gt;geopandas) (1.26.0)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /opt/mamba/lib/python3.9/site-packages (from pandas&gt;=1.0.0-&gt;geopandas) (2.8.2)
+Requirement already satisfied: pytz&gt;=2020.1 in /opt/mamba/lib/python3.9/site-packages (from pandas&gt;=1.0.0-&gt;geopandas) (2022.5)
+Requirement already satisfied: tzdata&gt;=2022.1 in /opt/mamba/lib/python3.9/site-packages (from pandas&gt;=1.0.0-&gt;geopandas) (2023.3)
+Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /opt/mamba/lib/python3.9/site-packages (from packaging-&gt;geopandas) (3.0.9)
+Requirement already satisfied: zipp&gt;=0.5 in /opt/mamba/lib/python3.9/site-packages (from importlib-metadata-&gt;fiona&gt;=1.8-&gt;geopandas) (3.9.0)
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+Requirement already satisfied: topojson in /opt/mamba/lib/python3.9/site-packages (1.5)
+Requirement already satisfied: numpy in /opt/mamba/lib/python3.9/site-packages (from topojson) (1.26.0)
+Requirement already satisfied: shapely in /opt/mamba/lib/python3.9/site-packages (from topojson) (2.0.1)
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv</code></pre>
+</div>
+</div>
+<p>Pour être en mesure d’exécuter ce tutoriel, les imports suivants
+seront utiles.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> contextily <span class="im">as</span> ctx</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="données-spatiales" class="level2">
+<h2 class="anchored" data-anchor-id="données-spatiales">Données spatiales</h2>
+<section id="quelle-différence-avec-des-données-traditionnelles" class="level3">
+<h3 class="anchored" data-anchor-id="quelle-différence-avec-des-données-traditionnelles">Quelle différence avec des données traditionnelles ?</h3>
+<p><strong>Le terme “données spatiales” désigne les données qui portent sur les caractéristiques géographiques des objets (localisation, contours, liens)</strong>.
+Les caractéristiques géographiques des objets sont décrites à l’aide d’un <strong>système de coordonnées</strong>
+qui permettent une représentation dans un espace euclidien <span class="math inline">\((x,y)\)</span>.
+Le passage de l’espace réel (la Terre, qui est une sphère) à l’espace plan
+se fait grâce à un <strong>système de projection</strong>. Voici quelques exemples
+de données spatiales :</p>
+<ul>
+<li>Une table décrivant des bâtiments, avec les coordonnées géographiques de chaque bâtiment ;</li>
+<li>Le découpage communal du territoire, avec le contour du territoire de chaque commune ;</li>
+<li>Les routes terrestres, avec les coordonnées décrivant leur parcours en 3 dimensions (longitude, latitude, altitude).</li>
+</ul>
+<p>Les données spatiales rassemblent classiquement deux types de données :</p>
+<ol type="1">
+<li>des <strong>données géographiques</strong> (ou géométries) : objets géométriques tels que des points, des vecteurs, des polygones, ou des maillages (<em>raster</em>). Exemple: la forme de chaque commune, les coordonnées d’un bâtiment;</li>
+<li>des <strong>données attributaires</strong> (ou attributs) : des mesures et des caractéristiques associées aux objets géométriques. Exemple: la population de chaque commune, le nombre de fenêtres et le nombre d’étages d’un bâtiment.</li>
+</ol>
+<p><strong>Les données spatiales sont fréquemment traitées à l’aide d’un système d’information géographique (SIG)</strong>, c’est-à-dire un système d’information capable de stocker, d’organiser et de présenter des données alphanumériques spatialement référencées par des coordonnées dans un système de référence (CRS). <code>Python</code> dispose de fonctionnalités lui permettant de réaliser les mêmes tâches qu’un SIG (traitement de données spatiales, représentations cartographiques).</p>
+</section>
+<section id="de-pandas-à-geopandas" class="level3">
+<h3 class="anchored" data-anchor-id="de-pandas-à-geopandas">De <code>Pandas</code> à <code>Geopandas</code></h3>
+<p>Le <em>package</em> <code>Geopandas</code> est une boîte à outils conçue pour faciliter la manipulation de données spatiales. <strong>La grande force de <code>Geopandas</code> est qu’il permet de manipuler des données spatiales comme s’il s’agissait de données traditionnelles</strong>, car il repose sur le standard ISO 19125 <a href="https://en.wikipedia.org/wiki/Simple_Features"><em>simple feature access</em></a> défini conjointement par l’<em>Open Geospatial Consortium (OGC)</em> et l’<em>International Organization for Standardization (ISO)</em>.</p>
+<p>Par rapport à un DataFrame standard, un objet <code>Geopandas</code> comporte
+une colonne supplémentaire: <code>geometry</code>. Elle stocke les coordonnées des
+objets géographiques (ou ensemble de coordonnées s’agissant de contours). Un objet <code>Geopandas</code> hérite des propriétés d’un
+DataFrame <code>Pandas</code> mais propose des méthodes adaptées au traitement des données spatiales.</p>
+<p>Ainsi, grâce à <code>Geopandas</code>, on pourra effectuer des manipulations sur les attributs des données comme avec <code>pandas</code> mais on pourra également faire des manipulations sur la dimension spatiale des données. En particulier,</p>
+<ul>
+<li>Calculer des distances et des surfaces ;</li>
+<li>Agréger rapidement des zonages (regrouper les communes en département par exemple) ;</li>
+<li>Trouver dans quelle commune se trouve un bâtiment à partir de ses coordonnées géographiques ;</li>
+<li>Recalculer des coordonnées dans un autre système de projection ;</li>
+<li>Faire une carte, rapidement et simplement.</li>
+</ul>
+<div class="cell markdown">
+<div class="alert alert-warning" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-lightbulb"></i> Hint</h3>
+<p>Les manipulations de données sur un objet <code>Geopandas</code> sont nettement plus lentes que sur
+un <code>DataFrame</code> traditionnel (car <code>Python</code> doit gérer les informations géographiques pendant la manipulation des données).
+Lorsque vous manipulez des données de grandes dimensions,
+il peut être préférable d’effectuer les opérations sur les données avant de joindre une géométrie à celles-ci.</p>
+</div>
+</div>
+<p>Par rapport à un logiciel spécialisé comme <code>QGIS</code>, <code>Python</code> permettra
+d’automatiser le traitement et la représentation des données. D’ailleurs,
+<code>QGIS</code> utilise lui-même <code>Python</code>…</p>
+</section>
+<section id="résumé" class="level3">
+<h3 class="anchored" data-anchor-id="résumé">Résumé</h3>
+<p>En résumé, un objet <code>GeoPandas</code> comporte les éléments suivantes :</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://rgeo.linogaliana.fr/slides/img/sf.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="https://rgeo.linogaliana.fr/slides/img/sf.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<ol type="1">
+<li>Les <strong>attributs</strong>. Ce sont les valeurs associées à chaque niveau géographique.
+Il s’agit de la dimension tabulaire usuelle, dont le traitement est similaire
+à celui d’un objet <code>Pandas</code> classique.</li>
+<li>Les <strong>géométries</strong>. Ce sont les valeurs numériques interprétées pour représenter la dimension géographique. Elles permettent de représenter dans un certain
+référentiel (le système de référence) la dimension géographique.</li>
+<li>Le <strong>système de référence</strong>. Il s’agit du système permettant de transformer les positions sur
+le globe (3 dimensions avec une boule asymétrique) en un plan en deux dimensions.
+Il en existe une multitude, identifiables à partir d’un code EPSG (4326, 2154…).
+Leur manipulation est facilitée par <code>Geopandas</code> qui s’appuie sur <code>Shapely</code>, de la même
+manière que <code>Pandas</code> s’appuie sur <code>Numpy</code> ou <code>Arrow</code>.</li>
+</ol>
+</section>
+</section>
+<section id="le-système-de-projection-cartographique" class="level2">
+<h2 class="anchored" data-anchor-id="le-système-de-projection-cartographique">Le système de projection cartographique</h2>
+<section id="principe" class="level3">
+<h3 class="anchored" data-anchor-id="principe">Principe</h3>
+<p>Les données spatiales sont
+plus riches que les données traditionnelles car elles
+incluent, habituellement, des éléments supplémentaires pour placer dans
+un espace cartésien les objets. Cette dimension supplémentaire peut être simple
+(un point comporte deux informations supplémentaire: <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span>) ou
+assez complexe (polygones, lignes avec direction, etc.).</p>
+<p>L’analyse cartographique emprunte dès lors à la géométrie
+des concepts
+pour représenter des objets dans l’espace. Les <strong>projections</strong>
+sont au coeur de la gestion des données spatiales.
+Ces dernières consistent à transformer une position dans l’espace
+terrestre à une position sur un plan. Il s’agit donc d’une opération
+de projection d’un espace tri-dimensionnel dans un espace
+à deux dimensions.
+Ce <a href="https://www.earthdatascience.org/courses/earth-analytics/spatial-data-r/geographic-vs-projected-coordinate-reference-systems-UTM/">post</a> propose de riches éléments sur le
+sujet, notamment l’image suivante qui montre bien le principe d’une projection :</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://www.earthdatascience.org/images/courses/earth-analytics/spatial-data/spatial-projection-transformations-crs.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Les différents types de projection"><img src="https://www.earthdatascience.org/images/courses/earth-analytics/spatial-data/spatial-projection-transformations-crs.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Les différents types de projection</figcaption>
+</figure>
+</div>
+<p>Cette opération n’est pas neutre. L’une des conséquences du
+<a href="https://fr.wikipedia.org/wiki/Theorema_egregium">théorème remarquable de Gauss</a>
+est que la surface de la Terre ne peut être cartographiée sans distortion.
+Une projection ne peut simultanément conserver intactes les distances et les
+angles (i.e.&nbsp;les positions).
+Il n’existe ainsi pas de projection universellement meilleure, ce qui ouvre
+la porte à la coexistence de nombreuses projections différentes, pensées
+pour des tâches différentes.
+Un mauvais système de représentation
+fausse l’appréciation visuelle mais peut aussi entraîner des erreurs dans
+les calculs sur la dimension spatiale.</p>
+<p><strong>Les systèmes de projection font l’objet de standards internationaux et sont souvent désignés par des codes dits codes EPSG</strong>. Ce <a href="https://epsg.io/">site</a> est un bon aide-mémoire. Les plus fréquents, pour les utilisateurs français, sont les suivants (plus d’infos <a href="https://geodesie.ign.fr/contenu/fichiers/documentation/SRCfrance.pdf">ici</a>) :</p>
+<ul>
+<li><code>2154</code> : système de projection Lambert 93. Il s’agit du système de projection officiel. La plupart des données diffusées par l’administration pour la métropole sont disponibles dans ce système de projection.</li>
+<li><code>27572</code> : Lambert II étendu. Il s’agit de l’ancien système de projection officiel. Les données spatiales anciennes peuvent être dans ce format.</li>
+<li><code>4326</code> : WGS 84 ou système de pseudo-Mercator ou encore <em>Web Mercator</em>. Ce n’est en réalité pas un système de projection mais un système de coordonnées (longitude / latitude) qui permet simplement un repérage angulaire sur l’ellipsoïde. Il est utilisé pour les données GPS. Il s’agit du système le plus
+usuel, notamment quand on travaille avec des fonds de carte <em>web</em>.</li>
+</ul>
+<p>Comme évoqué plus haut, l’une des projections les plus connues est la
+projection <em>Web Mercator</em> dite WGS84 (code EPSG 4326). Il
+s’agit d’une projection conservant intacte les angles, ce
+qui implique qu’elle altère les distances. Celle-ci a en effet été
+pensée, à l’origine, pour représenter l’hémisphère Nord. Plus
+on s’éloigne de celui-ci, plus les distances sont distordues. Cela
+amène à des distorsions bien
+connues (le Groenland hypertrophié, l’Afrique de taille réduite, l’Antarctique démesuré…).
+En revanche, la projection Mercator conserve intacte les positions.
+C’est cette propriété qui explique son utilisation dans les systèmes
+GPS et ainsi dans les fonds de carte de navigation du type <em>Google Maps</em>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="truesize.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Exemple de reprojection de pays depuis le site thetruesize.com"><img src="truesize.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption"><em>Exemple de reprojection de pays depuis le site <a href="https://thetruesize.com/">thetruesize.com</a></em></figcaption>
+</figure>
+</div>
+<p>Observez les variations significatives
+de proportions pour certains pays selon les projections
+choisies:</p>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="227" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 226;"><span id="cb4-227"><a href="#cb4-227" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;div&gt;</span><span class="sc">${</span>container_projection<span class="sc">}</span><span class="vs">&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="234" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 233;"><span id="cb5-234"><a href="#cb5-234" aria-hidden="true" tabindex="-1"></a>container_projection <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;div class="container"&gt;</span></span>
+<span id="cb5-235"><a href="#cb5-235" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div class="row"&gt;</span></span>
+<span id="cb5-236"><a href="#cb5-236" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;div class="projection"&gt;</span></span>
+<span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;div class="projection-label"&gt;Choisir une projection&lt;/div&gt;</span></span>
+<span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a><span class="vs">      </span><span class="sc">${</span>viewof projection<span class="sc">}</span></span>
+<span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/div&gt;</span></span>
+<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;</span></span>
+<span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div class="row"&gt;</span></span>
+<span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;div class="projectedMap"&gt;</span></span>
+<span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a><span class="vs">      </span><span class="sc">${</span>projectedMap<span class="sc">}</span></span>
+<span id="cb5-244"><a href="#cb5-244" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/div&gt;</span></span>
+<span id="cb5-245"><a href="#cb5-245" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;</span></span>
+<span id="cb5-246"><a href="#cb5-246" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="253" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 252;"><span id="cb6-253"><a href="#cb6-253" aria-hidden="true" tabindex="-1"></a>viewof projection <span class="op">=</span> <span class="fu">projectionInput</span>({</span>
+<span id="cb6-254"><a href="#cb6-254" aria-hidden="true" tabindex="-1"></a>  <span class="dt">name</span><span class="op">:</span> <span class="st">""</span><span class="op">,</span></span>
+<span id="cb6-255"><a href="#cb6-255" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="st">"Mercator"</span></span>
+<span id="cb6-256"><a href="#cb6-256" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb7" data-startfrom="265" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 264;"><span id="cb7-265"><a href="#cb7-265" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {projectionInput} <span class="im">from</span> <span class="st">"@fil/d3-projections"</span></span>
+<span id="cb7-266"><a href="#cb7-266" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {map} <span class="im">from</span> <span class="st">"@linogaliana/base-map"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb8" data-startfrom="282" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 281;"><span id="cb8-282"><a href="#cb8-282" aria-hidden="true" tabindex="-1"></a>projectedMap <span class="op">=</span> <span class="fu">map</span>(projection<span class="op">,</span></span>
+<span id="cb8-283"><a href="#cb8-283" aria-hidden="true" tabindex="-1"></a>                   {</span>
+<span id="cb8-284"><a href="#cb8-284" aria-hidden="true" tabindex="-1"></a>                     <span class="co">//svg: true,</span></span>
+<span id="cb8-285"><a href="#cb8-285" aria-hidden="true" tabindex="-1"></a>                     <span class="dt">value</span><span class="op">:</span> projection<span class="op">.</span><span class="at">options</span><span class="op">,</span></span>
+<span id="cb8-286"><a href="#cb8-286" aria-hidden="true" tabindex="-1"></a>                     <span class="dt">width</span><span class="op">:</span> width_projected_map<span class="op">,</span></span>
+<span id="cb8-287"><a href="#cb8-287" aria-hidden="true" tabindex="-1"></a>                     <span class="co">//height: 300,</span></span>
+<span id="cb8-288"><a href="#cb8-288" aria-hidden="true" tabindex="-1"></a>                     <span class="co">//rotate: [0, -90],</span></span>
+<span id="cb8-289"><a href="#cb8-289" aria-hidden="true" tabindex="-1"></a>                     <span class="co">//inertia: true,</span></span>
+<span id="cb8-290"><a href="#cb8-290" aria-hidden="true" tabindex="-1"></a>                     <span class="dt">show_equator</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb8-291"><a href="#cb8-291" aria-hidden="true" tabindex="-1"></a>                     <span class="dt">background</span><span class="op">:</span> <span class="st">"#f1f0eb"</span></span>
+<span id="cb8-292"><a href="#cb8-292" aria-hidden="true" tabindex="-1"></a>                     </span>
+<span id="cb8-293"><a href="#cb8-293" aria-hidden="true" tabindex="-1"></a>                     <span class="co">//show_structure: true</span></span>
+<span id="cb8-294"><a href="#cb8-294" aria-hidden="true" tabindex="-1"></a>                   })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb9" data-startfrom="288" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 287;"><span id="cb9-288"><a href="#cb9-288" aria-hidden="true" tabindex="-1"></a>width_projected_map <span class="op">=</span> <span class="bu">screen</span><span class="op">.</span><span class="at">width</span><span class="op">/</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<p>Pour aller plus loin, la carte interactive
+suivante, construite par Nicolas Lambert, issue de
+ce <a href="https://observablehq.com/@neocartocnrs/impact-of-projections-on-areas"><em>notebook</em> <code>Observable</code></a>, illustre l’effet
+déformant de la projection Mercator, et de quelques unes autres,
+sur notre perception de la taille des pays.</p>
+<details>
+<summary>
+Voir la carte interactive
+</summary>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb10" data-startfrom="337" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 336;"><span id="cb10-337"><a href="#cb10-337" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;div class="grid-container"&gt;</span></span>
+<span id="cb10-338"><a href="#cb10-338" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div class="viewof-projection"&gt;</span><span class="sc">${</span>viewof projectionBertin<span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb10-339"><a href="#cb10-339" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div class="viewof-mycountry"&gt;</span><span class="sc">${</span>viewof mycountry<span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb10-340"><a href="#cb10-340" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;div class="map-bertin"&gt;</span><span class="sc">${</span>mapBertin<span class="sc">}</span><span class="vs">&lt;/div&gt;</span></span>
+<span id="cb10-341"><a href="#cb10-341" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-7" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</details>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb11" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb11-0"><a href="#cb11-0" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {map <span class="im">as</span> mapBertin<span class="op">,</span> viewof projection <span class="im">as</span> projectionBertin<span class="op">,</span> viewof mycountry} <span class="im">from</span> <span class="st">"@neocartocnrs/impact-of-projections-on-areas"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-8" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<p>Il existe en fait de nombreuses représentations possibles du monde, plus ou moins
+alambiquées. Les projections sont très nombreuses et certaines peuvent avoir une <a href="https://imgs.xkcd.com/comics/map_projections.png">forme suprenante</a>.
+Par exemple,
+la <a href="https://storymaps.arcgis.com/stories/756bcae18d304a1eac140f19f4d5cb3d">projection de Spillhaus</a>
+propose de centrer la vue sur les océans et non une terre. C’est pour
+cette raison qu’on parle parfois de monde tel que vu par les poissons
+à son propos.</p>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb12" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb12-0"><a href="#cb12-0" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;div class="centered"&gt;</span><span class="sc">${</span>spilhaus<span class="sc">}</span><span class="vs">&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-9" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code hidden" id="cb13" data-startfrom="1" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>spilhaus <span class="op">=</span> {</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> width <span class="op">=</span> <span class="dv">600</span><span class="op">;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> height <span class="op">=</span> width<span class="op">;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> context <span class="op">=</span> DOM<span class="op">.</span><span class="fu">context2d</span>(width<span class="op">,</span> height)<span class="op">;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> projection <span class="op">=</span> d3<span class="op">.</span><span class="fu">geoStereographic</span>()</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">rotate</span>([<span class="dv">95</span><span class="op">,</span> <span class="dv">45</span>])</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">translate</span>([width <span class="op">/</span> <span class="dv">2</span><span class="op">,</span> height <span class="op">/</span> <span class="dv">2</span>])</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">scale</span>(width <span class="op">/</span> <span class="fl">10.1</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">center</span>([<span class="dv">30</span><span class="op">,</span> <span class="op">-</span><span class="dv">5</span>])</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">clipAngle</span>(<span class="dv">166</span>)<span class="op">;</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> path <span class="op">=</span> d3<span class="op">.</span><span class="fu">geoPath</span>(projection<span class="op">,</span> context)<span class="op">;</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> land <span class="op">=</span> topojson<span class="op">.</span><span class="fu">feature</span>(world<span class="op">,</span> world<span class="op">.</span><span class="at">objects</span><span class="op">.</span><span class="at">land</span>)<span class="op">;</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  context<span class="op">.</span><span class="at">lineJoin</span> <span class="op">=</span> <span class="st">"round"</span><span class="op">;</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  context<span class="op">.</span><span class="at">lineCap</span> <span class="op">=</span> <span class="st">"round"</span><span class="op">;</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  context<span class="op">.</span><span class="at">fillStyle</span> <span class="op">=</span> <span class="st">"#f2f1ed"</span><span class="op">;</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  context<span class="op">.</span><span class="fu">fillRect</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> width<span class="op">,</span> height)<span class="op">;</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>  context<span class="op">.</span><span class="fu">beginPath</span>()<span class="op">;</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">path</span>({<span class="dt">type</span><span class="op">:</span> <span class="st">"Sphere"</span>})<span class="op">;</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">path</span>(land)<span class="op">;</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>  context<span class="op">.</span><span class="at">lineWidth</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">;</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>  context<span class="op">.</span><span class="fu">stroke</span>()<span class="op">;</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>  context<span class="op">.</span><span class="fu">clip</span>(<span class="st">"evenodd"</span>)<span class="op">;</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>  context<span class="op">.</span><span class="fu">save</span>()<span class="op">;</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>  context<span class="op">.</span><span class="fu">beginPath</span>()<span class="op">;</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">path</span>(land)<span class="op">;</span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>  context<span class="op">.</span><span class="at">filter</span> <span class="op">=</span> <span class="st">"blur(12px)"</span><span class="op">;</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>  context<span class="op">.</span><span class="at">fillStyle</span> <span class="op">=</span> <span class="st">"#006994"</span><span class="op">;</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>  context<span class="op">.</span><span class="fu">fill</span>(<span class="st">"evenodd"</span>)<span class="op">;</span></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>  context<span class="op">.</span><span class="fu">restore</span>()<span class="op">;</span></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>  context<span class="op">.</span><span class="fu">beginPath</span>()<span class="op">;</span></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">path</span>(d3<span class="op">.</span><span class="fu">geoGraticule10</span>())<span class="op">;</span></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>  context<span class="op">.</span><span class="at">globalAlpha</span> <span class="op">=</span> <span class="fl">0.2</span><span class="op">;</span></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>  context<span class="op">.</span><span class="at">strokeStyle</span> <span class="op">=</span> <span class="st">"#000"</span><span class="op">;</span></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>  context<span class="op">.</span><span class="fu">stroke</span>()<span class="op">;</span></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> context<span class="op">.</span><span class="at">canvas</span><span class="op">;</span></span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-10" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb14" data-startfrom="0" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line -1;"><span id="cb14-0"><a href="#cb14-0" aria-hidden="true" tabindex="-1"></a><span class="co">//import {map as spilhausmap} with {height, width} from "@d3/spilhaus-shoreline-map"</span></span>
+<span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { world } <span class="im">from</span> <span class="st">"@d3/spilhaus-shoreline-map"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-11" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell markdown">
+<div class="alert alert-info" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-comment"></i> Astuce pour la France</h3>
+<p>Pour la France, dans le système WGS84 (4326) :</p>
+<ul>
+<li>Longitude (<span class="math inline">\(x\)</span>) tourne autour de 0° (de -5.2 à +9.6 pour être plus précis)</li>
+<li>La latitude (<span class="math inline">\(y\)</span>) autour de 45 (entre +41.3 à +51.1)</li>
+</ul>
+<p>Dans le système Lambert 93 (2154) :</p>
+<ul>
+<li>Coordonnées <span class="math inline">\(x\)</span>: entre 100 000 et 1 300 000</li>
+<li>La latitude (<span class="math inline">\(y\)</span>): entre 6 000 000 et 7 200 000</li>
+</ul>
+<p><a href="https://medium.com/@_FrancoisM/introduction-%C3%A0-la-manipulation-de-donn%C3%A9es-cartographiques-23b4e38d8f0f">Plus de détails</a></p>
+</div>
+</div>
+</section>
+</section>
+<section id="importer-des-données-spatiales" class="level2">
+<h2 class="anchored" data-anchor-id="importer-des-données-spatiales">Importer des données spatiales</h2>
+<p>Les formats les plus communs de données spatiales sont les suivants :</p>
+<ul>
+<li><em>shapefile</em> (<code>.shp</code>) : format (<strong>propriétaire</strong>) le plus commun de données géographiques.
+La table de données (attributs) est stockée dans un fichier séparé des
+données spatiales. En faisant <code>geopandas.read_file("monfichier.shp")</code>, le
+package fait lui-même le lien entre les observations et leur représentation spatiale.</li>
+<li><em>geopackage</em> (<code>.gpkg</code>) : ce (relativement) nouveau format <strong>libre</strong> en un seul fichier également (lui recommandé par l’OGC) vise progressivement à se substituer au shapefile. Il est par exemple le format par défaut dans QGIS.</li>
+<li><em>geojson</em> (<code>.json</code>) : ce format, non préconisé par l’OGC, est largement utilisé pour le développement <em>web</em>
+comme dans la librairie <code>leaflet.js</code>.
+La dimension spatiale est stockée dans le même fichier que les attributs.
+Ces fichiers sont généralement beaucoup plus légers que les <em>shapefiles</em> mais possèdent des limites s’agissant de gros jeux de données.</li>
+<li><em>topojson</em> (<code>.json</code>) : une variante du <code>geojson</code> qui se développe progressivement pour assister les visualisations <em>web</em>. Au lieu de stocker l’ensemble des points permettant de représenter une
+géométrie, seuls les arcs sont conservés. Cela allège substantiellement le poids du fichier et
+permet, avec une librairie adaptée, de reconstruire l’ensemble des contours géographiques.</li>
+</ul>
+<p>Cette <a href="https://si.ecrins-parcnational.com/blog/2020-02-geojson-shapefile-geopackage.html">page</a> compare plus en détail les principes formats de données géographiques.
+L’aide de <a href="https://geopandas.org/io.html"><code>Geopandas</code></a> propose des bouts de code en fonction des différentes situations dans lesquelles on se trouve.</p>
+<section id="exemple-récupérer-les-découpages-territoriaux" class="level3">
+<h3 class="anchored" data-anchor-id="exemple-récupérer-les-découpages-territoriaux">Exemple : récupérer les découpages territoriaux</h3>
+<p>L’un des fonds de carte les plus fréquents qu’on utilise est celui des
+limites administratives des communes.
+Celui-ci peut être récupéré de plusieurs manières.
+En premier lieu, pour récupérer
+le fond de carte officiel, produit par l’IGN, sous
+le nom d’<a href="https://geoservices.ign.fr/adminexpress#telechargementCog"><code>AdminExpress</code></a>[^1],
+il est possible de se rendre sur le site de l’IGN et de le télécharger.
+Il est également possible d’utiliser l’une des <a href="https://api.gouv.fr/les-api/api_carto_cadastre">API de l’IGN</a>
+mais ces dernières ne sont pas encore très documentées pour des utilisateurs
+de <code>Python</code>.
+Le package <a href="https://github.com/InseeFrLab/cartiflette.git"><code>cartiflette</code></a>, issu
+d’un projet interministériel, propose
+une récupération
+facilitée de fonds de carte officiels de l’IGN.
+Ce projet vise à faciliter la récupération des sources officielles, notamment
+celles de l’IGN, et leur association à des jeux de données géographiques.</p>
+<div class="cell markdown">
+<div class="alert alert-info" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-comment"></i> Note</h3>
+<p>Le package <code>cartiflette</code> est expérimental
+et n’est disponible que sur
+<a href="https://github.com/InseeFrLab/cartogether"><code>Github</code></a>, pas sur <code>PyPi</code>.
+Il est amené à évoluer rapidement et cette page sera mise à jour
+quand de nouvelles fonctionalités (notamment l’utilisation d’<code>API</code>)
+seront disponibles pour encore simplifier la récupération de
+contours géographiques.</p>
+<p>Pour installer <code>cartiflette</code>, il est nécessaire d’utiliser les commandes suivantes
+depuis un <code>Jupyter Notebook</code> (si vous utilisez la ligne de commande directement,
+vous pouvez retirer les <code>!</code> en début de ligne):</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install requests py7zr geopandas openpyxl tqdm s3fs PyYAML xlrd</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install git<span class="op">+</span>https:<span class="op">//</span>github.com<span class="op">/</span>inseefrlab<span class="op">/</span>cartiflette<span class="op">@</span><span class="dv">80</span><span class="er">b8a5a28371feb6df31d55bcc2617948a5f9b1a</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ces commandes permettent de récupérer l’ensemble du code
+source depuis <a href="https://github.com/InseeFrLab/cartiflette"><code>Github</code></a></p>
+</div>
+</div>
+<p>Ici, nous sommes intéressés par les contours des communes
+de la petite couronne. On pourrait désirer récupérer
+l’ensemble de la région Ile-de-France mais nous
+allons nous contenter de l’analyse de Paris intra-muros
+et des départements limitrophes.
+C’est l’un des avantage de <code>cartiflette</code> que de faciliter
+la récupération de fonds de carte sur un ensemble de département.
+Cela évite la récupération d’un fond de carte très
+volumineux (plus de 500Mo) pour une analyse restreinte (quelques départements).
+Un autre avantage de <code>cartiflette</code> est de faciliter la récupération de fonds
+de carte consolidés comme celui dont on a besoin ici : arrondissements
+dans Paris, communes ailleurs. Comme cela est expliqué dans un encadré à part,
+il s’agirait d’une opération pénible à mettre en oeuvre sans <code>cartiflette</code>.</p>
+<p>Les contours de cet espace peuvent être récupérés de la manière suivante :</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cartiflette.s3 <span class="im">as</span> s3</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>shp_communes <span class="op">=</span> s3.download_vectorfile_url_all(</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    crs <span class="op">=</span> <span class="dv">4326</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    values <span class="op">=</span> [<span class="st">"75"</span>, <span class="st">"92"</span>, <span class="st">"93"</span>, <span class="st">"94"</span>],</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    borders<span class="op">=</span><span class="st">"COMMUNE_ARRONDISSEMENT"</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    vectorfile_format<span class="op">=</span><span class="st">"topojson"</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    filter_by<span class="op">=</span><span class="st">"DEPARTEMENT"</span>,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    source<span class="op">=</span><span class="st">"EXPRESS-COG-CARTO-TERRITOIRE"</span>,</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    year<span class="op">=</span><span class="dv">2022</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>shp_communes.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th">ID</th>
+<th data-quarto-table-cell-role="th">NOM</th>
+<th data-quarto-table-cell-role="th">NOM_M</th>
+<th data-quarto-table-cell-role="th">INSEE_COM</th>
+<th data-quarto-table-cell-role="th">STATUT</th>
+<th data-quarto-table-cell-role="th">POPULATION</th>
+<th data-quarto-table-cell-role="th">INSEE_CAN</th>
+<th data-quarto-table-cell-role="th">INSEE_ARR</th>
+<th data-quarto-table-cell-role="th">INSEE_DEP</th>
+<th data-quarto-table-cell-role="th">INSEE_REG</th>
+<th data-quarto-table-cell-role="th">SIREN_EPCI</th>
+<th data-quarto-table-cell-role="th">source</th>
+<th data-quarto-table-cell-role="th">INSEE_COG</th>
+<th data-quarto-table-cell-role="th">geometry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>ARR_MUNI0000000009736045</td>
+<td>NaN</td>
+<td>Paris 3e Arrondissement</td>
+<td>PARIS 3E ARRONDISSEMENT</td>
+<td>75056</td>
+<td>Capitale d'état</td>
+<td>34025</td>
+<td>NR</td>
+<td>1</td>
+<td>75</td>
+<td>11</td>
+<td>200054781</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>75103</td>
+<td>POLYGON ((2.35016 48.86199, 2.35019 48.86203, ...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>ARR_MUNI0000000009736046</td>
+<td>NaN</td>
+<td>Paris 2e Arrondissement</td>
+<td>PARIS 2E ARRONDISSEMENT</td>
+<td>75056</td>
+<td>Capitale d'état</td>
+<td>21595</td>
+<td>NR</td>
+<td>1</td>
+<td>75</td>
+<td>11</td>
+<td>200054781</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>75102</td>
+<td>POLYGON ((2.34792 48.87069, 2.34827 48.87062, ...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>ARR_MUNI0000000009736545</td>
+<td>NaN</td>
+<td>Paris 4e Arrondissement</td>
+<td>PARIS 4E ARRONDISSEMENT</td>
+<td>75056</td>
+<td>Capitale d'état</td>
+<td>29131</td>
+<td>NR</td>
+<td>1</td>
+<td>75</td>
+<td>11</td>
+<td>200054781</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>75104</td>
+<td>POLYGON ((2.36849 48.85580, 2.36873 48.85482, ...</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>On reconnaît la structure d’un <code>DataFrame</code> <code>Pandas</code>. A cette structure s’ajoute
+une colonne <code>geometry</code> qui enregistre la position des limites des polygones de chaque
+observation.</p>
+<p>Comme vu précédemment, le système de projection est un élément important. Il permet à <code>Python</code>
+d’interpréter les valeurs des points (deux dimensions) en position sur
+la terre, qui n’est pas un espace plan.</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>shp_communes.crs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>&lt;Geographic 2D CRS: EPSG:4326&gt;
+Name: WGS 84
+Axis Info [ellipsoidal]:
+- Lat[north]: Geodetic latitude (degree)
+- Lon[east]: Geodetic longitude (degree)
+Area of Use:
+- name: World.
+- bounds: (-180.0, -90.0, 180.0, 90.0)
+Datum: World Geodetic System 1984 ensemble
+- Ellipsoid: WGS 84
+- Prime Meridian: Greenwich</code></pre>
+</div>
+</div>
+<p>Ici, les données sont dans le système WGS84 (code EPSG 4326).
+Ce n’est pas le
+Lambert-93 comme on pourrait s’y attendre, ce dernier
+étant le système légal de projection pour la France
+métropolitaine.</p>
+<p>Pour s’assurer qu’on a bien récupéré les contours voulus,
+on peut représenter graphiquement
+les contours grâce à la méthode <code>plot</code> sur laquelle nous
+reviendrons :</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> shp_communes.boundary.plot()</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="03_geopandas_tutorial_files/figure-html/cell-9-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="03_geopandas_tutorial_files/figure-html/cell-9-output-1.png" width="371" height="389" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell markdown">
+<div class="alert alert-success" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Note</h3>
+<p>Si on ne désire pas utiliser le niveau <code>COMMUNE_ARRONDISSEMENT</code>,
+il est nécessaire de mettre en oeuvre une construction du fond de
+carte en plusieurs phases.</p>
+<p>En premier lieu, il est nécessaire de récupérer le niveau des communes.</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cartiflette.s3 <span class="im">as</span> s3</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>shp_communes <span class="op">=</span> s3.download_vectorfile_url_all(</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    crs <span class="op">=</span> <span class="dv">4326</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    values <span class="op">=</span> [<span class="st">"75"</span>, <span class="st">"92"</span>, <span class="st">"93"</span>, <span class="st">"94"</span>],</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    borders<span class="op">=</span><span class="st">"COMMUNE"</span>,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    vectorfile_format<span class="op">=</span><span class="st">"topojson"</span>,</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    filter_by<span class="op">=</span><span class="st">"DEPARTEMENT"</span>,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    source<span class="op">=</span><span class="st">"EXPRESS-COG-CARTO-TERRITOIRE"</span>,</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    year<span class="op">=</span><span class="dv">2022</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>shp_communes.head(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th">ID</th>
+<th data-quarto-table-cell-role="th">NOM</th>
+<th data-quarto-table-cell-role="th">NOM_M</th>
+<th data-quarto-table-cell-role="th">INSEE_COM</th>
+<th data-quarto-table-cell-role="th">STATUT</th>
+<th data-quarto-table-cell-role="th">POPULATION</th>
+<th data-quarto-table-cell-role="th">INSEE_CAN</th>
+<th data-quarto-table-cell-role="th">INSEE_ARR</th>
+<th data-quarto-table-cell-role="th">INSEE_DEP</th>
+<th data-quarto-table-cell-role="th">INSEE_REG</th>
+<th data-quarto-table-cell-role="th">SIREN_EPCI</th>
+<th data-quarto-table-cell-role="th">source</th>
+<th data-quarto-table-cell-role="th">geometry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>COMMUNE_0000000009736048</td>
+<td>NaN</td>
+<td>Paris</td>
+<td>PARIS</td>
+<td>75056</td>
+<td>Capitale d'état</td>
+<td>2165423</td>
+<td>NR</td>
+<td>1</td>
+<td>75</td>
+<td>11</td>
+<td>200054781</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>POLYGON ((2.36421 48.81640, 2.36333 48.81615, ...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">0</td>
+<td>COMMUNE_0000000009736037</td>
+<td>NaN</td>
+<td>Levallois-Perret</td>
+<td>LEVALLOIS-PERRET</td>
+<td>92044</td>
+<td>Commune simple</td>
+<td>66082</td>
+<td>16</td>
+<td>2</td>
+<td>92</td>
+<td>11</td>
+<td>200054781/200057982</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>POLYGON ((2.28739 48.90364, 2.28846 48.90302, ...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1</td>
+<td>COMMUNE_0000000009736055</td>
+<td>NaN</td>
+<td>Bois-Colombes</td>
+<td>BOIS-COLOMBES</td>
+<td>92009</td>
+<td>Commune simple</td>
+<td>28841</td>
+<td>11</td>
+<td>2</td>
+<td>92</td>
+<td>11</td>
+<td>200054781/200057990</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>POLYGON ((2.26639 48.90629, 2.26645 48.90615, ...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2</td>
+<td>COMMUNE_0000000009736538</td>
+<td>NaN</td>
+<td>Malakoff</td>
+<td>MALAKOFF</td>
+<td>92046</td>
+<td>Commune simple</td>
+<td>30950</td>
+<td>18</td>
+<td>1</td>
+<td>92</td>
+<td>11</td>
+<td>200054781/200057966</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>POLYGON ((2.27818 48.81425, 2.28066 48.81469, ...</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> shp_communes.boundary.plot()</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="03_geopandas_tutorial_files/figure-html/cell-12-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="03_geopandas_tutorial_files/figure-html/cell-12-output-1.png" width="371" height="389" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>On peut remarquer que la ville de Paris ne comporte pas d’arrondissements
+sur cette carte. Pour vous en convaincre, vous pouvez exécuter la
+commande :</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> shp_communes.loc[shp_communes[<span class="st">'INSEE_DEP'</span>]<span class="op">==</span><span class="st">"75"</span>].boundary.plot()</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="03_geopandas_tutorial_files/figure-html/cell-13-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="03_geopandas_tutorial_files/figure-html/cell-13-output-1.png" width="540" height="298" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Il faut donc utiliser une source complémentaire.
+Le contour officiel des arrondissements est
+produit par l’IGN séparemment des contours de communes.
+Les contours d’arrondissements sont également
+disponibles
+grâce à <code>cartiflette</code>:</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>arrondissements <span class="op">=</span> s3.download_vectorfile_url_all(</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    crs <span class="op">=</span> <span class="dv">4326</span>,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    values <span class="op">=</span> [<span class="st">"75"</span>],</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    borders<span class="op">=</span><span class="st">"COMMUNE_ARRONDISSEMENT"</span>,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    vectorfile_format<span class="op">=</span><span class="st">"topojson"</span>,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    filter_by<span class="op">=</span><span class="st">"DEPARTEMENT"</span>,</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    source<span class="op">=</span><span class="st">"EXPRESS-COG-CARTO-TERRITOIRE"</span>,</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    year<span class="op">=</span><span class="dv">2022</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>https://minio.lab.sspcloud.fr/projet-cartiflette/diffusion/shapefiles-test1/year=2022/administrative_level=COMMUNE_ARRONDISSEMENT/crs=4326/DEPARTEMENT=75/vectorfile_format=topojson/provider=IGN/source=EXPRESS-COG-CARTO-TERRITOIRE/raw.topojson</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Downloading: : 0.00iB [00:00, ?iB/s]Downloading: : 8.00kiB [00:00, 56.6kiB/s]Downloading: : 36.0kiB [00:00, 132kiB/s] Downloading: : 40.1kiB [00:00, 134kiB/s]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> arrondissements.boundary.plot(alpha <span class="op">=</span> <span class="fl">0.8</span>, edgecolor <span class="op">=</span> <span class="st">"k"</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="03_geopandas_tutorial_files/figure-html/cell-15-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="03_geopandas_tutorial_files/figure-html/cell-15-output-1.png" width="540" height="298" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Il ne reste plus qu’à remplacer Paris par
+ses arrondissements dans <code>shp_communes</code>.
+Pour cela, on peut utiliser les méthodes
+vues dans le chapitre <code>Pandas</code> relatives
+aux filtres et à la concaténation
+de plusieurs <code>DataFrames</code>:</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>shp_communes <span class="op">=</span> pd.concat(</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  [</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    shp_communes.loc[shp_communes[<span class="st">'INSEE_DEP'</span>] <span class="op">!=</span> <span class="st">"75"</span>].to_crs(<span class="dv">2154</span>),</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    arrondissements.to_crs(<span class="dv">2154</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> shp_communes.boundary.plot(alpha <span class="op">=</span> <span class="fl">0.8</span>, edgecolor <span class="op">=</span> <span class="st">"k"</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="03_geopandas_tutorial_files/figure-html/cell-17-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="03_geopandas_tutorial_files/figure-html/cell-17-output-1.png" width="372" height="389" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Cette approche fonctionne mais elle nécessite un certain nombre
+de gestes, qui sont autant de risques d’erreurs. Il est
+donc recommandé de privilégier le niveau <code>COMMUNE_ARRONDISSEMENT</code>
+qui fait exactement ceci mais de manière fiable.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="opérations-sur-les-attributs-et-les-géométries" class="level2">
+<h2 class="anchored" data-anchor-id="opérations-sur-les-attributs-et-les-géométries">Opérations sur les attributs et les géométries</h2>
+<section id="import-des-données-vélib" class="level3">
+<h3 class="anchored" data-anchor-id="import-des-données-vélib">Import des données vélib</h3>
+<p>Souvent, le découpage communal ne sert qu’en fond de cartes, pour donner des
+repères. En complément de celui-ci, on peut désirer exploiter
+un autre jeu de données. On va partir des données de localisation des
+stations velib,
+disponibles <a href="https://opendata.paris.fr/explore/dataset/velib-emplacement-des-stations/table/">sur le site d’open data de la ville de Paris</a> et
+requêtables directement par l’url
+<a href="https://opendata.paris.fr/explore/dataset/velib-emplacement-des-stations/download/?format=geojson&amp;timezone=Europe/Berlin&amp;lang=fr" class="uri">https://opendata.paris.fr/explore/dataset/velib-emplacement-des-stations/download/?format=geojson&amp;timezone=Europe/Berlin&amp;lang=fr</a></p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>velib_data <span class="op">=</span> <span class="st">'https://opendata.paris.fr/explore/dataset/velib-emplacement-des-stations/download/?format=geojson&amp;timezone=Europe/Berlin&amp;lang=fr'</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>stations <span class="op">=</span> gpd.read_file(velib_data)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>stations.crs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>&lt;Geographic 2D CRS: EPSG:4326&gt;
+Name: WGS 84
+Axis Info [ellipsoidal]:
+- Lat[north]: Geodetic latitude (degree)
+- Lon[east]: Geodetic longitude (degree)
+Area of Use:
+- name: World.
+- bounds: (-180.0, -90.0, 180.0, 90.0)
+Datum: World Geodetic System 1984 ensemble
+- Ellipsoid: WGS 84
+- Prime Meridian: Greenwich</code></pre>
+</div>
+</div>
+<p>Les données sont dans le système de projection WGS84 qui est celui du
+système GPS. Celui-ci s’intègre bien avec les fonds de carte
+<code>OpenStreetMap</code> ou <code>Google Maps</code>. En toute rigueur, si on
+désire effectuer certains calculs géométriques (mesurer des surfaces…), il est
+nécessaire de re-projeter les données dans un système qui préserve la géométrie
+(c’est le cas du Lambert 93).</p>
+<p>Pour avoir une intuition de la localisation des stations, et notamment de la
+densité hétérogène de celles-ci,
+on peut afficher les données sur la carte des communes
+de la petite couronne. Il s’agit donc d’enrichir la carte
+précédente d’une couche supplémentaire, à savoir la localisation
+des stations. Au passage, on va utiliser un fond de carte
+plus esthétique:</p>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>))</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>stations.sample(<span class="dv">200</span>).to_crs(<span class="dv">3857</span>).plot(ax <span class="op">=</span> ax, color <span class="op">=</span> <span class="st">'red'</span>, alpha <span class="op">=</span> <span class="fl">0.4</span>, zorder<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>shp_communes.to_crs(<span class="dv">3857</span>).plot(ax <span class="op">=</span> ax, zorder<span class="op">=</span><span class="dv">1</span>, edgecolor <span class="op">=</span> <span class="st">"black"</span>, facecolor<span class="op">=</span><span class="st">"none"</span>,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>                                                           color <span class="op">=</span> <span class="va">None</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>ctx.add_basemap(ax, source <span class="op">=</span> ctx.providers.OpenStreetMap.Mapnik)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="03_geopandas_tutorial_files/figure-html/cell-19-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="03_geopandas_tutorial_files/figure-html/cell-19-output-1.png" width="723" height="758" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Découvrez ci-dessous par étape les différentes lignes de commandes permettant d’afficher cette carte complète,
+étape par étape :</p>
+<p>1️⃣ Afficher le nuage de points de 200 stations vélibs prises au hasard</p>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>))</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>stations.sample(<span class="dv">200</span>).to_crs(<span class="dv">3857</span>).plot(ax <span class="op">=</span> ax, color <span class="op">=</span> <span class="st">'red'</span>, alpha <span class="op">=</span> <span class="fl">0.4</span>, zorder<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>&lt;Axes: &gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="03_geopandas_tutorial_files/figure-html/cell-21-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="03_geopandas_tutorial_files/figure-html/cell-21-output-2.png" width="811" height="638" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>2️⃣ Ajouter à cette couche, en-dessous, les contours des communes</p>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>))</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>stations.sample(<span class="dv">200</span>).to_crs(<span class="dv">3857</span>).plot(ax <span class="op">=</span> ax, color <span class="op">=</span> <span class="st">'red'</span>, alpha <span class="op">=</span> <span class="fl">0.4</span>, zorder<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>shp_communes.to_crs(<span class="dv">3857</span>).plot(ax <span class="op">=</span> ax, zorder<span class="op">=</span><span class="dv">1</span>, edgecolor <span class="op">=</span> <span class="st">"black"</span>, facecolor<span class="op">=</span><span class="st">"none"</span>,</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>                                                           color <span class="op">=</span> <span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="22">
+<div class="cell-output cell-output-display" data-execution_count="21">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="03_geopandas_tutorial_files/figure-html/cell-23-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="03_geopandas_tutorial_files/figure-html/cell-23-output-1.png" width="762" height="795" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>3️⃣ Ajouter un fond de carte de type <em>open street map</em> grâce au package
+<code>contextily</code></p>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>))</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>stations.sample(<span class="dv">200</span>).to_crs(<span class="dv">3857</span>).plot(ax <span class="op">=</span> ax, color <span class="op">=</span> <span class="st">'red'</span>, alpha <span class="op">=</span> <span class="fl">0.4</span>, zorder<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>shp_communes.to_crs(<span class="dv">3857</span>).plot(ax <span class="op">=</span> ax, zorder<span class="op">=</span><span class="dv">1</span>, edgecolor <span class="op">=</span> <span class="st">"black"</span>, facecolor<span class="op">=</span><span class="st">"none"</span>,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>                                                           color <span class="op">=</span> <span class="va">None</span>)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>ctx.add_basemap(ax, source <span class="op">=</span> ctx.providers.OpenStreetMap.Mapnik)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="24">
+<div class="cell-output cell-output-display" data-execution_count="23">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="03_geopandas_tutorial_files/figure-html/cell-25-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="03_geopandas_tutorial_files/figure-html/cell-25-output-1.png" width="762" height="795" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>4️⃣
+Il ne reste plus qu’à retirer l’axe des coordonnées, qui n’est pas très
+esthétique.</p>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>))</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>stations.sample(<span class="dv">200</span>).to_crs(<span class="dv">3857</span>).plot(ax <span class="op">=</span> ax, color <span class="op">=</span> <span class="st">'red'</span>, alpha <span class="op">=</span> <span class="fl">0.4</span>, zorder<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>shp_communes.to_crs(<span class="dv">3857</span>).plot(ax <span class="op">=</span> ax, zorder<span class="op">=</span><span class="dv">1</span>, edgecolor <span class="op">=</span> <span class="st">"black"</span>, facecolor<span class="op">=</span><span class="st">"none"</span>,</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>                                                           color <span class="op">=</span> <span class="va">None</span>)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>ctx.add_basemap(ax, source <span class="op">=</span> ctx.providers.OpenStreetMap.Mapnik)</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>ax</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="26">
+<div class="cell-output cell-output-display" data-execution_count="25">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="03_geopandas_tutorial_files/figure-html/cell-27-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="03_geopandas_tutorial_files/figure-html/cell-27-output-1.png" width="723" height="758" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p><em>In fine</em>, on obtient la carte désirée.</p>
+</section>
+<section id="opérations-sur-les-attributs" class="level3">
+<h3 class="anchored" data-anchor-id="opérations-sur-les-attributs">Opérations sur les attributs</h3>
+<p>Toutes les opérations possibles sur un objet <code>Pandas</code> le sont également
+sur un objet <code>GeoPandas</code>. Pour manipuler les données, et non la géométrie,
+on parlera d’opérations sur les attributs.</p>
+<p>Par exemple, si on désire
+connaître quelques statistiques sur la taille des stations, l’approche
+est identique à si on avait un objet <code>Pandas</code> classique :</p>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>stations.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">capacity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">count</td>
+<td>1472.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>31.247962</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>13.553993</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>23.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>29.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>37.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>200.000000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Pour classer les départements de la petite couronne, du plus grand au plus petit,
+procédons en deux étapes:</p>
+<ol type="1">
+<li><p>Récupérons le contour des communes
+grâce à <code>cartiflette</code>.
+Notons qu’on pourrait récupérer directement les contours départementaux mais
+pour l’exercice, nous allons le créer nous-mêmes comme agrégation
+des contours communaux
+(voir plus bas ainsi que <a href="https://observablehq.com/@linogaliana/cartiflette-demo">ce notebook <code>Observable</code></a> pour la méthode plus
+légère qui utilise pleinement les fonctionnalités de <code>cartiflette</code>).</p></li>
+<li><p>Calculons la surface totale de ce territoire (méthode <code>area</code> sur un objet <code>GeoPandas.GeoDataFrame</code> ramenée en km², attention néamoins au système de projection comme cela est expliqué plus bas)</p></li>
+</ol>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>shp_communes[<span class="st">'surface'</span>] <span class="op">=</span> shp_communes.area.div(<span class="dv">10</span><span class="op">**</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Les plus grands départements s’obtiennent par une agrégation des
+surfaces communales :</p>
+<div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>shp_communes.groupby(<span class="st">'INSEE_DEP'</span>).<span class="bu">sum</span>(numeric_only <span class="op">=</span> <span class="va">True</span>).sort_values(<span class="st">'surface'</span>, ascending <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">ID</th>
+<th data-quarto-table-cell-role="th">POPULATION</th>
+<th data-quarto-table-cell-role="th">surface</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">INSEE_DEP</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">94</td>
+<td>0.0</td>
+<td>1407124</td>
+<td>244.811517</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">93</td>
+<td>0.0</td>
+<td>1644903</td>
+<td>236.868125</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">92</td>
+<td>0.0</td>
+<td>1624357</td>
+<td>175.570765</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">75</td>
+<td>0.0</td>
+<td>2165423</td>
+<td>105.431335</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Si on veut directement les plus
+grandes communes de la petite couronne parisienne :</p>
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>shp_communes.sort_values(<span class="st">'surface'</span>, ascending <span class="op">=</span> <span class="va">False</span>).head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th">ID</th>
+<th data-quarto-table-cell-role="th">NOM</th>
+<th data-quarto-table-cell-role="th">NOM_M</th>
+<th data-quarto-table-cell-role="th">INSEE_COM</th>
+<th data-quarto-table-cell-role="th">STATUT</th>
+<th data-quarto-table-cell-role="th">POPULATION</th>
+<th data-quarto-table-cell-role="th">INSEE_CAN</th>
+<th data-quarto-table-cell-role="th">INSEE_ARR</th>
+<th data-quarto-table-cell-role="th">INSEE_DEP</th>
+<th data-quarto-table-cell-role="th">INSEE_REG</th>
+<th data-quarto-table-cell-role="th">SIREN_EPCI</th>
+<th data-quarto-table-cell-role="th">source</th>
+<th data-quarto-table-cell-role="th">geometry</th>
+<th data-quarto-table-cell-role="th">INSEE_COG</th>
+<th data-quarto-table-cell-role="th">surface</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">23</td>
+<td>COMMUNE_0000000009735015</td>
+<td>NaN</td>
+<td>Tremblay-en-France</td>
+<td>TREMBLAY-EN-FRANCE</td>
+<td>93073</td>
+<td>Commune simple</td>
+<td>36461</td>
+<td>20</td>
+<td>2</td>
+<td>93</td>
+<td>11</td>
+<td>200054781/200058097</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>POLYGON ((663432.643 6875170.586, 663414.781 6...</td>
+<td>NaN</td>
+<td>22.680693</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">12</td>
+<td>ARR_MUNI0000000009736553</td>
+<td>NaN</td>
+<td>Paris 16e Arrondissement</td>
+<td>PARIS 16E ARRONDISSEMENT</td>
+<td>75056</td>
+<td>Capitale d'état</td>
+<td>165523</td>
+<td>NR</td>
+<td>1</td>
+<td>75</td>
+<td>11</td>
+<td>200054781</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>POLYGON ((647190.220 6864524.360, 647201.518 6...</td>
+<td>75116</td>
+<td>16.409713</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">19</td>
+<td>ARR_MUNI0000000009736532</td>
+<td>NaN</td>
+<td>Paris 12e Arrondissement</td>
+<td>PARIS 12E ARRONDISSEMENT</td>
+<td>75056</td>
+<td>Capitale d'état</td>
+<td>139297</td>
+<td>NR</td>
+<td>1</td>
+<td>75</td>
+<td>11</td>
+<td>200054781</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>POLYGON ((655221.113 6858576.460, 655149.729 6...</td>
+<td>75112</td>
+<td>16.380842</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>COMMUNE_0000000009735500</td>
+<td>NaN</td>
+<td>Aulnay-sous-Bois</td>
+<td>AULNAY-SOUS-BOIS</td>
+<td>93005</td>
+<td>Commune simple</td>
+<td>86969</td>
+<td>02</td>
+<td>2</td>
+<td>93</td>
+<td>11</td>
+<td>200054781/200058097</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>POLYGON ((660415.819 6872923.194, 660423.603 6...</td>
+<td>NaN</td>
+<td>16.167599</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">31</td>
+<td>COMMUNE_0000000009736056</td>
+<td>NaN</td>
+<td>Rueil-Malmaison</td>
+<td>RUEIL-MALMAISON</td>
+<td>92063</td>
+<td>Commune simple</td>
+<td>78317</td>
+<td>22</td>
+<td>2</td>
+<td>92</td>
+<td>11</td>
+<td>200054781/200057982</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>POLYGON ((639099.023 6866521.194, 639135.281 6...</td>
+<td>NaN</td>
+<td>14.540955</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">37</td>
+<td>COMMUNE_0000000009736517</td>
+<td>NaN</td>
+<td>Noisy-le-Grand</td>
+<td>NOISY-LE-GRAND</td>
+<td>93051</td>
+<td>Commune simple</td>
+<td>67871</td>
+<td>14</td>
+<td>2</td>
+<td>93</td>
+<td>11</td>
+<td>200054781/200058790</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>POLYGON ((664453.846 6861358.828, 664461.038 6...</td>
+<td>NaN</td>
+<td>13.138755</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>COMMUNE_0000000009735515</td>
+<td>NaN</td>
+<td>Saint-Denis</td>
+<td>SAINT-DENIS</td>
+<td>93066</td>
+<td>Sous-préfecture</td>
+<td>112852</td>
+<td>99</td>
+<td>3</td>
+<td>93</td>
+<td>11</td>
+<td>200054781/200057867</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>POLYGON ((652098.246 6872022.511, 652102.652 6...</td>
+<td>NaN</td>
+<td>12.372213</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">4</td>
+<td>COMMUNE_0000000009736052</td>
+<td>NaN</td>
+<td>Nanterre</td>
+<td>NANTERRE</td>
+<td>92050</td>
+<td>Préfecture</td>
+<td>96277</td>
+<td>99</td>
+<td>2</td>
+<td>92</td>
+<td>11</td>
+<td>200054781/200057982</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>POLYGON ((643490.675 6867612.283, 643581.446 6...</td>
+<td>NaN</td>
+<td>12.231274</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">37</td>
+<td>COMMUNE_0000000009737009</td>
+<td>NaN</td>
+<td>Vitry-sur-Seine</td>
+<td>VITRY-SUR-SEINE</td>
+<td>94081</td>
+<td>Commune simple</td>
+<td>95510</td>
+<td>99</td>
+<td>3</td>
+<td>94</td>
+<td>11</td>
+<td>200054781/200058014</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>POLYGON ((653536.980 6852608.424, 653536.652 6...</td>
+<td>NaN</td>
+<td>11.665507</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">20</td>
+<td>COMMUNE_0000000009735517</td>
+<td>NaN</td>
+<td>Gennevilliers</td>
+<td>GENNEVILLIERS</td>
+<td>92036</td>
+<td>Commune simple</td>
+<td>48530</td>
+<td>14</td>
+<td>2</td>
+<td>92</td>
+<td>11</td>
+<td>200054781/200057990</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>POLYGON ((649583.723 6872218.087, 649556.138 6...</td>
+<td>NaN</td>
+<td>11.632021</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Lors des étapes d’agrégation, <code>groupby</code> ne conserve pas les géométries. Autrement
+dit, si on effectue, par exemple, une somme en fonction d’une variable de groupe avec
+le combo <code>groupby(...).sum(...)</code> , on perd
+la dimension géographique.</p>
+<p>Il est néanmoins possible d’aggréger à la fois les géométries et les
+attribus avec la méthode <code>dissolve</code>:</p>
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>))</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>shp_communes.dissolve(by<span class="op">=</span><span class="st">'INSEE_DEP'</span>, aggfunc<span class="op">=</span><span class="st">'sum'</span>).plot(ax <span class="op">=</span> ax, column <span class="op">=</span> <span class="st">"surface"</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>ax</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/opt/mamba/lib/python3.9/site-packages/geopandas/plotting.py:730: FutureWarning:
+
+is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
+</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<pre><code>&lt;Axes: &gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="03_geopandas_tutorial_files/figure-html/cell-32-output-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="03_geopandas_tutorial_files/figure-html/cell-32-output-3.png" width="725" height="758" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Pour produire l’équivalent de cette carte à un niveau France entière, il est néanmoins plus simple de directement
+récupérer les fonds officiels des départements plutôt que d’agréger les
+contours des communes:</p>
+<div class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>dep <span class="op">=</span> s3.download_vectorfile_url_all(</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    values <span class="op">=</span> <span class="st">"metropole"</span>,</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    crs <span class="op">=</span> <span class="dv">4326</span>,</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>    borders <span class="op">=</span> <span class="st">"DEPARTEMENT"</span>,</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>    vectorfile_format<span class="op">=</span><span class="st">"topojson"</span>,</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>    filter_by<span class="op">=</span><span class="st">"FRANCE_ENTIERE"</span>,</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>    source<span class="op">=</span><span class="st">"EXPRESS-COG-CARTO-TERRITOIRE"</span>,</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>    year<span class="op">=</span><span class="dv">2022</span>)</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>dep[<span class="st">"area"</span>] <span class="op">=</span> dep.to_crs(<span class="dv">2154</span>).area</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Avant de calculer les surfaces des départements, pour éviter les déformations liées au
+système <code>Mercator</code>, nous faisons une reprojection des données à la volée. Plus de détails
+par la suite.</p>
+<div class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>dep.sort_values(<span class="st">'area'</span>, ascending <span class="op">=</span> <span class="va">False</span>).head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th">ID</th>
+<th data-quarto-table-cell-role="th">NOM_M</th>
+<th data-quarto-table-cell-role="th">NOM</th>
+<th data-quarto-table-cell-role="th">INSEE_DEP</th>
+<th data-quarto-table-cell-role="th">INSEE_REG</th>
+<th data-quarto-table-cell-role="th">source</th>
+<th data-quarto-table-cell-role="th">territoire</th>
+<th data-quarto-table-cell-role="th">geometry</th>
+<th data-quarto-table-cell-role="th">area</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">33</td>
+<td>DEPARTEM_FXX_00000000034</td>
+<td>NaN</td>
+<td>GIRONDE</td>
+<td>Gironde</td>
+<td>33</td>
+<td>75</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>metropole</td>
+<td>MULTIPOLYGON (((-1.15275 45.60453, -1.15084 45...</td>
+<td>1.036783e+10</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">40</td>
+<td>DEPARTEM_FXX_00000000041</td>
+<td>NaN</td>
+<td>LANDES</td>
+<td>Landes</td>
+<td>40</td>
+<td>75</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>metropole</td>
+<td>POLYGON ((-1.25361 44.46752, -1.25317 44.46762...</td>
+<td>9.354177e+09</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">24</td>
+<td>DEPARTEM_FXX_00000000025</td>
+<td>NaN</td>
+<td>DORDOGNE</td>
+<td>Dordogne</td>
+<td>24</td>
+<td>75</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>metropole</td>
+<td>POLYGON ((-0.04044 45.10261, -0.04073 45.10309...</td>
+<td>9.210826e+09</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> dep.plot(column <span class="op">=</span> <span class="st">"area"</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/opt/mamba/lib/python3.9/site-packages/geopandas/plotting.py:730: FutureWarning:
+
+is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="03_geopandas_tutorial_files/figure-html/cell-35-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="03_geopandas_tutorial_files/figure-html/cell-35-output-2.png" width="405" height="389" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="opérations-sur-les-géométries" class="level3">
+<h3 class="anchored" data-anchor-id="opérations-sur-les-géométries">Opérations sur les géométries</h3>
+<p>Outre la représentation graphique simplifiée,
+sur laquelle nous reviendrons ultérieurement, l’intérêt principal d’utiliser
+<code>GeoPandas</code> est l’existence de méthodes efficaces pour
+manipuler la dimension spatiale. Un certain nombre proviennent du
+package
+<a href="https://shapely.readthedocs.io/en/latest/manual.html#general-attributes-and-methods"><code>Shapely</code></a>.</p>
+<div class="cell markdown">
+<div class="alert alert-danger" role="alert">
+<i class="fa-solid fa-triangle-exclamation"></i> Warning
+<p>Les données sont en système de coordonnées WGS 84 ou pseudo-Mercator (epsg: <code>4326</code>) et ne sont pas projetées.
+C’est un format approprié lorsqu’il s’agit d’utiliser un fonds
+de carte <code>OpenStreetMap</code>, <code>Stamen</code>, <code>Google Maps</code>, etc.</p>
+<p>Mais ce n’est pas un
+format sur lequel on désire faire des calculs car les distances sont faussées sans utiliser de projection. D’ailleurs, <code>geopandas</code> refusera certaines opérations
+sur des données dont le crs est <code>4326</code>. On reprojette ainsi les données
+dans la projection officielle pour la métropole, le Lambert 93
+(epsg: <code>2154</code>).</p>
+</div>
+</div>
+<p>Comme indiqué ci-dessus, nous reprojetons les données
+dans le système Lambert 93 qui ne fausse pas les
+calculs de distance et d’aires.</p>
+<div class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>communes <span class="op">=</span> shp_communes.to_crs(<span class="dv">2154</span>)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>stations <span class="op">=</span> stations.to_crs(<span class="dv">2154</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Par exemple, on peut recalculer la taille d’une commune ou d’arrondissement
+avec la méthode <code>area</code> (et diviser par <span class="math inline">\(10^6\)</span> pour avoir des <span class="math inline">\(km^2\)</span> au lieu
+des <span class="math inline">\(m^2\)</span>):</p>
+<div class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>communes[<span class="st">'superficie'</span>] <span class="op">=</span> communes.area.div(<span class="dv">10</span><span class="op">**</span><span class="dv">6</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>communes.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="35">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th">ID</th>
+<th data-quarto-table-cell-role="th">NOM</th>
+<th data-quarto-table-cell-role="th">NOM_M</th>
+<th data-quarto-table-cell-role="th">INSEE_COM</th>
+<th data-quarto-table-cell-role="th">STATUT</th>
+<th data-quarto-table-cell-role="th">POPULATION</th>
+<th data-quarto-table-cell-role="th">INSEE_CAN</th>
+<th data-quarto-table-cell-role="th">INSEE_ARR</th>
+<th data-quarto-table-cell-role="th">INSEE_DEP</th>
+<th data-quarto-table-cell-role="th">INSEE_REG</th>
+<th data-quarto-table-cell-role="th">SIREN_EPCI</th>
+<th data-quarto-table-cell-role="th">source</th>
+<th data-quarto-table-cell-role="th">geometry</th>
+<th data-quarto-table-cell-role="th">INSEE_COG</th>
+<th data-quarto-table-cell-role="th">surface</th>
+<th data-quarto-table-cell-role="th">superficie</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>COMMUNE_0000000009736037</td>
+<td>NaN</td>
+<td>Levallois-Perret</td>
+<td>LEVALLOIS-PERRET</td>
+<td>92044</td>
+<td>Commune simple</td>
+<td>66082</td>
+<td>16</td>
+<td>2</td>
+<td>92</td>
+<td>11</td>
+<td>200054781/200057982</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>POLYGON ((647761.341 6867306.988, 647839.223 6...</td>
+<td>NaN</td>
+<td>2.417491</td>
+<td>2.417491</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>COMMUNE_0000000009736055</td>
+<td>NaN</td>
+<td>Bois-Colombes</td>
+<td>BOIS-COLOMBES</td>
+<td>92009</td>
+<td>Commune simple</td>
+<td>28841</td>
+<td>11</td>
+<td>2</td>
+<td>92</td>
+<td>11</td>
+<td>200054781/200057990</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>POLYGON ((646224.655 6867615.810, 646228.990 6...</td>
+<td>NaN</td>
+<td>1.926619</td>
+<td>1.926619</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>COMMUNE_0000000009736538</td>
+<td>NaN</td>
+<td>Malakoff</td>
+<td>MALAKOFF</td>
+<td>92046</td>
+<td>Commune simple</td>
+<td>30950</td>
+<td>18</td>
+<td>1</td>
+<td>92</td>
+<td>11</td>
+<td>200054781/200057966</td>
+<td>IGN:EXPRESS-COG-CARTO-TERRITOIRE</td>
+<td>POLYGON ((646995.323 6857373.499, 647177.485 6...</td>
+<td>NaN</td>
+<td>2.070953</td>
+<td>2.070953</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Une méthode qu’on utilise régulièrement est <code>centroid</code> qui, comme son nom l’indique,
+recherche le centroïde de chaque polygone et transforme ainsi des données
+surfaciques en données ponctuelles. Par exemple, pour
+représenter approximativement les centres des villages de la
+Haute-Garonne (31), après avoir téléchargé le fonds de carte adapté,
+fera</p>
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>communes_31 <span class="op">=</span> s3.download_vectorfile_url_all(</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>      crs <span class="op">=</span> <span class="dv">4326</span>,</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>      values <span class="op">=</span> <span class="st">"31"</span>,</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>      borders<span class="op">=</span><span class="st">"COMMUNE"</span>,</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>      vectorfile_format<span class="op">=</span><span class="st">"topojson"</span>,</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>      filter_by<span class="op">=</span><span class="st">"DEPARTEMENT"</span>,</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>      source<span class="op">=</span><span class="st">"EXPRESS-COG-CARTO-TERRITOIRE"</span>,</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>      year<span class="op">=</span><span class="dv">2022</span>)</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a><span class="co"># on reprojete en 3857 pour le fond de carte</span></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>communes_31 <span class="op">=</span> communes_31.to_crs(<span class="dv">3857</span>)</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a><span class="co"># on calcule le centroide</span></span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>dep_31 <span class="op">=</span> communes_31.copy()</span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>communes_31[<span class="st">'geometry'</span>] <span class="op">=</span> communes_31[<span class="st">'geometry'</span>].centroid</span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> communes_31.plot(figsize <span class="op">=</span> (<span class="dv">10</span>,<span class="dv">10</span>), color <span class="op">=</span> <span class="st">'red'</span>, alpha <span class="op">=</span> <span class="fl">0.4</span>, zorder<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a>dep_31.to_crs(<span class="dv">3857</span>).plot(ax <span class="op">=</span> ax, zorder<span class="op">=</span><span class="dv">1</span>, edgecolor <span class="op">=</span> <span class="st">"black"</span>, facecolor<span class="op">=</span><span class="st">"none"</span>,</span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a>                                                           color <span class="op">=</span> <span class="va">None</span>)</span>
+<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a><span class="co">#ctx.add_basemap(ax, source = ctx.providers.Stamen.Toner)</span></span>
+<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a>ax.set_axis_off()</span>
+<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a>ax</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>https://minio.lab.sspcloud.fr/projet-cartiflette/diffusion/shapefiles-test1/year=2022/administrative_level=COMMUNE/crs=4326/DEPARTEMENT=31/vectorfile_format=topojson/provider=IGN/source=EXPRESS-COG-CARTO-TERRITOIRE/raw.topojson</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Downloading: : 0.00iB [00:00, ?iB/s]Downloading: : 9.00kiB [00:00, 65.5kiB/s]Downloading: : 33.0kiB [00:00, 119kiB/s] Downloading: : 81.0kiB [00:00, 206kiB/s]Downloading: : 165kiB [00:00, 336kiB/s] Downloading: : 329kiB [00:00, 592kiB/s]Downloading: : 661kiB [00:00, 1.11MiB/s]Downloading: : 1.29MiB [00:01, 2.12MiB/s]Downloading: : 1.60MiB [00:01, 1.48MiB/s]</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<pre><code>&lt;Axes: &gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="03_geopandas_tutorial_files/figure-html/cell-38-output-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="03_geopandas_tutorial_files/figure-html/cell-38-output-4.png" width="720" height="758" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="gérer-le-système-de-projection" class="level2">
+<h2 class="anchored" data-anchor-id="gérer-le-système-de-projection">Gérer le système de projection</h2>
+<p>Précédemment, nous avons appliqué une méthode <code>to_crs</code> pour reprojeter
+les données dans un système de projection différent de celui du fichier
+d’origine :</p>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>communes <span class="op">=</span> communes.to_crs(<span class="dv">2154</span>)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>stations <span class="op">=</span> stations.to_crs(<span class="dv">2154</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Concernant la gestion des projections avec <code>GeoPandas</code>,
+la <a href="https://geopandas.org/projections.html">documentation officielle</a> est très bien
+faite. Elle fournit notamment l’avertissement suivant qu’il est
+bon d’avoir en tête :</p>
+<blockquote class="blockquote">
+<p>Be aware that most of the time you don’t have to set a projection. Data loaded from a reputable source (using the geopandas.read_file() command) should always include projection information. You can see an objects current CRS through the GeoSeries.crs attribute.</p>
+<p>From time to time, however, you may get data that does not include a projection. In this situation, you have to set the CRS so geopandas knows how to interpret the coordinates.</p>
+</blockquote>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://imgs.xkcd.com/comics/bad_map_projection_south_america.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17" title="Image empruntée à XKCD https://xkcd.com/2256/ qu’on peut également trouver sur https://blog.chrislansdown.com/2020/01/17/a-great-map-projection-joke/"><img src="https://imgs.xkcd.com/comics/bad_map_projection_south_america.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption"><em>Image empruntée à XKCD <a href="https://xkcd.com/2256/" class="uri">https://xkcd.com/2256/</a> qu’on peut également trouver sur <a href="https://blog.chrislansdown.com/2020/01/17/a-great-map-projection-joke/" class="uri">https://blog.chrislansdown.com/2020/01/17/a-great-map-projection-joke/</a></em></figcaption>
+</figure>
+</div>
+<p>Pour déterminer le système de projection d’une base de données, on peut vérifier l’attribut <code>crs</code> :</p>
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>communes.crs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="38">
+<pre><code>&lt;Projected CRS: EPSG:2154&gt;
+Name: RGF93 v1 / Lambert-93
+Axis Info [cartesian]:
+- X[east]: Easting (metre)
+- Y[north]: Northing (metre)
+Area of Use:
+- name: France - onshore and offshore, mainland and Corsica (France métropolitaine including Corsica).
+- bounds: (-9.86, 41.15, 10.38, 51.56)
+Coordinate Operation:
+- name: Lambert-93
+- method: Lambert Conic Conformal (2SP)
+Datum: Reseau Geodesique Francais 1993 v1
+- Ellipsoid: GRS 1980
+- Prime Meridian: Greenwich</code></pre>
+</div>
+</div>
+<p>Les deux principales méthodes pour définir le système de projection utilisé sont :</p>
+<ul>
+<li><strong><code>df.set_crs</code></strong> : cette commande sert à préciser quel est le système de projection utilisé, c’est-à-dire comment les coordonnées <em>(x,y)</em> sont reliées à la surface terrestre. <strong>Cette commande ne doit pas être utilisée pour transformer le système de coordonnées, seulement pour le définir</strong>.</li>
+<li><strong><code>df.to_crs</code></strong> : <strong>cette commande sert à projeter les points d’une géométrie dans une autre, c’est-à-dire à recalculer les coordonnées selon un autre système de projection.</strong></li>
+</ul>
+<p>Dans le cas particulier de production de carte avec un fond <code>OpenStreetMaps</code> ou une carte dynamique <code>leaflet</code>, il est nécessaire de dé-projeter les données (par exemple à partir du Lambert-93) pour atterrir dans le système non-projeté WGS 84 (code EPSG 4326). Ce site <a href="https://epsg.io/">dédié aux projections géographiques</a> peut-être utile pour retrouver le système de projection d’un fichier où il n’est pas indiqué.</p>
+<p>La définition du système de projection se fait de la manière suivante (:warning: avant de le faire, se souvenir de l’avertissement !) :</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>communes <span class="op">=</span> communes.set_crs(<span class="dv">2154</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Alors que la reprojection (projection Albers : <code>5070</code>) s’obtient de la manière suivante :</p>
+<div class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>shp_region <span class="op">=</span> s3.download_vectorfile_url_all(</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>    values <span class="op">=</span> <span class="st">"metropole"</span>,</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>    crs <span class="op">=</span> <span class="dv">4326</span>,</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>    borders <span class="op">=</span> <span class="st">"REGION"</span>,</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>    vectorfile_format<span class="op">=</span><span class="st">"topojson"</span>,</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>    filter_by<span class="op">=</span><span class="st">"FRANCE_ENTIERE"</span>,</span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>    source<span class="op">=</span><span class="st">"EXPRESS-COG-CARTO-TERRITOIRE"</span>,</span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>    year<span class="op">=</span><span class="dv">2022</span>)</span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>))</span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>shp_region.to_crs(<span class="dv">5070</span>).plot(ax <span class="op">=</span> ax)</span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>ax</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>https://minio.lab.sspcloud.fr/projet-cartiflette/diffusion/shapefiles-test1/year=2022/administrative_level=REGION/crs=4326/FRANCE_ENTIERE=metropole/vectorfile_format=topojson/provider=IGN/source=EXPRESS-COG-CARTO-TERRITOIRE/raw.topojson</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Downloading: : 0.00iB [00:00, ?iB/s]Downloading: : 12.0kiB [00:00, 78.9kiB/s]Downloading: : 34.0kiB [00:00, 116kiB/s] Downloading: : 82.0kiB [00:00, 204kiB/s]Downloading: : 174kiB [00:00, 358kiB/s] Downloading: : 358kiB [00:00, 655kiB/s]Downloading: : 730kiB [00:00, 1.25MiB/s]Downloading: : 1.44MiB [00:01, 2.40MiB/s]Downloading: : 1.84MiB [00:01, 2.22MiB/s]Downloading: : 3.62MiB [00:01, 4.98MiB/s]Downloading: : 4.76MiB [00:01, 3.31MiB/s]</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="39">
+<pre><code>&lt;Axes: &gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="03_geopandas_tutorial_files/figure-html/cell-41-output-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="03_geopandas_tutorial_files/figure-html/cell-41-output-4.png" width="794" height="652" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="41">
+<div class="cell-output cell-output-display">
+<pre><code>&lt;Figure size 672x480 with 0 Axes&gt;</code></pre>
+</div>
+</div>
+<p>On le voit, cela modifie totalement la représentation de l’objet dans l’espace.
+Clairement, cette projection n’est pas adaptée aux longitudes et latitudes françaises.
+C’est normal, il s’agit d’une projection adaptée au continent
+nord-américain (et encore, pas dans son ensemble !).</p>
+<div class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>world <span class="op">=</span> gpd.read_file(gpd.datasets.get_path(<span class="st">'naturalearth_lowres'</span>))</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>))</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>world[world.continent <span class="op">==</span> <span class="st">"North America"</span>].to_crs(<span class="dv">5070</span>).plot(alpha <span class="op">=</span> <span class="fl">0.2</span>, edgecolor <span class="op">=</span> <span class="st">"k"</span>, ax <span class="op">=</span> ax)</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>ax</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="41">
+<pre><code>&lt;Axes: &gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="03_geopandas_tutorial_files/figure-html/cell-43-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="03_geopandas_tutorial_files/figure-html/cell-43-output-2.png" width="781" height="704" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="43">
+<div class="cell-output cell-output-display">
+<pre><code>&lt;Figure size 672x480 with 0 Axes&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="joindre-des-données" class="level2">
+<h2 class="anchored" data-anchor-id="joindre-des-données">Joindre des données</h2>
+<section id="joindre-des-données-sur-des-attributs" class="level3">
+<h3 class="anchored" data-anchor-id="joindre-des-données-sur-des-attributs">Joindre des données sur des attributs</h3>
+<p>Ce type de jointure se fait entre un objet géographique et un
+deuxième objet, géographique ou non. A l’exception de la question
+des géométries, il n’y a pas de différence par rapport à <code>Pandas</code>.</p>
+<p>La seule différence avec <code>Pandas</code> est dans la dimension géographique.
+Si on désire conserver la dimension géographique, il faut faire
+attention à faire :</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>geopandas_object.merge(pandas_object)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Si on utilise deux objets géographiques mais ne désire conserver qu’une seule
+dimension géographique<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, on fera</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>geopandas_object1.merge(geopandas_object2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Seule la géométrie de l’objet de gauche
+sera conservée, même si on fait un <em>right join</em>.</p>
+</section>
+<section id="prolongation-possible-joindre-des-données-sur-dimension-géographique" class="level3">
+<h3 class="anchored" data-anchor-id="prolongation-possible-joindre-des-données-sur-dimension-géographique">Prolongation possible : joindre des données sur dimension géographique</h3>
+<p>Le chapitre suivant permettra de mettre en oeuvre des
+jointures géographiques.</p>
+<div class="cell markdown">
+<div class="alert alert-warning" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-lightbulb"></i> Hint</h3>
+<p>Les jointures spatiales peuvent être très gourmandes en ressources (car il peut être nécessaire de croiser toutes les géométries de <code>x</code> avec toutes les géométries de <code>y</code>). Voici deux conseils qui peuvent vous aider :</p>
+<ul>
+<li>Il est préférable de tester les jointures géographiques sur un petit échantillon de données, pour estimer le temps et les ressources nécessaires à la réalisation de la jointure.</li>
+<li>Il est parfois possible d’écrire une fonction qui réduit la taille du problème. Exemple: vous voulez déterminer dans quelle commune se situe un logement dont vous connaissez les coordonnées et le département; vous pouvez écrire une fonction qui réalise pour chaque département une jointure spatiale entre les logements situés dans ce département et les communes de ce département, puis empiler les 101 tables de sorties.</li>
+</ul>
+</div>
+</div>
+
+
+</section>
+</section>
+
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Il est techniquement possible d’avoir un <code>DataFrame</code> comportant plusieurs
+géographies. Par exemple une géométrie polygone et une géométrie point
+(le centroid). C’est néanmoins souvent compliqué à gérer et donc peu
+recommandable.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@book{galiana2023,
+  author = {Galiana, Lino},
+  title = {Python Pour La Data Science},
+  date = {2023},
+  url = {https://pythonds.linogaliana.fr/},
+  doi = {10.5281/zenodo.8229676},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-galiana2023" class="csl-entry quarto-appendix-citeas" role="listitem">
+Galiana, Lino. 2023. <em>Python Pour La Data Science</em>. <a href="https://doi.org/10.5281/zenodo.8229676">https://doi.org/10.5281/zenodo.8229676</a>.
+</div></div></section></div></main> <!-- /main -->
+<script type="ojs-module-contents">
+{"contents":[{"methodName":"interpret","cellName":"ojs-cell-1","inline":false,"source":"html`<div>${container_projection}</div>`\n"},{"methodName":"interpret","cellName":"ojs-cell-2","inline":false,"source":"container_projection = html`<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"projection\">\n      <div class=\"projection-label\">Choisir une projection</div>\n      ${viewof projection}\n    </div>\n  </div>\n  <div class=\"row\">\n    <div class=\"projectedMap\">\n      ${projectedMap}\n    </div>\n  </div>\n</div>`\n"},{"methodName":"interpret","cellName":"ojs-cell-3","inline":false,"source":"viewof projection = projectionInput({\n  name: \"\",\n  value: \"Mercator\"\n})\n"},{"methodName":"interpret","cellName":"ojs-cell-4","inline":false,"source":"import {projectionInput} from \"@fil/d3-projections\"\nimport {map} from \"@linogaliana/base-map\"\n"},{"methodName":"interpret","cellName":"ojs-cell-5","inline":false,"source":"projectedMap = map(projection,\n                   {\n                     //svg: true,\n                     value: projection.options,\n                     width: width_projected_map,\n                     //height: 300,\n                     //rotate: [0, -90],\n                     //inertia: true,\n                     show_equator: true,\n                     background: \"#f1f0eb\"\n                     \n                     //show_structure: true\n                   })\n"},{"methodName":"interpret","cellName":"ojs-cell-6","inline":false,"source":"width_projected_map = screen.width/2\n"},{"methodName":"interpret","cellName":"ojs-cell-7","inline":false,"source":"html`<div class=\"grid-container\">\n  <div class=\"viewof-projection\">${viewof projectionBertin}</div>\n  <div class=\"viewof-mycountry\">${viewof mycountry}</div>\n  <div class=\"map-bertin\">${mapBertin}</div>\n</div>`\n"},{"methodName":"interpret","cellName":"ojs-cell-8","inline":false,"source":"import {map as mapBertin, viewof projection as projectionBertin, viewof mycountry} from \"@neocartocnrs/impact-of-projections-on-areas\"\n"},{"methodName":"interpret","cellName":"ojs-cell-9","inline":false,"source":"html`<div class=\"centered\">${spilhaus}</div>`\n"},{"methodName":"interpret","cellName":"ojs-cell-10","inline":false,"source":"spilhaus = {\n  const width = 600;\n  const height = width;\n\n  const context = DOM.context2d(width, height);\n  const projection = d3.geoStereographic()\n    .rotate([95, 45])\n    .translate([width / 2, height / 2])\n    .scale(width / 10.1)\n    .center([30, -5])\n    .clipAngle(166);\n  const path = d3.geoPath(projection, context);\n\n  const land = topojson.feature(world, world.objects.land);\n\n  context.lineJoin = \"round\";\n  context.lineCap = \"round\";\n  context.fillStyle = \"#f2f1ed\";\n  context.fillRect(0, 0, width, height);\n\n  context.beginPath();\n  path({type: \"Sphere\"});\n  path(land);\n  context.lineWidth = 0.5;\n  context.stroke();\n  context.clip(\"evenodd\");\n\n  context.save();\n  context.beginPath();\n  path(land);\n  context.filter = \"blur(12px)\";\n  context.fillStyle = \"#006994\";\n  context.fill(\"evenodd\");\n  context.restore();\n  \n  context.beginPath();\n  path(d3.geoGraticule10());\n  context.globalAlpha = 0.2;\n  context.strokeStyle = \"#000\";\n  context.stroke();\n\n  return context.canvas;\n}\n"},{"methodName":"interpret","cellName":"ojs-cell-11","inline":false,"source":"//import {map as spilhausmap} with {height, width} from \"@d3/spilhaus-shoreline-map\"\nimport { world } from \"@d3/spilhaus-shoreline-map\"\n"},{"methodName":"interpretQuiet","source":"shinyInput('projection')"}]}
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../content/manipulation";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "../..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="linogaliana/python-datascientist" data-repo-id="MDEwOlJlcG9zaXRvcnkyODAxNjE2Nzc=" data-category="General" data-category-id="DIC_kwDOELLtjc4B-5TX" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../content/manipulation/02b_pandas_TP.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Pratique de pandas : un exemple complet</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../content/manipulation/03_geopandas_TP.html" class="pagination-link">
+        <span class="nav-page-text">Pratique de geopandas avec les données vélib</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Python pour la <em>data science</em>, Lino Galiana.<br>
+Licence <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i><br>
+Code source disponible sur <a href="https://github.com/linogaliana/python-datascientist"><code>Github</code></a></div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">Site construit avec <i class="fa-brands fa-python" aria-label="python"></i> et <a href="https://quarto.org/"><code>Quarto</code></a><br>
+Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com">ici</a><br>
+<a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"loop":true,"closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom","selector":".lightbox"});</script>
+
+
+
+</body></html>
