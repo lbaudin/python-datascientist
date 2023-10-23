@@ -8,9 +8,9 @@
 
 <meta name="author" content="Lino Galiana">
 <meta name="dcterms.date" content="2020-09-08">
-<meta name="description" content="Python permet de facilement récupérer une page web pour en extraire des données à restructurer. Le web scraping, que les Canadiens nomment “moissonnage du web”, est une manière de plus en plus utilisée de récupérer une grande masse d’information en temps réel.">
+<meta name="description" content="Python permet de facilement récupérer une page web pour en extraire des données à restructurer. Le web scraping, que les Canadiens nomment “moissonnage du web”, est une manière de plus en plus utilisée de récupérer une grande masse d’information en temps réel. Ce chapitre présente les deux principaux paradigmes par le biais de BeautifulSoup et Selenium et les principaux défis du web scraping.">
 
-<title>Python pour la data science - Webscraping avec python</title>
+<title>Python pour la data science - Webscraping avec Python</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,12 +115,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <link rel="stylesheet" href="../../styles.css">
-<meta name="twitter:title" content="Python pour la data science - Webscraping avec python">
+<meta name="twitter:title" content="Python pour la data science - Webscraping avec Python">
 <meta name="twitter:description" content="Python permet de facilement récupérer une page web pour en extraire des
 données à restructurer. Le web scraping, que les Canadiens nomment
 “moissonnage du web”, est une manière de plus en plus utilisée de
-récupérer une grande masse d’information en temps réel.">
-<meta name="twitter:image" content="https://pythonds.linogaliana.fr/content/manipulation/featured_webscraping.jpg">
+récupérer une grande masse d’information en temps réel.
+Ce chapitre présente les deux principaux paradigmes par le biais
+de BeautifulSoup et Selenium et les
+principaux défis du web scraping.">
+<meta name="twitter:image" content="https://pythonds.linogaliana.fr/content/manipulation/bulbasaur.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="citation_title" content="Python pour la data science">
 <meta name="citation_author" content="Lino Galiana">
@@ -225,7 +228,7 @@ récupérer une grande masse d’information en temps réel.">
   </li>  
         <li>
     <a class="dropdown-item" href="../../content/manipulation/04a_webscraping_TP.html" rel="" target="">
- <span class="dropdown-text">Webscraping avec python</span></a>
+ <span class="dropdown-text">Webscraping avec Python</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../content/manipulation/04c_API_TP.html" rel="" target="">
@@ -394,7 +397,7 @@ récupérer une grande masse d’information en temps réel.">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../content/manipulation/04a_webscraping_TP.html">Webscraping avec python</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../content/manipulation/04a_webscraping_TP.html">Webscraping avec Python</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -402,8 +405,8 @@ récupérer une grande masse d’information en temps réel.">
 </header>
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns">
-                <div id="title-block-header-title" class="quarto-title page-columns page-full page-layout-full featured-image p-4" style="background-image: url(featured_webscraping.jpg);">
-                <h1 class="title">Webscraping avec python</h1>
+                <div id="title-block-header-title" class="quarto-title page-columns page-full page-layout-full featured-image p-4" style="background-image: url(bulbasaur.jpg);">
+                <h1 class="title">Webscraping avec Python</h1>
                                     <div class="quarto-categories">
                         <div class="quarto-category">Exercice</div>
                         <div class="quarto-category">Manipulation</div>
@@ -413,9 +416,12 @@ récupérer une grande masse d’information en temps réel.">
                 <div>
           <div id="title-block-title-desc" class="description pt-4">
             <p><code>Python</code> permet de facilement récupérer une page web pour en extraire des
-            données à restructurer. Le web scraping, que les Canadiens nomment
+            données à restructurer. Le <em>web scraping</em>, que les Canadiens nomment
             <em>“moissonnage du web”</em>, est une manière de plus en plus utilisée de
-            récupérer une grande masse d’information en temps réel.</p>
+            récupérer une grande masse d’information en temps réel.
+            Ce chapitre présente les deux principaux paradigmes par le biais
+            de <code>BeautifulSoup</code> et <code>Selenium</code> et les
+            principaux défis du <em>web scraping</em>.</p>
           </div>
         </div>
                 
@@ -487,7 +493,7 @@ récupérer une grande masse d’information en temps réel.">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../content/manipulation/04a_webscraping_TP.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Webscraping avec python</span></a>
+ <span class="menu-text">Webscraping avec Python</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -549,7 +555,7 @@ récupérer une grande masse d’information en temps réel.">
   <li><a href="#selenium-mimer-le-comportement-dun-utilisateur-internet" id="toc-selenium-mimer-le-comportement-dun-utilisateur-internet" class="nav-link" data-scroll-target="#selenium-mimer-le-comportement-dun-utilisateur-internet"><code>Selenium</code> : mimer le comportement d’un utilisateur internet</a>
   <ul class="collapse">
   <li><a href="#premier-exemple-en-scrapant-un-moteur-de-recherche" id="toc-premier-exemple-en-scrapant-un-moteur-de-recherche" class="nav-link" data-scroll-target="#premier-exemple-en-scrapant-un-moteur-de-recherche">Premier exemple en scrapant un moteur de recherche</a></li>
-  <li><a href="#utiliser-selenium-pour-jouer-à-2048" id="toc-utiliser-selenium-pour-jouer-à-2048" class="nav-link" data-scroll-target="#utiliser-selenium-pour-jouer-à-2048">Utiliser selenium pour jouer à 2048</a></li>
+  <li><a href="#utiliser-selenium-pour-jouer-à-2048" id="toc-utiliser-selenium-pour-jouer-à-2048" class="nav-link" data-scroll-target="#utiliser-selenium-pour-jouer-à-2048">Utiliser <code>Selenium</code> pour jouer à 2048</a></li>
   </ul></li>
   <li><a href="#exercice-supplémentaire" id="toc-exercice-supplémentaire" class="nav-link" data-scroll-target="#exercice-supplémentaire">Exercice supplémentaire</a></li>
   </ul>
@@ -581,7 +587,7 @@ récupérer une grande masse d’information en temps réel.">
 </p>
 <p></p>
 </div>
-<p>Le <a href="https://fr.wikipedia.org/wiki/Web_scraping">webscraping</a> désigne les techniques d’extraction du contenu des sites internet.
+<p>Le <a href="https://fr.wikipedia.org/wiki/Web_scraping"><em>web scraping</em></a> désigne les techniques d’extraction du contenu des sites internet.
 C’est une pratique très utile pour toute personne souhaitant travailler sur des informations disponibles en ligne, mais n’existant pas forcément sous la forme d’un tableau <em>Excel</em>.</p>
 <p>Ce TP vous présente comment créer et exécuter des robots afin de recupérer rapidement des informations utiles à vos projets actuels ou futurs.
 Il part de quelques cas d’usages concret.
@@ -653,7 +659,7 @@ attractifs, les sites <em>web</em> changent fréquemment ce qui peut facilement
 rendre inopérant un robot.</p>
 <p>De manière générale, l’un des principaux messages de ce
 chapitre, à retenir, est que le
-<strong>webscraping est une solution de dernier ressort, pour des récupérations ponctuelles de données sans garantie de fonctionnement ultérieur</strong>. Il est préférable de <strong>privilégier les API</strong> lorsque celles-ci sont disponibles.
+<strong>webscraping est une solution de dernier ressort, pour des récupérations ponctuelles de données sans garantie de fonctionnement ultérieur</strong>. Il est préférable de <strong>privilégier les API lorsque celles-ci sont disponibles</strong>.
 Ces dernières ressemblent à un contrat (formel ou non) entre un fournisseur de données
 et un utilisateur où sont définis des besoins (les données) mais aussi des
 conditions d’accès (nombre de requêtes, volumétrie, authentification…) là
@@ -702,8 +708,8 @@ Pour lancer un robot depuis <code>Python</code> a une heure programmée
 <p>Sur une page web, vous trouverez toujours à coup sûr des éléments comme <code>&lt;head&gt;</code>, <code>&lt;title&gt;</code>, etc. Il s’agit des codes qui vous permettent de structurer le contenu d’une page <em>HTML</em> et qui s’appellent des <strong>balises</strong>.
 Citons, par exemple, les balises <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code>, <code>&lt;h3&gt;</code>, <code>&lt;strong&gt;</code> ou <code>&lt;em&gt;</code>.
 Le symbole <code>&lt; &gt;</code> est une balise : il sert à indiquer le début d’une partie. Le symbole <code>&lt;/ &gt;</code> indique la fin de cette partie. La plupart des balises vont par paires, avec une <em>balise ouvrante</em> et une <em>balise fermante</em> (par exemple <code>&lt;p&gt;</code> et <code>&lt;/p&gt;</code>).</p>
-<section id="exemple-les-balise-des-tableaux" class="level4">
-<h4 class="anchored" data-anchor-id="exemple-les-balise-des-tableaux">Exemple : les balise des tableaux</h4>
+<p>Par exemple, les principales balises
+définissant la structure d’un tableau sont les suivantes:</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -747,7 +753,7 @@ Le symbole <code>&lt; &gt;</code> est une balise : il sert à indiquer le début
 </tbody>
 </table>
 <p><strong>Application : un tableau en HTML</strong></p>
-<p>Le code <em>HTML</em> du tableau suivant</p>
+<p>Le code <code>HTML</code> du tableau suivant:</p>
 <pre class="{html}"><code>&lt;table&gt;
 &lt;caption&gt; Le Titre de mon tableau &lt;/caption&gt;
 
@@ -790,7 +796,6 @@ Le symbole <code>&lt; &gt;</code> est une balise : il sert à indiquer le début
 </tbody>
 </table>
 </div>
-</section>
 <section id="parent-et-enfant" class="level4">
 <h4 class="anchored" data-anchor-id="parent-et-enfant">Parent et enfant</h4>
 <p>Dans le cadre du langage HTML, les termes de parent (<em>parent</em>) et enfant (<em>child</em>) servent à désigner des élements emboîtés les uns dans les autres. Dans la construction suivante, par exemple :</p>
@@ -837,7 +842,6 @@ potentiellement régulièrement et d’une page web à l’autre, la structure p
 Par conséquent, la meilleure manière d’avoir un programme fonctionnel est
 de comprendre la structure d’une page web et dissocier les éléments exportables
 à d’autres cas d’usages des requêtes <em>ad hoc</em>.</p>
-<p></p>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install <span class="op">-</span>q lxml</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -2139,10 +2143,10 @@ Mais la première ligne est étrange : c’est une liste vide …</p>
 </div>
 </div>
 <p>6️⃣ Finalisation du tableau</p>
-<div class="cell" data-execution_count="24">
+<div class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>data_participants.columns <span class="op">=</span> columns_participants[<span class="dv">1</span>:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="25">
+<div class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>data_participants.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="24">
 <div>
@@ -2230,7 +2234,7 @@ Mais la première ligne est étrange : c’est une liste vide …</p>
 <section id="récupération-des-localisations-des-stades" class="level3">
 <h3 class="anchored" data-anchor-id="récupération-des-localisations-des-stades">Récupération des localisations des stades</h3>
 <p>Essayez de comprendre pas à pas ce qui est fait dans les étapes qui suivent (la récupération d’informations supplémentaires en naviguant dans les pages des différents clubs).</p>
-<div class="cell" data-execution_count="26">
+<div class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> urllib</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> bs4 </span>
@@ -2306,133 +2310,9 @@ Mais la première ligne est étrange : c’est une liste vide …</p>
 <span id="cb39-73"><a href="#cb39-73" aria-hidden="true" tabindex="-1"></a><span class="bu">dict</span> <span class="op">=</span> {<span class="st">'division'</span> : division , <span class="st">'equipe'</span>: equipe, <span class="st">'stade'</span>: stade, <span class="st">'latitude'</span>: latitude_stade, <span class="st">'longitude'</span> : longitude_stade}</span>
 <span id="cb39-74"><a href="#cb39-74" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.DataFrame(<span class="bu">dict</span>)</span>
 <span id="cb39-75"><a href="#cb39-75" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data.dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>http://fr.wikipedia.org/wiki/Championnat_de_France_de_football_2019-2020
-http://fr.wikipedia.org/wiki/Paris_Saint-Germain_Football_Club
-http://fr.wikipedia.org/wiki/Parc_des_Princes
-48°&nbsp;50′&nbsp;29″&nbsp;N, 2°&nbsp;15′&nbsp;11″&nbsp;E
-http://fr.wikipedia.org/wiki/LOSC_Lille
-http://fr.wikipedia.org/wiki/Stade_Pierre-Mauroy
-50°&nbsp;36′&nbsp;43″&nbsp;N, 3°&nbsp;07′&nbsp;50″&nbsp;E
-http://fr.wikipedia.org/wiki/Olympique_lyonnais
-http://fr.wikipedia.org/wiki/Parc_Olympique_lyonnais
-45°&nbsp;45′&nbsp;55″&nbsp;N, 4°&nbsp;58′&nbsp;55″&nbsp;E
-http://fr.wikipedia.org/wiki/Association_sportive_de_Saint-%C3%89tienne
-http://fr.wikipedia.org/wiki/Stade_Geoffroy-Guichard
-45°&nbsp;27′&nbsp;39″&nbsp;N, 4°&nbsp;23′&nbsp;25″&nbsp;E
-http://fr.wikipedia.org/wiki/Olympique_de_Marseille
-http://fr.wikipedia.org/wiki/Orange_V%C3%A9lodrome
-43°&nbsp;16′&nbsp;11″&nbsp;N, 5°&nbsp;23′&nbsp;45″&nbsp;E
-http://fr.wikipedia.org/wiki/Montpellier_H%C3%A9rault_Sport_Club
-http://fr.wikipedia.org/wiki/Stade_de_la_Mosson
-43°&nbsp;37′&nbsp;19″&nbsp;N, 3°&nbsp;48′&nbsp;44″&nbsp;E
-http://fr.wikipedia.org/wiki/Stade_de_Reims
-http://fr.wikipedia.org/wiki/Stade_Auguste-Delaune
-49°&nbsp;14′&nbsp;48″&nbsp;N, 4°&nbsp;01′&nbsp;30″&nbsp;E
-http://fr.wikipedia.org/wiki/Olympique_Gymnaste_Club_Nice
-http://fr.wikipedia.org/wiki/Allianz_Riviera
-43°&nbsp;42′&nbsp;18″&nbsp;N, 7°&nbsp;11′&nbsp;33″&nbsp;E
-http://fr.wikipedia.org/wiki/N%C3%AEmes_Olympique
-http://fr.wikipedia.org/wiki/Stade_des_Antonins
-43°&nbsp;48′&nbsp;39″&nbsp;N, 4°&nbsp;21′&nbsp;23″&nbsp;E
-http://fr.wikipedia.org/wiki/Racing_Club_de_Strasbourg_Alsace
-http://fr.wikipedia.org/wiki/Stade_de_la_Meinau
-48°&nbsp;33′&nbsp;36″&nbsp;N, 7°&nbsp;45′&nbsp;18″&nbsp;E
-http://fr.wikipedia.org/wiki/Stade_rennais_Football_Club
-http://fr.wikipedia.org/wiki/Roazhon_Park
-48°&nbsp;06′&nbsp;27″&nbsp;N, 1°&nbsp;42′&nbsp;46″&nbsp;O
-http://fr.wikipedia.org/wiki/Angers_sporting_club_de_l%27Ouest
-http://fr.wikipedia.org/wiki/Stade_Raymond-Kopa
-47°&nbsp;27′&nbsp;38″&nbsp;N, 0°&nbsp;31′&nbsp;51″&nbsp;O
-http://fr.wikipedia.org/wiki/Football_Club_de_Metz
-http://fr.wikipedia.org/wiki/Stade_Saint-Symphorien
-49°&nbsp;06′&nbsp;35″&nbsp;N, 6°&nbsp;09′&nbsp;33″&nbsp;E
-http://fr.wikipedia.org/wiki/Football_Club_de_Nantes
-http://fr.wikipedia.org/wiki/Stade_de_la_Beaujoire
-47°&nbsp;15′&nbsp;20″&nbsp;N, 1°&nbsp;31′&nbsp;31″&nbsp;O
-http://fr.wikipedia.org/wiki/Stade_brestois_29
-http://fr.wikipedia.org/wiki/Stade_Francis-Le_Bl%C3%A9
-48°&nbsp;24′&nbsp;11″&nbsp;N, 4°&nbsp;27′&nbsp;42″&nbsp;O
-http://fr.wikipedia.org/wiki/Football_Club_des_Girondins_de_Bordeaux
-http://fr.wikipedia.org/wiki/Matmut_Atlantique
-44°&nbsp;53′&nbsp;50″&nbsp;N, 0°&nbsp;33′&nbsp;41″&nbsp;O
-http://fr.wikipedia.org/wiki/Toulouse_Football_Club
-http://fr.wikipedia.org/wiki/Stadium_de_Toulouse
-43°&nbsp;35′&nbsp;00″&nbsp;N, 1°&nbsp;26′&nbsp;03″&nbsp;E
-http://fr.wikipedia.org/wiki/Amiens_Sporting_Club
-http://fr.wikipedia.org/wiki/Stade_de_la_Licorne
-49°&nbsp;53′&nbsp;38″&nbsp;N, 2°&nbsp;15′&nbsp;49″&nbsp;E
-http://fr.wikipedia.org/wiki/Association_sportive_de_Monaco_football_club
-http://fr.wikipedia.org/wiki/Stade_Louis-II
-43°&nbsp;43′&nbsp;39″&nbsp;N, 7°&nbsp;24′&nbsp;56″&nbsp;E
-http://fr.wikipedia.org/wiki/Dijon_Football_C%C3%B4te-d%27Or
-http://fr.wikipedia.org/wiki/Stade_Gaston-G%C3%A9rard
-47°&nbsp;19′&nbsp;28″&nbsp;N, 5°&nbsp;04′&nbsp;06″&nbsp;E
-http://fr.wikipedia.org/wiki/Championnat_de_France_de_football_de_Ligue_2_2019-2020
-http://fr.wikipedia.org/wiki/Athletic_Club_ajaccien
-http://fr.wikipedia.org/wiki/Stade_Fran%C3%A7ois-Coty
-41°&nbsp;55′&nbsp;54″&nbsp;N, 8°&nbsp;46′&nbsp;44″&nbsp;E
-http://fr.wikipedia.org/wiki/Association_sportive_Nancy-Lorraine
-http://fr.wikipedia.org/wiki/Stade_Marcel-Picot
-48°&nbsp;41′&nbsp;43″&nbsp;N, 6°&nbsp;12′&nbsp;38″&nbsp;E
-http://fr.wikipedia.org/wiki/Le_Havre_Athletic_Club_(football)
-http://fr.wikipedia.org/wiki/Stade_Oc%C3%A9ane
-49°&nbsp;29′&nbsp;56″&nbsp;N, 0°&nbsp;10′&nbsp;11″&nbsp;E
-http://fr.wikipedia.org/wiki/Stade_Malherbe_Caen_Calvados_Basse-Normandie
-http://fr.wikipedia.org/wiki/Stade_Michel-d%27Ornano
-49°&nbsp;10′&nbsp;46″&nbsp;N, 0°&nbsp;23′&nbsp;48″&nbsp;O
-http://fr.wikipedia.org/wiki/Clermont_Foot_63
-http://fr.wikipedia.org/wiki/Stade_Gabriel-Montpied
-45°&nbsp;48′&nbsp;57″&nbsp;N, 3°&nbsp;07′&nbsp;18″&nbsp;E
-http://fr.wikipedia.org/wiki/En_Avant_de_Guingamp
-http://fr.wikipedia.org/wiki/Stade_de_Roudourou
-48°&nbsp;33′&nbsp;58″&nbsp;N, 3°&nbsp;09′&nbsp;52″&nbsp;O
-http://fr.wikipedia.org/wiki/Football_Club_Lorient
-http://fr.wikipedia.org/wiki/Stade_du_Moustoir
-47°&nbsp;44′&nbsp;56″&nbsp;N, 3°&nbsp;22′&nbsp;09″&nbsp;O
-http://fr.wikipedia.org/wiki/Paris_Football_Club
-http://fr.wikipedia.org/wiki/Stade_Charl%C3%A9ty
-48°&nbsp;49′&nbsp;07″&nbsp;N, 2°&nbsp;20′&nbsp;47″&nbsp;E
-http://fr.wikipedia.org/wiki/La_Berrichonne_de_Ch%C3%A2teauroux
-http://fr.wikipedia.org/wiki/Stade_Gaston-Petit
-46°&nbsp;48′&nbsp;07″&nbsp;N, 1°&nbsp;43′&nbsp;18″&nbsp;E
-http://fr.wikipedia.org/wiki/Association_de_la_jeunesse_auxerroise
-http://fr.wikipedia.org/wiki/Stade_de_l%27Abb%C3%A9-Deschamps
-47°&nbsp;47′&nbsp;12″&nbsp;N, 3°&nbsp;35′&nbsp;19″&nbsp;E
-http://fr.wikipedia.org/wiki/Union_sportive_Orl%C3%A9ans_Loiret_football
-http://fr.wikipedia.org/wiki/Stade_de_la_Source
-47°&nbsp;50′&nbsp;25″&nbsp;N, 1°&nbsp;56′&nbsp;28″&nbsp;E
-http://fr.wikipedia.org/wiki/Valenciennes_Football_Club
-http://fr.wikipedia.org/wiki/Stade_du_Hainaut
-50°&nbsp;20′&nbsp;55″&nbsp;N, 3°&nbsp;31′&nbsp;56″&nbsp;E
-http://fr.wikipedia.org/wiki/Chamois_niortais_Football_Club
-http://fr.wikipedia.org/wiki/Stade_Ren%C3%A9-Gaillard
-46°&nbsp;19′&nbsp;01″&nbsp;N, 0°&nbsp;29′&nbsp;21″&nbsp;O
-http://fr.wikipedia.org/wiki/Grenoble_Foot_38
-http://fr.wikipedia.org/wiki/Stade_des_Alpes
-45°&nbsp;11′&nbsp;15″&nbsp;N, 5°&nbsp;44′&nbsp;24″&nbsp;E
-http://fr.wikipedia.org/wiki/Football_Club_Sochaux-Montb%C3%A9liard
-http://fr.wikipedia.org/wiki/Stade_Auguste-Bonal
-47°&nbsp;30′&nbsp;44″&nbsp;N, 6°&nbsp;48′&nbsp;41″&nbsp;E
-http://fr.wikipedia.org/wiki/Rodez_Aveyron_Football
-http://fr.wikipedia.org/wiki/Stade_Paul-Lignon
-44°&nbsp;21′&nbsp;06″&nbsp;N, 2°&nbsp;33′&nbsp;49″&nbsp;E
-http://fr.wikipedia.org/wiki/Football_Club_de_Chambly_Oise
-http://fr.wikipedia.org/wiki/Stade_Walter_Luzi
-49°&nbsp;10′&nbsp;45″&nbsp;N, 2°&nbsp;14′&nbsp;01″&nbsp;E
-http://fr.wikipedia.org/wiki/Esp%C3%A9rance_sportive_Troyes_Aube_Champagne
-http://fr.wikipedia.org/wiki/Stade_de_l%27Aube
-48°&nbsp;18′&nbsp;27″&nbsp;N, 4°&nbsp;05′&nbsp;55″&nbsp;E
-http://fr.wikipedia.org/wiki/Racing_Club_de_Lens
-http://fr.wikipedia.org/wiki/Stade_Bollaert-Delelis
-50°&nbsp;25′&nbsp;58″&nbsp;N, 2°&nbsp;48′&nbsp;54″&nbsp;E
-http://fr.wikipedia.org/wiki/Le_Mans_Football_Club
-http://fr.wikipedia.org/wiki/Stade_Marie-Marvingt
-47°&nbsp;57′&nbsp;32″&nbsp;N, 0°&nbsp;13′&nbsp;29″&nbsp;E</code></pre>
 </div>
-</div>
-<div class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>data.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>data.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="26">
 <div>
 
@@ -2497,24 +2377,24 @@ http://fr.wikipedia.org/wiki/Stade_Marie-Marvingt
 </div>
 <p>On va transformer les coordonnées en degrés en coordonnées numériques
 afin d’être en mesure de faire une carte</p>
-<div class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dms2dd(degrees, minutes, seconds, direction):</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    dd <span class="op">=</span> <span class="bu">float</span>(degrees) <span class="op">+</span> <span class="bu">float</span>(minutes)<span class="op">/</span><span class="dv">60</span> <span class="op">+</span> <span class="bu">float</span>(seconds)<span class="op">/</span>(<span class="dv">60</span><span class="op">*</span><span class="dv">60</span>)<span class="op">;</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> direction <span class="kw">in</span> (<span class="st">'S'</span>, <span class="st">'O'</span>):</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>        dd <span class="op">*=</span> <span class="op">-</span><span class="dv">1</span></span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dd</span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> parse_dms(dms):</span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>    parts <span class="op">=</span> re.split(<span class="st">'[^\d\w]+'</span>, dms)</span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>    lat <span class="op">=</span> dms2dd(parts[<span class="dv">0</span>], parts[<span class="dv">1</span>], parts[<span class="dv">2</span>], parts[<span class="dv">3</span>])</span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">#lng = dms2dd(parts[4], parts[5], parts[6], parts[7])</span></span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> lat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dms2dd(degrees, minutes, seconds, direction):</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    dd <span class="op">=</span> <span class="bu">float</span>(degrees) <span class="op">+</span> <span class="bu">float</span>(minutes)<span class="op">/</span><span class="dv">60</span> <span class="op">+</span> <span class="bu">float</span>(seconds)<span class="op">/</span>(<span class="dv">60</span><span class="op">*</span><span class="dv">60</span>)<span class="op">;</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> direction <span class="kw">in</span> (<span class="st">'S'</span>, <span class="st">'O'</span>):</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>        dd <span class="op">*=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dd</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> parse_dms(dms):</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    parts <span class="op">=</span> re.split(<span class="st">'[^\d\w]+'</span>, dms)</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>    lat <span class="op">=</span> dms2dd(parts[<span class="dv">0</span>], parts[<span class="dv">1</span>], parts[<span class="dv">2</span>], parts[<span class="dv">3</span>])</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">#lng = dms2dd(parts[4], parts[5], parts[6], parts[7])</span></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> lat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'latitude'</span>] <span class="op">=</span> data[<span class="st">'latitude'</span>].<span class="bu">apply</span>(parse_dms)</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'longitude'</span>] <span class="op">=</span> data[<span class="st">'longitude'</span>].<span class="bu">apply</span>(parse_dms)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'latitude'</span>] <span class="op">=</span> data[<span class="st">'latitude'</span>].<span class="bu">apply</span>(parse_dms)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'longitude'</span>] <span class="op">=</span> data[<span class="st">'longitude'</span>].<span class="bu">apply</span>(parse_dms)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Tous les éléments sont en place pour faire une belle carte à ce stade. On
 va utiliser <code>folium</code> pour celle-ci, qui est présenté dans la partie
@@ -2522,33 +2402,947 @@ va utiliser <code>folium</code> pour celle-ci, qui est présenté dans la partie
 </section>
 <section id="cartes-stades-ligue1" class="level3">
 <h3 class="anchored" data-anchor-id="cartes-stades-ligue1">Carte des stades avec <code>folium</code></h3>
-<div class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!pip install geopandas</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>gdf <span class="op">=</span> gpd.GeoDataFrame(</span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>    data, geometry<span class="op">=</span>gpd.points_from_xy(data.longitude, data.latitude))</span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>Path(<span class="st">"leaflet"</span>).mkdir(parents<span class="op">=</span><span class="va">True</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>center <span class="op">=</span> gdf[[<span class="st">'latitude'</span>, <span class="st">'longitude'</span>]].mean().values.tolist()</span>
-<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>sw <span class="op">=</span> gdf[[<span class="st">'latitude'</span>, <span class="st">'longitude'</span>]].<span class="bu">min</span>().values.tolist()</span>
-<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>ne <span class="op">=</span> gdf[[<span class="st">'latitude'</span>, <span class="st">'longitude'</span>]].<span class="bu">max</span>().values.tolist()</span>
-<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> folium.Map(location <span class="op">=</span> center, tiles<span class="op">=</span><span class="st">'openstreetmap'</span>)</span>
-<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a><span class="co"># I can add marker one by one on the map</span></span>
-<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="bu">len</span>(gdf)):</span>
-<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>    folium.Marker([gdf.iloc[i][<span class="st">'latitude'</span>], gdf.iloc[i][<span class="st">'longitude'</span>]], popup<span class="op">=</span>gdf.iloc[i][<span class="st">'stade'</span>]).add_to(m) </span>
-<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>m.fit_bounds([sw, ne])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>gdf <span class="op">=</span> gpd.GeoDataFrame(</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    data, geometry<span class="op">=</span>gpd.points_from_xy(data.longitude, data.latitude))</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>Path(<span class="st">"leaflet"</span>).mkdir(parents<span class="op">=</span><span class="va">True</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>center <span class="op">=</span> gdf[[<span class="st">'latitude'</span>, <span class="st">'longitude'</span>]].mean().values.tolist()</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>sw <span class="op">=</span> gdf[[<span class="st">'latitude'</span>, <span class="st">'longitude'</span>]].<span class="bu">min</span>().values.tolist()</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>ne <span class="op">=</span> gdf[[<span class="st">'latitude'</span>, <span class="st">'longitude'</span>]].<span class="bu">max</span>().values.tolist()</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> folium.Map(location <span class="op">=</span> center, tiles<span class="op">=</span><span class="st">'openstreetmap'</span>)</span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a><span class="co"># I can add marker one by one on the map</span></span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="bu">len</span>(gdf)):</span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a>    folium.Marker([gdf.iloc[i][<span class="st">'latitude'</span>], gdf.iloc[i][<span class="st">'longitude'</span>]], popup<span class="op">=</span>gdf.iloc[i][<span class="st">'stade'</span>]).add_to(m) </span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a>m.fit_bounds([sw, ne])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>La carte obtenue doit ressembler à la suivante :</p>
-<div class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Afficher la carte</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="30">
+<div class="cell-output cell-output-display" data-execution_count="30">
+<div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
+    <script src=&quot;https://code.jquery.com/jquery-1.12.4.min.js&quot;></script>
+    <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
+    <script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;></script>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/>
+    
+            <meta name=&quot;viewport&quot; content=&quot;width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
+            <style>
+                #map_607f49722d13e8e0fae3660dfa9ee62c {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class=&quot;folium-map&quot; id=&quot;map_607f49722d13e8e0fae3660dfa9ee62c&quot; ></div>
+        
+</body>
+<script>
+    
+    
+            var map_607f49722d13e8e0fae3660dfa9ee62c = L.map(
+                &quot;map_607f49722d13e8e0fae3660dfa9ee62c&quot;,
+                {
+                    center: [47.123381944444446, 2.7329999999999997],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 10,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_309b3290e123c0f2cb08b5aa36300abf = L.tileLayer(
+                &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
+                {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+            var marker_b3ae1c68c1a874a8970a00a335fd00f0 = L.marker(
+                [48.84138888888889, 2.2530555555555556],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_b1d651fa8a3b05a8c6950f14090c4fe1 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_a5b1d42b6ab5549045010fe413573219 = $(`<div id=&quot;html_a5b1d42b6ab5549045010fe413573219&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Parc des Princes</div>`)[0];
+                popup_b1d651fa8a3b05a8c6950f14090c4fe1.setContent(html_a5b1d42b6ab5549045010fe413573219);
+            
+        
+
+        marker_b3ae1c68c1a874a8970a00a335fd00f0.bindPopup(popup_b1d651fa8a3b05a8c6950f14090c4fe1)
+        ;
+
+        
+    
+    
+            var marker_2ae4b91d734cfc8099c8c9cd997bcec0 = L.marker(
+                [50.61194444444445, 3.1305555555555555],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_aede466ff3d1d71404ce43d966776f37 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_1a51f2e32db9e3998f837afdcd2535eb = $(`<div id=&quot;html_1a51f2e32db9e3998f837afdcd2535eb&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Pierre-Mauroy</div>`)[0];
+                popup_aede466ff3d1d71404ce43d966776f37.setContent(html_1a51f2e32db9e3998f837afdcd2535eb);
+            
+        
+
+        marker_2ae4b91d734cfc8099c8c9cd997bcec0.bindPopup(popup_aede466ff3d1d71404ce43d966776f37)
+        ;
+
+        
+    
+    
+            var marker_82808c343b81fb45228d91c0ab37ea69 = L.marker(
+                [45.765277777777776, 4.981944444444444],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_9d56f41dd5b5ef7dceb07648f23a16ca = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_2a3023dd15c921f5323ca0b80f504e54 = $(`<div id=&quot;html_2a3023dd15c921f5323ca0b80f504e54&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Parc Olympique lyonnais</div>`)[0];
+                popup_9d56f41dd5b5ef7dceb07648f23a16ca.setContent(html_2a3023dd15c921f5323ca0b80f504e54);
+            
+        
+
+        marker_82808c343b81fb45228d91c0ab37ea69.bindPopup(popup_9d56f41dd5b5ef7dceb07648f23a16ca)
+        ;
+
+        
+    
+    
+            var marker_3dc2bdbdd9429e47bbf9948c29fcd959 = L.marker(
+                [45.46083333333333, 4.390277777777778],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_88533600b1eaa44e58c77721ae13ffcb = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_b887f8b3a899819067cc49c7bc8e75ca = $(`<div id=&quot;html_b887f8b3a899819067cc49c7bc8e75ca&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Geoffroy-Guichard</div>`)[0];
+                popup_88533600b1eaa44e58c77721ae13ffcb.setContent(html_b887f8b3a899819067cc49c7bc8e75ca);
+            
+        
+
+        marker_3dc2bdbdd9429e47bbf9948c29fcd959.bindPopup(popup_88533600b1eaa44e58c77721ae13ffcb)
+        ;
+
+        
+    
+    
+            var marker_2f8d20fbe668dea058cc596c2e3d90a8 = L.marker(
+                [43.26972222222222, 5.395833333333334],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_eb7e93e5781e1c411dce4424c7010bc4 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_125715880865551996d10c4dd34603c3 = $(`<div id=&quot;html_125715880865551996d10c4dd34603c3&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Orange Vélodrome</div>`)[0];
+                popup_eb7e93e5781e1c411dce4424c7010bc4.setContent(html_125715880865551996d10c4dd34603c3);
+            
+        
+
+        marker_2f8d20fbe668dea058cc596c2e3d90a8.bindPopup(popup_eb7e93e5781e1c411dce4424c7010bc4)
+        ;
+
+        
+    
+    
+            var marker_909a3b54e6b0dbb79ced241ca5d4c401 = L.marker(
+                [43.621944444444445, 3.812222222222222],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_d0efad9a7a677c33304fc1122eca6ad3 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_cb4f639b8e8508a59046709d14d79629 = $(`<div id=&quot;html_cb4f639b8e8508a59046709d14d79629&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de la Mosson</div>`)[0];
+                popup_d0efad9a7a677c33304fc1122eca6ad3.setContent(html_cb4f639b8e8508a59046709d14d79629);
+            
+        
+
+        marker_909a3b54e6b0dbb79ced241ca5d4c401.bindPopup(popup_d0efad9a7a677c33304fc1122eca6ad3)
+        ;
+
+        
+    
+    
+            var marker_cf8eec85e883535f9410ee681e3d9586 = L.marker(
+                [49.24666666666667, 4.025],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_0ce59f02d49a85c19481bb39a528bdb3 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_e09ad10462ecfda91ff25942654a2514 = $(`<div id=&quot;html_e09ad10462ecfda91ff25942654a2514&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Auguste-Delaune</div>`)[0];
+                popup_0ce59f02d49a85c19481bb39a528bdb3.setContent(html_e09ad10462ecfda91ff25942654a2514);
+            
+        
+
+        marker_cf8eec85e883535f9410ee681e3d9586.bindPopup(popup_0ce59f02d49a85c19481bb39a528bdb3)
+        ;
+
+        
+    
+    
+            var marker_98a47cbad4a6d2c197f9c175eb27dfe6 = L.marker(
+                [43.705000000000005, 7.1925],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_b6f69897d1b9278dfb88b26c089122a1 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_ecfcd3b685ac1c1b387a94f531c71cde = $(`<div id=&quot;html_ecfcd3b685ac1c1b387a94f531c71cde&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Allianz Riviera</div>`)[0];
+                popup_b6f69897d1b9278dfb88b26c089122a1.setContent(html_ecfcd3b685ac1c1b387a94f531c71cde);
+            
+        
+
+        marker_98a47cbad4a6d2c197f9c175eb27dfe6.bindPopup(popup_b6f69897d1b9278dfb88b26c089122a1)
+        ;
+
+        
+    
+    
+            var marker_3fe562bb575d6c0e5b0e9e447aa15e6d = L.marker(
+                [43.81083333333333, 4.356388888888889],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_b9de1f9e812f5049fa11751b57cf8bf8 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_a34eb4afa3ed8b75baad671e17a7a394 = $(`<div id=&quot;html_a34eb4afa3ed8b75baad671e17a7a394&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade des Antonins</div>`)[0];
+                popup_b9de1f9e812f5049fa11751b57cf8bf8.setContent(html_a34eb4afa3ed8b75baad671e17a7a394);
+            
+        
+
+        marker_3fe562bb575d6c0e5b0e9e447aa15e6d.bindPopup(popup_b9de1f9e812f5049fa11751b57cf8bf8)
+        ;
+
+        
+    
+    
+            var marker_48bd439eaf4d2f2b20f6273aca27032d = L.marker(
+                [48.559999999999995, 7.755],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_4cbbf2d44a97d8030710a36bcf70603e = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_7bd29aa630f5f08a4671ac2a0f9287a1 = $(`<div id=&quot;html_7bd29aa630f5f08a4671ac2a0f9287a1&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de la Meinau</div>`)[0];
+                popup_4cbbf2d44a97d8030710a36bcf70603e.setContent(html_7bd29aa630f5f08a4671ac2a0f9287a1);
+            
+        
+
+        marker_48bd439eaf4d2f2b20f6273aca27032d.bindPopup(popup_4cbbf2d44a97d8030710a36bcf70603e)
+        ;
+
+        
+    
+    
+            var marker_fbf6211765be178fa8f96f738e5fc648 = L.marker(
+                [48.1075, -1.7127777777777777],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_7bb2e28705b220461caf3588127a5c86 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_6a66c9806c3c4e1353d12860a12f9439 = $(`<div id=&quot;html_6a66c9806c3c4e1353d12860a12f9439&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Roazhon Park</div>`)[0];
+                popup_7bb2e28705b220461caf3588127a5c86.setContent(html_6a66c9806c3c4e1353d12860a12f9439);
+            
+        
+
+        marker_fbf6211765be178fa8f96f738e5fc648.bindPopup(popup_7bb2e28705b220461caf3588127a5c86)
+        ;
+
+        
+    
+    
+            var marker_f8b4f87867b143dd8b3ba03ecd13e86d = L.marker(
+                [47.46055555555556, -0.5308333333333334],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_948f03dd4b67407761a667cde85e6e89 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_5552c3c390ecfb292387bab879fdf5ca = $(`<div id=&quot;html_5552c3c390ecfb292387bab879fdf5ca&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Raymond-Kopa</div>`)[0];
+                popup_948f03dd4b67407761a667cde85e6e89.setContent(html_5552c3c390ecfb292387bab879fdf5ca);
+            
+        
+
+        marker_f8b4f87867b143dd8b3ba03ecd13e86d.bindPopup(popup_948f03dd4b67407761a667cde85e6e89)
+        ;
+
+        
+    
+    
+            var marker_6366f7503bb51d4b6a5c431ecafef53f = L.marker(
+                [49.109722222222224, 6.159166666666667],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_9c310bd92881fd73fca990ee85214701 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_390329bb5dc81b86e101806b31597646 = $(`<div id=&quot;html_390329bb5dc81b86e101806b31597646&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Saint-Symphorien</div>`)[0];
+                popup_9c310bd92881fd73fca990ee85214701.setContent(html_390329bb5dc81b86e101806b31597646);
+            
+        
+
+        marker_6366f7503bb51d4b6a5c431ecafef53f.bindPopup(popup_9c310bd92881fd73fca990ee85214701)
+        ;
+
+        
+    
+    
+            var marker_9ab9e0da3a6fe7da2d17fb4f3cb7fa51 = L.marker(
+                [47.25555555555555, -1.5252777777777777],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_cd05abcc9b56784ecd1b7187ce6b0891 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_07c8419d224e1ede5742e616678d1387 = $(`<div id=&quot;html_07c8419d224e1ede5742e616678d1387&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de la Beaujoire</div>`)[0];
+                popup_cd05abcc9b56784ecd1b7187ce6b0891.setContent(html_07c8419d224e1ede5742e616678d1387);
+            
+        
+
+        marker_9ab9e0da3a6fe7da2d17fb4f3cb7fa51.bindPopup(popup_cd05abcc9b56784ecd1b7187ce6b0891)
+        ;
+
+        
+    
+    
+            var marker_5df6dcb539f430dbbfc0fcbace2e34eb = L.marker(
+                [48.403055555555554, -4.461666666666667],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_9df5e394b808b55a0005ded1227e339f = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_28b1b6ce01435fcec5f0a436fb0295f8 = $(`<div id=&quot;html_28b1b6ce01435fcec5f0a436fb0295f8&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Francis-Le Blé</div>`)[0];
+                popup_9df5e394b808b55a0005ded1227e339f.setContent(html_28b1b6ce01435fcec5f0a436fb0295f8);
+            
+        
+
+        marker_5df6dcb539f430dbbfc0fcbace2e34eb.bindPopup(popup_9df5e394b808b55a0005ded1227e339f)
+        ;
+
+        
+    
+    
+            var marker_47afcd09645831e34202e69a277dfaf3 = L.marker(
+                [44.89722222222222, -0.5613888888888889],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_a19b753f048773a8768b7d1ebfc89c78 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_33ca3d5cc5b96b62b85de14ca357a340 = $(`<div id=&quot;html_33ca3d5cc5b96b62b85de14ca357a340&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Matmut Atlantique</div>`)[0];
+                popup_a19b753f048773a8768b7d1ebfc89c78.setContent(html_33ca3d5cc5b96b62b85de14ca357a340);
+            
+        
+
+        marker_47afcd09645831e34202e69a277dfaf3.bindPopup(popup_a19b753f048773a8768b7d1ebfc89c78)
+        ;
+
+        
+    
+    
+            var marker_0137d99338671b1fcb70d57b63f20aeb = L.marker(
+                [43.583333333333336, 1.4341666666666666],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_30cfbe2bf7fff6ffa5256d0ccbae1259 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_ba25d2ca7753363e16168bd38e04c877 = $(`<div id=&quot;html_ba25d2ca7753363e16168bd38e04c877&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stadium de Toulouse</div>`)[0];
+                popup_30cfbe2bf7fff6ffa5256d0ccbae1259.setContent(html_ba25d2ca7753363e16168bd38e04c877);
+            
+        
+
+        marker_0137d99338671b1fcb70d57b63f20aeb.bindPopup(popup_30cfbe2bf7fff6ffa5256d0ccbae1259)
+        ;
+
+        
+    
+    
+            var marker_410a1a682413ca8521a84cb2602da439 = L.marker(
+                [49.89388888888889, 2.263611111111111],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_3628c05995db192f6baf498b8ac6303f = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_4f928d9697b9cacb63a775c6eea7d728 = $(`<div id=&quot;html_4f928d9697b9cacb63a775c6eea7d728&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de la Licorne</div>`)[0];
+                popup_3628c05995db192f6baf498b8ac6303f.setContent(html_4f928d9697b9cacb63a775c6eea7d728);
+            
+        
+
+        marker_410a1a682413ca8521a84cb2602da439.bindPopup(popup_3628c05995db192f6baf498b8ac6303f)
+        ;
+
+        
+    
+    
+            var marker_10ab9ea14164e1786e5cf804d2846959 = L.marker(
+                [43.7275, 7.415555555555556],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_aece1a6e46a656bc5e5c23ff7e7da48c = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_abae2569e04625a0ac7acea88ee35896 = $(`<div id=&quot;html_abae2569e04625a0ac7acea88ee35896&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Louis-II</div>`)[0];
+                popup_aece1a6e46a656bc5e5c23ff7e7da48c.setContent(html_abae2569e04625a0ac7acea88ee35896);
+            
+        
+
+        marker_10ab9ea14164e1786e5cf804d2846959.bindPopup(popup_aece1a6e46a656bc5e5c23ff7e7da48c)
+        ;
+
+        
+    
+    
+            var marker_7d380a45686bb7849103de72738de8c4 = L.marker(
+                [47.324444444444445, 5.068333333333333],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_41289b96b3c9d4cc11fe273e33f73539 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_e0f9e031e9ebea37b55bd062ca358eb6 = $(`<div id=&quot;html_e0f9e031e9ebea37b55bd062ca358eb6&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Gaston-Gérard</div>`)[0];
+                popup_41289b96b3c9d4cc11fe273e33f73539.setContent(html_e0f9e031e9ebea37b55bd062ca358eb6);
+            
+        
+
+        marker_7d380a45686bb7849103de72738de8c4.bindPopup(popup_41289b96b3c9d4cc11fe273e33f73539)
+        ;
+
+        
+    
+    
+            var marker_3d09288acf492b8f7bdeeb6238d3c110 = L.marker(
+                [41.931666666666665, 8.77888888888889],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_c739fc4e9f7ba270efe4576721528892 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_a9d1251e0621920daf9fd2dbc2673544 = $(`<div id=&quot;html_a9d1251e0621920daf9fd2dbc2673544&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade François-Coty</div>`)[0];
+                popup_c739fc4e9f7ba270efe4576721528892.setContent(html_a9d1251e0621920daf9fd2dbc2673544);
+            
+        
+
+        marker_3d09288acf492b8f7bdeeb6238d3c110.bindPopup(popup_c739fc4e9f7ba270efe4576721528892)
+        ;
+
+        
+    
+    
+            var marker_47b48f42ac59f8287da0d1f6d6b2e956 = L.marker(
+                [48.695277777777775, 6.210555555555556],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_0770f48f180abae7274a67099eb5f050 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_60bbbddace12528ff48e4feb6e3501ac = $(`<div id=&quot;html_60bbbddace12528ff48e4feb6e3501ac&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Marcel-Picot</div>`)[0];
+                popup_0770f48f180abae7274a67099eb5f050.setContent(html_60bbbddace12528ff48e4feb6e3501ac);
+            
+        
+
+        marker_47b48f42ac59f8287da0d1f6d6b2e956.bindPopup(popup_0770f48f180abae7274a67099eb5f050)
+        ;
+
+        
+    
+    
+            var marker_bf9ec41796a3ddac3051166f7fc9c23b = L.marker(
+                [49.49888888888889, 0.16972222222222222],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_fc2e931f0075694ee3db9192e28e22b8 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_cb7bdaedf94228a1c7b42f069d05607c = $(`<div id=&quot;html_cb7bdaedf94228a1c7b42f069d05607c&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Océane</div>`)[0];
+                popup_fc2e931f0075694ee3db9192e28e22b8.setContent(html_cb7bdaedf94228a1c7b42f069d05607c);
+            
+        
+
+        marker_bf9ec41796a3ddac3051166f7fc9c23b.bindPopup(popup_fc2e931f0075694ee3db9192e28e22b8)
+        ;
+
+        
+    
+    
+            var marker_211aba3ae53ea166dccd23bc0d23d3b9 = L.marker(
+                [49.17944444444444, -0.39666666666666667],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_ece3095cf68f5549901807d1a2832b8d = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_29f2a1b1e080f75e0741973ddb2ed5f1 = $(`<div id=&quot;html_29f2a1b1e080f75e0741973ddb2ed5f1&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Michel-d'Ornano</div>`)[0];
+                popup_ece3095cf68f5549901807d1a2832b8d.setContent(html_29f2a1b1e080f75e0741973ddb2ed5f1);
+            
+        
+
+        marker_211aba3ae53ea166dccd23bc0d23d3b9.bindPopup(popup_ece3095cf68f5549901807d1a2832b8d)
+        ;
+
+        
+    
+    
+            var marker_20378109a5390fe38055326611ac5f6b = L.marker(
+                [45.81583333333333, 3.1216666666666666],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_c439352ca0a714e1e8290431da8341cf = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_2042ae32203c23f423004021ab263c0f = $(`<div id=&quot;html_2042ae32203c23f423004021ab263c0f&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Gabriel-Montpied</div>`)[0];
+                popup_c439352ca0a714e1e8290431da8341cf.setContent(html_2042ae32203c23f423004021ab263c0f);
+            
+        
+
+        marker_20378109a5390fe38055326611ac5f6b.bindPopup(popup_c439352ca0a714e1e8290431da8341cf)
+        ;
+
+        
+    
+    
+            var marker_6038fa02c14585d7d1c888cc681e6830 = L.marker(
+                [48.566111111111105, -3.1644444444444444],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_fb6537642c80d3b1ebde5ff654b81430 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_f85723bcd4c28fedf3b82665e304861a = $(`<div id=&quot;html_f85723bcd4c28fedf3b82665e304861a&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de Roudourou</div>`)[0];
+                popup_fb6537642c80d3b1ebde5ff654b81430.setContent(html_f85723bcd4c28fedf3b82665e304861a);
+            
+        
+
+        marker_6038fa02c14585d7d1c888cc681e6830.bindPopup(popup_fb6537642c80d3b1ebde5ff654b81430)
+        ;
+
+        
+    
+    
+            var marker_f74c6c2683fa2579b9f5d834a1179b36 = L.marker(
+                [47.74888888888889, -3.3691666666666666],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_a1df686e4dc089ba5fbdd19827a6d6f8 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_e97bd3dfb6b7973089a1e5b5b3b88a4e = $(`<div id=&quot;html_e97bd3dfb6b7973089a1e5b5b3b88a4e&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade du Moustoir</div>`)[0];
+                popup_a1df686e4dc089ba5fbdd19827a6d6f8.setContent(html_e97bd3dfb6b7973089a1e5b5b3b88a4e);
+            
+        
+
+        marker_f74c6c2683fa2579b9f5d834a1179b36.bindPopup(popup_a1df686e4dc089ba5fbdd19827a6d6f8)
+        ;
+
+        
+    
+    
+            var marker_27ea8ade2c29db3105c9fe106a746895 = L.marker(
+                [48.81861111111112, 2.346388888888889],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_0c57543fccbb4788698c6099102df28e = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_508a7eb1bfb93f917778d77d2f29c370 = $(`<div id=&quot;html_508a7eb1bfb93f917778d77d2f29c370&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Charléty</div>`)[0];
+                popup_0c57543fccbb4788698c6099102df28e.setContent(html_508a7eb1bfb93f917778d77d2f29c370);
+            
+        
+
+        marker_27ea8ade2c29db3105c9fe106a746895.bindPopup(popup_0c57543fccbb4788698c6099102df28e)
+        ;
+
+        
+    
+    
+            var marker_52400c2888c24c8eed7b9a8e1d76b210 = L.marker(
+                [46.801944444444445, 1.7216666666666667],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_71dc95b874edba961f7c3f5f800f7fd5 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_de749decc9100e7983d7b45301352de4 = $(`<div id=&quot;html_de749decc9100e7983d7b45301352de4&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Gaston-Petit</div>`)[0];
+                popup_71dc95b874edba961f7c3f5f800f7fd5.setContent(html_de749decc9100e7983d7b45301352de4);
+            
+        
+
+        marker_52400c2888c24c8eed7b9a8e1d76b210.bindPopup(popup_71dc95b874edba961f7c3f5f800f7fd5)
+        ;
+
+        
+    
+    
+            var marker_a163b504402b7ba1a1446ad5fffa8f32 = L.marker(
+                [47.78666666666666, 3.588611111111111],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_3c477c18ce1dff682634d73484e78c29 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_a413946651e85e3c70f4012bd2b4399f = $(`<div id=&quot;html_a413946651e85e3c70f4012bd2b4399f&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de l'Abbé-Deschamps</div>`)[0];
+                popup_3c477c18ce1dff682634d73484e78c29.setContent(html_a413946651e85e3c70f4012bd2b4399f);
+            
+        
+
+        marker_a163b504402b7ba1a1446ad5fffa8f32.bindPopup(popup_3c477c18ce1dff682634d73484e78c29)
+        ;
+
+        
+    
+    
+            var marker_7792812798e7f4bd12c2735a125fd5fe = L.marker(
+                [47.84027777777778, 1.9411111111111112],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_159b4451cf03550e903ec1b1c5ece76f = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_e0bd82cfac2cb026423db6582cadc504 = $(`<div id=&quot;html_e0bd82cfac2cb026423db6582cadc504&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de la Source</div>`)[0];
+                popup_159b4451cf03550e903ec1b1c5ece76f.setContent(html_e0bd82cfac2cb026423db6582cadc504);
+            
+        
+
+        marker_7792812798e7f4bd12c2735a125fd5fe.bindPopup(popup_159b4451cf03550e903ec1b1c5ece76f)
+        ;
+
+        
+    
+    
+            var marker_2cd4ad9a228d14436c15083b6e73bd59 = L.marker(
+                [50.34861111111111, 3.5322222222222224],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_ced16f025e29791ff795d390e69519de = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_166bef776558a14f58cad8b5daae2772 = $(`<div id=&quot;html_166bef776558a14f58cad8b5daae2772&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade du Hainaut</div>`)[0];
+                popup_ced16f025e29791ff795d390e69519de.setContent(html_166bef776558a14f58cad8b5daae2772);
+            
+        
+
+        marker_2cd4ad9a228d14436c15083b6e73bd59.bindPopup(popup_ced16f025e29791ff795d390e69519de)
+        ;
+
+        
+    
+    
+            var marker_807dfe2601ec27c6dda4e28fcb5d1e9f = L.marker(
+                [46.316944444444445, -0.4891666666666667],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_36c00bfda2a7425ad5b16ca089f4cf30 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_2539dea5d729590dc6f163923fb896c9 = $(`<div id=&quot;html_2539dea5d729590dc6f163923fb896c9&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade René-Gaillard</div>`)[0];
+                popup_36c00bfda2a7425ad5b16ca089f4cf30.setContent(html_2539dea5d729590dc6f163923fb896c9);
+            
+        
+
+        marker_807dfe2601ec27c6dda4e28fcb5d1e9f.bindPopup(popup_36c00bfda2a7425ad5b16ca089f4cf30)
+        ;
+
+        
+    
+    
+            var marker_67f1b745f05dcc6a04bdb4e8161b4bbd = L.marker(
+                [45.1875, 5.74],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_c40a2bf5669fc375b0be7d45c116fa4d = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_78a989dfa6a60ecdbfbe0b3caa19d2b3 = $(`<div id=&quot;html_78a989dfa6a60ecdbfbe0b3caa19d2b3&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade des Alpes</div>`)[0];
+                popup_c40a2bf5669fc375b0be7d45c116fa4d.setContent(html_78a989dfa6a60ecdbfbe0b3caa19d2b3);
+            
+        
+
+        marker_67f1b745f05dcc6a04bdb4e8161b4bbd.bindPopup(popup_c40a2bf5669fc375b0be7d45c116fa4d)
+        ;
+
+        
+    
+    
+            var marker_dd2fbe6487c7f5c364e87d56b7afcad3 = L.marker(
+                [47.51222222222222, 6.811388888888889],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_7e3df7dedc750906bc0021700bfaa9bb = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_1cb61bac31b638a0cc2b80eb8991295b = $(`<div id=&quot;html_1cb61bac31b638a0cc2b80eb8991295b&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Auguste-Bonal</div>`)[0];
+                popup_7e3df7dedc750906bc0021700bfaa9bb.setContent(html_1cb61bac31b638a0cc2b80eb8991295b);
+            
+        
+
+        marker_dd2fbe6487c7f5c364e87d56b7afcad3.bindPopup(popup_7e3df7dedc750906bc0021700bfaa9bb)
+        ;
+
+        
+    
+    
+            var marker_09686be972ee8ff956117b10778b80b9 = L.marker(
+                [44.35166666666667, 2.563611111111111],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_b538e1fd4de95f7a797e1a4cecadb178 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_97c2662844e8cff324ba2f521eee792c = $(`<div id=&quot;html_97c2662844e8cff324ba2f521eee792c&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Paul-Lignon</div>`)[0];
+                popup_b538e1fd4de95f7a797e1a4cecadb178.setContent(html_97c2662844e8cff324ba2f521eee792c);
+            
+        
+
+        marker_09686be972ee8ff956117b10778b80b9.bindPopup(popup_b538e1fd4de95f7a797e1a4cecadb178)
+        ;
+
+        
+    
+    
+            var marker_5afa8b74094861e133701ce651fd7395 = L.marker(
+                [49.17916666666667, 2.233611111111111],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_1f82c03b42df3584a8c6b84142d77c70 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_0514d55356683862a4f6cd8f13d54a67 = $(`<div id=&quot;html_0514d55356683862a4f6cd8f13d54a67&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Walter Luzi</div>`)[0];
+                popup_1f82c03b42df3584a8c6b84142d77c70.setContent(html_0514d55356683862a4f6cd8f13d54a67);
+            
+        
+
+        marker_5afa8b74094861e133701ce651fd7395.bindPopup(popup_1f82c03b42df3584a8c6b84142d77c70)
+        ;
+
+        
+    
+    
+            var marker_17bd6bfb394633f33810ddd991dce49a = L.marker(
+                [48.3075, 4.0986111111111105],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_7daf60f45fccb7a2b505f5b88b00db39 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_568dcf56e19f1ac773fcc42d4d52d88d = $(`<div id=&quot;html_568dcf56e19f1ac773fcc42d4d52d88d&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de l'Aube</div>`)[0];
+                popup_7daf60f45fccb7a2b505f5b88b00db39.setContent(html_568dcf56e19f1ac773fcc42d4d52d88d);
+            
+        
+
+        marker_17bd6bfb394633f33810ddd991dce49a.bindPopup(popup_7daf60f45fccb7a2b505f5b88b00db39)
+        ;
+
+        
+    
+    
+            var marker_7337adf9aade55d89ebd1e1fef146346 = L.marker(
+                [50.43277777777777, 2.815],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_e9db7d3bf6ecf84269bbe06f4157a18e = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_a8a9d60a856c3a6d41dedcc8d295469b = $(`<div id=&quot;html_a8a9d60a856c3a6d41dedcc8d295469b&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Bollaert-Delelis</div>`)[0];
+                popup_e9db7d3bf6ecf84269bbe06f4157a18e.setContent(html_a8a9d60a856c3a6d41dedcc8d295469b);
+            
+        
+
+        marker_7337adf9aade55d89ebd1e1fef146346.bindPopup(popup_e9db7d3bf6ecf84269bbe06f4157a18e)
+        ;
+
+        
+    
+    
+            var marker_28a074b3ed2eeea9ba35232ee9a858ce = L.marker(
+                [47.95888888888889, 0.22472222222222224],
+                {}
+            ).addTo(map_607f49722d13e8e0fae3660dfa9ee62c);
+        
+    
+        var popup_fcc039a23f8724621ab38d87f7870bda = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+
+        
+            
+                var html_692654c892067d619654ac0282e62dbc = $(`<div id=&quot;html_692654c892067d619654ac0282e62dbc&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Marie-Marvingt</div>`)[0];
+                popup_fcc039a23f8724621ab38d87f7870bda.setContent(html_692654c892067d619654ac0282e62dbc);
+            
+        
+
+        marker_28a074b3ed2eeea9ba35232ee9a858ce.bindPopup(popup_fcc039a23f8724621ab38d87f7870bda)
+        ;
+
+        
+    
+    
+            map_607f49722d13e8e0fae3660dfa9ee62c.fitBounds(
+                [[41.931666666666665, -4.461666666666667], [50.61194444444445, 8.77888888888889]],
+                {}
+            );
+        
+</script>
+</html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
+</div>
 </div>
 </section>
 </section>
@@ -2894,7 +3688,7 @@ Max
 </div>
 </div>
 <p>Pour la question 2, l’objectif est d’obtenir
-l’une des images suivantes</p>
+les images des pokemon.</p>
 </section>
 <section id="version-guidée" class="level3">
 <h3 class="anchored" data-anchor-id="version-guidée">Version guidée</h3>
@@ -2943,8 +3737,8 @@ Les fonctions suivantes vous seront utiles :</li>
 </div>
 <p>A l’issue de la question 3,
 vous devriez obtenir une liste de caractéristiques proche de celle-ci:</p>
-<div class="cell" data-execution_count="35">
-<div class="cell-output cell-output-display" data-execution_count="33">
+<div class="cell" data-execution_count="34">
+<div class="cell-output cell-output-display" data-execution_count="34">
 <pre><code>{'National №': '0001',
  'name': 'bulbasaur',
  'Type': ' Grass Poison ',
@@ -2973,8 +3767,8 @@ vous devriez obtenir une liste de caractéristiques proche de celle-ci:</p>
 <p>Enfin, vous pouvez intégrer les informations
 des dix premiers pokémons à un
 <code>DataFrame</code>, qui aura l’aspect suivant :</p>
-<div class="cell" data-execution_count="38">
-<div class="cell-output cell-output-display" data-execution_count="36">
+<div class="cell" data-execution_count="37">
+<div class="cell-output cell-output-display" data-execution_count="37">
 <div>
 
 
@@ -3149,8 +3943,8 @@ et enregistrer en local les images.</li>
 </ul>
 </div>
 </div>
-<div class="cell" data-execution_count="39">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install scikit<span class="op">-</span>image</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install scikit<span class="op">-</span>image</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Requirement already satisfied: scikit-image in /opt/mamba/lib/python3.9/site-packages (0.21.0)
 Requirement already satisfied: numpy&gt;=1.21.1 in /opt/mamba/lib/python3.9/site-packages (from scikit-image) (1.26.0)
@@ -3166,11 +3960,11 @@ Requirement already satisfied: pyparsing!=3.0.5,&gt;=2.0.2 in /opt/mamba/lib/pyt
 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="41">
-<div class="cell-output cell-output-display" data-execution_count="39">
+<div class="cell" data-execution_count="40">
+<div class="cell-output cell-output-display" data-execution_count="40">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="04a_webscraping_TP_files/figure-html/cell-42-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="04a_webscraping_TP_files/figure-html/cell-42-output-1.png" width="912" height="200" class="figure-img"></a></p>
+<p><a href="04a_webscraping_TP_files/figure-html/cell-41-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="04a_webscraping_TP_files/figure-html/cell-41-output-1.png" width="912" height="200" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -3210,101 +4004,94 @@ de travail. Pour installer cette version minimaliste de <code>Chrome</code> sur 
 <code>Linux</code>, vous pouvez vous référer à l’encadré dédié.</p>
 <div class="cell markdown">
 <div class="alert alert-info" role="alert">
-<h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> `Installation de Selenium`</h3>
+<h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Installation de <code>Selenium</code></h3>
 <p>D’abord, il convient d’installer les dépendances.
 Sur <code>Colab</code>, vous pouvez utiliser les commandes suivantes :</p>
-<div class="cell" data-execution_count="43">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sudo apt<span class="op">-</span>get update</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sudo apt install <span class="op">-</span>y unzip xvfb libxi6 libgconf<span class="op">-</span><span class="dv">2</span><span class="op">-</span><span class="dv">4</span> <span class="op">-</span>y</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sudo apt install chromium<span class="op">-</span>chromedriver <span class="op">-</span>y</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cp <span class="op">/</span>usr<span class="op">/</span>lib<span class="op">/</span>chromium<span class="op">-</span>browser<span class="op">/</span>chromedriver <span class="op">/</span>usr<span class="op">/</span><span class="bu">bin</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sudo apt<span class="op">-</span>get update</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sudo apt install <span class="op">-</span>y unzip xvfb libxi6 libgconf<span class="op">-</span><span class="dv">2</span><span class="op">-</span><span class="dv">4</span> <span class="op">-</span>y</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sudo apt install chromium<span class="op">-</span>chromedriver <span class="op">-</span>y</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cp <span class="op">/</span>usr<span class="op">/</span>lib<span class="op">/</span>chromium<span class="op">-</span>browser<span class="op">/</span>chromedriver <span class="op">/</span>usr<span class="op">/</span><span class="bu">bin</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <p>Si vous êtes sur le <code>SSP Cloud</code>, vous pouvez
 exécuter les commandes suivantes :</p>
-<div class="cell" data-execution_count="44">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wget https:<span class="op">//</span>dl.google.com<span class="op">/</span>linux<span class="op">/</span>direct<span class="op">/</span>google<span class="op">-</span>chrome<span class="op">-</span>stable_current_amd64.deb <span class="op">-</span>O <span class="op">/</span>tmp<span class="op">/</span>chrome.deb</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sudo apt<span class="op">-</span>get update</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sudo <span class="op">-</span>E apt<span class="op">-</span>get install <span class="op">-</span>y <span class="op">/</span>tmp<span class="op">/</span>chrome.deb</span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install chromedriver<span class="op">-</span>autoinstaller selenium</span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> chromedriver_autoinstaller</span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>chromedriver_autoinstaller.install()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wget https:<span class="op">//</span>dl.google.com<span class="op">/</span>linux<span class="op">/</span>direct<span class="op">/</span>google<span class="op">-</span>chrome<span class="op">-</span>stable_current_amd64.deb <span class="op">-</span>O <span class="op">/</span>tmp<span class="op">/</span>chrome.deb</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sudo apt<span class="op">-</span>get update</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>sudo <span class="op">-</span>E apt<span class="op">-</span>get install <span class="op">-</span>y <span class="op">/</span>tmp<span class="op">/</span>chrome.deb</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install chromedriver<span class="op">-</span>autoinstaller selenium</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> chromedriver_autoinstaller</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>chromedriver_autoinstaller.install()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <p>Vous pouvez ensuite installer <code>Selenium</code>.
 Par exemple, depuis une
 cellule de <code>Notebook</code> :</p>
-<div class="cell" data-execution_count="45">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install selenium</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </div>
 </div>
 <p>Après avoir installé <code>Chromium</code>,
 il est nécessaire d’indiquer à <code>Python</code> où
 le trouver. Si vous êtes sur <code>Linux</code> et que vous
 avez suivi les consignes précédentes, vous pouvez faire :</p>
-<div class="cell" data-execution_count="46">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> selenium</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> webdriver_manager.chrome <span class="im">import</span> ChromeDriverManager</span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>path_to_web_driver <span class="op">=</span> ChromeDriverManager().install()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> selenium</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> webdriver_manager.chrome <span class="im">import</span> ChromeDriverManager</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>path_to_web_driver <span class="op">=</span> ChromeDriverManager().install()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>En premier lieu, il convient d’initialiser le comportement
 de <code>Selenium</code> en répliquant les paramètres
 du navigateur. Pour cela, on va d’abord initialiser
 notre navigateur avec quelques options :</p>
-<div class="cell" data-execution_count="47">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium <span class="im">import</span> webdriver</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.common.keys <span class="im">import</span> Keys</span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>chrome_options <span class="op">=</span> webdriver.ChromeOptions()</span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>chrome_options.add_argument(<span class="st">'--headless'</span>)</span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>chrome_options.add_argument(<span class="st">'--no-sandbox'</span>)</span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>chrome_options.add_argument(<span class="st">'--disable-dev-shm-usage'</span>)</span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="co">#chrome_options.add_argument('--verbose') </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium <span class="im">import</span> webdriver</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.common.keys <span class="im">import</span> Keys</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>chrome_options <span class="op">=</span> webdriver.ChromeOptions()</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>chrome_options.add_argument(<span class="st">'--headless'</span>)</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>chrome_options.add_argument(<span class="st">'--no-sandbox'</span>)</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>chrome_options.add_argument(<span class="st">'--disable-dev-shm-usage'</span>)</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a><span class="co">#chrome_options.add_argument('--verbose') </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Puis on lance le navigateur :</p>
-<div class="cell" data-execution_count="48">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.chrome.service <span class="im">import</span> Service</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>service <span class="op">=</span> Service(executable_path<span class="op">=</span>path_to_web_driver)</span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>browser <span class="op">=</span> webdriver.Chrome(service<span class="op">=</span>service,</span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>                           options<span class="op">=</span>chrome_options)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.chrome.service <span class="im">import</span> Service</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>service <span class="op">=</span> Service(executable_path<span class="op">=</span>path_to_web_driver)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>browser <span class="op">=</span> webdriver.Chrome(service<span class="op">=</span>service,</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>                           options<span class="op">=</span>chrome_options)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>On va sur le site de <code>Bing Actualités</code>, et on lui indique le mot clé que nous souhaitons chercher.
+<p>On va sur le site de <code>Bing Actualités</code>,
+et on lui indique le mot clé que nous souhaitons chercher.
 En l’occurrence, on s’intéresse aux actualités de Donald Trump.
 Après avoir inspecté la page depuis les outils de développement du navigateur,
 on voit que la barre de recherche est un élement du code appelé <code>q</code> (comme <em>query</em>).
 On va ainsi demander à <code>selenium</code> de chercher cet élément:</p>
-<div class="cell" data-execution_count="49">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>browser.get(<span class="st">'https://www.bing.com/news'</span>)</span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>search <span class="op">=</span> browser.find_element(<span class="st">"name"</span>, <span class="st">"q"</span>)</span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(search)</span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>([search.text, search.tag_name, search.<span class="bu">id</span>])</span>
-<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="co"># on envoie à cet endroit le mot qu'on aurait tapé dans la barre de recherche</span></span>
-<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>search.send_keys(<span class="st">"Trump"</span>)</span>
-<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>search_button <span class="op">=</span> browser.find_element(<span class="st">"xpath"</span>, <span class="st">"//input[@id='sb_form_go']"</span>) </span>
-<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>search_button.click()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>browser.get(<span class="st">'https://www.bing.com/news'</span>)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>search <span class="op">=</span> browser.find_element(<span class="st">"name"</span>, <span class="st">"q"</span>)</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(search)</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>([search.text, search.tag_name, search.<span class="bu">id</span>])</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="co"># on envoie à cet endroit le mot qu'on aurait tapé dans la barre de recherche</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>search.send_keys(<span class="st">"Trump"</span>)</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>search_button <span class="op">=</span> browser.find_element(<span class="st">"xpath"</span>, <span class="st">"//input[@id='sb_form_go']"</span>) </span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>search_button.click()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><code>selenium</code> permet de capturer l’image qu’on verrait dans le navigateur
+<p><code>Selenium</code> permet de capturer l’image qu’on verrait dans le navigateur
 avec <code>get_screenshot_as_png</code>. Cela peut être utile pour vérifier qu’on
 a fait la bonne action:</p>
-<div class="cell" data-execution_count="50">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>png <span class="op">=</span> browser.get_screenshot_as_png()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-execution_count="51">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> Image</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>Image(png, width<span class="op">=</span><span class="st">'500'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="49">
 <div class="cell-output cell-output-display" data-execution_count="48">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="04a_webscraping_TP_files/figure-html/cell-52-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="04a_webscraping_TP_files/figure-html/cell-52-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="04a_webscraping_TP_files/figure-html/cell-50-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="04a_webscraping_TP_files/figure-html/cell-50-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -3322,81 +4109,87 @@ de développeurs de votre site <em>web</em> sont pratiques.
 Par exemple, sous <code>Firefox</code>, une fois que vous
 avez trouvé un élément dans l’inspecteur, vous
 pouvez faire <code>click droit &gt; Copier &gt; XPath</code>.</p>
-<div class="cell" data-execution_count="52">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.common.exceptions <span class="im">import</span> StaleElementReferenceException</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>links <span class="op">=</span> browser.find_elements(<span class="st">"xpath"</span>, <span class="st">"//div/a[@class='title'][@href]"</span>)</span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> []</span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> link <span class="kw">in</span> links:</span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>        url <span class="op">=</span> link.get_attribute(<span class="st">'href'</span>)</span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> StaleElementReferenceException <span class="im">as</span> e:</span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Issue with '</span><span class="sc">{0}</span><span class="st">' and '</span><span class="sc">{1}</span><span class="st">'"</span>.<span class="bu">format</span>(url, link))</span>
-<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"It might be due to slow javascript which produces the HTML page."</span>)</span>
-<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>    results.append(url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <p>Enfin, pour mettre fin à notre session, on demande
-à <code>Python</code> de quitter le navigateur</p>
-<div class="cell" data-execution_count="53">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>browser.quit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+à <code>Python</code> de quitter le navigateur:</p>
+<div class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>browser.quit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>On a obtenu les résultats suivants:</p>
-<div class="cell" data-execution_count="54">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="52">
 <div class="cell-output cell-output-stdout">
-<pre><code>['https://www.msn.com/en-us/news/politics/trump-to-seek-presidential-immunity-against-e-jean-carrolls-2019-damage-claims/ar-AA1iHOFS', 'https://www.msn.com/en-us/news/politics/trump-denies-telling-red-haired-weirdo-mar-a-lago-billionaire-about-classified-info/ar-AA1iHUQx', 'https://www.msn.com/en-us/news/politics/there-is-only-one-way-for-many-gop-candidates-running-against-trump-to-stop-him-drop-out-and-do-it-now/ar-AA1iHSso', 'https://news.yahoo.com/trump-keeps-stepping-gops-called-131931218.html', 'https://abcnews.go.com/US/live-updates/trump-fraud-trial/trial-delayed-until-tuesday-due-to-covid19-exposures-104220316?id=103642561', 'https://www.theguardian.com/us-news/2023/oct/23/donald-trump-judge-attacks', 'https://news.yahoo.com/trump-labels-report-told-mar-130537648.html', 'https://theweek.com/politics/trump-bragged-about-private-calls-with-world-leaders-australian-billionaire-recounts-in-secret-recordings']</code></pre>
+<pre><code>['https://www.msn.com/en-us/news/other/donald-trump-faces-nightmare-scenario/ar-AA1iHVUg', 'https://www.msn.com/en-us/news/politics/trump-to-seek-presidential-immunity-against-e-jean-carrolls-2019-damage-claims/ar-AA1iHOFS', 'https://www.msn.com/en-us/news/politics/trump-denies-telling-red-haired-weirdo-mar-a-lago-billionaire-about-classified-info/ar-AA1iHUQx', 'https://www.bostonglobe.com/2023/10/23/nation/trump-rally-derry-nh/', 'https://www.msn.com/en-us/news/politics/there-is-only-one-way-for-many-gop-candidates-running-against-trump-to-stop-him-drop-out-and-do-it-now/ar-AA1iHSso', 'https://news.yahoo.com/biden-trump-tied-37-percent-154441209.html', 'https://www.theguardian.com/us-news/2023/oct/23/donald-trump-judge-attacks', 'https://www.msn.com/en-us/news/politics/tom-emmer-scrambles-to-fix-his-trump-problem/ar-AA1iHf9I']</code></pre>
 </div>
 </div>
 <p>Les autres méthodes utiles de <code>Selenium</code>:</p>
-<div class="line-block"><code>find_element(****).click()</code> | Une fois qu’on a trouvé un élément réactif, notamment un bouton, on peut cliquer dessus pour activer une nouvelle page |<br>
-<code>find_element(****).send_keys("toto")</code> | Une fois qu’on a trouvé un élément, notamment un champ où s’authentifier, on peut envoyer une valeur, ici <em>“toto”</em>.</div>
+<table class="table">
+<colgroup>
+<col style="width: 68%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Méthode</th>
+<th>Résultat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>find_element(****).click()</code></td>
+<td>Une fois qu’on a trouvé un élément réactif, notamment un bouton, on peut cliquer dessus pour activer une nouvelle page</td>
+</tr>
+<tr class="even">
+<td><code>find_element(****).send_keys("toto")</code></td>
+<td>Une fois qu’on a trouvé un élément, notamment un champ où s’authentifier, on peut envoyer une valeur, ici <em>“toto”</em>.</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="utiliser-selenium-pour-jouer-à-2048" class="level3">
-<h3 class="anchored" data-anchor-id="utiliser-selenium-pour-jouer-à-2048">Utiliser selenium pour jouer à 2048</h3>
+<h3 class="anchored" data-anchor-id="utiliser-selenium-pour-jouer-à-2048">Utiliser <code>Selenium</code> pour jouer à 2048</h3>
 <p>Dans cet exemple, on utilise le module pour que <code>Python</code>
 appuie lui même sur les touches du clavier afin de jouer à 2048.</p>
 <p>Note : ce bout de code ne donne pas une solution à 2048,
-il permet juste de voir ce qu’on peut faire avec <code>Selenium</code></p>
-<div class="cell" data-execution_count="55">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium <span class="im">import</span> webdriver</span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.chrome.service <span class="im">import</span> Service</span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.common.keys <span class="im">import</span> Keys</span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a><span class="co"># on ouvre la page internet du jeu 2048</span></span>
-<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>service <span class="op">=</span> Service(executable_path<span class="op">=</span>path_to_web_driver)</span>
-<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>browser <span class="op">=</span> webdriver.Chrome(service<span class="op">=</span>service,</span>
-<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>                           options<span class="op">=</span>chrome_options)</span>
-<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>browser.get(<span class="st">'https://play2048.co//'</span>)</span>
-<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Ce qu'on va faire : une boucle qui répète inlassablement la même chose : haut / droite / bas / gauche</span></span>
-<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a><span class="co"># on commence par cliquer sur la page pour que les touches sachent </span></span>
-<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a>button <span class="op">=</span> browser.find_element(<span class="st">"class name"</span>, <span class="st">'grid-container'</span>)</span>
-<span id="cb62-16"><a href="#cb62-16" aria-hidden="true" tabindex="-1"></a>browser.execute_script(<span class="st">"arguments[0].click();"</span>, button)</span>
-<span id="cb62-17"><a href="#cb62-17" aria-hidden="true" tabindex="-1"></a>time.sleep(<span class="fl">0.5</span>)</span>
-<span id="cb62-18"><a href="#cb62-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-19"><a href="#cb62-19" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> browser.find_element(<span class="st">"tag name"</span>, <span class="st">'body'</span>)</span>
-<span id="cb62-20"><a href="#cb62-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-21"><a href="#cb62-21" aria-hidden="true" tabindex="-1"></a><span class="co"># pour savoir quels coups faire à quel moment, on crée un dictionnaire</span></span>
-<span id="cb62-22"><a href="#cb62-22" aria-hidden="true" tabindex="-1"></a>direction <span class="op">=</span> {<span class="dv">0</span>: Keys.UP, <span class="dv">1</span>: Keys.RIGHT, <span class="dv">2</span>: Keys.DOWN, <span class="dv">3</span>: Keys.LEFT}</span>
-<span id="cb62-23"><a href="#cb62-23" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb62-24"><a href="#cb62-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-25"><a href="#cb62-25" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
-<span id="cb62-26"><a href="#cb62-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>: <span class="co"># on vérifie que le bouton "Try again" n'est pas là - sinon ça veut dire que le jeu est fini</span></span>
-<span id="cb62-27"><a href="#cb62-27" aria-hidden="true" tabindex="-1"></a>        retryButton <span class="op">=</span> browser.find_element(<span class="st">"link text"</span>,<span class="st">'Try again'</span>)</span>
-<span id="cb62-28"><a href="#cb62-28" aria-hidden="true" tabindex="-1"></a>        scoreElem <span class="op">=</span> browser.find_element(<span class="st">"class name"</span>, <span class="st">'score-container'</span>)</span>
-<span id="cb62-29"><a href="#cb62-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
-<span id="cb62-30"><a href="#cb62-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span>:</span>
-<span id="cb62-31"><a href="#cb62-31" aria-hidden="true" tabindex="-1"></a>        <span class="co">#Do nothing.  Game is not over yet</span></span>
-<span id="cb62-32"><a href="#cb62-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
-<span id="cb62-33"><a href="#cb62-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># on continue le jeu - on appuie sur la touche suivante pour le coup d'après</span></span>
-<span id="cb62-34"><a href="#cb62-34" aria-hidden="true" tabindex="-1"></a>    count <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb62-35"><a href="#cb62-35" aria-hidden="true" tabindex="-1"></a>    grid.send_keys(direction[count <span class="op">%</span> <span class="dv">4</span>]) </span>
-<span id="cb62-36"><a href="#cb62-36" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="fl">0.1</span>)</span>
-<span id="cb62-37"><a href="#cb62-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-38"><a href="#cb62-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Score final : </span><span class="sc">{}</span><span class="st"> en </span><span class="sc">{}</span><span class="st"> coups'</span>.<span class="bu">format</span>(scoreElem.text, count))    </span>
-<span id="cb62-39"><a href="#cb62-39" aria-hidden="true" tabindex="-1"></a>browser.quit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+il permet juste de voir ce qu’on peut faire avec <code>Selenium</code>.</p>
+<div class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium <span class="im">import</span> webdriver</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.chrome.service <span class="im">import</span> Service</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.common.keys <span class="im">import</span> Keys</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="co"># on ouvre la page internet du jeu 2048</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>service <span class="op">=</span> Service(executable_path<span class="op">=</span>path_to_web_driver)</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>browser <span class="op">=</span> webdriver.Chrome(service<span class="op">=</span>service,</span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>                           options<span class="op">=</span>chrome_options)</span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>browser.get(<span class="st">'https://play2048.co//'</span>)</span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Ce qu'on va faire : une boucle qui répète inlassablement la même chose : haut / droite / bas / gauche</span></span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a><span class="co"># on commence par cliquer sur la page pour que les touches sachent </span></span>
+<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a>button <span class="op">=</span> browser.find_element(<span class="st">"class name"</span>, <span class="st">'grid-container'</span>)</span>
+<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a>browser.execute_script(<span class="st">"arguments[0].click();"</span>, button)</span>
+<span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a>time.sleep(<span class="fl">0.5</span>)</span>
+<span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-19"><a href="#cb55-19" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> browser.find_element(<span class="st">"tag name"</span>, <span class="st">'body'</span>)</span>
+<span id="cb55-20"><a href="#cb55-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-21"><a href="#cb55-21" aria-hidden="true" tabindex="-1"></a><span class="co"># pour savoir quels coups faire à quel moment, on crée un dictionnaire</span></span>
+<span id="cb55-22"><a href="#cb55-22" aria-hidden="true" tabindex="-1"></a>direction <span class="op">=</span> {<span class="dv">0</span>: Keys.UP, <span class="dv">1</span>: Keys.RIGHT, <span class="dv">2</span>: Keys.DOWN, <span class="dv">3</span>: Keys.LEFT}</span>
+<span id="cb55-23"><a href="#cb55-23" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb55-24"><a href="#cb55-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-25"><a href="#cb55-25" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb55-26"><a href="#cb55-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>: <span class="co"># on vérifie que le bouton "Try again" n'est pas là - sinon ça veut dire que le jeu est fini</span></span>
+<span id="cb55-27"><a href="#cb55-27" aria-hidden="true" tabindex="-1"></a>        retryButton <span class="op">=</span> browser.find_element(<span class="st">"link text"</span>,<span class="st">'Try again'</span>)</span>
+<span id="cb55-28"><a href="#cb55-28" aria-hidden="true" tabindex="-1"></a>        scoreElem <span class="op">=</span> browser.find_element(<span class="st">"class name"</span>, <span class="st">'score-container'</span>)</span>
+<span id="cb55-29"><a href="#cb55-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb55-30"><a href="#cb55-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span>:</span>
+<span id="cb55-31"><a href="#cb55-31" aria-hidden="true" tabindex="-1"></a>        <span class="co">#Do nothing.  Game is not over yet</span></span>
+<span id="cb55-32"><a href="#cb55-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb55-33"><a href="#cb55-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># on continue le jeu - on appuie sur la touche suivante pour le coup d'après</span></span>
+<span id="cb55-34"><a href="#cb55-34" aria-hidden="true" tabindex="-1"></a>    count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb55-35"><a href="#cb55-35" aria-hidden="true" tabindex="-1"></a>    grid.send_keys(direction[count <span class="op">%</span> <span class="dv">4</span>]) </span>
+<span id="cb55-36"><a href="#cb55-36" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="fl">0.1</span>)</span>
+<span id="cb55-37"><a href="#cb55-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-38"><a href="#cb55-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Score final : </span><span class="sc">{}</span><span class="st"> en </span><span class="sc">{}</span><span class="st"> coups'</span>.<span class="bu">format</span>(scoreElem.text, count))    </span>
+<span id="cb55-39"><a href="#cb55-39" aria-hidden="true" tabindex="-1"></a>browser.quit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -3684,7 +4477,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","openEffect":"zoom","loop":true,"closeEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","openEffect":"zoom","closeEffect":"zoom","loop":true,"selector":".lightbox"});</script>
 
 
 
