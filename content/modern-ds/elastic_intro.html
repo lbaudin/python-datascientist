@@ -657,14 +657,10 @@ version sur le dépôt <code>Github</code> du cours</p>
 </div>
 <div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>baseurl <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/linogaliana/python-datascientist"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>branch <span class="op">=</span> <span class="st">"master"</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> <span class="st">"content/modern-ds/elastic_intro/functions.py"</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>baseurl<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>branch<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>path<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> requests.get(url, allow_redirects<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="bu">open</span>(<span class="st">'functions.py'</span>, <span class="st">'wb'</span>).write(r.content)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://github.com/linogaliana/python-datascientist/raw/master/content/modern-ds/functions.py"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> requests.get(url, allow_redirects<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">open</span>(<span class="st">'functions.py'</span>, <span class="st">'wb'</span>).write(r.content)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Après l’avoir récupéré (cf.&nbsp;encadré dédié),
 il convient d’importer les fonctions sous forme de module:</p>
@@ -917,13 +913,13 @@ partie <a href="#nlp">NLP</a>, notamment:</p>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
 <figure class="figure">
-<p><a href="wordcloud_relevanc_start.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Scanner-data avant nettoyage"><img src="wordcloud_relevanc_start.png" class="img-fluid figure-img"></a></p>
+<p><a href="wordcloud_relevanc_start.png" class="lightbox" title="Scanner-data avant nettoyage" data-gallery="quarto-lightbox-gallery-3"><img src="wordcloud_relevanc_start.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">Scanner-data avant nettoyage</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
 <figure class="figure">
-<p><a href="wordcloud_openfood_start.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="OpenFood data avant nettoyage"><img src="wordcloud_openfood_start.png" class="img-fluid figure-img"></a></p>
+<p><a href="wordcloud_openfood_start.png" class="lightbox" title="OpenFood data avant nettoyage" data-gallery="quarto-lightbox-gallery-4"><img src="wordcloud_openfood_start.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">OpenFood data avant nettoyage</figcaption>
 </figure>
 </div>
@@ -931,13 +927,13 @@ partie <a href="#nlp">NLP</a>, notamment:</p>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
 <figure class="figure">
-<p><a href="wordcloud_relevanc_clean.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Scanner-data après nettoyage"><img src="wordcloud_relevanc_clean.png" class="img-fluid figure-img"></a></p>
+<p><a href="wordcloud_relevanc_clean.png" class="lightbox" title="Scanner-data après nettoyage" data-gallery="quarto-lightbox-gallery-5"><img src="wordcloud_relevanc_clean.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">Scanner-data après nettoyage</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
 <figure class="figure">
-<p><a href="wordcloud_openfood_clean.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="OpenFood data après nettoyage"><img src="wordcloud_openfood_clean.png" class="img-fluid figure-img"></a></p>
+<p><a href="wordcloud_openfood_clean.png" class="lightbox" title="OpenFood data après nettoyage" data-gallery="quarto-lightbox-gallery-6"><img src="wordcloud_openfood_clean.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">OpenFood data après nettoyage</figcaption>
 </figure>
 </div>
@@ -1630,7 +1626,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","closeEffect":"zoom","openEffect":"zoom","loop":true});</script>
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","selector":".lightbox","loop":true,"closeEffect":"zoom","descPosition":"bottom"});</script>
 
 
 

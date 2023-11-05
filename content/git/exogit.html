@@ -528,7 +528,7 @@ du cadavre exquis, qui m’a été soufflée par
 <a href="https://github.com/corent01/03-Swartz/blob/master/Parcours/01-La-prairie/git/exercice-git-cadavre-exquis.md">cette ressource</a> et de <a href="https://github.com/simplonco/cadavre-request">celle-ci</a>.</p>
 <p>Cette partie part du principe que les concepts généraux de <code>Git</code> sont
 maîtrisés et qu’un environnement de travail fonctionnel avec <code>Git</code> est
-disponible. Un exemple de tel environnement est le<code>JupyterLab</code> du
+disponible. Un exemple de tel environnement est le <code>JupyterLab</code> ou l’environnement <code>VSCode</code> du
 <code>SSPCloud</code> où une extension
 <code>Git</code> est pré-installée :</p>
 <p><a href="https://datalab.sspcloud.fr/launcher/ide/jupyter-python?autoLaunch=true&amp;onyxia.friendlyName=%C2%ABpython-datascience%C2%BB&amp;init.personalInit=%C2%ABhttps%3A%2F%2Fraw.githubusercontent.com%2Flinogaliana%2Fpython-datascientist%2Fmaster%2Fsspcloud%2Finit-jupyter.sh%C2%BB&amp;init.personalInitArgs=%C2%ABgit%20exogit%C2%BB&amp;security.allowlist.enabled=false" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/SSPcloud-Tester%20via%20SSP--cloud-informational&amp;color=yellow?logo=Python" alt="Onyxia"></a></p>
@@ -546,11 +546,11 @@ qui doit servir quel que soit le langage de prédilection.</p>
 de pratiques collaboratives devenues standards dans le domaine de l’<em>open-source</em>
 mais également de plus en plus communes dans les administrations et entreprises
 de la <em>data science</em>.</p>
-<p>Ce chapitre propose d’utiliser l’extension <code>Git</code> de <code>JupyterLab</code>.
-Un tutoriel présentant cette extension est disponible
+<p>Ce chapitre propose d’utiliser l’ extension <code>Git</code> de <code>JupyterLab</code> ou de <code>VSCode</code>.
+Un tutoriel présentant l’extension <code>JupyterLab</code> est disponible
 <a href="https://annefou.github.io/jupyter_publish/02-git/index.html">ici</a>.
-Les principaux IDE disponibles (Visual Studio,
-PyCharm, RStudio) présentent des fonctionalités similaires. Il est
+Les principaux autres IDE disponibles (PyCharm, RStudio) présentent
+des fonctionalités similaires. Il est
 tout à fait possible d’en utiliser un autre. <code>VisualStudio</code> propose
 probablement, à l’heure actuelle, l’ensemble le plus complet.</p>
 <p>Certains passages de ce TD nécessitent d’utiliser la ligne de commande.
@@ -704,7 +704,7 @@ est d’utiliser un gestionnaire de mot de passe comme
 où l’intégration continue est nécessaire)</p>
 <p>Pour résumer les étapes devraient être les suivantes :</p>
 <p><em>Settings &gt; Developers Settings &gt; Personal Access Token &gt; Generate a new token &gt; “My bash script” &gt; Expiration “30 days” &gt; cocher juste “repo” &gt; Generate token &gt; Le copier</em></p>
-<p>2️⃣ Ouvrir un terminal depuis <code>Jupyter</code> (par exemple <code>File &gt; New &gt; Terminal</code> dans Onyxia).</p>
+<p>2️⃣ Ouvrir un terminal depuis <code>Jupyter</code> (par exemple <code>File &gt; New &gt; Terminal</code>) ou <code>VSCode</code> (<code>Terminal &gt; New Terminal</code>).</p>
 <p>3️⃣ [Optionnel] Taper dans le terminal la commande
 qui convient selon votre système d’exploitation pour activer le
 <code>credential helper</code>:</p>
@@ -717,7 +717,7 @@ git config --global credential.helper manager-core</code></pre>
 Il prend la forme suivante</p>
 <p><code>https://github.com/&lt;username&gt;/&lt;reponame&gt;.git</code></p>
 <p>Vous pouvez utiliser l’icone à droite pour copier l’url.</p>
-<p>5️⃣ Retournez dans le terminal <code>Jupyter</code>. Taper</p>
+<p>5️⃣ Retournez dans le Terminal. Taper</p>
 <pre class="shell"><code>git clone repo_url</code></pre>
 <p>où <code>repo_url</code> est l’url du dépôt en question (vous pouvez utiliser
 <kbd>MAJ</kbd>+<kbd>Inser</kbd> pour coller l’url précédemment copié)</p>
@@ -815,17 +815,30 @@ encore contrôlé.</p>
 <div class="alert alert-success" role="alert">
 <h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 4 : Indexer des modifications</h3>
 <ol type="1">
-<li>Se rendre dans l’extension <code>Git</code> de Jupyter. Vous devriez
-retrouver un cadre ayant cet aspect</li>
+<li>Se rendre dans l’extension <code>Git</code> de <code>Jupyter</code> ou de <code>VSCode</code>. Vous devriez
+retrouver un cadre ayant cet aspect (à gauche pour <code>Jupyter</code> et à droite pour <code>VSCode</code>).</li>
 </ol>
-<div class="quarto-figure quarto-figure-center">
+<div id="fig-status" class="quarto-layout-panel">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
 <figure class="figure">
 <p><a href="git-status-ensae.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="git-status-ensae.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
+<div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
+<figure class="figure">
+<p><a href="git_vscode_1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="git_vscode_1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2.1: <strong>?(caption)</strong></figcaption><p></p>
+</figure>
+</div>
 <ol start="2" type="1">
-<li>En passant votre souris au dessus du <code>.gitignore</code>, vous devriez voir
-un <code>+</code> apparaître. Cliquez dessus.</li>
+<li>Sur <code>Jupyter</code>, en passant votre souris au dessus du <code>.gitignore</code>, vous devriez voir
+un <code>+</code> apparaître. Cliquez dessus. Sur <code>VSCode</code>, un bouton <code>+</code> figure à droite du nom
+du fichier <code>.gitignore</code>.</li>
 </ol>
 <p>Si vous aviez privilégié la ligne de commande, ce que vous avez fait est équivalent à :</p>
 <pre class="shell"><code>git add .gitignore</code></pre>
@@ -894,24 +907,33 @@ le commit <em>Update</em> du 12 janvier et en quoi il se distingue du
 <div class="cell markdown">
 <div class="alert alert-success" role="alert">
 <h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 5 : Premier commit (enfin !)</h3>
-<p>Tout se passe dans la partie inférieure de l’interface graphique.</p>
+<p>Sur <code>Jupyter</code>, tout se passe dans la partie inférieure de l’interface graphique.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="git-panel-jupyter.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="git-panel-jupyter.png" class="img-fluid figure-img"></a></p>
+<p><a href="git-panel-jupyter.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="git-panel-jupyter.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<p>Sur <code>VSCode</code>, il faut au contraire regarder en haut.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="git_vscode_2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="git_vscode_2.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 <p>:one: Entrer le titre <code>Initial commit</code> et ajouter une description
 <code>Création du fichier .gitignore : tada :</code> (sans les espaces autour des <code>:</code>).
 <code>: tada :</code> (sans les espaces) sera converti en emoji :tada: par <code>Github</code> quand on voudra
-afficher la description du commit<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+afficher la description du commit<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Sur <code>VSCode</code>, le titre du commit correspond à la
+première ligne du message de commit, les lignes suivantes correspondent à la
+description.</p>
 <p>Le fait de nommer le premier commit <em>“Initial commit”</em> est une
 habitude, vous
 n’êtes pas obligé de suivre cette convention si elle ne vous plaît pas.</p>
 <p>:two: Cliquer sur <code>Commit</code>. Le fichier a disparu de la liste, c’est normal,
 il n’a plus de modification à valider. Pour le retrouver dans la liste
 des fichiers <code>Changed</code>, il faudra le modifier à nouveau</p>
-<p>:three: Cliquer sur l’onglet <code>History</code>. Votre <code>commit</code> apparaît à ce niveau.
-Si vous cliquez dessus, vous obtenez des informations sur le <code>commit</code></p>
+<p>:three: Sur <code>Jupyter</code>, cliquer sur l’onglet <code>History</code> ou sur <code>VSCode</code> cliquer
+sur l’icône <code>View Git Graph</code>. Votre <code>commit</code> apparaît à ce niveau.
+Si vous cliquez dessus, vous obtenez des informations sur le <code>commit</code>.</p>
 </div>
 </div>
 <div class="cell markdown">
@@ -1032,10 +1054,13 @@ ponctuation de la première. Ecrire un message de commit et valider.</p>
 titre du dernier commit. Vous pouvez cliquer dessus pour voir la modification
 que vous avez faite.</p>
 <p>:seven: Les résultats sont sur le dépôt distant mais ne sont pas sur votre
-dossier de travail dans Jupyter. Il faut re-synchroniser votre copie locale
+dossier de travail dans <code>Jupyter</code> ou <code>VSCode</code>. Il faut re-synchroniser votre copie locale
 avec le dépôt distant :</p>
 <ul>
-<li>Avec l’interface Jupyter, si cela est possible, appuyez tout simplement sur la petite flèche vers le bas, qui est celle qui a désormais la pastille orange.</li>
+<li>Sur <code>VSCode</code>, cliquez simplement sur <code>... &gt; Pull</code> à côté du bouton qui permet
+de visualiser le graphe Git.</li>
+<li>Avec l’interface <code>Jupyter</code>, si cela est possible, appuyez tout simplement sur la petite
+flèche vers le bas, qui est celle qui a désormais la pastille orange.</li>
 <li>Si cette flèche n’est pas disponible ou si vous travaillez dans un autre
 environnement, vous pouvez utiliser la ligne de
 commande et taper</li>
@@ -1044,7 +1069,7 @@ commande et taper</li>
 <p>Cela signifie : <em>“git récupère (<code>pull</code>) les modifications sur la
 branche <code>main</code> vers mon dépôt (alias
 <code>origin</code>)”</em></p>
-<p>:eight: Regarder, sur JupyterLab, l’onglet <code>History</code>. Cliquez sur le
+<p>:eight: Regarder à nouveau l’historique des commits. Cliquez sur le
 dernier commit et affichez les changements sur le fichier. Vous pouvez
 remarquer la finesse du contrôle de version : <code>Git</code> détecte au sein de
 la première ligne de votre texte que vous avez mis des majuscules
@@ -1080,7 +1105,7 @@ même amener à se passer d’outils de gestion de projets comme <code>Trello</c
 <p>Il faut <strong>absolument</strong> bannir les usages de <code>push force</code> qui peuvent déstabiliser les copies locales des collaborateurs. S’il est nécessaire de faire un <code>push force</code>, c’est qu’il y a un problème dans la branche, à identifier et régler <strong>sans</strong> faire <code>push force</code>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://miro.medium.com/max/400/0*XaLzNzYkA6PZjbl9.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="https://miro.medium.com/max/400/0*XaLzNzYkA6PZjbl9.jpg" class="img-fluid figure-img"></a></p>
+<p><a href="https://miro.medium.com/max/400/0*XaLzNzYkA6PZjbl9.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="https://miro.medium.com/max/400/0*XaLzNzYkA6PZjbl9.jpg" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 <p><strong>Tous les merges dans <code>main</code> doivent se faire par l’intermédiaire d’une <code>pull request</code> dans <code>Github</code></strong>. En effet, il est très déconseillé de merger une branche dans main localement.</p>
@@ -1095,7 +1120,8 @@ même amener à se passer d’outils de gestion de projets comme <code>Trello</c
 <p>Avec l’interface graphique de JupyterLab, cliquez sur <code>Current Branch - Main</code>
 puis sur le bouton <code>New Branch</code>. Rentrez <code>issue-1</code> comme nom de branche
 (la branche doit être créée depuis <code>main</code>, ce qui est normalement le choix
-par défaut) et cliquez sur <code>Create Branch</code></p>
+par défaut) et cliquez sur <code>Create Branch</code>.</p>
+<p>Sur VSCode, cliquez sur <code>... &gt; Branch &gt; Create Branch</code> et entrez le nom <code>issue-1</code>.</p>
 <p>Si vous n’utilisez pas l’interface graphique mais la ligne de commande, la
 manière équivalente de faire est<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
 <pre class="shell"><code>git checkout -b issue-1</code></pre>
@@ -1114,7 +1140,7 @@ git commit -m "ajout emoji chat"</code></pre>
 pousser les modifications locales.</p>
 <p>Cela peut être fait avec l’interface
 de <code>JupyterLab</code> grâce au bouton avec une flêche montante (il doit apparaître
-en orange maintenant).</p>
+en orange maintenant). Sur <code>VSCode</code>, cliquez sur le bouton <code>Publish Branch</code>.</p>
 <p>Sinon, si vous utilisez la ligne de commande, vous devrez taper</p>
 <pre class="shell"><code>git push origin issue-1</code></pre>
 <p>:five: Dans <code>Github</code>, devrait apparaître</p>
@@ -1135,8 +1161,9 @@ permettra de fermer automatiquement l’<em>issue 1</em> lorsque vous ferez le <
 En attendant, vous avez créé un lien entre l’<em>issue</em> et la <em>pull request</em></p>
 <p>Au passage, vous pouvez ajouter le label <code>Markdown</code> sur la droite.</p>
 <p>:six: En local, retourner sur <code>main</code>. Dans l’interface <code>Jupyter</code>, il suffit
-de cliquer sur <code>main</code> dans la liste des branches. Si vous êtes
-en ligne de commande, il faut faire</p>
+de cliquer sur <code>main</code> dans la liste des branches. Sur <code>VSCode</code>, la liste des branches
+apparaît en cliquant sur le nom de la branche actuelle (<code>issue-1</code> en théorie à ce stade).
+Si vous êtes en ligne de commande, il faut faire</p>
 <pre class="shell"><code>git checkout main</code></pre>
 <p><code>checkout</code> est une commande <code>Git</code> qui permet de naviguer d’une branche à l’autre
 (voire d’un commit à l’autre).</p>
@@ -1154,7 +1181,7 @@ possible que si vous avez rendu public votre dépôt).</p>
 <p>Une fois que cela est fait, vous pouvez retourner dans <code>Insights</code> puis <code>Network</code> pour vérifier que tout s’est bien passé comme prévu.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="squashmerge.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="squashmerge.png" class="img-fluid figure-img"></a></p>
+<p><a href="squashmerge.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="squashmerge.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 <p>:nine: Supprimer la branche (<em>branch &gt; delete this branch</em>). Puisqu’elle est mergée, elle ne servira plus. La conserver risque d’amener à des <code>push</code> involontaires dessus.</p>
@@ -1183,7 +1210,7 @@ la branche en question disparaît:</li>
 </ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://inseefrlab.github.io/formation-bonnes-pratiques-git-R/slides/img/ghflow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="https://inseefrlab.github.io/formation-bonnes-pratiques-git-R/slides/img/ghflow.png" class="img-fluid figure-img"></a></p>
+<p><a href="https://inseefrlab.github.io/formation-bonnes-pratiques-git-R/slides/img/ghflow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="https://inseefrlab.github.io/formation-bonnes-pratiques-git-R/slides/img/ghflow.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 <p>Il existe des <em>workflows</em> plus complexes, notamment le <code>Git Flow</code> que j’utilise
@@ -1191,7 +1218,7 @@ pour développer ce cours. <a href="https://www.atlassian.com/fr/git/tutorials/c
 illustre avec un graphique la complexité accrue de ce flow:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://wac-cdn.atlassian.com/dam/jcr:8f00f1a4-ef2d-498a-a2c6-8020bb97902f/03%20Release%20branches.svg?cdnVersion=55" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="https://wac-cdn.atlassian.com/dam/jcr:8f00f1a4-ef2d-498a-a2c6-8020bb97902f/03%20Release%20branches.svg?cdnVersion=55" class="img-fluid figure-img"></a></p>
+<p><a href="https://wac-cdn.atlassian.com/dam/jcr:8f00f1a4-ef2d-498a-a2c6-8020bb97902f/03%20Release%20branches.svg?cdnVersion=55" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="https://wac-cdn.atlassian.com/dam/jcr:8f00f1a4-ef2d-498a-a2c6-8020bb97902f/03%20Release%20branches.svg?cdnVersion=55" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 <p>Cette fois, une branche intermédiaire, par exemple une branche <code>development</code>
@@ -1303,7 +1330,7 @@ git merge main</code></pre>
 <p>:nine: Vérifier l’arborescence du dépôt dans <code>Insights &gt; Network</code>. Votre arbre doit avoir une forme caractéristique de ce qu’on appelle le <code>Github flow</code>:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://linogaliana.gitlab.io/collaboratif/pics/03_git/flow4_discuss.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="https://linogaliana.gitlab.io/collaboratif/pics/03_git/flow4_discuss.png" class="img-fluid figure-img"></a></p>
+<p><a href="https://linogaliana.gitlab.io/collaboratif/pics/03_git/flow4_discuss.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="https://linogaliana.gitlab.io/collaboratif/pics/03_git/flow4_discuss.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1608,7 +1635,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","loop":true,"descPosition":"bottom","openEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom","loop":true,"openEffect":"zoom"});</script>
 
 
 
