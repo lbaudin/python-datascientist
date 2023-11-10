@@ -220,7 +220,7 @@ les méthodes, etc.">
   </li>  
         <li>
     <a class="dropdown-item" href="../../content/manipulation/04a_webscraping_TP.html" rel="" target="">
- <span class="dropdown-text">Webscraping avec Python</span></a>
+ <span class="dropdown-text">Web scraping avec Python</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../content/manipulation/04c_API_TP.html" rel="" target="">
@@ -727,14 +727,14 @@ c’est la réaffecter à une autre valeur : elle ne peut pas être modifiée.</
 <pre><code>exemple</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>140093987489776</code></pre>
+<pre><code>139632681632240</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> <span class="st">"autre_mot"</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">id</span>(s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>140093987817712</code></pre>
+<pre><code>139632681706096</code></pre>
 </div>
 </div>
 <p>On voit bien que <code>s</code> a changé d’identifiant : il peut avoir le même nom, ce n’est plus le même objet</p>
@@ -765,7 +765,7 @@ Le dernier élément de ma liste est : 4</code></pre>
 est d’utiliser les <code>list comprehension</code>. Cette approche consiste
 à itérer les éléments d’une liste à la volée.</p>
 <p>Par exemple, si on reprend <a href="https://www.w3schools.com/python/python_lists_comprehension.asp">cet exemple</a>,
-un code qui repose sur les <code>list comprehension</code> sera le suivant:</p>
+un code qui repose sur les <code>list comprehension</code> sera le suivant :</p>
 <div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fruits <span class="op">=</span> [<span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"cherry"</span>, <span class="st">"kiwi"</span>, <span class="st">"mango"</span>]</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>newlist <span class="op">=</span> [x <span class="cf">for</span> x <span class="kw">in</span> fruits <span class="cf">if</span> <span class="st">"a"</span> <span class="kw">in</span> x]</span>
@@ -793,7 +793,7 @@ moins concis et ainsi inutilement verbeux:</p>
 <section id="les-dictionnaires---ils-sécrivent-entre-accolades" class="level4">
 <h4 class="anchored" data-anchor-id="les-dictionnaires---ils-sécrivent-entre-accolades">Les dictionnaires - ils s’écrivent entre accolades <code>{}</code></h4>
 <p>Un dictionnaire associe à une clé un autre élément, appelé une valeur : un chiffre, un nom, une liste, un autre dictionnaire etc.
-Le format d’un dictionnaire est le suivant: <code>{Clé : valeur}</code>. Il s’agit
+Le format d’un dictionnaire est le suivant : <code>{Clé : valeur}</code>. Il s’agit
 d’un objet très pratique pour la recherche, beaucoup plus que les listes
 qui ne permettent pas de stocker de l’information diverse de manière
 hiérarchisée.</p>

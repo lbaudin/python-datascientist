@@ -233,7 +233,7 @@ le chapitre précédent avec des données un petit peu plus complexes
   </li>  
         <li>
     <a class="dropdown-item" href="../../content/manipulation/04a_webscraping_TP.html" rel="" target="">
- <span class="dropdown-text">Webscraping avec Python</span></a>
+ <span class="dropdown-text">Web scraping avec Python</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../content/manipulation/04c_API_TP.html" rel="" target="">
@@ -497,7 +497,7 @@ le chapitre précédent avec des données un petit peu plus complexes
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../content/manipulation/04a_webscraping_TP.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Webscraping avec Python</span></a>
+ <span class="menu-text">Web scraping avec Python</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -957,7 +957,7 @@ pour récupérer les frontières françaises (découpées par région):</p>
 </ul>
 <ol start="2" type="1">
 <li>Calculer la superficie en <span class="math inline">\(km^2\)</span>
-des régions françaises dans les deux systèmes de projection suivants:
+des régions françaises dans les deux systèmes de projection suivants :
 World Mercator WGS84 (EPSG: 3395) et Lambert 93 (EPSG: 2154). Calculer la différence en <span class="math inline">\(km^2\)</span>
 pour chaque région.</li>
 </ol>
@@ -1219,7 +1219,7 @@ sont dans un <em>dataframe</em> nommé <code>petite_couronne</code>.</li>
 <li>Faire une jointure spatiale pour enrichir les données de stations en y ajoutant des informations de <code>petite_couronne</code>. Appeler cet objet <code>stations_info</code>.</li>
 <li>Créer les objets <code>stations_19e</code> et <code>arrondissement_19e</code> pour stocker, respectivement,
 les stations appartenant au 19e et les limites de l’arrondissement.</li>
-<li>Représenter la carte des stations du 19e arrondissement avec le code suivant:</li>
+<li>Représenter la carte des stations du 19e arrondissement avec le code suivant :</li>
 </ol>
 <div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> petite_couronne.loc[petite_couronne[<span class="st">'INSEE_DEP'</span>]<span class="op">==</span><span class="st">"75"</span>].boundary.plot(edgecolor <span class="op">=</span> <span class="st">"k"</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>arrondissement_19e.boundary.plot(ax <span class="op">=</span> base, edgecolor <span class="op">=</span> <span class="st">"red"</span>, linewidth<span class="op">=</span><span class="fl">0.9</span>)</span>
@@ -1584,7 +1584,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="../../content/manipulation/04a_webscraping_TP.html" class="pagination-link">
-        <span class="nav-page-text">Webscraping avec Python</span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text">Web scraping avec Python</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1602,7 +1602,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","descPosition":"bottom","loop":true,"selector":".lightbox","closeEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","openEffect":"zoom","closeEffect":"zoom","loop":true});</script>
 
 
 

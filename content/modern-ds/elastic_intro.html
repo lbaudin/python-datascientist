@@ -272,7 +272,7 @@ dans les données alimentaires de l’ OpenFoodFacts Database">
   </li>  
         <li>
     <a class="dropdown-item" href="../../content/manipulation/04a_webscraping_TP.html" rel="" target="">
- <span class="dropdown-text">Webscraping avec Python</span></a>
+ <span class="dropdown-text">Web scraping avec Python</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../content/manipulation/04c_API_TP.html" rel="" target="">
@@ -637,7 +637,7 @@ Pour cela, faire</p>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install xlrd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>La première partie de ce tutoriel ne nécessite pas d’architecture particulière et
-peut ainsi être exécutée en utilisant les packages suivants:</p>
+peut ainsi être exécutée en utilisant les packages suivants :</p>
 <div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -657,14 +657,10 @@ version sur le dépôt <code>Github</code> du cours</p>
 </div>
 <div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>baseurl <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/linogaliana/python-datascientist"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>branch <span class="op">=</span> <span class="st">"master"</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> <span class="st">"content/modern-ds/elastic_intro/functions.py"</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>baseurl<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>branch<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>path<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> requests.get(url, allow_redirects<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="bu">open</span>(<span class="st">'functions.py'</span>, <span class="st">'wb'</span>).write(r.content)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://github.com/linogaliana/python-datascientist/raw/master/content/modern-ds/functions.py"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> requests.get(url, allow_redirects<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">open</span>(<span class="st">'functions.py'</span>, <span class="st">'wb'</span>).write(r.content)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Après l’avoir récupéré (cf.&nbsp;encadré dédié),
 il convient d’importer les fonctions sous forme de module:</p>
@@ -678,7 +674,7 @@ il convient d’importer les fonctions sous forme de module:</p>
 pour le papier présenté aux
 <a href="http://jms-insee.fr/jms2022s28_2/">Journées de Méthodologie Statistiques 2022: Galiana and Suarez-Castillo, <em>“Fuzzy matching on big-data: an illustration with scanner data and crowd-sourced nutritional data”</em></a>
 (travail en cours!)</p>
-<p>On va partir du cas d’usage suivant:</p>
+<p>On va partir du cas d’usage suivant :</p>
 <blockquote class="blockquote">
 <p>Combien de calories dans ma recette de cuisine de ce soir? Combien de calories dans mes courses de la semaine?</p>
 </blockquote>
@@ -1013,7 +1009,7 @@ suivant:</p>
 <p>Après retrait des <em>stop-words</em>, nos libellés prennent
 la forme suivante :</p>
 <p>La regex pour éliminer les caractères de ponctuation permet ainsi d’obtenir:</p>
-<p>Enfin, à l’issue de la question 5, le <code>DataFrame</code> obtenu est le suivant:</p>
+<p>Enfin, à l’issue de la question 5, le <code>DataFrame</code> obtenu est le suivant :</p>
 <p>Ces étapes de nettoyage ont ainsi permis de concentrer l’information
 dans les noms de produits sur ce qui l’identifie vraiment.</p>
 </section>
@@ -1630,7 +1626,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"loop":true,"closeEffect":"zoom","selector":".lightbox","descPosition":"bottom","openEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":true,"descPosition":"bottom","closeEffect":"zoom","openEffect":"zoom"});</script>
 
 
 
