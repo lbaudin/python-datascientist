@@ -520,11 +520,11 @@ centraux du langage Git vus précédemment">
 </p>
 <p></p>
 </div>
-<p>Les exercices suivants sont inspirés d’un cours de Git que j’ai construit
+<p>Les exercices suivants sont inspirés d’un cours de Git que j’ai
+participé à construire
 à l’Insee et dont les ressources sont disponibles
 <a href="https://inseefrlab.github.io/formation-bonnes-pratiques-git-R/">ici</a>. L’idée
-du cadavre exquis, qui m’a été soufflée par
-<a href="https://github.com/RLesur">Romain Lesur</a> est inspirée de
+du cadavre exquis est inspirée de
 <a href="https://github.com/corent01/03-Swartz/blob/master/Parcours/01-La-prairie/git/exercice-git-cadavre-exquis.md">cette ressource</a> et de <a href="https://github.com/simplonco/cadavre-request">celle-ci</a>.</p>
 <p>Cette partie part du principe que les concepts généraux de <code>Git</code> sont
 maîtrisés et qu’un environnement de travail fonctionnel avec <code>Git</code> est
@@ -532,8 +532,7 @@ disponible. Un exemple de tel environnement est le <code>JupyterLab</code> ou l�
 <code>SSPCloud</code> où une extension
 <code>Git</code> est pré-installée :</p>
 <p><a href="https://datalab.sspcloud.fr/launcher/ide/jupyter-python?autoLaunch=true&amp;onyxia.friendlyName=%C2%ABpython-datascience%C2%BB&amp;init.personalInit=%C2%ABhttps%3A%2F%2Fraw.githubusercontent.com%2Flinogaliana%2Fpython-datascientist%2Fmaster%2Fsspcloud%2Finit-jupyter.sh%C2%BB&amp;init.personalInitArgs=%C2%ABgit%20exogit%C2%BB&amp;security.allowlist.enabled=false" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/SSPcloud-Tester%20via%20SSP--cloud-informational&amp;color=yellow?logo=Python" alt="Onyxia"></a></p>
-<!-- KA : Lien vers le chapitre précédent le fonctionne pas -->
-<p>Outre le <a href="#introgit">chapitre précédent</a>, il existe de
+<p>Outre le <a href="../../content/course/git/introgit.qmd">chapitre précédent</a>, il existe de
 nombreuses ressources sur internet sur le sujet,
 notamment une série de ressources construites
 pour l’Insee <a href="https://inseefrlab.github.io/formation-bonnes-pratiques-git-R/">sur ce site</a>
@@ -542,15 +541,15 @@ et des ressources de la documentation collaborative sur <code>R</code> qu’est 
 et <a href="https://www.book.utilitr.org/03_fiches_thematiques/fiche_git_utilisation">pratique sur RStudio</a>). Toutes
 les ressources ne sont donc pas du <code>Python</code> car <code>Git</code> est un outil transversal
 qui doit servir quel que soit le langage de prédilection.</p>
-<p>de pratiques collaboratives devenues standards dans le domaine de l’<em>open-source</em>
+<p><code>Git</code> fait parti des pratiques collaboratives
+devenues standards dans le domaine de l’<em>open-source</em>
 mais également de plus en plus communes dans les administrations et entreprises
 de la <em>data science</em>.</p>
-<p>Ce chapitre propose d’utiliser l’ extension <code>Git</code> de <code>JupyterLab</code> ou de <code>VSCode</code>.
+<p>Ce chapitre propose, pour simplifier l’apprentissage,
+d’utiliser l’ extension <code>Git</code> de <code>JupyterLab</code> ou de <code>VSCode</code>.
 Un tutoriel présentant l’extension <code>JupyterLab</code> est disponible
 <a href="https://annefou.github.io/jupyter_publish/02-git/index.html">ici</a>.
-Les principaux autres IDE disponibles (PyCharm, RStudio) présentent
-des fonctionalités similaires. Il est
-tout à fait possible d’en utiliser un autre. <code>VisualStudio</code> propose
+<code>VSCode</code> propose
 probablement, à l’heure actuelle, l’ensemble le plus complet.</p>
 <p>Certains passages de ce TD nécessitent d’utiliser la ligne de commande.
 Il est tout à fait possible de réaliser ce TD entièrement avec celle-ci.
@@ -565,7 +564,8 @@ pour certaines opérations où elles s’avèrent fort pratiques
 <h1>Configuration du compte Github</h1>
 <section id="rappels-sur-la-notion-de-dépôt-distant" class="level2">
 <h2 class="anchored" data-anchor-id="rappels-sur-la-notion-de-dépôt-distant">Rappels sur la notion de dépôt distant</h2>
-<p>Pour rappel, comme expliqué précédemment, il convient de distinguer
+<p>Comme expliqué dans le chapitre précédent,
+il convient de distinguer
 le dépôt distant (<em>remote</em>) et la copie ou les copies locales (les <em>clones</em>)
 d’un dépôt. Le dépôt distant est généralement stocké sur une forge
 logicielle (<code>Github</code> ou <code>Gitlab</code>) et sert à centraliser la version
@@ -582,32 +582,31 @@ rare et qui comporte un intérêt limité. L’intérêt de <code>Git</code> est
 d’offrir une manière robuste et efficace d’interagir avec un
 dépôt distant facilitant ainsi la collaboration en équipe ou en
 solitaire.</p>
-<p>Pour ces exercices, je propose d’utiliser <code>Github</code> dont les fonctionalités
-nous suffiront amplement<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Si,
-dans le futur, les fonctionnalités ne vous conviennent pas (sans l’apport de fonctionnalités
-externes, <code>Github</code> propose moins de fonctionalités que <code>Gitlab</code>) ou si vous êtes
-mal à l’aise concernant le possesseur de <code>Github</code> (Microsoft), vous pourrez utiliser
-<code>Gitlab</code> <i class="fab fa-gitlab"></i>, son concurrent.
-L’avantage de <code>Github</code> par rapport à <code>Gitlab</code> est que le premier est plus visible, car
+<p>Pour ces exercices, il est proposé
+d’utiliser <code>Github</code>, la forge la plus visible.
+L’avantage de <code>Github</code> par rapport à son principal concurrent, <code>Gitlab</code>,
+est que le premier est plus visible, car
 mieux indexé par <code>Google</code> et concentre, en partie pour des raisons historiques, plus
 de développeurs <code>Python</code> et <code>R</code> (ce qui est important dans des domaines comme
-le code où les externalités de réseau jouent). Le débat <code>Github</code> vs <code>Gitlab</code> n’a
-plus beaucoup de sens aujourd’hui car les fonctionnalités ont convergé (<code>Github</code>
-a rattrapé une partie de son retard sur l’intégration continue) et, de toute
-manière, on peut tout à fait connecter des dépôts <code>Gitlab</code> et <code>Github</code>.</p>
+le code où les externalités de réseau jouent).</p>
 </section>
 <section id="première-étape-créer-un-compte-github" class="level2">
 <h2 class="anchored" data-anchor-id="première-étape-créer-un-compte-github">Première étape: créer un compte <code>Github</code></h2>
-<p>Les deux premières étapes se font sur <a href="https://github.com">Github</a>.</p>
+<p>Les deux premières étapes se font sur <a href="https://github.com"><code>Github</code></a>.</p>
 <div class="cell markdown">
 <div class="alert alert-success" role="alert">
-<h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 1 : Créer un compte Github</h3>
+<h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 1 : Créer un compte <code>Github</code></h3>
 <ol type="1">
 <li>Si vous n’en avez pas déjà un, créer un compte sur <a href="https://github.com">https://github.com</a></li>
-<li>Créer un dépôt vide. Créez ce dépôt <strong>privé</strong>, cela permettra
+<li>Créer un dépôt en suivant les consignes ci-dessous.</li>
+</ol>
+<ul>
+<li>Créez ce dépôt <strong>privé</strong>, cela permettra
 dans l’exercice 2 d’activer notre jeton. Vous pourrez le rendre public
 après l’exercice 2, c’est comme vous le souhaitez.</li>
-</ol>
+<li>Créer ce dépôt avec un <code>README.md</code> en cliquant sur la case <code>Add a README file</code></li>
+<li>Ajouter un <code>.gitignore</code> en sélectionnant le modèle <code>Python</code></li>
+</ul>
 <p><em>Connexion sur <a href="https://github.com">https://github.com</a> &gt; + (en haut de la page) &gt; New repository &gt; Renseigner le “Repository name” &gt; Cocher “private” &gt; “Create repository”</em></p>
 </div>
 </div>
@@ -628,12 +627,15 @@ Pour que <code>Github</code> reconnaisse un utilisateur proposant des modificati
 il est nécessaire de s’authentifier (un dépôt distant, même public, ne peut pas être modifié par n’importe qui). L’authentification consiste ainsi à fournir un élément que seul vous et la forge sont censés connaître : un mot de passe, une clé compliquée, un jeton d’accès…</p>
 <p>Plus précisément, il existe deux modalités pour faire connaître son identité à <code>Github</code> :</p>
 <ul>
-<li>une authentification HTTPS (décrite ici) : l’authentification se fait avec un login et un mot de passe (qu’il faut renseigner à chaque interaction avec le dépôt), ou avec un token (méthode à privilégier).</li>
-<li>une authentification SSH : l’authentification se fait par une clé cryptée disponible sur le poste de travail et que GitHub ou GitLab connaît. Une fois configurée, cette méthode ne nécessite plus de faire connaître son identité : l’empreinte digitale que constitue la clé suffit à reconnaître un utilisateur.</li>
+<li>une <strong>authentification HTTPS</strong> (décrite ici) : l’authentification se fait avec un login et un mot de passe ou avec un <em>token</em> (un mot de passe compliqué généré automatiquement par <code>Github</code> et connu exclusivement du détenteur du compte <code>Github</code>) ;</li>
+<li>une <strong>authentification SSH</strong> : l’authentification se fait par une clé cryptée disponible sur le poste de travail et que <code>GitHub</code> ou <code>GitLab</code> connaît. Une fois configurée, cette méthode ne nécessite plus de faire connaître son identité : l’empreinte digitale que constitue la clé suffit à reconnaître un utilisateur.</li>
 </ul>
 <p>La <a href="https://www.book.utilitr.org/03_fiches_thematiques/fiche_configurer_git.html#interaction-avec-un-d%C3%A9p%C3%B4t-distant-principe">documentation collaborative <code>utilitR</code></a> présente les raisons pour lesquelles il convient de favoriser
 la méthode HTTPS sur la méthode SSH.</p>
-<p>Depuis août 2021, <code>Github</code> n’autorise plus l’authentification par mot de passe
+<div class="cell markdown">
+<div class="alert alert-info" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-comment"></i> Note</h3>
+<p>Depuis Août 2021, <code>Github</code> n’autorise plus l’authentification par mot de passe
 lorsqu’on interagit (<code>pull</code>/<code>push</code>) avec un dépôt distant
 (<a href="https://github.blog/changelog/2021-08-12-git-password-authentication-is-shutting-down/">raisons ici</a>).
 Il est nécessaire d’utiliser un <em>token</em> (jeton d’accès) qui présente l’avantage
@@ -649,6 +651,8 @@ d’un dépôt).</p>
 <li>Utiliser une clef USB de sécurité</li>
 </ul>
 <p>Pour choisir entre ces différentes options, vous pouvez vous rendre sur <em>Settings &gt; Password and authentication &gt; Enable two-factor authentication</em>.</p>
+</div>
+</div>
 <div class="cell markdown">
 <div class="alert alert-info" role="alert">
 <h3 class="alert-heading anchored"><i class="fa-solid fa-comment"></i> Note</h3>
@@ -672,29 +676,31 @@ connu de vous seuls.</p>
 <h2 class="anchored" data-anchor-id="créer-un-jeton">Créer un jeton</h2>
 <p>La <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">documentation officielle</a> comporte un certain nombre de captures d’écran expliquant
 comment procéder.</p>
-<p>Nous allons utiliser le <code>credential helper</code> associé à Git pour stocker
+<p>Nous allons utiliser le <code>credential helper</code> associé à <code>Git</code> pour stocker
 ce jeton. Ce <code>credential helper</code> permet de conserver de manière pérenne
 un jeton (on peut aussi faire en sorte que le mot de passe soit automatiquement
 supprimé de la mémoire de l’ordinateur au bout, par
-exemple, d’une heure).
-L’inconvénient de cette méthode est que <code>Git</code> écrit en clair le jeton dans
+exemple, d’une heure).</p>
+<p>L’inconvénient de cette méthode est que <code>Git</code> écrit en clair le jeton dans
 un fichier de configuration. C’est pour cette raison qu’on utilise des jetons
 puisque, si ces derniers sont révélés, on peut toujours les révoquer et éviter
 les problèmes (pour ne pas stocker en clair un jeton il faudrait utiliser
 une librairie supplémentaire comme <code>libsecrets</code> qui est au-delà du programme
 de ce cours).</p>
-<p>Ma recommandation,
-si vous désirez conserver de manière plus durable ou plus sécurisée votre jeton
+<p>Si vous désirez conserver de manière plus durable ou plus sécurisée votre jeton
 (en ne conservant pas le jeton en clair mais de manière hashée),
 est d’utiliser un gestionnaire de mot de passe comme
-<a href="https://keepass.fr/">Keepass</a> (recommandé par l’Anssi).</p>
+<a href="https://keepass.fr/">Keepass</a> (recommandé par l’Anssi). Néanmoins,
+il est recommandé de tout de même fixer une date d’expéritation
+aux jetons pour limiter les risques de sécurité d’un <em>token</em> qui fuite
+sans s’en rendre compte.</p>
 <div class="cell markdown">
 <div class="alert alert-success" role="alert">
 <h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 2 : Créer et stocker un token</h3>
 <p>1️⃣ Suivre la
 <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">documentation officielle</a> en ne donnant que les droits <code>repo</code> au jeton (ajouter les droits
 <code>workflow</code> si vous désirez que votre jeton soit utilisable pour des projets
-où l’intégration continue est nécessaire)</p>
+où l’intégration continue est nécessaire).</p>
 <p>Pour résumer les étapes devraient être les suivantes :</p>
 <p><em>Settings &gt; Developers Settings &gt; Personal Access Token &gt; Generate a new token &gt; “My bash script” &gt; Expiration “30 days” &gt; cocher juste “repo” &gt; Generate token &gt; Le copier</em></p>
 <p>2️⃣ Ouvrir un terminal depuis <code>Jupyter</code> (par exemple <code>File &gt; New &gt; Terminal</code>) ou <code>VSCode</code> (<code>Terminal &gt; New Terminal</code>).</p>
@@ -721,7 +727,9 @@ vous avez un message de <code>Git</code>:</p>
 <blockquote class="blockquote">
 <p>warning: You appear to have cloned an empty repository.</p>
 </blockquote>
-<p>Ceci est normal, ce n’est pas une erreur. Le dossier de votre projet a bien
+<p>Ce n’est pas une erreur mais il est préférable de suivre la
+consigne de l’exercice 1 et de créer un projet non vide.
+Le dossier de votre projet a bien
 été créé.</p>
 <p>Si vous avez une erreur, suivez la consigne présentée ci-après
 pour réinitialiser
@@ -746,8 +754,8 @@ de la manière suivante, sous Mac ou Linux :</p>
 <p>A ce stade, nous avons configuré <code>Git</code> pour être en mesure
 de s’authentifier automatiquement et nous avons cloné le dépôt pour avoir une
 copie locale de travail.</p>
-<p>On n’a encore ajouté aucun fichier à <code>Git</code>. D’ailleurs, la première
-chose à faire est d’exclure un certain nombre de fichiers, afin de ne pas
+<p>On n’a encore ajouté aucun fichier à <code>Git</code>. L’une des premières
+choses à faire est d’exclure un certain nombre de fichiers, afin de ne pas
 faire une erreur pénible à réparer.</p>
 <div class="cell markdown">
 <div class="alert alert-success" role="alert">
@@ -915,7 +923,7 @@ le commit <em>Update</em> du 12 janvier et en quoi il se distingue du
 <p>1️⃣ Entrer le titre <code>Initial commit</code> et ajouter une description
 <code>Création du fichier .gitignore : tada :</code> (sans les espaces autour des <code>:</code>).
 <code>: tada :</code> (sans les espaces) sera converti en emoji :tada: par <code>Github</code> quand on voudra
-afficher la description du commit<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Sur <code>VSCode</code>, le titre du commit correspond à la
+afficher la description du commit<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Sur <code>VSCode</code>, le titre du commit correspond à la
 première ligne du message de commit, les lignes suivantes correspondent à la
 description.</p>
 <p>Le fait de nommer le premier commit <em>“Initial commit”</em> est une
@@ -966,7 +974,7 @@ sont là pour nous indiquer qu’on récupère (<code>fetch</code>) des modifica
 d’<code>origin</code> mais qu’on envoie également (<code>push</code>) des modifications vers
 celui-ci. Généralement, les url de ces deux dépôts sont les mêmes mais cela peut
 arriver, lorsqu’on contribue à des projets opensource qu’on n’a pas créé,
-qu’ils diffèrent<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
+qu’ils diffèrent<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
 <section id="envoyer-des-modifications-sur-le-dépôt-distant-push" class="level2">
 <h2 class="anchored" data-anchor-id="envoyer-des-modifications-sur-le-dépôt-distant-push">Envoyer des modifications sur le dépôt distant: <code>push</code></h2>
 <div class="cell markdown">
@@ -1116,7 +1124,7 @@ puis sur le bouton <code>New Branch</code>. Rentrez <code>issue-1</code> comme n
 par défaut) et cliquez sur <code>Create Branch</code>.</p>
 <p>Sur VSCode, cliquez sur <code>... &gt; Branch &gt; Create Branch</code> et entrez le nom <code>issue-1</code>.</p>
 <p>Si vous n’utilisez pas l’interface graphique mais la ligne de commande, la
-manière équivalente de faire est<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+manière équivalente de faire est<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
 <pre class="shell"><code>git checkout -b issue-1</code></pre>
 <p>3️⃣ Ouvrez <code>README.md</code> et ajoutez un emoji chat (<code>:cat:</code>) à la suite du titre.
 Faites un commit en refaisant les étapes vues dans les exercices
@@ -1337,18 +1345,8 @@ git merge main</code></pre>
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>Dans sa version en ligne, <code>Github</code> (<a href="https://github.com" class="uri">https://github.com</a>)
-dispose de plus de visibilité que <code>Gitlab</code> (<a href="https://gitlab.com" class="uri">https://gitlab.com</a>).
-L’avantage que comportait <code>Gitlab</code> par rapport à <code>Github</code>
-à une époque, à savoir la possibilité de disposer gratuitement de ressources
-pour faire de l’intégration continue, n’existe plus depuis que <code>Github</code>
-a lancé son service <code>Github Actions</code>. Cependant, être familiarisé à
-l’environnement <code>Gitlab</code> reste utile car beaucoup de forges logicielles
-internes reposent sur les fonctionalités <em>open-source</em> (l’interface graphique
-en faisant parti) de <code>Gitlab</code>. Il est donc fort utile de maîtriser
-les fonctionalités coeur de ces deux interfaces qui sont en fait quasi-identiques.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>La commande <code>checkout</code> est un couteau-suisse de la gestion de branche en <code>Git</code>. Elle permet en effet de basculer d’une branche à l’autre, mais aussi d’en créer, etc.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>Dans ce cas, on rencontre généralement un nouvel alias à côté d’<code>origin</code>.
+<li id="fn1"><p>La commande <code>checkout</code> est un couteau-suisse de la gestion de branche en <code>Git</code>. Elle permet en effet de basculer d’une branche à l’autre, mais aussi d’en créer, etc.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Dans ce cas, on rencontre généralement un nouvel alias à côté d’<code>origin</code>.
 opensource, où on contribue avec un <em>workflow</em> plus complexe (on contribue
 sur un fork qui est une copie d’un dépôt sur lequel on n’a pas de droits
 de modifications mais auquel on va suggérer des modifications à partir de notre
@@ -1356,8 +1354,8 @@ de modifications mais auquel on va suggérer des modifications à partir de notr
 <a href="https://docs.github.com/en/github/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">le tutoriel <code>Github</code> pour mettre à jour un fork</a>.
 La création du bouton <code>Fetch upstream</code> par <code>Github</code> facilite grandement
 la mise en cohérence d’<code>upstream</code> et <code>origin</code> et constitue la méthode
-recommandée.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>La commande <code>checkout</code> est un couteau-suisse de la gestion de branche en <code>Git</code>. Elle permet en effet de basculer d’une branche à l’autre, mais aussi d’en créer, etc.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+recommandée.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>La commande <code>checkout</code> est un couteau-suisse de la gestion de branche en <code>Git</code>. Elle permet en effet de basculer d’une branche à l’autre, mais aussi d’en créer, etc.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@book{galiana2023,
   author = {Galiana, Lino},
@@ -1628,7 +1626,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","loop":true,"closeEffect":"zoom","descPosition":"bottom"});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","closeEffect":"zoom","openEffect":"zoom","loop":true});</script>
 
 
 
