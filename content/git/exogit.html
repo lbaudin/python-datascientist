@@ -967,8 +967,7 @@ quelques règles écrites dedans</p>
 sur notre copie locale. On n’a pas cherché à interagir à nouveau
 avec <code>Github</code>.</p>
 <p>Cependant, il existe bien une connexion entre notre dossier local et
-le dépôt <code>Github</code>. Si on utilise la ligne de commande,
-on peut s’en assurer en tapant dans un terminal</p>
+le dépôt <code>Github</code>. On peut s’en assurer en tapant dans un terminal</p>
 <pre class="shell"><code>git remote -v</code></pre>
 <p>Le dépôt distant s’appelle <code>remote</code> en langage Git. L’option <code>-v</code> (<em>verbose</em>)
 permet de lister le(s) dépôt(s) distant(s). Le résultat devrait avoir la
@@ -1356,14 +1355,12 @@ git merge main</code></pre>
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>Ce cas de figure arrive lorsqu’on contribue à des projets
-sur lesquels on n’a pas de droit d’écriture. Il est alors
-nécessaire d’effectuer un <em>fork</em>, une copie de ce dépôt sur laquelle
-on dispose de droits.
-Dans ce cas de figure, on rencontre généralement un nouvel alias à côté d’<code>origin</code>.
-nommé <code>upstream</code> (cf.
-<a href="https://docs.github.com/en/github/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">le tutoriel <code>Github</code> pour mettre à jour un <em>fork</em></a>
-et qui pointe vers le dépôt source à l’origine du <em>fork</em>.
+<li id="fn1"><p>Dans ce cas, on rencontre généralement un nouvel alias à côté d’<code>origin</code>.
+opensource, où on contribue avec un <em>workflow</em> plus complexe (on contribue
+sur un fork qui est une copie d’un dépôt sur lequel on n’a pas de droits
+de modifications mais auquel on va suggérer des modifications à partir de notre
+<code>fork</code>), on retrouve souvent un deuxième alias qui est <code>upstream</code> (cf.
+<a href="https://docs.github.com/en/github/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">le tutoriel <code>Github</code> pour mettre à jour un fork</a>.
 La création du bouton <code>Fetch upstream</code> par <code>Github</code> facilite grandement
 la mise en cohérence d’<code>upstream</code> et <code>origin</code> et constitue la méthode
 recommandée.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
@@ -1638,7 +1635,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"loop":true,"descPosition":"bottom","openEffect":"zoom","closeEffect":"zoom","selector":".lightbox"});</script>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":true,"openEffect":"zoom","selector":".lightbox"});</script>
 
 
 
