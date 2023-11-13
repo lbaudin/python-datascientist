@@ -540,10 +540,9 @@ pour l’Insee <a href="https://inseefrlab.github.io/formation-bonnes-pratiques-
 et des ressources de la documentation collaborative sur <code>R</code> qu’est <code>utilitR</code>
 (<a href="https://www.book.utilitr.org/03_fiches_thematiques/fiche_configurer_git">des éléments sur la configuration</a>
 et <a href="https://www.book.utilitr.org/03_fiches_thematiques/fiche_git_utilisation">pratique sur RStudio</a>). Toutes
-les ressources ne sont donc pas du <code>Python</code> car <code>Git</code> est un outil tranversal
+les ressources ne sont donc pas du <code>Python</code> car <code>Git</code> est un outil transversal
 qui doit servir quel que soit le langage de prédilection.</p>
-<p>L’idée de ce chapitre est d’amener, progressivement, à la mise en oeuvre
-de pratiques collaboratives devenues standards dans le domaine de l’<em>open-source</em>
+<p>de pratiques collaboratives devenues standards dans le domaine de l’<em>open-source</em>
 mais également de plus en plus communes dans les administrations et entreprises
 de la <em>data science</em>.</p>
 <p>Ce chapitre propose d’utiliser l’ extension <code>Git</code> de <code>JupyterLab</code> ou de <code>VSCode</code>.
@@ -570,13 +569,7 @@ pour certaines opérations où elles s’avèrent fort pratiques
 le dépôt distant (<em>remote</em>) et la copie ou les copies locales (les <em>clones</em>)
 d’un dépôt. Le dépôt distant est généralement stocké sur une forge
 logicielle (<code>Github</code> ou <code>Gitlab</code>) et sert à centraliser la version
-collective d’un projet. Les copies locales sont des copies de travail
-qu’on utilise pour faire évoluer un projet:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="https://www.book.utilitr.org/pics/git/gitlab.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="https://www.book.utilitr.org/pics/git/gitlab.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
+collective d’un projet. Les copies locales sont des copies de travail</p>
 <p><code>Git</code> est un système de contrôle de version asynchrone c’est-à-dire
 qu’on n’interagit pas en continu avec le dépôt distant (comme c’est le
 cas dans le système SVN) mais qu’il est possible d’avoir une version
@@ -585,7 +578,7 @@ de temps en temps.</p>
 <p>Bien qu’il soit possible d’avoir une utilisation hors-ligne de <code>Git</code>,
 c’est-à-dire un pur contrôle de version local sans dépôt
 distant, cela est une utilisation
-rare et qui comporte un intérêt limite. L’intérêt de <code>Git</code> est
+rare et qui comporte un intérêt limité. L’intérêt de <code>Git</code> est
 d’offrir une manière robuste et efficace d’interagir avec un
 dépôt distant facilitant ainsi la collaboration en équipe ou en
 solitaire.</p>
@@ -605,17 +598,17 @@ manière, on peut tout à fait connecter des dépôts <code>Gitlab</code> et <co
 </section>
 <section id="première-étape-créer-un-compte-github" class="level2">
 <h2 class="anchored" data-anchor-id="première-étape-créer-un-compte-github">Première étape: créer un compte <code>Github</code></h2>
-<p>Les deux premières étapes se font sur <code>Github</code>.</p>
+<p>Les deux premières étapes se font sur <a href="https://github.com">Github</a>.</p>
 <div class="cell markdown">
 <div class="alert alert-success" role="alert">
 <h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 1 : Créer un compte Github</h3>
 <ol type="1">
-<li>Si vous n’en avez pas déjà un, créer un compte sur https://github.com</li>
+<li>Si vous n’en avez pas déjà un, créer un compte sur <a href="https://github.com">https://github.com</a></li>
 <li>Créer un dépôt vide. Créez ce dépôt <strong>privé</strong>, cela permettra
 dans l’exercice 2 d’activer notre jeton. Vous pourrez le rendre public
 après l’exercice 2, c’est comme vous le souhaitez.</li>
 </ol>
-<p><em>Connexion sur https://github.com/ &gt; + (en haut de la page) &gt; New repository &gt; Renseigner le “Repository name” &gt; Cocher “private” &gt; “Create repository”</em></p>
+<p><em>Connexion sur <a href="https://github.com">https://github.com</a> &gt; + (en haut de la page) &gt; New repository &gt; Renseigner le “Repository name” &gt; Cocher “private” &gt; “Create repository”</em></p>
 </div>
 </div>
 </section>
@@ -678,7 +671,7 @@ connu de vous seuls.</p>
 <section id="créer-un-jeton" class="level2">
 <h2 class="anchored" data-anchor-id="créer-un-jeton">Créer un jeton</h2>
 <p>La <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">documentation officielle</a> comporte un certain nombre de captures d’écran expliquant
-comme procéder.</p>
+comment procéder.</p>
 <p>Nous allons utiliser le <code>credential helper</code> associé à Git pour stocker
 ce jeton. Ce <code>credential helper</code> permet de conserver de manière pérenne
 un jeton (on peut aussi faire en sorte que le mot de passe soit automatiquement
@@ -763,7 +756,7 @@ faire une erreur pénible à réparer.</p>
 ou dont on ne veut pas suivre les modifications (typiquement les grosses bases de données).</p>
 <p>C’est le fichier <code>.gitignore</code>
 qui gère les fichiers exclus du contrôle de version.</p>
-<p>1️⃣ Créer un fichier nommé <code>.gitignore</code> (:warning: ne pas changer
+<p>1️⃣ Créer un fichier nommé <code>.gitignore</code> (⚠️ ne pas changer
 ce nom, et s’assurer que celui-ci n’a pas d’extension) via le bloc note ou votre IDE.</p>
 <p>Sur la session <code>Jupyter</code> d’<code>Onyxia</code>, si le <code>Clic Droit &gt; rename</code> ne fonctionne pas, vous pouvez faire : <code>File &gt; New &gt; Text file</code>après vous être assurés que vous vous situez bien dans le dossier <nom_du_projet> de l’arborescence. Un fichier <code>untitled.txt</code> se crée, que vous pouvez renommer en faisant un <code>cd &lt;nom_du_projet&gt;</code> puis <code>mv untitled.txt .gitignore</code> dans le terminal.</nom_du_projet></p>
 <p>2️⃣ Aller sur le site <a href="https://www.toptal.com/developers/gitignore" class="uri">https://www.toptal.com/developers/gitignore</a>. Vous pouvez
@@ -823,16 +816,16 @@ retrouver un cadre ayant cet aspect (à gauche pour <code>Jupyter</code> et à d
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
 <figure class="figure">
-<p><a href="git-status-ensae.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="git-status-ensae.png" class="img-fluid figure-img"></a></p>
+<p><a href="git-status-ensae.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="git-status-ensae.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
 <figure class="figure">
-<p><a href="git_vscode_1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="git_vscode_1.png" class="img-fluid figure-img"></a></p>
+<p><a href="git_vscode_1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="git_vscode_1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
-<p></p><figcaption class="figure-caption">Figure&nbsp;2.1: <strong>?(caption)</strong></figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2.1: Interface graphique Git sous Jupyter (à gauche) et VSCode (à droite)</figcaption><p></p>
 </figure>
 </div>
 <ol start="2" type="1">
@@ -910,16 +903,16 @@ le commit <em>Update</em> du 12 janvier et en quoi il se distingue du
 <p>Sur <code>Jupyter</code>, tout se passe dans la partie inférieure de l’interface graphique.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="git-panel-jupyter.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="git-panel-jupyter.png" class="img-fluid figure-img"></a></p>
+<p><a href="git-panel-jupyter.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="git-panel-jupyter.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 <p>Sur <code>VSCode</code>, il faut au contraire regarder en haut.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="git_vscode_2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="git_vscode_2.png" class="img-fluid figure-img"></a></p>
+<p><a href="git_vscode_2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="git_vscode_2.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
-<p>:one: Entrer le titre <code>Initial commit</code> et ajouter une description
+<p>1️⃣ Entrer le titre <code>Initial commit</code> et ajouter une description
 <code>Création du fichier .gitignore : tada :</code> (sans les espaces autour des <code>:</code>).
 <code>: tada :</code> (sans les espaces) sera converti en emoji :tada: par <code>Github</code> quand on voudra
 afficher la description du commit<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Sur <code>VSCode</code>, le titre du commit correspond à la
@@ -928,10 +921,10 @@ description.</p>
 <p>Le fait de nommer le premier commit <em>“Initial commit”</em> est une
 habitude, vous
 n’êtes pas obligé de suivre cette convention si elle ne vous plaît pas.</p>
-<p>:two: Cliquer sur <code>Commit</code>. Le fichier a disparu de la liste, c’est normal,
+<p>2️⃣ Cliquer sur <code>Commit</code>. Le fichier a disparu de la liste, c’est normal,
 il n’a plus de modification à valider. Pour le retrouver dans la liste
 des fichiers <code>Changed</code>, il faudra le modifier à nouveau</p>
-<p>:three: Sur <code>Jupyter</code>, cliquer sur l’onglet <code>History</code> ou sur <code>VSCode</code> cliquer
+<p>3️⃣ Sur <code>Jupyter</code>, cliquer sur l’onglet <code>History</code> ou sur <code>VSCode</code> cliquer
 sur l’icône <code>View Git Graph</code>. Votre <code>commit</code> apparaît à ce niveau.
 Si vous cliquez dessus, vous obtenez des informations sur le <code>commit</code>.</p>
 </div>
@@ -996,7 +989,7 @@ git remote add origin ****
 ~~~~
 Remplacer les astérisques par l'url du dépôt. 
 ---->
-<p>:one:
+<p>1️⃣
 L’objectif est d’envoyer vos modifications vers <code>origin</code>.
 On va passer par la ligne de commande car les boutons <code>push</code>/<code>pull</code>
 de l’extension <code>Jupyter</code> ne fonctionnent pas de manière systématique.</p>
@@ -1011,7 +1004,7 @@ dessus) vers mon dépôt (alias
 vous demande pas vos identifiants de connexion. Sinon,
 il faut taper
 votre identifiant Github et <strong>votre mot de passe correspond au personal access token nouvellement créé</strong> !</p>
-<p>:two: Retournez voir le dépôt sur <code>Github</code>, vous devriez maintenant voir le fichier
+<p>2️⃣ Retournez voir le dépôt sur <code>Github</code>, vous devriez maintenant voir le fichier
 <code>.gitignore</code> s’afficher en page d’accueil.</p>
 </div>
 </div>
@@ -1028,7 +1021,7 @@ des fichiers. On rappatriera les résultats en local dans un deuxième temps.</p
 <div class="cell markdown">
 <div class="alert alert-success" role="alert">
 <h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 7 : Rapatrier des modifs en local</h3>
-<p>:one: Se rendre sur votre dépôt depuis l’interface <a href="https://github.com" class="uri">https://github.com</a>.
+<p>1️⃣ Se rendre sur votre dépôt depuis l’interface <a href="https://github.com" class="uri">https://github.com</a>.
 2 manières de faire à ce niveau :</p>
 <ul>
 <li>Cliquer sur <code>Add file &gt; Create new file</code> et appeler le fichier <code>README.md</code></li>
@@ -1036,24 +1029,24 @@ des fichiers. On rappatriera les résultats en local dans un deuxième temps.</p
 Supprimez tout autre texte si <code>Github</code> vous a suggéré un contenu pour le
 <code>README</code></li>
 </ul>
-<p>:two: L’objectif est de
+<p>2️⃣ L’objectif est de
 donner au <code>README.md</code> un titre en ajoutant, au début du document, la ligne suivante :</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Mon oeuvre d'art surréaliste </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Sautez une ligne et entrez le texte que vous désirez, sans ponctuation. Par exemple,</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>le chêne un jour dit au roseau</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>:three: Cliquez sur l’onglet <code>Preview</code> pour voir le texte mis en forme au format <code>Markdown</code></p>
-<p>:four: Rédiger un titre et un message complémentaire pour faire le <code>commit</code>. Conserver
+<p>3️⃣ Cliquez sur l’onglet <code>Preview</code> pour voir le texte mis en forme au format <code>Markdown</code></p>
+<p>4️⃣ Rédiger un titre et un message complémentaire pour faire le <code>commit</code>. Conserver
 l’option par défaut <code>Commit directly to the main branch</code></p>
-<p>:five: Editer à nouveau le <code>README</code> en cliquant sur le crayon juste au dessus
+<p>5️⃣ Editer à nouveau le <code>README</code> en cliquant sur le crayon juste au dessus
 de l’affichage du contenu du <code>README</code>.</p>
 <p>Ajouter une deuxième phrase et corrigez la
 ponctuation de la première. Ecrire un message de commit et valider.</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="an">Le Chêne un jour dit au roseau :</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>Vous avez bien sujet d'accuser la Nature</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>:six: Au dessus de l’aborescence des fichiers, vous devriez voir s’afficher le
+<p>6️⃣ Au dessus de l’aborescence des fichiers, vous devriez voir s’afficher le
 titre du dernier commit. Vous pouvez cliquer dessus pour voir la modification
 que vous avez faite.</p>
-<p>:seven: Les résultats sont sur le dépôt distant mais ne sont pas sur votre
+<p>7️⃣ Les résultats sont sur le dépôt distant mais ne sont pas sur votre
 dossier de travail dans <code>Jupyter</code> ou <code>VSCode</code>. Il faut re-synchroniser votre copie locale
 avec le dépôt distant :</p>
 <ul>
@@ -1069,7 +1062,7 @@ commande et taper</li>
 <p>Cela signifie : <em>“git récupère (<code>pull</code>) les modifications sur la
 branche <code>main</code> vers mon dépôt (alias
 <code>origin</code>)”</em></p>
-<p>:eight: Regarder à nouveau l’historique des commits. Cliquez sur le
+<p>8️⃣ Regarder à nouveau l’historique des commits. Cliquez sur le
 dernier commit et affichez les changements sur le fichier. Vous pouvez
 remarquer la finesse du contrôle de version : <code>Git</code> détecte au sein de
 la première ligne de votre texte que vous avez mis des majuscules
@@ -1105,7 +1098,7 @@ même amener à se passer d’outils de gestion de projets comme <code>Trello</c
 <p>Il faut <strong>absolument</strong> bannir les usages de <code>push force</code> qui peuvent déstabiliser les copies locales des collaborateurs. S’il est nécessaire de faire un <code>push force</code>, c’est qu’il y a un problème dans la branche, à identifier et régler <strong>sans</strong> faire <code>push force</code>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://miro.medium.com/max/400/0*XaLzNzYkA6PZjbl9.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="https://miro.medium.com/max/400/0*XaLzNzYkA6PZjbl9.jpg" class="img-fluid figure-img"></a></p>
+<p><a href="https://miro.medium.com/max/400/0*XaLzNzYkA6PZjbl9.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="https://miro.medium.com/max/400/0*XaLzNzYkA6PZjbl9.jpg" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 <p><strong>Tous les merges dans <code>main</code> doivent se faire par l’intermédiaire d’une <code>pull request</code> dans <code>Github</code></strong>. En effet, il est très déconseillé de merger une branche dans main localement.</p>
@@ -1114,8 +1107,8 @@ même amener à se passer d’outils de gestion de projets comme <code>Trello</c
 <div class="cell markdown">
 <div class="alert alert-success" role="alert">
 <h3 class="alert-heading anchored" data-anchor-id="même-tout-seul-ne-pas-se-limiter-à-main"><i class="fa-solid fa-pencil"></i> Exercice 8: Créer une nouvelle branche et l'intégrer dans main</h3>
-<p>:one: Ouvrir une <em>issue</em> sur <code>Github</code>. Signaler qu’il serait bien d’ajouter un emoji chat dans le README. Dans la partie de droite, cliquer sur la petite roue à côté de <code>Label</code> et cliquer sur <code>Edit Labels</code>. Créer un label <code>Markdown</code>. Normalement, le label a été ajouté.</p>
-<p>:two: Retournez sur votre dépôt local. Vous allez créer une branche nommée
+<p>1️⃣ Ouvrir une <em>issue</em> sur <code>Github</code>. Signaler qu’il serait bien d’ajouter un emoji chat dans le README. Dans la partie de droite, cliquer sur la petite roue à côté de <code>Label</code> et cliquer sur <code>Edit Labels</code>. Créer un label <code>Markdown</code>. Normalement, le label a été ajouté.</p>
+<p>2️⃣ Retournez sur votre dépôt local. Vous allez créer une branche nommée
 <code>issue-1</code></p>
 <p>Avec l’interface graphique de JupyterLab, cliquez sur <code>Current Branch - Main</code>
 puis sur le bouton <code>New Branch</code>. Rentrez <code>issue-1</code> comme nom de branche
@@ -1125,7 +1118,7 @@ par défaut) et cliquez sur <code>Create Branch</code>.</p>
 <p>Si vous n’utilisez pas l’interface graphique mais la ligne de commande, la
 manière équivalente de faire est<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
 <pre class="shell"><code>git checkout -b issue-1</code></pre>
-<p>:three: Ouvrez <code>README.md</code> et ajoutez un emoji chat (<code>:cat:</code>) à la suite du titre.
+<p>3️⃣ Ouvrez <code>README.md</code> et ajoutez un emoji chat (<code>:cat:</code>) à la suite du titre.
 Faites un commit en refaisant les étapes vues dans les exercices
 précédents. N’oubliez pas, cela se fait en deux étapes:</p>
 <ol type="1">
@@ -1136,14 +1129,14 @@ la partie <code>Staged</code></li>
 <p>Si vous passez par la ligne de commande, cela donnera:</p>
 <pre class="shell"><code>git add .
 git commit -m "ajout emoji chat"</code></pre>
-<p>:four: Faire un <strong>deuxième commit</strong> pour ajouter un emoji koala (:koala:) puis
+<p>4️⃣ Faire un <strong>deuxième commit</strong> pour ajouter un emoji koala (:koala:) puis
 pousser les modifications locales.</p>
 <p>Cela peut être fait avec l’interface
 de <code>JupyterLab</code> grâce au bouton avec une flêche montante (il doit apparaître
 en orange maintenant). Sur <code>VSCode</code>, cliquez sur le bouton <code>Publish Branch</code>.</p>
 <p>Sinon, si vous utilisez la ligne de commande, vous devrez taper</p>
 <pre class="shell"><code>git push origin issue-1</code></pre>
-<p>:five: Dans <code>Github</code>, devrait apparaître</p>
+<p>5️⃣ Dans <code>Github</code>, devrait apparaître</p>
 <blockquote class="blockquote">
 <p><code>issue-1 had recent pushes XX minutes ago</code>.</p>
 </blockquote>
@@ -1160,7 +1153,7 @@ remplace le numéro de l’issue par le titre.</p>
 permettra de fermer automatiquement l’<em>issue 1</em> lorsque vous ferez le <em>merge</em>.
 En attendant, vous avez créé un lien entre l’<em>issue</em> et la <em>pull request</em></p>
 <p>Au passage, vous pouvez ajouter le label <code>Markdown</code> sur la droite.</p>
-<p>:six: En local, retourner sur <code>main</code>. Dans l’interface <code>Jupyter</code>, il suffit
+<p>6️⃣ En local, retourner sur <code>main</code>. Dans l’interface <code>Jupyter</code>, il suffit
 de cliquer sur <code>main</code> dans la liste des branches. Sur <code>VSCode</code>, la liste des branches
 apparaît en cliquant sur le nom de la branche actuelle (<code>issue-1</code> en théorie à ce stade).
 Si vous êtes en ligne de commande, il faut faire</p>
@@ -1170,21 +1163,21 @@ Si vous êtes en ligne de commande, il faut faire</p>
 <p>Ajouter une phrase à la suite de votre texte dans le <code>README.md</code>
 (ne touchez pas au titre !). Vous pouvez remarquer que les emojis
 ne sont pas dans le titre, c’est normal vous n’avez pas encore fusionné les versions</p>
-<p>:seven: Faire un commit et un push. En ligne de commande, cela donne</p>
+<p>7️⃣ Faire un commit et un push. En ligne de commande, cela donne</p>
 <pre class="shell"><code>git add .
 git commit -m "ajoute un troisième vers"
 git push origin main</code></pre>
-<p>:eight: Sur <code>Github</code>, cliquer sur <code>Insights</code> en haut du dépôt puis, à gauche sur <code>Network</code> (cela n’est
+<p>8️⃣ Sur <code>Github</code>, cliquer sur <code>Insights</code> en haut du dépôt puis, à gauche sur <code>Network</code> (cela n’est
 possible que si vous avez rendu public votre dépôt).</p>
 <p>Vous devriez voir apparaître l’arborescence de votre dépôt. On peut voir <code>issue-1</code> comme une ramification et <code>main</code> comme le tronc.</p>
 <p>L’objectif est maintenant de ramener les modifications faites dans <code>issue-1</code> dans la branche principale. Retournez dans l’onglet <code>Pull Requests</code>. Là, changer le type de <code>merge</code> pour <code>Squash and Merge</code>, comme ci-dessous (petit conseil : choisissez toujours cette méthode de <em>merge</em>).</p>
 <p>Une fois que cela est fait, vous pouvez retourner dans <code>Insights</code> puis <code>Network</code> pour vérifier que tout s’est bien passé comme prévu.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="squashmerge.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="squashmerge.png" class="img-fluid figure-img"></a></p>
+<p><a href="squashmerge.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="squashmerge.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
-<p>:nine: Supprimer la branche (<em>branch &gt; delete this branch</em>). Puisqu’elle est mergée, elle ne servira plus. La conserver risque d’amener à des <code>push</code> involontaires dessus.</p>
+<p>9️⃣ Supprimer la branche (<em>branch &gt; delete this branch</em>). Puisqu’elle est mergée, elle ne servira plus. La conserver risque d’amener à des <code>push</code> involontaires dessus.</p>
 </div>
 </div>
 <p>L’option de fusion <em>Squash and Merge</em> permet de regrouper tous les commits d’une branche (potentiellement très nombreux) en un seul dans la branche de destination. Cela évite, sur les gros projets, des branches avec des milliers de <em>commits</em>.</p>
@@ -1210,7 +1203,7 @@ la branche en question disparaît:</li>
 </ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://inseefrlab.github.io/formation-bonnes-pratiques-git-R/slides/img/ghflow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="https://inseefrlab.github.io/formation-bonnes-pratiques-git-R/slides/img/ghflow.png" class="img-fluid figure-img"></a></p>
+<p><a href="https://inseefrlab.github.io/formation-bonnes-pratiques-git-R/slides/img/ghflow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="https://inseefrlab.github.io/formation-bonnes-pratiques-git-R/slides/img/ghflow.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 <p>Il existe des <em>workflows</em> plus complexes, notamment le <code>Git Flow</code> que j’utilise
@@ -1218,7 +1211,7 @@ pour développer ce cours. <a href="https://www.atlassian.com/fr/git/tutorials/c
 illustre avec un graphique la complexité accrue de ce flow:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://wac-cdn.atlassian.com/dam/jcr:8f00f1a4-ef2d-498a-a2c6-8020bb97902f/03%20Release%20branches.svg?cdnVersion=55" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="https://wac-cdn.atlassian.com/dam/jcr:8f00f1a4-ef2d-498a-a2c6-8020bb97902f/03%20Release%20branches.svg?cdnVersion=55" class="img-fluid figure-img"></a></p>
+<p><a href="https://wac-cdn.atlassian.com/dam/jcr:8f00f1a4-ef2d-498a-a2c6-8020bb97902f/03%20Release%20branches.svg?cdnVersion=55" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="https://wac-cdn.atlassian.com/dam/jcr:8f00f1a4-ef2d-498a-a2c6-8020bb97902f/03%20Release%20branches.svg?cdnVersion=55" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 <p>Cette fois, une branche intermédiaire, par exemple une branche <code>development</code>
@@ -1251,26 +1244,26 @@ officielle (<code>main</code>).</p>
 <li>Une personne aura la responsabilité d’être <strong>mainteneur</strong></li>
 <li>Deux à trois personnes seront <strong>développeurs</strong>.</li>
 </ul>
-<p>:one: Le mainteneur crée un dépôt sur <code>Github</code>. Il/Elle donne des droits au(x) développeur(s) du projet (<code>Settings &gt; Manage Access &gt; Invite a collaborator</code>).</p>
-<p>:two: Chaque membre du projet, crée une copie locale du projet grâce à la commande <code>git clone</code> ou
+<p>1️⃣ Le mainteneur crée un dépôt sur <code>Github</code>. Il/Elle donne des droits au(x) développeur(s) du projet (<code>Settings &gt; Manage Access &gt; Invite a collaborator</code>).</p>
+<p>2️⃣ Chaque membre du projet, crée une copie locale du projet grâce à la commande <code>git clone</code> ou
 avec le bouton <code>Clone a repository</code> de <code>JupyterLab</code>.</p>
 <p>Pour cela, récupérer l’url HTTPS du dépôt en copiant l’url du dépôt que vous pouvez trouver, par exemple, dans la page d’accueil du dépôt, en dessous de <code>Quick setup — if you’ve done this kind of thing before</code></p>
 <p>En ligne de commande, cela donnera:</p>
 <pre class="shell"><code>git clone https://github.com/&lt;username&gt;/&lt;reponame&gt;.git</code></pre>
-<p>:three: Chaque membre du projet crée un fichier avec son nom et son prénom, selon cette structure <code>nom-prenom.md</code> en évitant les caractères spéciaux. Il écrit dedans trois phrases de son choix <strong>sans ponctuation ni majuscules</strong> (pour pouvoir effectuer une correction ultérieurement). Enfin, il commit sur le projet.</p>
+<p>3️⃣ Chaque membre du projet crée un fichier avec son nom et son prénom, selon cette structure <code>nom-prenom.md</code> en évitant les caractères spéciaux. Il écrit dedans trois phrases de son choix <strong>sans ponctuation ni majuscules</strong> (pour pouvoir effectuer une correction ultérieurement). Enfin, il commit sur le projet.</p>
 <p>Pour rappel, en ligne de commande cela donnera les commandes suivantes à modifier</p>
 <pre class="shell"><code>git add nom-prenom.md
 git commit -m "C'est l'histoire de XXXXX"</code></pre>
-<p>:four: Chacun essaie d’envoyer (<em>push</em>) ses modifications locales sur le dépôt:</p>
+<p>4️⃣ Chacun essaie d’envoyer (<em>push</em>) ses modifications locales sur le dépôt:</p>
 <pre class="shell"><code>git push origin main</code></pre>
-<p>:five: A ce stade, une seule personne (la plus rapide) devrait ne pas avoir rencontré de rejet du <code>push</code>. C’est normal, avant d’accepter une modification <code>Git</code> vérifie en premier lieu la cohérence de la branche avec le dépôt distant. Le premier ayant fait un <code>push</code> a modifié le dépôt commun ; les autres doivent intégrer ces modifications dans leur version locale (<em>pull</em>) avant d’avoir le droit de proposer un changement.</p>
+<p>5️⃣ A ce stade, une seule personne (la plus rapide) devrait ne pas avoir rencontré de rejet du <code>push</code>. C’est normal, avant d’accepter une modification <code>Git</code> vérifie en premier lieu la cohérence de la branche avec le dépôt distant. Le premier ayant fait un <code>push</code> a modifié le dépôt commun ; les autres doivent intégrer ces modifications dans leur version locale (<em>pull</em>) avant d’avoir le droit de proposer un changement.</p>
 <p>Pour celui/celle/ceux dont le <code>push</code> a été refusé, faire</p>
 <pre class="shell"><code>git pull origin main</code></pre>
 <p>pour ramener les modifications distantes en local.</p>
-<p>:six: Taper <code>git log</code> et regarder la manière dont a été intégré la modification de votre camarade ayant pu faire son <code>push</code></p>
+<p>6️⃣ Taper <code>git log</code> et regarder la manière dont a été intégré la modification de votre camarade ayant pu faire son <code>push</code></p>
 <p>Vous remarquerez que les commits de vos camarades sont intégrés tels quels à
 l’histoire du dépôt.</p>
-<p>:seven: Faire à nouveau</p>
+<p>7️⃣ Faire à nouveau</p>
 <pre class="shell"><code>git pull origin main</code></pre>
 <p>Le dernier doit refaire, à nouveau, les étapes 5 à 7 (dans une équipe de quatre
 il faudra encore le refaire une fois).</p>
@@ -1287,26 +1280,26 @@ il faudra encore le refaire une fois).</p>
 <div class="alert alert-success" role="alert">
 <h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 10 : Gérer les conflits quand on travaille sur le même fichier</h3>
 <p>Dans la continuité de l’exercice précédent, chaque personne va travailler sur les fichiers des autres membres de l’équipe.</p>
-<p>:one: Les deux ou trois développeurs ajoutent la ponctuation et les majuscules du fichier du premier développeur.</p>
-<p>:two: Ils sautent une ligne et ajoutent une phrase (pas tous la même).</p>
-<p>:three: Valider les résultats (<code>git add .</code> et <code>commit</code>) et faire un <code>push</code></p>
-<p>:four: La personne la plus rapide n’a, normalement, rencontré aucune difficulté (elle peut s’arrêter temporairement pour regarder ce qui va se passer chez les voisins). Les autres voient leur <code>push</code> refusé et doivent faire un <code>pull</code>.</p>
-<p>:boom: Il y a conflit, ce qui doit être signalé par un message du type:</p>
+<p>1️⃣ Les deux ou trois développeurs ajoutent la ponctuation et les majuscules du fichier du premier développeur.</p>
+<p>2️⃣ Ils sautent une ligne et ajoutent une phrase (pas tous la même).</p>
+<p>3️⃣ Valider les résultats (<code>git add .</code> et <code>commit</code>) et faire un <code>push</code></p>
+<p>4️⃣ La personne la plus rapide n’a, normalement, rencontré aucune difficulté (elle peut s’arrêter temporairement pour regarder ce qui va se passer chez les voisins). Les autres voient leur <code>push</code> refusé et doivent faire un <code>pull</code>.</p>
+<p>💥 Il y a conflit, ce qui doit être signalé par un message du type:</p>
 <pre class="shell"><code>Auto-merging XXXXXX
 CONFLICT (content): Merge conflict in XXXXXX.md
 Automatic merge failed; fix conflicts and then commit the result.</code></pre>
-<p>:five: Etudier le résultat de <code>git status</code></p>
-<p>:six: Si vous ouvrez les fichiers incriminés, vous devriez voir des balises du type</p>
+<p>5️⃣ Etudier le résultat de <code>git status</code></p>
+<p>6️⃣ Si vous ouvrez les fichiers incriminés, vous devriez voir des balises du type</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>this is some content to mess with</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>content to append</span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">=======</span></span>
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>totally different content to merge later</span>
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;&gt;&gt;&gt;&gt;&gt;&gt; new_branch_to_merge_later</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>:seven: Corriger à la main les fichiers en choisissant, pour chaque ligne, la version qui vous convient et en retirant les balises. Valider en faisant:</p>
+<p>7️⃣ Corriger à la main les fichiers en choisissant, pour chaque ligne, la version qui vous convient et en retirant les balises. Valider en faisant:</p>
 <pre class="shell"><code>git add . &amp;&amp; git commit -m "Résolution du conflit par XXXX"</code></pre>
 <p>Remplacer XXXX par votre nom. La balise <code>&amp;&amp;</code> permet d’enchaîner, en une seule ligne de code, les deux commandes.</p>
-<p>:eight: Faire un push. Pour la dernière personne, refaire les opérations 4 à 8</p>
+<p>8️⃣ Faire un push. Pour la dernière personne, refaire les opérations 4 à 8</p>
 </div>
 </div>
 <p><code>Git</code> permet donc de travailler, en même temps, sur le même fichier et de limiter le nombre de gestes manuels nécessaires pour faire la fusion. Lorsqu’on travaille sur des bouts différents du même fichier, on n’a même pas besoin de faire de modification manuelle, la fusion peut être automatique.</p>
@@ -1314,23 +1307,23 @@ Automatic merge failed; fix conflicts and then commit the result.</code></pre>
 <div class="cell markdown">
 <div class="alert alert-success" role="alert">
 <h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 11 : Gestion des branches</h3>
-<p>:one: Le mainteneur va contribuer directement dans <code>main</code> et ne crée pas de branche. Chaque développeur crée une branche, en local nommée <code>contrib-XXXXX</code> où <code>XXXXX</code> est le prénom:</p>
+<p>1️⃣ Le mainteneur va contribuer directement dans <code>main</code> et ne crée pas de branche. Chaque développeur crée une branche, en local nommée <code>contrib-XXXXX</code> où <code>XXXXX</code> est le prénom:</p>
 <pre class="shell"><code>git checkout -b contrib-XXXXX</code></pre>
-<p>:two: Chaque membre du groupe crée un fichier <code>README.md</code> où il écrit une phrase sujet-verbe-complément. Le mainteneur est le seul à ajouter un titre dans le README (qu’il commit dans main).</p>
-<p>:three: Chacun push le produit de son subconscient sur le dépôt.</p>
-<p>:four: Les développeurs ouvrent, chacun, une <code>pull request</code> sur <code>Github</code> de leur branche vers <code>main</code>. Ils lui donnent un titre explicite.</p>
-<p>:five: Dans la discussion de chaque <code>pull request</code>, le mainteneur demande au développeur d’intégrer le titre qu’il a écrit.</p>
-<p>:six: Chaque développeur, en local, intègre cette modification en faisant</p>
+<p>2️⃣ Chaque membre du groupe crée un fichier <code>README.md</code> où il écrit une phrase sujet-verbe-complément. Le mainteneur est le seul à ajouter un titre dans le README (qu’il commit dans main).</p>
+<p>3️⃣ Chacun push le produit de son subconscient sur le dépôt.</p>
+<p>4️⃣ Les développeurs ouvrent, chacun, une <code>pull request</code> sur <code>Github</code> de leur branche vers <code>main</code>. Ils lui donnent un titre explicite.</p>
+<p>5️⃣ Dans la discussion de chaque <code>pull request</code>, le mainteneur demande au développeur d’intégrer le titre qu’il a écrit.</p>
+<p>6️⃣ Chaque développeur, en local, intègre cette modification en faisant</p>
 <pre class="shell"><code># Pour être sûr d'être sur sa propre branche
 git checkout branche-XXXX
 git merge main</code></pre>
 <p>Régler le conflit et valider (<code>add</code> et <code>commit</code>). Pousser le résultat. Le mainteneur choisit une des <code>pull request</code> et la valide avec l’option <code>squash commits</code>. Vérifier sur la page d’accueil le résultat.</p>
-<p>:seven: L’auteur (si 2 développeurs) ou les deux auteurs (si 3 développeurs) de la <code>pull request</code> non validée doivent à nouveau répéter l’opération 6.</p>
-<p>:eight: Une fois le conflit de version réglé et poussé, le mainteneur valide la <code>pull request</code> selon la même procédure que précédemment.</p>
-<p>:nine: Vérifier l’arborescence du dépôt dans <code>Insights &gt; Network</code>. Votre arbre doit avoir une forme caractéristique de ce qu’on appelle le <code>Github flow</code>:</p>
+<p>7️⃣ L’auteur (si 2 développeurs) ou les deux auteurs (si 3 développeurs) de la <code>pull request</code> non validée doivent à nouveau répéter l’opération 6.</p>
+<p>8️⃣ Une fois le conflit de version réglé et poussé, le mainteneur valide la <code>pull request</code> selon la même procédure que précédemment.</p>
+<p>9️⃣ Vérifier l’arborescence du dépôt dans <code>Insights &gt; Network</code>. Votre arbre doit avoir une forme caractéristique de ce qu’on appelle le <code>Github flow</code>:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://linogaliana.gitlab.io/collaboratif/pics/03_git/flow4_discuss.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="https://linogaliana.gitlab.io/collaboratif/pics/03_git/flow4_discuss.png" class="img-fluid figure-img"></a></p>
+<p><a href="https://linogaliana.gitlab.io/collaboratif/pics/03_git/flow4_discuss.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="https://linogaliana.gitlab.io/collaboratif/pics/03_git/flow4_discuss.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1635,7 +1628,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","selector":".lightbox","closeEffect":"zoom","openEffect":"zoom","loop":true});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","loop":true,"closeEffect":"zoom","descPosition":"bottom"});</script>
 
 
 

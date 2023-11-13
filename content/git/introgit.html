@@ -23,6 +23,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -445,10 +479,15 @@ mis en pratique dans le suivant.">
   <ul>
   <li><a href="#pourquoi-faire-du-git" id="toc-pourquoi-faire-du-git" class="nav-link active" data-scroll-target="#pourquoi-faire-du-git">Pourquoi faire du <code>Git</code> <i class="fas fa-code-branch"></i> ?</a>
   <ul class="collapse">
+  <li><a href="#les-problèmes-classiques" id="toc-les-problèmes-classiques" class="nav-link" data-scroll-target="#les-problèmes-classiques">Les problèmes classiques</a></li>
+  <li><a href="#la-solution-le-contrôle-de-version" id="toc-la-solution-le-contrôle-de-version" class="nav-link" data-scroll-target="#la-solution-le-contrôle-de-version">La solution: le contrôle de version</a></li>
+  <li><a href="#avantages-du-contrôle-de-version" id="toc-avantages-du-contrôle-de-version" class="nav-link" data-scroll-target="#avantages-du-contrôle-de-version">Avantages du contrôle de version</a>
+  <ul class="collapse">
   <li><a href="#conserver-et-archiver-du-code" id="toc-conserver-et-archiver-du-code" class="nav-link" data-scroll-target="#conserver-et-archiver-du-code">Conserver et archiver du code</a></li>
   <li><a href="#travailler-efficacement-en-équipe" id="toc-travailler-efficacement-en-équipe" class="nav-link" data-scroll-target="#travailler-efficacement-en-équipe">Travailler efficacement en équipe</a></li>
   <li><a href="#améliorer-la-qualité-des-codes" id="toc-améliorer-la-qualité-des-codes" class="nav-link" data-scroll-target="#améliorer-la-qualité-des-codes">Améliorer la qualité des codes</a></li>
   <li><a href="#simplifier-la-communication-autour-dun-projet" id="toc-simplifier-la-communication-autour-dun-projet" class="nav-link" data-scroll-target="#simplifier-la-communication-autour-dun-projet">Simplifier la communication autour d’un projet</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#comment-faire-du-contrôle-de-version" id="toc-comment-faire-du-contrôle-de-version" class="nav-link" data-scroll-target="#comment-faire-du-contrôle-de-version">Comment faire du contrôle de version ?</a></li>
   <li><a href="#quelques-bases-sur-git" id="toc-quelques-bases-sur-git" class="nav-link" data-scroll-target="#quelques-bases-sur-git">Quelques bases sur <code>Git</code></a>
@@ -491,13 +530,15 @@ mis en pratique dans le suivant.">
 un <a href="https://formation.pages.lab.sspcloud.fr/git/20220929-formation-git-dese/#/title-slide">cours dédié fait avec Romain Avouac</a></p>
 <section id="pourquoi-faire-du-git" class="level1">
 <h1>Pourquoi faire du <code>Git</code> <i class="fas fa-code-branch"></i> ?</h1>
+<section id="les-problèmes-classiques" class="level2">
+<h2 class="anchored" data-anchor-id="les-problèmes-classiques">Les problèmes classiques</h2>
 <p>Dans un projet, il est commun de se demander (ou de demander à quelqu’un) :</p>
 <ul>
-<li>quelle était la bonne version d’un programme</li>
-<li>qui était l’auteur d’un bout de code en particulier</li>
-<li>si un changement était important ou juste un essai</li>
-<li>où retrouver des traces d’un vieil essai abandonné mais potentiellement finalement prometteur</li>
-<li>comment fusionner des programmes écrits par plusieurs personnes</li>
+<li>quelle était la bonne version d’un programme ?</li>
+<li>qui était l’auteur d’un bout de code en particulier ?</li>
+<li>si un changement était important ou juste un essai ?</li>
+<li>où retrouver des traces d’un vieil essai abandonné mais potentiellement finalement prometteur ?</li>
+<li>comment fusionner des programmes écrits par plusieurs personnes ?</li>
 <li>etc.</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
@@ -505,6 +546,9 @@ un <a href="https://formation.pages.lab.sspcloud.fr/git/20220929-formation-git-d
 <p><a href="https://thinkr.fr/wp-content/uploads/git_notfinal.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="https://thinkr.fr/wp-content/uploads/git_notfinal.gif" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
+</section>
+<section id="la-solution-le-contrôle-de-version" class="level2">
+<h2 class="anchored" data-anchor-id="la-solution-le-contrôle-de-version">La solution: le contrôle de version</h2>
 <p>Il existe un outil informatique puissant qui répond à tous ces besoins :
 la <strong>gestion de version</strong> (<em>version control system</em> (VCS) en anglais). Ses avantages sont incontestables et permettent de facilement :</p>
 <ul>
@@ -516,8 +560,11 @@ la <strong>gestion de version</strong> (<em>version control system</em> (VCS) en
 <li>identifier les auteurs et la date des modifications.</li>
 </ul>
 <p>En outre, ces outils fonctionnent avec tous les langages
-informatiques (texte, <code>R</code>, <code>Python</code>, <code>SAS</code>, <code>LaTeX</code>, <code>Java</code>, etc.)
+informatiques (texte, <code>R</code>, <code>Python</code>, <code>Markdown</code>, <code>LaTeX</code>, <code>Java</code>, etc.)
 car reposent sur la comparaison des lignes et des caractères des programmes.</p>
+</section>
+<section id="avantages-du-contrôle-de-version" class="level2">
+<h2 class="anchored" data-anchor-id="avantages-du-contrôle-de-version">Avantages du contrôle de version</h2>
 <p>On peut ainsi résumer les principaux avantages du contrôle de version
 de la manière suivante :</p>
 <ol type="1">
@@ -526,8 +573,8 @@ de la manière suivante :</p>
 <li>Améliorer la qualité des codes</li>
 <li>Simplifier la communication autour d’un projet</li>
 </ol>
-<section id="conserver-et-archiver-du-code" class="level2">
-<h2 class="anchored" data-anchor-id="conserver-et-archiver-du-code">Conserver et archiver du code</h2>
+<section id="conserver-et-archiver-du-code" class="level3">
+<h3 class="anchored" data-anchor-id="conserver-et-archiver-du-code">Conserver et archiver du code</h3>
 <p>Une des principales fonctionnalités de la gestion de version est de conserver
 l’ensemble des fichiers de façon sécurisée et de proposer un archivage
 structuré des codes. Les fichiers sont stockés dans un <strong>dépôt</strong>, qui constitue le projet.</p>
@@ -543,8 +590,8 @@ On peut aussi
 <a href="https://github.com/linogaliana/python-datascientist/blame/master/README.md">modification qui a entraîné l’apparition de telle ou telle ligne (<code>blame</code>)</a></p>
 <p>Sur son poste de travail, les dizaines (voire centaines) de programmes organisés à la main n’existent plus. Tout est regroupé dans un seul dossier, rassemblant les éléments du dépôt. Au sein du dépôt, tout l’historique est stocké et accessible rapidement. Si on souhaite travailler sur la dernière version des programmes (ou sur une ancienne version spécifique), il n’y a plus besoin de conserver les autres fichiers car ils sont dans l’historique du projet. Il est alors possible de choisir sur quelle version on veut travailler (la dernière commune à tout le monde, la sienne en train d’être développée, celle de l’année dernière, etc.).</p>
 </section>
-<section id="travailler-efficacement-en-équipe" class="level2">
-<h2 class="anchored" data-anchor-id="travailler-efficacement-en-équipe">Travailler efficacement en équipe</h2>
+<section id="travailler-efficacement-en-équipe" class="level3">
+<h3 class="anchored" data-anchor-id="travailler-efficacement-en-équipe">Travailler efficacement en équipe</h3>
 <p>Le deuxième avantage de la gestion de version représente une amélioration notable du travail en équipe sur des codes en commun.</p>
 <p>La gestion de version permet de collaborer simplement et avec méthode. De façon organisée, elle permet de :</p>
 <ul>
@@ -570,17 +617,17 @@ Les principales plateformes dans ce domaine étant <code>Github</code> et <code>
 <p>L’usage individuel, c’est-à-dire seul sur son projet,
 permet aussi de “travailler en équipe avec soi-même” car il permet de retrouver des mois plus tard le contenu et le contexte des modifications. Cela est notamment précieux lors des changements de poste ou des travaux réguliers mais espacés dans le temps (par exemple, un mois par an chaque année). Même lorsqu’on travaille tout seul, on collabore avec un <em>moi</em> futur qui peut ne plus se souvenir de la modification des fichiers.</p>
 </section>
-<section id="améliorer-la-qualité-des-codes" class="level2">
-<h2 class="anchored" data-anchor-id="améliorer-la-qualité-des-codes">Améliorer la qualité des codes</h2>
+<section id="améliorer-la-qualité-des-codes" class="level3">
+<h3 class="anchored" data-anchor-id="améliorer-la-qualité-des-codes">Améliorer la qualité des codes</h3>
 <p>Le fonctionnement de la gestion de version, reposant sur l’archivage structuré des modifications et les commentaires les accompagnant, renforce la qualité des programmes informatiques. Ils sont plus documentés, plus riches et mieux structurés. C’est pour cette raison que le contrôle de version ne doit pas être considéré comme un outil réservé à des développeurs : toute personne travaillant sur des programmes informatiques, gagne à utiliser du contrôle de version.</p>
-<p>Les services d’intégration continue permettent de faire des tests automatiques
+<p>Les services d’<em>intégration continue</em> permettent de faire des tests automatiques
 de programmes informatiques, notamment de packages, qui renforcent la
 replicabilité des programmes. Mettre en place des méthodes de travail fondées
-sur l’intégration continue rend les programmes plus robustes en forçant
+sur l’<em>intégration continue</em> rend les programmes plus robustes en forçant
 ceux-ci à tourner sur des machines autres que celles du développeur du code.</p>
 </section>
-<section id="simplifier-la-communication-autour-dun-projet" class="level2">
-<h2 class="anchored" data-anchor-id="simplifier-la-communication-autour-dun-projet">Simplifier la communication autour d’un projet</h2>
+<section id="simplifier-la-communication-autour-dun-projet" class="level3">
+<h3 class="anchored" data-anchor-id="simplifier-la-communication-autour-dun-projet">Simplifier la communication autour d’un projet</h3>
 <p>Les sites de dépôts <code>Github</code> et <code>Gitlab</code> permettent de faire beaucoup plus
 que seulement archiver des codes. Les fonctionalités de déploiement
 en continu permettent ainsi de :</p>
@@ -591,8 +638,9 @@ en continu permettent ainsi de :</p>
 <li>rendre visible la qualité d’un projet avec des services de <em>code coverage</em>,
 de tests automatiques ou d’environnements intégrés de travail (binder, etc.)
 qu’on rend généralement visible au moyen de badges
-(exemple ici )</li>
+(exemple <a href="https://github.com/linogaliana/python-datascientist#python-pour-la-data-science-">ici</a>)</li>
 </ul>
+</section>
 </section>
 </section>
 <section id="comment-faire-du-contrôle-de-version" class="level1">
@@ -600,10 +648,8 @@ qu’on rend généralement visible au moyen de badges
 <p>Il existe plusieurs manières d’utiliser le contrôle de version :</p>
 <ul>
 <li>en ligne de commande, via <a href="https://gitforwindows.org/">Git Bash</a>, par exemple ;</li>
-<li>avec une interface graphique spécialisée, par exemple <a href="https://tortoisegit.org/">Tortoise Git</a> ou <a href="https://desktop.github.com/">GitHub Desktop</a> ;</li>
-<li>avec un logiciel de développement : la plupart des logiciels de développement (<a href="https://www.book.utilitr.org/git.html">RStudio</a> pour <code>R</code>, <a href="https://www.jetbrains.com/help/pycharm/using-git-integration.html">PyCharm</a>, <a href="https://annefou.github.io/jupyter_publish/02-git/index.html">jupyter</a> ou encore
-<a href="https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens">Visual Studio (extension GitLens)</a>
-pour <code>Python</code>, proposent tous des modules graphiques facilitant l’usage de <code>Git</code>.</li>
+<li>avec une interface graphique spécialisée, par exemple <a href="https://desktop.github.com/">GitHub Desktop</a>, <a href="https://tortoisegit.org/">Tortoise Git</a> ou <a href="https://www.sublimemerge.com/">Sublime Merge</a> ;</li>
+<li>avec un logiciel de développement : la plupart des logiciels de développement proposent des modules graphiques facilitant l’usage de <code>Git</code>. <a href="https://www.book.utilitr.org/git.html">RStudio</a> pour <code>R</code>, <a href="https://www.jetbrains.com/help/pycharm/using-git-integration.html">PyCharm</a>, <a href="https://annefou.github.io/jupyter_publish/02-git/index.html">jupyter</a> ou encore <a href="https://code.visualstudio.com/docs/sourcecontrol/overview">Visual Studio Code</a> pour <code>Python</code> qui peut être couplé par diverses extensions utiles (<a href="https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph">git-graph</a>, <a href="https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens">GitLens</a>, etc.).</li>
 </ul>
 <p><code>Git</code> a été conçu, initialement pour la ligne de commande. Il existe
 néanmoins des interfaces graphiques performantes
@@ -670,11 +716,6 @@ en ligne (système <em>asynchrone</em>).</li>
 une <strong>forge logicielle</strong> (<code>Github</code> ou <code>Gitlab</code>) et sert à centraliser la version
 collective d’un projet. Les copies locales sont des copies de travail
 qu’on utilise pour faire évoluer un projet :</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="https://www.book.utilitr.org/pics/git/gitlab.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="https://www.book.utilitr.org/pics/git/gitlab.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
 <p>Il est tout à fait possible de faire du contrôle de version sans
 mettre en place de dépôt distant. Cependant,</p>
 <ul>
@@ -696,14 +737,14 @@ bénéfiques lorsqu’on travaille tout seul.</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://gitlab.com/linogaliana/collaboratif/-/raw/master/pics/03_git/push_pull_Drees.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="https://gitlab.com/linogaliana/collaboratif/-/raw/master/pics/03_git/push_pull_Drees.png" class="img-fluid figure-img"></a></p>
+<p><a href="https://gitlab.com/linogaliana/collaboratif/-/raw/master/pics/03_git/push_pull_Drees.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="https://gitlab.com/linogaliana/collaboratif/-/raw/master/pics/03_git/push_pull_Drees.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 <p>Les deux dernières manipulations correspondent aux interactions (notamment
 la mise en cohérence) avec
 le dépôt commun alors que la première manipulation <code>commit</code> correspond à
 la modification des fichiers faite pour faire évoluer un projet.</p>
-<p>De manière plus précise, il y a trois étapes avant d’envoyer les modifications validées (<code>commit</code>) au dépôt. Elles se définissent en fonction des commandes qui permet de les appliquer quand Git est utilisé en ligne de commandes :</p>
+<p>De manière plus précise, il y a trois étapes avant d’envoyer les modifications validées (<code>commit</code>) au dépôt. Elles se définissent en fonction des commandes qui permettent de les appliquer quand Git est utilisé en ligne de commandes :</p>
 <ul>
 <li><code>diff</code> : inspection des modifications. Cela permet de comparer les fichiers modifiés et de distinguer les fichiers ajoutés ou supprimés</li>
 <li><code>staging area</code> : sélection des modifications.</li>
@@ -711,7 +752,7 @@ la modification des fichiers faite pour faire évoluer un projet.</p>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://gitlab.com/linogaliana/collaboratif/-/raw/master/pics/03_git/trois_%C3%A9tats_fichier.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="https://gitlab.com/linogaliana/collaboratif/-/raw/master/pics/03_git/trois_%C3%A9tats_fichier.png" class="img-fluid figure-img"></a></p>
+<p><a href="https://gitlab.com/linogaliana/collaboratif/-/raw/master/pics/03_git/trois_%C3%A9tats_fichier.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="https://gitlab.com/linogaliana/collaboratif/-/raw/master/pics/03_git/trois_%C3%A9tats_fichier.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 <p>Lors des étapes de <code>push</code> et <code>pull</code>, des <strong>conflits</strong> peuvent apparaître, par exemple lorsque deux personnes ont modifié le même programme simultanément. Le terme conflit peut faire peur mais en fait c’est
@@ -752,149 +793,159 @@ données, potentiellement volumineuses ou confidentielles) n’ont pas vocation
 <p>Le site <a href="https://www.toptal.com/developers/gitignore">gitignore.io</a> est très pratique. Le fichier
 suivant est par exemple proposé pour les utilisateurs de <code>Python</code>, auquel on peut ajouter
 quelques lignes adaptées aux utilisateurs de données :</p>
-<pre class="raw"><code>*.html
-*.pdf
-*.csv
-*.tsv
-*.json
-*.xml
-*.shp
-*.xls
-*.xlsx
-
-### Python ###
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
-
-# C extensions
-*.so
-
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# PyInstaller
-#  Usually these files are written by a Python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
-
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-
-# Flask stuff:
-instance/
-.webassets-cache
-
-# Scrapy stuff:
-.scrapy
-
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-target/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# IPython
-profile_default/
-ipython_config.py
-
-# pyenv
-.python-version
-
-# pipenv
-#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
-#   However, in case of collaboration, if having platform-specific dependencies or dependencies
-#   having no cross-platform support, pipenv may install dependencies that don't work, or not
-#   install all needed dependencies.
-#Pipfile.lock
-
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow
-__pypackages__/
-
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
-
-# SageMath parsed files
-*.sage.py
-
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
-
-# pytype static type analyzer
-.pytype/</code></pre>
+<details>
+<summary>
+<p>Exemple de <code>.gitignore</code> pour les utilisateurs de données</p>
+</summary>
+<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>"""</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="in">~~~raw</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span>.html</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span>.pdf</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span>.csv</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span>.tsv</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span>.json</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span>.xml</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span>.shp</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span>.xls</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span>.xlsx</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="do">### Python </span><span class="al">###</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Byte-compiled / optimized / DLL files</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>__pycache__<span class="sc">/</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="er">*</span>.py[cod]</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span><span class="er">$</span>py.class</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># C extensions</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span>.so</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Distribution / packaging</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>.Python</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>build<span class="sc">/</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>develop<span class="sc">-</span>eggs<span class="sc">/</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>dist<span class="sc">/</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>downloads<span class="sc">/</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>eggs<span class="sc">/</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>.eggs<span class="sc">/</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>lib<span class="sc">/</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>lib64<span class="sc">/</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>parts<span class="sc">/</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>sdist<span class="sc">/</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>var<span class="sc">/</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>wheels<span class="sc">/</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>pip<span class="sc">-</span>wheel<span class="sc">-</span>metadata<span class="sc">/</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>share<span class="sc">/</span>python<span class="sc">-</span>wheels<span class="sc">/</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="er">*</span>.egg<span class="sc">-</span>info<span class="sc">/</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>.installed.cfg</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span>.egg</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>MANIFEST</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co"># PyInstaller</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="co">#  Usually these files are written by a Python script from a template</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co">#  before PyInstaller builds the exe, so as to inject date/other infos into it.</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span>.manifest</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span>.spec</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Installer logs</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>pip<span class="sc">-</span>log.txt</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>pip<span class="sc">-</span>delete<span class="sc">-</span>this<span class="sc">-</span>directory.txt</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Unit test / coverage reports</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>htmlcov<span class="sc">/</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>.tox<span class="sc">/</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>.nox<span class="sc">/</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>.coverage</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>.coverage.<span class="sc">*</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>.cache</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>nosetests.xml</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>coverage.xml</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span>.cover</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span>.py,cover</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>.hypothesis<span class="sc">/</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>.pytest_cache<span class="sc">/</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="co"># Translations</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="er">*</span>.mo</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span>.pot</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="co"># Django stuff:</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span>.log</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>local_settings.py</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>db.sqlite3</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>db.sqlite3<span class="sc">-</span>journal</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="co"># Flask stuff:</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>instance<span class="sc">/</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>.webassets<span class="sc">-</span>cache</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="co"># Scrapy stuff:</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>.scrapy</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="co"># Sphinx documentation</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>docs<span class="sc">/</span>_build<span class="sc">/</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="co"># PyBuilder</span></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>target<span class="sc">/</span></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="co"># Jupyter Notebook</span></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>.ipynb_checkpoints</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="co"># IPython</span></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>profile_default<span class="sc">/</span></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>ipython_config.py</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="co"># pyenv</span></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>.python<span class="sc">-</span>version</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="co"># pipenv</span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="co">#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.</span></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="co">#   However, in case of collaboration, if having platform-specific dependencies or dependencies</span></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="co">#   having no cross-platform support, pipenv may install dependencies that don't work, or not</span></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="co">#   install all needed dependencies.</span></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="co">#Pipfile.lock</span></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="co"># PEP 582; used by e.g. github.com/David-OConnor/pyflow</span></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>__pypackages__<span class="sc">/</span></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a><span class="co"># Celery stuff</span></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>celerybeat<span class="sc">-</span>schedule</span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>celerybeat.pid</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a><span class="co"># SageMath parsed files</span></span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span>.sage.py</span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a><span class="co"># Environments</span></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>.env</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>.venv</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>env<span class="sc">/</span></span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>venv<span class="sc">/</span></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>ENV<span class="sc">/</span></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>env.bak<span class="sc">/</span></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>venv.bak<span class="sc">/</span></span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="co"># Spyder project settings</span></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>.spyderproject</span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>.spyproject</span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a><span class="co"># Rope project settings</span></span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>.ropeproject</span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a><span class="co"># mkdocs documentation</span></span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a><span class="sc">/</span>site</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a><span class="co"># mypy</span></span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>.mypy_cache<span class="sc">/</span></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>.dmypy.json</span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>dmypy.json</span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a><span class="co"># Pyre type checker</span></span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>.pyre<span class="sc">/</span></span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a><span class="co"># pytype static type analyzer</span></span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>.pytype<span class="sc">/</span></span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a><span class="er">~~~</span></span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a><span class="st">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 
 
 </section>
@@ -1177,7 +1228,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"loop":true,"selector":".lightbox","openEffect":"zoom","closeEffect":"zoom","descPosition":"bottom"});</script>
+<script>var lightboxQuarto = GLightbox({"loop":true,"openEffect":"zoom","descPosition":"bottom","closeEffect":"zoom","selector":".lightbox"});</script>
 
 
 
