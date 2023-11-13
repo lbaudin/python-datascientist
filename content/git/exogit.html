@@ -696,6 +696,26 @@ aux jetons pour limiter les risques de sécurité d’un <em>token</em> qui fuit
 sans s’en rendre compte.</p>
 <div class="cell markdown">
 <div class="alert alert-success" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 2.0 : Créer un service sur le SSPCloud</h3>
+<p>En amont de l’exercice 2, pour les utilisateurs
+du <code>SSPCloud</code>,
+il est recommandé d’ouvrir un service <code>Jupyter</code>
+en suivant les consignes suivantes:</p>
+<ul>
+<li>Dans la page <code>Mes services</code>, cliquer sur le bouton <code>Nouveau service</code> ;</li>
+<li>Choisir <code>Jupyter-Python</code> ;</li>
+<li>Cliquer sur <code>Configuration Jupyter-Python</code>. ⚠️ ne pas lancer le service
+tout de suite !</li>
+<li>Faire défiler les onglets pour arriver sur l’onglet <code>Git</code> ;</li>
+<li>Remplacer la valeur sous <code>Cache</code> par un nombre important,
+par exemple <code>36000</code> pour que le jeton que vous utiliserez soit
+valable 10 heures ;</li>
+<li>Lancer le service.</li>
+</ul>
+</div>
+</div>
+<div class="cell markdown">
+<div class="alert alert-success" role="alert">
 <h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 2 : Créer et stocker un token</h3>
 <p>1️⃣ Suivre la
 <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">documentation officielle</a> en ne donnant que les droits <code>repo</code> au jeton (ajouter les droits
@@ -1626,7 +1646,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","closeEffect":"zoom","openEffect":"zoom","loop":true});</script>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","openEffect":"zoom","descPosition":"bottom","loop":true,"selector":".lightbox"});</script>
 
 
 
