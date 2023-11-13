@@ -478,7 +478,8 @@ centraux du langage Git vus précédemment">
   <li><a href="#principe" id="toc-principe" class="nav-link" data-scroll-target="#principe">Principe</a></li>
   <li><a href="#créer-un-jeton" id="toc-créer-un-jeton" class="nav-link" data-scroll-target="#créer-un-jeton">Créer un jeton</a></li>
   </ul></li>
-  <li><a href="#git-des-gains-même-quand-on-travaille-tout-seul" id="toc-git-des-gains-même-quand-on-travaille-tout-seul" class="nav-link" data-scroll-target="#git-des-gains-même-quand-on-travaille-tout-seul">Git: des gains même quand on travaille tout seul</a></li>
+  <li><a href="#premier-commit" id="toc-premier-commit" class="nav-link" data-scroll-target="#premier-commit">Premier commit</a></li>
+  <li><a href="#le-fichier-.gitignore" id="toc-le-fichier-.gitignore" class="nav-link" data-scroll-target="#le-fichier-.gitignore">Le fichier <code>.gitignore</code></a></li>
   <li><a href="#premières-interactions-avec-github-depuis-sa-copie-de-travail" id="toc-premières-interactions-avec-github-depuis-sa-copie-de-travail" class="nav-link" data-scroll-target="#premières-interactions-avec-github-depuis-sa-copie-de-travail">Premières interactions avec <code>Github</code> depuis sa copie de travail</a>
   <ul class="collapse">
   <li><a href="#envoyer-des-modifications-sur-le-dépôt-distant-push" id="toc-envoyer-des-modifications-sur-le-dépôt-distant-push" class="nav-link" data-scroll-target="#envoyer-des-modifications-sur-le-dépôt-distant-push">Envoyer des modifications sur le dépôt distant: <code>push</code></a></li>
@@ -756,6 +757,10 @@ pour réinitialiser
 votre <em>credential helper</em></p>
 <p>6️⃣ Si vous le désirez, vous pouvez changer la visibilité de votre dépôt
 en le rendant public.</p>
+<p>7️⃣ Stocker le token sur le SSP Cloud (ou un gestionnaire de mot de passe) :</p>
+<blockquote class="blockquote">
+<p>Mon Compte -&gt; Services externes -&gt; Jeton d’accès personnel GitHub</p>
+</blockquote>
 </div>
 </div>
 <div class="cell markdown">
@@ -769,73 +774,30 @@ de la manière suivante, sous Mac ou Linux :</p>
 </div>
 </section>
 </section>
-<section id="git-des-gains-même-quand-on-travaille-tout-seul" class="level1">
-<h1>Git: des gains même quand on travaille tout seul</h1>
+<section id="premier-commit" class="level1">
+<h1>Premier commit</h1>
 <p>A ce stade, nous avons configuré <code>Git</code> pour être en mesure
 de s’authentifier automatiquement et nous avons cloné le dépôt pour avoir une
 copie locale de travail.</p>
-<p>On n’a encore ajouté aucun fichier à <code>Git</code>. L’une des premières
+<p>On n’a encore ajouté aucun fichier à <code>Git</code> en supplément
+de ceux créés en même temps que le dépôt. Nous allons
+créer ces premiers fichiers</p>
+<p>::: {.cell .markdown}</p>
+<div class="alert alert-success" role="alert">
+<h3 class="alert-heading anchored" data-anchor-id="premier-commit"><i class="fa-solid fa-pencil"></i> Exercice 3 : Le fichier <code>.gitignore</code></h3>
+<p>L’une des premières
 choses à faire est d’exclure un certain nombre de fichiers, afin de ne pas
 faire une erreur pénible à réparer.</p>
 <div class="cell markdown">
 <div class="alert alert-success" role="alert">
-<h3 class="alert-heading anchored" data-anchor-id="git-des-gains-même-quand-on-travaille-tout-seul"><i class="fa-solid fa-pencil"></i> Exercice 3 : Le fichier <code>.gitignore</code></h3>
-<p>Lorsqu’on utilise <code>Git</code>, il y a des fichiers qu’on ne veut pas partager
-ou dont on ne veut pas suivre les modifications (typiquement les grosses bases de données).</p>
-<p>C’est le fichier <code>.gitignore</code>
-qui gère les fichiers exclus du contrôle de version.</p>
-<p>1️⃣ Créer un fichier nommé <code>.gitignore</code> (⚠️ ne pas changer
-ce nom, et s’assurer que celui-ci n’a pas d’extension) via le bloc note ou votre IDE.</p>
-<p>Sur la session <code>Jupyter</code> d’<code>Onyxia</code>, si le <code>Clic Droit &gt; rename</code> ne fonctionne pas, vous pouvez faire : <code>File &gt; New &gt; Text file</code>après vous être assurés que vous vous situez bien dans le dossier <nom_du_projet> de l’arborescence. Un fichier <code>untitled.txt</code> se crée, que vous pouvez renommer en faisant un <code>cd &lt;nom_du_projet&gt;</code> puis <code>mv untitled.txt .gitignore</code> dans le terminal.</nom_du_projet></p>
-<p>2️⃣ Aller sur le site <a href="https://www.toptal.com/developers/gitignore" class="uri">https://www.toptal.com/developers/gitignore</a>. Vous pouvez
-dans la barre de recherche taper <code>Python</code>, <code>Pycharm</code>, <code>JupyterNotebooks</code>.
-Copier-coller dans votre <code>.gitignore</code> le contenu de la page.</p>
-<p>3️⃣ Quand on crée de la documentation, on veut exclure les extensions <code>.pdf</code>
-et <code>.html</code> qui sont des résultats à partager et non des fichiers source à
-suivre. Pour cela, ajouter au début du fichier <code>.gitignore</code>, les extensions:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>.pdf</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>.html</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>4️⃣ Quand on fait de l’analyse de données, on peut se retrouver avec des
-fichiers sources de données (par exemple des csv). On désire généralement
-les exclure pour deux raisons:</p>
-<ul>
-<li>ce sont des fichiers très volumineux pour lesquels le contrôle de version,
-ligne à ligne, est compliqué</li>
-<li>ils peuvent révéler une information confidentielle ou stratégique qu’on
-ne désire pas révéler à un concurrent ou un inconnu</li>
-</ul>
-<p>Pour cela, ajouter au début du fichier <code>.gitignore</code>, les extensions suivantes</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>.csv</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>.xls</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>.xlsx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Cette suite d’extensions est à enrichir selon vos projets et les formats
-de données que vous utilisez.</p>
-<p>5️⃣ On a aussi les checkpoints sont créés que l’on ne désire pas utiliser. Pour les exclure,
-ajouter la ligne suivante dans le fichier <code>.gitignore</code></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>*-checkpoint</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<p>On a créé un fichier <code>.gitignore</code> mais on n’a encore rien fait jusqu’à présent.</p>
-<p>En effet, si en ligne de commande, on tape :</p>
-<pre class="shell"><code>cd &lt;nom_du_projet&gt;</code></pre>
-<p>Puis :</p>
-<pre class="shell"><code>git status</code></pre>
-<p>on voit apparaître le résultat suivant</p>
-<pre class="raw"><code>On branch main
-
-No commits yet
-
-Untracked files:
-  (use "git add &lt;file&gt;..." to include in what will be committed)
-        .gitignore</code></pre>
-<p>Le fichier <code>.gitignore</code> est <code>Untracked</code> ce qui signifie qu’il n’est pas
-encore contrôlé.</p>
-<p>Il faut dire à <code>Git</code> de contrôler les évolutions de chaque fichier
-(passage dans l’index). On appelle cette étape <code>git add</code>.</p>
-<div class="cell markdown">
-<div class="alert alert-success" role="alert">
-<h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 4 : Indexer des modifications</h3>
+<h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 3 : Indexer des modifications</h3>
 <ol type="1">
+<li>Créer un dossier 📁 <code>scripts</code> depuis l’interface de <code>Jupyter</code></li>
+<li>Y créer les fichiers <code>script1.py</code> et <code>script2.py</code>, chacun contenant quelques commandes <code>Python</code> de votre choix (le contenu de ces fichiers n’est pas important).</li>
+</ol>
+<p>Sur la session <code>Jupyter</code> d’<code>Onyxia</code>, si le <code>Clic Droit &gt; rename</code> ne fonctionne pas, vous pouvez faire : <code>File &gt; New &gt; Text file</code> après vous être assurés que vous vous situez bien dans le dossier <nom_du_projet> de l’arborescence. Un fichier <code>untitled.txt</code> se crée. Vous pouvez le renommer,
+en n’oubliant pas de changer l’extension en <code>.py</code>.</nom_du_projet></p>
+<ol start="3" type="1">
 <li>Se rendre dans l’extension <code>Git</code> de <code>Jupyter</code> ou de <code>VSCode</code>. Vous devriez
 retrouver un cadre ayant cet aspect (à gauche pour <code>Jupyter</code> et à droite pour <code>VSCode</code>).</li>
 </ol>
@@ -856,20 +818,25 @@ retrouver un cadre ayant cet aspect (à gauche pour <code>Jupyter</code> et à d
 <p></p><figcaption class="figure-caption">Figure&nbsp;2.1: Interface graphique Git sous Jupyter (à gauche) et VSCode (à droite)</figcaption><p></p>
 </figure>
 </div>
+<p>En ligne de commande, c’est l’équivalent de</p>
+<pre class="shell"><code>git status</code></pre>
 <ol start="2" type="1">
-<li>Sur <code>Jupyter</code>, en passant votre souris au dessus du <code>.gitignore</code>, vous devriez voir
+<li>Sur <code>Jupyter</code>, en passant votre souris au dessus du nom des fichiers <code>script1.py</code> et
+<code>script2.py</code>, vous devriez voir
 un <code>+</code> apparaître. Cliquez dessus. Sur <code>VSCode</code>, un bouton <code>+</code> figure à droite du nom
-du fichier <code>.gitignore</code>.</li>
+du fichier <code>.script1.py</code> et
+<code>.script2.py</code>.</li>
 </ol>
 <p>Si vous aviez privilégié la ligne de commande, ce que vous avez fait est équivalent à :</p>
-<pre class="shell"><code>git add .gitignore</code></pre>
+<pre class="shell"><code>git add scripts/script1.py
+git add scripts/script2.py</code></pre>
 <p>Pour se remémorer ce que signifie <code>git add</code>, vous pouvez vous rendre
 sur <a href="https://inseefrlab.github.io/formation-bonnes-pratiques-git-R/">ce cours dédié à <code>Git</code></a>.</p>
 <ol start="3" type="1">
-<li>Observer le changement de statut du fichier <code>.gitignore</code>. Il est
+<li>Observer le changement de statut du fichier après avoir cliqué sur <code>+</code>. Il est
 désormais dans la partie <code>Staged</code>
 En gros, vous venez de dire à Git que vous allez rendre publique une évolution
-du fichier.</li>
+du fichier, mais vous ne l’avez pas encore fait (<code>Staged</code> est une liste d’attente).</li>
 </ol>
 <p>Si vous étiez en ligne de commande vous auriez ce résultat après un <code>git status</code></p>
 <pre class="raw"><code>On branch main
@@ -907,7 +874,7 @@ pratique.</p>
 s’appelle <code>commit</code> en langage <code>Git</code> et, comme son nom l’indique, il
 s’agit d’une proposition de modification sur laquelle, en quelques
 sortes, on s’engage.</p>
-<p>Un commit comporte un titre et éventuellement une description. A ces
+<p>Un <em>commit</em> comporte un titre et éventuellement une description. A ces
 informations, <code>Git</code> ajoutera automatiquement quelques éléments
 supplémentaires, notamment l’auteur du commit (pour identifier la personne
 ayant proposé cette modification) et l’horodatage (pour identifier le moment
@@ -927,7 +894,7 @@ le commit <em>Update</em> du 12 janvier et en quoi il se distingue du
 <em>Update</em> du 13 mars.</p>
 <div class="cell markdown">
 <div class="alert alert-success" role="alert">
-<h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 5 : Premier commit (enfin !)</h3>
+<h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 4 : Premier commit (enfin !)</h3>
 <p>Sur <code>Jupyter</code>, tout se passe dans la partie inférieure de l’interface graphique.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -941,9 +908,8 @@ le commit <em>Update</em> du 12 janvier et en quoi il se distingue du
 </figure>
 </div>
 <p>1️⃣ Entrer le titre <code>Initial commit</code> et ajouter une description
-<code>Création du fichier .gitignore : tada :</code> (sans les espaces autour des <code>:</code>).
-<code>: tada :</code> (sans les espaces) sera converti en emoji :tada: par <code>Github</code> quand on voudra
-afficher la description du commit<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Sur <code>VSCode</code>, le titre du commit correspond à la
+<code>Création des premiers fichiers 🎉</code>.
+Sur <code>VSCode</code>, le titre du commit correspond à la
 première ligne du message de commit, les lignes suivantes correspondent à la
 description.</p>
 <p>Le fait de nommer le premier commit <em>“Initial commit”</em> est une
@@ -962,7 +928,7 @@ Si vous cliquez dessus, vous obtenez des informations sur le <code>commit</code>
 <h3 class="alert-heading anchored"><i class="fa-solid fa-comment"></i> Note</h3>
 <p>Si vous utilisiez la ligne de commande, la manière équivalente de faire
 serait</p>
-<pre class="shell"><code>git commit -m "Initial commit" -m "Création du fichier .gitignore :tada:"</code></pre>
+<pre class="shell"><code>git commit -m "Initial commit" -m "Création des premiers fichiers 🎉"</code></pre>
 <p>L’option <code>m</code> permet de créer un message, qui sera disponible à l’ensemble
 des contributeurs du projet. Avec la ligne de commande, ce n’est pas toujours
 très pratique. Les interfaces graphiques permettent des messages plus
@@ -970,6 +936,30 @@ développés (la bonne pratique veut qu’on écrive un message de commit comme 
 mail succinct : un titre et un peu d’explications, si besoin).</p>
 </div>
 </div>
+<p>❓ Question : à ce stade, le dépôt du projet sur <code>GitHub</code> (<em>remote</em>) a-t-il été modifié ?</p>
+</div></section>
+<section id="le-fichier-.gitignore" class="level1">
+<h1>Le fichier <code>.gitignore</code></h1>
+<p>Lorsqu’on utilise <code>Git</code>, il y a des fichiers qu’on ne veut pas partager
+ou dont on ne veut pas suivre les modifications (typiquement les grosses bases de données).</p>
+<p>C’est le fichier <code>.gitignore</code>
+qui gère les fichiers exclus du contrôle de version.
+Lors de la création du projet sur <code>GitHub</code>, nous avons demandé la création d’un fichier <code>.gitignore</code>, qui se situe à la racine du projet. Il spécifie l’ensemble des fichiers qui seront toujours exclus de l’indexation faite par <code>Git</code>.</p>
+<div class="cell markdown">
+<div class="alert alert-success" role="alert">
+<h3 class="alert-heading anchored" data-anchor-id="le-fichier-.gitignore"><i class="fa-solid fa-pencil"></i> Exercice 5 : Le fichier <code>.gitignore</code></h3>
+<p>1️⃣ Par défaut, le fichier <code>.gitignore</code> n’est pas affiché car
+les fichiers <code>.*</code> sont des fichiers de configuration. Il faut activer
+une option pour l’afficher. Tout en haut
+de <code>Jupyter</code>, cliquer sur <code>View -&gt; Show Hidden Files</code></p>
+<p>2️⃣ Ouvrir ce fichier maintenant qu’il s’affiche et observer
+quelques règles écrites dedans</p>
+<p>3️⃣ Créer un dossier <code>data</code> à la racine du projet et créer à l’intérieur de celui-ci un fichier <code>data/raw.csv</code> avec une ligne de données quelconque</p>
+<p>4️⃣ Ajouter au <code>.gitignore</code> le dossier <code>data/</code></p>
+<p>5️⃣ Vérifier que toutes les règles ajoutées précédemment fonctionnent comme attendu</p>
+</div>
+</div>
+<p>❓ <strong>Question</strong> : que se passe-t-il lorsque l’on ajoute au <code>.gitignore</code> des fichiers qui ont déjà été <em>commit</em> sur le projet Git ?</p>
 </section>
 <section id="premières-interactions-avec-github-depuis-sa-copie-de-travail" class="level1">
 <h1>Premières interactions avec <code>Github</code> depuis sa copie de travail</h1>
@@ -977,7 +967,8 @@ mail succinct : un titre et un peu d’explications, si besoin).</p>
 sur notre copie locale. On n’a pas cherché à interagir à nouveau
 avec <code>Github</code>.</p>
 <p>Cependant, il existe bien une connexion entre notre dossier local et
-le dépôt <code>Github</code>. On peut s’en assurer en tapant dans un terminal</p>
+le dépôt <code>Github</code>. Si on utilise la ligne de commande,
+on peut s’en assurer en tapant dans un terminal</p>
 <pre class="shell"><code>git remote -v</code></pre>
 <p>Le dépôt distant s’appelle <code>remote</code> en langage Git. L’option <code>-v</code> (<em>verbose</em>)
 permet de lister le(s) dépôt(s) distant(s). Le résultat devrait avoir la
@@ -994,7 +985,7 @@ sont là pour nous indiquer qu’on récupère (<code>fetch</code>) des modifica
 d’<code>origin</code> mais qu’on envoie également (<code>push</code>) des modifications vers
 celui-ci. Généralement, les url de ces deux dépôts sont les mêmes mais cela peut
 arriver, lorsqu’on contribue à des projets opensource qu’on n’a pas créé,
-qu’ils diffèrent<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+qu’ils diffèrent<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <section id="envoyer-des-modifications-sur-le-dépôt-distant-push" class="level2">
 <h2 class="anchored" data-anchor-id="envoyer-des-modifications-sur-le-dépôt-distant-push">Envoyer des modifications sur le dépôt distant: <code>push</code></h2>
 <div class="cell markdown">
@@ -1059,9 +1050,9 @@ Supprimez tout autre texte si <code>Github</code> vous a suggéré un contenu po
 </ul>
 <p>2️⃣ L’objectif est de
 donner au <code>README.md</code> un titre en ajoutant, au début du document, la ligne suivante :</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Mon oeuvre d'art surréaliste </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Mon oeuvre d'art surréaliste </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Sautez une ligne et entrez le texte que vous désirez, sans ponctuation. Par exemple,</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>le chêne un jour dit au roseau</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>le chêne un jour dit au roseau</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>3️⃣ Cliquez sur l’onglet <code>Preview</code> pour voir le texte mis en forme au format <code>Markdown</code></p>
 <p>4️⃣ Rédiger un titre et un message complémentaire pour faire le <code>commit</code>. Conserver
 l’option par défaut <code>Commit directly to the main branch</code></p>
@@ -1069,8 +1060,8 @@ l’option par défaut <code>Commit directly to the main branch</code></p>
 de l’affichage du contenu du <code>README</code>.</p>
 <p>Ajouter une deuxième phrase et corrigez la
 ponctuation de la première. Ecrire un message de commit et valider.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="an">Le Chêne un jour dit au roseau :</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>Vous avez bien sujet d'accuser la Nature</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="an">Le Chêne un jour dit au roseau :</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>Vous avez bien sujet d'accuser la Nature</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>6️⃣ Au dessus de l’aborescence des fichiers, vous devriez voir s’afficher le
 titre du dernier commit. Vous pouvez cliquer dessus pour voir la modification
 que vous avez faite.</p>
@@ -1144,7 +1135,7 @@ puis sur le bouton <code>New Branch</code>. Rentrez <code>issue-1</code> comme n
 par défaut) et cliquez sur <code>Create Branch</code>.</p>
 <p>Sur VSCode, cliquez sur <code>... &gt; Branch &gt; Create Branch</code> et entrez le nom <code>issue-1</code>.</p>
 <p>Si vous n’utilisez pas l’interface graphique mais la ligne de commande, la
-manière équivalente de faire est<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+manière équivalente de faire est<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <pre class="shell"><code>git checkout -b issue-1</code></pre>
 <p>3️⃣ Ouvrez <code>README.md</code> et ajoutez un emoji chat (<code>:cat:</code>) à la suite du titre.
 Faites un commit en refaisant les étapes vues dans les exercices
@@ -1318,12 +1309,12 @@ CONFLICT (content): Merge conflict in XXXXXX.md
 Automatic merge failed; fix conflicts and then commit the result.</code></pre>
 <p>5️⃣ Etudier le résultat de <code>git status</code></p>
 <p>6️⃣ Si vous ouvrez les fichiers incriminés, vous devriez voir des balises du type</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>this is some content to mess with</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>content to append</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">=======</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>totally different content to merge later</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;&gt;&gt;&gt;&gt;&gt;&gt; new_branch_to_merge_later</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>this is some content to mess with</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>content to append</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">=======</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>totally different content to merge later</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;&gt;&gt;&gt;&gt;&gt;&gt; new_branch_to_merge_later</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>7️⃣ Corriger à la main les fichiers en choisissant, pour chaque ligne, la version qui vous convient et en retirant les balises. Valider en faisant:</p>
 <pre class="shell"><code>git add . &amp;&amp; git commit -m "Résolution du conflit par XXXX"</code></pre>
 <p>Remplacer XXXX par votre nom. La balise <code>&amp;&amp;</code> permet d’enchaîner, en une seule ligne de code, les deux commandes.</p>
@@ -1365,17 +1356,18 @@ git merge main</code></pre>
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>La commande <code>checkout</code> est un couteau-suisse de la gestion de branche en <code>Git</code>. Elle permet en effet de basculer d’une branche à l’autre, mais aussi d’en créer, etc.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Dans ce cas, on rencontre généralement un nouvel alias à côté d’<code>origin</code>.
-opensource, où on contribue avec un <em>workflow</em> plus complexe (on contribue
-sur un fork qui est une copie d’un dépôt sur lequel on n’a pas de droits
-de modifications mais auquel on va suggérer des modifications à partir de notre
-<code>fork</code>), on retrouve souvent un deuxième alias qui est <code>upstream</code> (cf.
-<a href="https://docs.github.com/en/github/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">le tutoriel <code>Github</code> pour mettre à jour un fork</a>.
+<li id="fn1"><p>Ce cas de figure arrive lorsqu’on contribue à des projets
+sur lesquels on n’a pas de droit d’écriture. Il est alors
+nécessaire d’effectuer un <em>fork</em>, une copie de ce dépôt sur laquelle
+on dispose de droits.
+Dans ce cas de figure, on rencontre généralement un nouvel alias à côté d’<code>origin</code>.
+nommé <code>upstream</code> (cf.
+<a href="https://docs.github.com/en/github/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">le tutoriel <code>Github</code> pour mettre à jour un <em>fork</em></a>
+et qui pointe vers le dépôt source à l’origine du <em>fork</em>.
 La création du bouton <code>Fetch upstream</code> par <code>Github</code> facilite grandement
 la mise en cohérence d’<code>upstream</code> et <code>origin</code> et constitue la méthode
-recommandée.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>La commande <code>checkout</code> est un couteau-suisse de la gestion de branche en <code>Git</code>. Elle permet en effet de basculer d’une branche à l’autre, mais aussi d’en créer, etc.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+recommandée.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>La commande <code>checkout</code> est un couteau-suisse de la gestion de branche en <code>Git</code>. Elle permet en effet de basculer d’une branche à l’autre, mais aussi d’en créer, etc.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@book{galiana2023,
   author = {Galiana, Lino},
@@ -1646,7 +1638,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","openEffect":"zoom","descPosition":"bottom","loop":true,"selector":".lightbox"});</script>
+<script>var lightboxQuarto = GLightbox({"loop":true,"descPosition":"bottom","openEffect":"zoom","closeEffect":"zoom","selector":".lightbox"});</script>
 
 
 
