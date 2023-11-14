@@ -470,7 +470,7 @@ centraux du langage Git vus précédemment">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#configuration-du-compte-github" id="toc-configuration-du-compte-github" class="nav-link active" data-scroll-target="#configuration-du-compte-github">Configuration du compte Github</a>
+  <li><a href="#configuration-du-compte-github" id="toc-configuration-du-compte-github" class="nav-link active" data-scroll-target="#configuration-du-compte-github">Configuration du compte <code>Github</code></a>
   <ul class="collapse">
   <li><a href="#rappels-sur-la-notion-de-dépôt-distant" id="toc-rappels-sur-la-notion-de-dépôt-distant" class="nav-link" data-scroll-target="#rappels-sur-la-notion-de-dépôt-distant">Rappels sur la notion de dépôt distant</a></li>
   <li><a href="#première-étape-créer-un-compte-github" id="toc-première-étape-créer-un-compte-github" class="nav-link" data-scroll-target="#première-étape-créer-un-compte-github">Première étape: créer un compte <code>Github</code></a></li>
@@ -562,7 +562,7 @@ pour les routines quotidiennes et ne les utiliser que
 pour certaines opérations où elles s’avèrent fort pratiques
 (notamment la comparaison de deux fichiers avant de devoir fusionner).</p>
 <section id="configuration-du-compte-github" class="level1">
-<h1>Configuration du compte Github</h1>
+<h1>Configuration du compte <code>Github</code></h1>
 <section id="rappels-sur-la-notion-de-dépôt-distant" class="level2">
 <h2 class="anchored" data-anchor-id="rappels-sur-la-notion-de-dépôt-distant">Rappels sur la notion de dépôt distant</h2>
 <p>Comme expliqué dans le chapitre précédent,
@@ -782,15 +782,9 @@ copie locale de travail.</p>
 <p>On n’a encore ajouté aucun fichier à <code>Git</code> en supplément
 de ceux créés en même temps que le dépôt. Nous allons
 créer ces premiers fichiers</p>
-<p>::: {.cell .markdown}</p>
-<div class="alert alert-success" role="alert">
-<h3 class="alert-heading anchored" data-anchor-id="premier-commit"><i class="fa-solid fa-pencil"></i> Exercice 3 : Le fichier <code>.gitignore</code></h3>
-<p>L’une des premières
-choses à faire est d’exclure un certain nombre de fichiers, afin de ne pas
-faire une erreur pénible à réparer.</p>
 <div class="cell markdown">
 <div class="alert alert-success" role="alert">
-<h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 3 : Indexer des modifications</h3>
+<h3 class="alert-heading anchored" data-anchor-id="premier-commit"><i class="fa-solid fa-pencil"></i> Exercice 3 : Indexer des modifications</h3>
 <ol type="1">
 <li>Créer un dossier 📁 <code>scripts</code> depuis l’interface de <code>Jupyter</code></li>
 <li>Y créer les fichiers <code>script1.py</code> et <code>script2.py</code>, chacun contenant quelques commandes <code>Python</code> de votre choix (le contenu de ces fichiers n’est pas important).</li>
@@ -923,6 +917,7 @@ sur l’icône <code>View Git Graph</code>. Votre <code>commit</code> apparaît 
 Si vous cliquez dessus, vous obtenez des informations sur le <code>commit</code>.</p>
 </div>
 </div>
+<p>❓ Question : à ce stade, le dépôt du projet sur <code>GitHub</code> (<em>remote</em>) a-t-il été modifié ?</p>
 <div class="cell markdown">
 <div class="alert alert-info" role="alert">
 <h3 class="alert-heading anchored"><i class="fa-solid fa-comment"></i> Note</h3>
@@ -936,8 +931,7 @@ développés (la bonne pratique veut qu’on écrive un message de commit comme 
 mail succinct : un titre et un peu d’explications, si besoin).</p>
 </div>
 </div>
-<p>❓ Question : à ce stade, le dépôt du projet sur <code>GitHub</code> (<em>remote</em>) a-t-il été modifié ?</p>
-</div></section>
+</section>
 <section id="le-fichier-.gitignore" class="level1">
 <h1>Le fichier <code>.gitignore</code></h1>
 <p>Lorsqu’on utilise <code>Git</code>, il y a des fichiers qu’on ne veut pas partager
@@ -967,7 +961,8 @@ quelques règles écrites dedans</p>
 sur notre copie locale. On n’a pas cherché à interagir à nouveau
 avec <code>Github</code>.</p>
 <p>Cependant, il existe bien une connexion entre notre dossier local et
-le dépôt <code>Github</code>. On peut s’en assurer en tapant dans un terminal</p>
+le dépôt <code>Github</code>. Si on utilise la ligne de commande,
+on peut s’en assurer en tapant dans un terminal</p>
 <pre class="shell"><code>git remote -v</code></pre>
 <p>Le dépôt distant s’appelle <code>remote</code> en langage Git. L’option <code>-v</code> (<em>verbose</em>)
 permet de lister le(s) dépôt(s) distant(s). Le résultat devrait avoir la
@@ -1355,12 +1350,14 @@ git merge main</code></pre>
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>Dans ce cas, on rencontre généralement un nouvel alias à côté d’<code>origin</code>.
-opensource, où on contribue avec un <em>workflow</em> plus complexe (on contribue
-sur un fork qui est une copie d’un dépôt sur lequel on n’a pas de droits
-de modifications mais auquel on va suggérer des modifications à partir de notre
-<code>fork</code>), on retrouve souvent un deuxième alias qui est <code>upstream</code> (cf.
-<a href="https://docs.github.com/en/github/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">le tutoriel <code>Github</code> pour mettre à jour un fork</a>.
+<li id="fn1"><p>Ce cas de figure arrive lorsqu’on contribue à des projets
+sur lesquels on n’a pas de droit d’écriture. Il est alors
+nécessaire d’effectuer un <em>fork</em>, une copie de ce dépôt sur laquelle
+on dispose de droits.
+Dans ce cas de figure, on rencontre généralement un nouvel alias à côté d’<code>origin</code>.
+nommé <code>upstream</code> (cf.
+<a href="https://docs.github.com/en/github/collaborating-with-pull-requests/working-with-forks/syncing-a-fork">le tutoriel <code>Github</code> pour mettre à jour un <em>fork</em></a>
+et qui pointe vers le dépôt source à l’origine du <em>fork</em>.
 La création du bouton <code>Fetch upstream</code> par <code>Github</code> facilite grandement
 la mise en cohérence d’<code>upstream</code> et <code>origin</code> et constitue la méthode
 recommandée.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
@@ -1635,7 +1632,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":true,"openEffect":"zoom","selector":".lightbox"});</script>
+<script>var lightboxQuarto = GLightbox({"loop":true,"descPosition":"bottom","openEffect":"zoom","closeEffect":"zoom","selector":".lightbox"});</script>
 
 
 
