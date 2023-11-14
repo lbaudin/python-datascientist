@@ -34,7 +34,7 @@ print_badges("content/git/introgit.qmd")
 :::
 
 Cette page reprend des éléments présents dans
-un [cours dédié fait avec Romain Avouac](https://formation.pages.lab.sspcloud.fr/git/20220929-formation-git-dese/#/title-slide).
+un [cours dédié fait avec Romain Avouac](https://inseefrlab.github.io/formation-bonnes-pratiques-git-R/slides/complete.html).
 
 # Pourquoi faire du `Git` <i class="fas fa-code-branch"></i> ?
 
