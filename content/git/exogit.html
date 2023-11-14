@@ -8,7 +8,7 @@
 
 <meta name="author" content="Lino Galiana">
 <meta name="dcterms.date" content="2020-09-30">
-<meta name="description" content="Ce chapitre propose une mise en application de quelques principes centraux du langage Git vus précédemment">
+<meta name="description" content="Ce chapitre propose une mise en application de quelques principes centraux du langage Git vus précédemment.">
 
 <title>Python pour la data science - Un cadavre exquis pour découvrir Git</title>
 <style>
@@ -113,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../../styles.css">
 <meta name="twitter:title" content="Python pour la data science - Un cadavre exquis pour découvrir Git">
 <meta name="twitter:description" content="Ce chapitre propose une mise en application de quelques principes
-centraux du langage Git vus précédemment">
+centraux du langage Git vus précédemment.">
 <meta name="twitter:image" content="https://pythonds.linogaliana.fr/content/git/cadavre_exquis_kids.png">
 <meta name="twitter:image-height" content="1024">
 <meta name="twitter:image-width" content="1024">
@@ -248,11 +248,11 @@ centraux du langage Git vus précédemment">
   </li>  
         <li>
     <a class="dropdown-item" href="../../content/visualisation/matplotlib.html" rel="" target="">
- <span class="dropdown-text">De beaux graphiques avec python: mise en pratique</span></a>
+ <span class="dropdown-text">De beaux graphiques avec python : mise en pratique</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../content/visualisation/maps.html" rel="" target="">
- <span class="dropdown-text">De belles cartes avec python: mise en pratique</span></a>
+ <span class="dropdown-text">De belles cartes avec python : mise en pratique</span></a>
   </li>  
     </ul>
   </li>
@@ -409,7 +409,7 @@ centraux du langage Git vus précédemment">
                 <div>
           <div id="title-block-title-desc" class="description pt-4">
             <p>Ce chapitre propose une mise en application de quelques principes
-            centraux du langage Git vus précédemment</p>
+            centraux du langage Git vus précédemment.</p>
           </div>
         </div>
                 
@@ -570,8 +570,8 @@ il convient de distinguer
 le dépôt distant (<em>remote</em>) et la copie ou les copies locales (les <em>clones</em>)
 d’un dépôt. Le dépôt distant est généralement stocké sur une forge
 logicielle (<code>Github</code> ou <code>Gitlab</code>) et sert à centraliser la version
-collective d’un projet. Les copies locales sont des copies de travail</p>
-<p><code>Git</code> est un système de contrôle de version asynchrone c’est-à-dire
+collective d’un projet. Les copies locales sont des copies de travail.</p>
+<p><code>Git</code> est un système de contrôle de version asynchrone, c’est-à-dire
 qu’on n’interagit pas en continu avec le dépôt distant (comme c’est le
 cas dans le système SVN) mais qu’il est possible d’avoir une version
 locale qui se différencie du dépôt commun et qu’on rend cohérente
@@ -625,7 +625,7 @@ sur le dépôt distant au moment où le contributeur le décide.</p>
 contributeurs, afin de déterminer qui est l’auteur d’une modification apportée
 aux codes stockés dans le dépôt distant.
 Pour que <code>Github</code> reconnaisse un utilisateur proposant des modifications,
-il est nécessaire de s’authentifier (un dépôt distant, même public, ne peut pas être modifié par n’importe qui). L’authentification consiste ainsi à fournir un élément que seul vous et la forge sont censés connaître : un mot de passe, une clé compliquée, un jeton d’accès…</p>
+il est nécessaire de s’authentifier (un dépôt distant, même public, ne peut pas être modifié par n’importe qui). L’authentification consiste ainsi à fournir un élément que seul vous et la forge êtes censés connaître : un mot de passe, une clé compliquée, un jeton d’accès…</p>
 <p>Plus précisément, il existe deux modalités pour faire connaître son identité à <code>Github</code> :</p>
 <ul>
 <li>une <strong>authentification HTTPS</strong> (décrite ici) : l’authentification se fait avec un login et un mot de passe ou avec un <em>token</em> (un mot de passe compliqué généré automatiquement par <code>Github</code> et connu exclusivement du détenteur du compte <code>Github</code>) ;</li>
@@ -1030,7 +1030,7 @@ cela <code>pull</code>.</p>
 <p>Pour le moment, vous êtes tout seul sur le dépôt. Il n’y a donc pas de
 partenaire pour modifier un fichier dans le dépôt distant. On va simuler ce
 cas en utilisant l’interface graphique de <code>Github</code> pour modifier
-des fichiers. On rappatriera les résultats en local dans un deuxième temps.</p>
+des fichiers. On rapatriera les résultats en local dans un deuxième temps.</p>
 <div class="cell markdown">
 <div class="alert alert-success" role="alert">
 <h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 7 : Rapatrier des modifs en local</h3>
@@ -1139,7 +1139,7 @@ précédents. N’oubliez pas, cela se fait en deux étapes:</p>
 la partie <code>Staged</code></li>
 <li>Validation des modifications avec un <code>commit</code></li>
 </ol>
-<p>Si vous passez par la ligne de commande, cela donnera:</p>
+<p>Si vous passez par la ligne de commande, cela donnera :</p>
 <pre class="shell"><code>git add .
 git commit -m "ajout emoji chat"</code></pre>
 <p>4️⃣ Faire un <strong>deuxième commit</strong> pour ajouter un emoji koala (:koala:) puis
@@ -1212,7 +1212,7 @@ Il correspond à cette forme caractéristique d’arbre:</p>
 <li>La branche <code>main</code> constitue le tronc</li>
 <li>Les branches partent de <code>main</code> et divergent</li>
 <li>Lorsque les modifications aboutissent, elles sont intégrées à <code>main</code> ;
-la branche en question disparaît:</li>
+la branche en question disparaît :</li>
 </ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1221,7 +1221,7 @@ la branche en question disparaît:</li>
 </div>
 <p>Il existe des <em>workflows</em> plus complexes, notamment le <code>Git Flow</code> que j’utilise
 pour développer ce cours. <a href="https://www.atlassian.com/fr/git/tutorials/comparing-workflows/gitflow-workflow">Ce tutoriel</a>, très bien fait,
-illustre avec un graphique la complexité accrue de ce flow:</p>
+illustre avec un graphique la complexité accrue de ce flow :</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="https://wac-cdn.atlassian.com/dam/jcr:8f00f1a4-ef2d-498a-a2c6-8020bb97902f/03%20Release%20branches.svg?cdnVersion=55" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="https://wac-cdn.atlassian.com/dam/jcr:8f00f1a4-ef2d-498a-a2c6-8020bb97902f/03%20Release%20branches.svg?cdnVersion=55" class="img-fluid figure-img"></a></p>
@@ -1234,7 +1234,7 @@ officielle (<code>main</code>).</p>
 <div class="alert alert-warning" role="alert">
 <h3 class="alert-heading anchored"><i class="fa-solid fa-lightbulb"></i> Hint</h3>
 <p>Vous pourrez trouvez des dizaines d’articles et d’ouvrages sur ce sujet dont chacun prétend avoir trouvé la meilleure organisation du travail (<code>Git flow</code>, <code>GitHub flow</code>, <code>GitLab flow</code>…). Ne lisez pas trop ces livres et articles sinon vous serez perdus (un peu comme avec les magazines destinés aux jeunes parents…).</p>
-<p>La méthode de travail la plus simple est le <em>Github flow</em> qu’on vous a proposé d’adopter. L’arborescence est reconnaissable: des branches divergent et reviennent systématiquement vers <code>main</code>.</p>
+<p>La méthode de travail la plus simple est le <em>Github flow</em> qu’on vous a proposé d’adopter. L’arborescence est reconnaissable : des branches divergent et reviennent systématiquement vers <code>main</code>.</p>
 <p>Pour des projets plus complexes dans des équipes développant des applications, on pourra utiliser d’autres méthodes de travail, notamment le <code>Git flow</code>. Il n’existe pas de règles universelles pour déterminer la méthode de travail ; l’important c’est, avant tout, de se mettre d’accord sur des règles communes de travail avec votre équipe.</p>
 </div>
 </div>
@@ -1261,7 +1261,7 @@ officielle (<code>main</code>).</p>
 <p>2️⃣ Chaque membre du projet, crée une copie locale du projet grâce à la commande <code>git clone</code> ou
 avec le bouton <code>Clone a repository</code> de <code>JupyterLab</code>.</p>
 <p>Pour cela, récupérer l’url HTTPS du dépôt en copiant l’url du dépôt que vous pouvez trouver, par exemple, dans la page d’accueil du dépôt, en dessous de <code>Quick setup — if you’ve done this kind of thing before</code></p>
-<p>En ligne de commande, cela donnera:</p>
+<p>En ligne de commande, cela donnera :</p>
 <pre class="shell"><code>git clone https://github.com/&lt;username&gt;/&lt;reponame&gt;.git</code></pre>
 <p>3️⃣ Chaque membre du projet crée un fichier avec son nom et son prénom, selon cette structure <code>nom-prenom.md</code> en évitant les caractères spéciaux. Il écrit dedans trois phrases de son choix <strong>sans ponctuation ni majuscules</strong> (pour pouvoir effectuer une correction ultérieurement). Enfin, il commit sur le projet.</p>
 <p>Pour rappel, en ligne de commande cela donnera les commandes suivantes à modifier</p>
@@ -1297,7 +1297,7 @@ il faudra encore le refaire une fois).</p>
 <p>2️⃣ Ils sautent une ligne et ajoutent une phrase (pas tous la même).</p>
 <p>3️⃣ Valider les résultats (<code>git add .</code> et <code>commit</code>) et faire un <code>push</code></p>
 <p>4️⃣ La personne la plus rapide n’a, normalement, rencontré aucune difficulté (elle peut s’arrêter temporairement pour regarder ce qui va se passer chez les voisins). Les autres voient leur <code>push</code> refusé et doivent faire un <code>pull</code>.</p>
-<p>💥 Il y a conflit, ce qui doit être signalé par un message du type:</p>
+<p>💥 Il y a conflit, ce qui doit être signalé par un message du type :</p>
 <pre class="shell"><code>Auto-merging XXXXXX
 CONFLICT (content): Merge conflict in XXXXXX.md
 Automatic merge failed; fix conflicts and then commit the result.</code></pre>
@@ -1632,7 +1632,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"loop":true,"descPosition":"bottom","openEffect":"zoom","closeEffect":"zoom","selector":".lightbox"});</script>
+<script>var lightboxQuarto = GLightbox({"loop":true,"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom"});</script>
 
 
 
