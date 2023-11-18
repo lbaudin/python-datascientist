@@ -893,7 +893,7 @@ chapitre.</p>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    sw <span class="op">=</span> df[[yvar, xvar]].<span class="bu">min</span>().values.tolist()</span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    ne <span class="op">=</span> df[[yvar, xvar]].<span class="bu">max</span>().values.tolist()</span>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> folium.Map(location <span class="op">=</span> center, tiles<span class="op">=</span><span class="st">'Stamen Toner'</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> folium.Map(location <span class="op">=</span> center, tiles<span class="op">=</span><span class="st">'OpenStreetMap'</span>)</span>
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># I can add marker one by one on the map</span></span>
 <span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="bu">len</span>(df)):</span>
