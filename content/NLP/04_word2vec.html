@@ -305,6 +305,37 @@ des word embeddings (plongements de mots).">
     </ul>
   </li>
   <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-nlp" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">NLP</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-nlp">    
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/01_intro.html" rel="" target="">
+ <span class="dropdown-text">Quelques éléments pour comprendre les enjeux du NLP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/02_exoclean.html" rel="" target="">
+ <span class="dropdown-text">Nettoyer un texte: des exercices pour découvrir l’approche bag-of-words</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/03_lda.html" rel="" target="">
+ <span class="dropdown-text">Latent Dirichlet Allocation (LDA)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/04_word2vec.html" rel="" target="">
+ <span class="dropdown-text">Méthodes de vectorisation : comptages et word embeddings</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/05_exo_supp.html" rel="" target="">
+ <span class="dropdown-text">Exercices supplémentaires</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-approfondissements" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Approfondissements</span>
     </a>
@@ -738,7 +769,7 @@ la méthode <code>inverse_transform</code></p>
 <section id="répartition-des-labels" class="level3">
 <h3 class="anchored" data-anchor-id="répartition-des-labels">Répartition des labels</h3>
 <p>Refaisons un graphique que nous avons déjà produit précédemment pour voir
-la répartition de notre corpus entre auteurs:</p>
+la répartition de notre corpus entre auteurs :</p>
 <div class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> pd.Series(le.inverse_transform(y_train)).value_counts().plot(kind<span class="op">=</span><span class="st">'bar'</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>fig</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1392,7 +1423,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"loop":true,"openEffect":"zoom","selector":".lightbox","closeEffect":"zoom","descPosition":"bottom"});</script>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","loop":true,"openEffect":"zoom","descPosition":"bottom","selector":".lightbox"});</script>
 
 
 

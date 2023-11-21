@@ -352,6 +352,37 @@ ses propres images rigolotes.">
     </ul>
   </li>
   <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-nlp" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">NLP</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-nlp">    
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/01_intro.html" rel="" target="">
+ <span class="dropdown-text">Quelques éléments pour comprendre les enjeux du NLP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/02_exoclean.html" rel="" target="">
+ <span class="dropdown-text">Nettoyer un texte: des exercices pour découvrir l’approche bag-of-words</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/03_lda.html" rel="" target="">
+ <span class="dropdown-text">Latent Dirichlet Allocation (LDA)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/04_word2vec.html" rel="" target="">
+ <span class="dropdown-text">Méthodes de vectorisation : comptages et word embeddings</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/05_exo_supp.html" rel="" target="">
+ <span class="dropdown-text">Exercices supplémentaires</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-approfondissements" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Approfondissements</span>
     </a>
@@ -650,7 +681,7 @@ dans cette partie seront basés sur <code>Stable Diffusion</code>.</p>
 <div class="cell markdown">
 <div class="alert alert-info" role="alert">
 <h3 class="alert-heading anchored" data-anchor-id="contexte"><i class="fa-solid fa-comment"></i> <code>HuggingFace</code></h3>
-<p><code>Huggingface</code> est une plateforme de partage de modèles de type réseau de neurone. Les utilisateurs de réseaux de neurone peuvent
+<p><code>Huggingface</code> est une plateforme de partage de modèles de type réseau de neurone. Les utilisateurs de réseaux de neurones peuvent
 ainsi mettre à disposition le résultat de leurs travaux sous forme d’API pour faciliter la réutilisation de leurs
 modèles ou réutiliser facilement des modèles, ce qui évite de les ré-entraîner (ce qui aurait un coût écologique non
 négligeable comme expliqué dans le chapitre introductif).</p>
@@ -689,7 +720,7 @@ crééra le contenu suivant avec
 l’instruction <em>“A photograph of an astronaut riding a horse”</em> :</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/A_photograph_of_an_astronaut_riding_a_horse_2022-08-28.png/250px-A_photograph_of_an_astronaut_riding_a_horse_2022-08-28.png" class="lightbox" title="“A photograph of an astronaut riding a horse”" data-gallery="quarto-lightbox-gallery-3"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/A_photograph_of_an_astronaut_riding_a_horse_2022-08-28.png/250px-A_photograph_of_an_astronaut_riding_a_horse_2022-08-28.png" class="img-fluid figure-img"></a></p>
+<p><a href="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/A_photograph_of_an_astronaut_riding_a_horse_2022-08-28.png/250px-A_photograph_of_an_astronaut_riding_a_horse_2022-08-28.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="“A photograph of an astronaut riding a horse”"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/A_photograph_of_an_astronaut_riding_a_horse_2022-08-28.png/250px-A_photograph_of_an_astronaut_riding_a_horse_2022-08-28.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">“A photograph of an astronaut riding a horse”</figcaption>
 </figure>
 </div>
@@ -712,9 +743,9 @@ publique:</p>
 <blockquote class="twitter-tweet blockquote"><p lang="zxx" dir="ltr"><a href="https://t.co/Ju0Pdcokth">pic.twitter.com/Ju0Pdcokth</a></p>— Weird Ai Generations (@weirddalle) <a href="https://twitter.com/weirddalle/status/1556573904600268801?ref_src=twsrc%5Etfw">August 8, 2022</a></blockquote> <script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 </div>
 <p>Les modèles <code>Dall-E-2</code> et <code>Stable Diffusion</code>
-s’appuient sur des réseaux de neurone à différents niveaux :</p>
+s’appuient sur des réseaux de neurones à différents niveaux :</p>
 <ul>
-<li>le contenu de la phrase est analysé par un réseau de neurone similaire (mais bien sûr plus évolué) que
+<li>le contenu de la phrase est analysé par un réseau de neurones similaire (mais bien sûr plus évolué) que
 ceux que nous avons présenté dans la partie <a href="#nlp">NLP</a></li>
 <li>les éléments importants de la phrase (recontextualisés) sont ensuite transformés en image à partir de
 modèles entraînés à reconnaître des images</li>
@@ -798,7 +829,7 @@ par <code>Meta</code>, n’est pas implementé directement en <code>Python</code
 pour des raisons de performance mais en <code>C++</code> - <code>Python</code> étant un
 langage lent, le revers de la médaille de sa facilité
 d’usage. A travers <code>Python</code>, on va utiliser une API haut niveau
-qui va contrôler la structure des réseaux de neurone ou
+qui va contrôler la structure des réseaux de neurones ou
 créer une interface entre des
 données (sous forme d’array <code>Numpy</code>) et le modèle.
 Pour ce type de <em>packages</em> qui utilisent un langage compilé,
@@ -1299,7 +1330,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","descPosition":"bottom","loop":true,"openEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","closeEffect":"zoom","loop":true,"descPosition":"bottom"});</script>
 
 
 

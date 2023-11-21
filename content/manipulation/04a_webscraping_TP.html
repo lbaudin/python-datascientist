@@ -303,6 +303,37 @@ principaux défis du web scraping.">
     </ul>
   </li>
   <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-nlp" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">NLP</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-nlp">    
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/01_intro.html" rel="" target="">
+ <span class="dropdown-text">Quelques éléments pour comprendre les enjeux du NLP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/02_exoclean.html" rel="" target="">
+ <span class="dropdown-text">Nettoyer un texte: des exercices pour découvrir l’approche bag-of-words</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/03_lda.html" rel="" target="">
+ <span class="dropdown-text">Latent Dirichlet Allocation (LDA)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/04_word2vec.html" rel="" target="">
+ <span class="dropdown-text">Méthodes de vectorisation : comptages et word embeddings</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/05_exo_supp.html" rel="" target="">
+ <span class="dropdown-text">Exercices supplémentaires</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-approfondissements" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Approfondissements</span>
     </a>
@@ -2456,7 +2487,7 @@ va utiliser <code>folium</code> pour celle-ci, qui est présenté dans la partie
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_6360c38efc1849a105eff54a9dbdf3ff {
+                #map_da0c0adf93fbc2084fc879b526012879 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -2470,14 +2501,14 @@ va utiliser <code>folium</code> pour celle-ci, qui est présenté dans la partie
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_6360c38efc1849a105eff54a9dbdf3ff&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_da0c0adf93fbc2084fc879b526012879&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_6360c38efc1849a105eff54a9dbdf3ff = L.map(
-                &quot;map_6360c38efc1849a105eff54a9dbdf3ff&quot;,
+            var map_da0c0adf93fbc2084fc879b526012879 = L.map(
+                &quot;map_da0c0adf93fbc2084fc879b526012879&quot;,
                 {
                     center: [47.123381944444446, 2.7329999999999997],
                     crs: L.CRS.EPSG3857,
@@ -2491,853 +2522,853 @@ va utiliser <code>folium</code> pour celle-ci, qui est présenté dans la partie
 
         
     
-            var tile_layer_c9b8bb332c87f6f984e98c7ebf325305 = L.tileLayer(
+            var tile_layer_439a800016e8ee5de0e514e2f09099c0 = L.tileLayer(
                 &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-            var marker_7276d2d5e3be7478acff8f97941776bb = L.marker(
+            var marker_9bbd77dbe8dac7a68b53e5e741a862c9 = L.marker(
                 [48.84138888888889, 2.2530555555555556],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_478066c7bdc4c7353591f3c5ec61a8b4 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_86cba4f64e2adbbf5b2ddda6ca593346 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_894db56057314d19f8147b1cd41d7f7f = $(`<div id=&quot;html_894db56057314d19f8147b1cd41d7f7f&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Parc des Princes</div>`)[0];
-                popup_478066c7bdc4c7353591f3c5ec61a8b4.setContent(html_894db56057314d19f8147b1cd41d7f7f);
+                var html_b7051b3e4dd0b444a46ff314663422b4 = $(`<div id=&quot;html_b7051b3e4dd0b444a46ff314663422b4&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Parc des Princes</div>`)[0];
+                popup_86cba4f64e2adbbf5b2ddda6ca593346.setContent(html_b7051b3e4dd0b444a46ff314663422b4);
             
         
 
-        marker_7276d2d5e3be7478acff8f97941776bb.bindPopup(popup_478066c7bdc4c7353591f3c5ec61a8b4)
+        marker_9bbd77dbe8dac7a68b53e5e741a862c9.bindPopup(popup_86cba4f64e2adbbf5b2ddda6ca593346)
         ;
 
         
     
     
-            var marker_0829ae36cbdc2c0d3d8e40964c903907 = L.marker(
+            var marker_dd45535698d00e4cbab92646183790a6 = L.marker(
                 [50.61194444444445, 3.1305555555555555],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_e922ee22774dadab0585f0aee16bd2c2 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_16f178f1323f13df2621bb39b09e1b41 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_dd650adf8184f43a711a064a863b477e = $(`<div id=&quot;html_dd650adf8184f43a711a064a863b477e&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Pierre-Mauroy</div>`)[0];
-                popup_e922ee22774dadab0585f0aee16bd2c2.setContent(html_dd650adf8184f43a711a064a863b477e);
+                var html_6640033222d8f062cc67cf5df8c6e59c = $(`<div id=&quot;html_6640033222d8f062cc67cf5df8c6e59c&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Pierre-Mauroy</div>`)[0];
+                popup_16f178f1323f13df2621bb39b09e1b41.setContent(html_6640033222d8f062cc67cf5df8c6e59c);
             
         
 
-        marker_0829ae36cbdc2c0d3d8e40964c903907.bindPopup(popup_e922ee22774dadab0585f0aee16bd2c2)
+        marker_dd45535698d00e4cbab92646183790a6.bindPopup(popup_16f178f1323f13df2621bb39b09e1b41)
         ;
 
         
     
     
-            var marker_6cbaec6a6f8f618fe2edb43de2f7a5cd = L.marker(
+            var marker_2c4f45f33f0883607e1a4a8fec258c52 = L.marker(
                 [45.765277777777776, 4.981944444444444],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_b01cd9c643e740deae0dcfb270d6e80e = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_df04eb210856c61c4b24fcaebf14e065 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_c0d108acc4da93545c990902f6a9316d = $(`<div id=&quot;html_c0d108acc4da93545c990902f6a9316d&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Parc Olympique lyonnais</div>`)[0];
-                popup_b01cd9c643e740deae0dcfb270d6e80e.setContent(html_c0d108acc4da93545c990902f6a9316d);
+                var html_1bd97790344954f919d98b1ee0cf7955 = $(`<div id=&quot;html_1bd97790344954f919d98b1ee0cf7955&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Parc Olympique lyonnais</div>`)[0];
+                popup_df04eb210856c61c4b24fcaebf14e065.setContent(html_1bd97790344954f919d98b1ee0cf7955);
             
         
 
-        marker_6cbaec6a6f8f618fe2edb43de2f7a5cd.bindPopup(popup_b01cd9c643e740deae0dcfb270d6e80e)
+        marker_2c4f45f33f0883607e1a4a8fec258c52.bindPopup(popup_df04eb210856c61c4b24fcaebf14e065)
         ;
 
         
     
     
-            var marker_35a912b5e1cebf9d42b0e82b7c57c36e = L.marker(
+            var marker_e0cb7e38683689fcb606bab6f4cddac1 = L.marker(
                 [45.46083333333333, 4.390277777777778],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_35dea6942ab78ceea58b5ab0a7609b8f = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_d30eaf0d11928863b0eadf2277c418f9 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_23603b9f1f8d5333bf7742655a479208 = $(`<div id=&quot;html_23603b9f1f8d5333bf7742655a479208&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Geoffroy-Guichard</div>`)[0];
-                popup_35dea6942ab78ceea58b5ab0a7609b8f.setContent(html_23603b9f1f8d5333bf7742655a479208);
+                var html_c677fe0c48742a5e755c61214ba3926d = $(`<div id=&quot;html_c677fe0c48742a5e755c61214ba3926d&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Geoffroy-Guichard</div>`)[0];
+                popup_d30eaf0d11928863b0eadf2277c418f9.setContent(html_c677fe0c48742a5e755c61214ba3926d);
             
         
 
-        marker_35a912b5e1cebf9d42b0e82b7c57c36e.bindPopup(popup_35dea6942ab78ceea58b5ab0a7609b8f)
+        marker_e0cb7e38683689fcb606bab6f4cddac1.bindPopup(popup_d30eaf0d11928863b0eadf2277c418f9)
         ;
 
         
     
     
-            var marker_0899828f15ba28dc3e1fc10ba35fa164 = L.marker(
+            var marker_ef6c33fb2689bb2c6db3f32d366d5f7f = L.marker(
                 [43.26972222222222, 5.395833333333334],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_c18df653552f5f11173e89e85b217e1b = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_a184019acdadc6506611c0830e290bc7 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_bcfa517e9cf57974874c696a90e2c1f0 = $(`<div id=&quot;html_bcfa517e9cf57974874c696a90e2c1f0&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Vélodrome</div>`)[0];
-                popup_c18df653552f5f11173e89e85b217e1b.setContent(html_bcfa517e9cf57974874c696a90e2c1f0);
+                var html_03dee8318b5a896a2357cb8f883feb5d = $(`<div id=&quot;html_03dee8318b5a896a2357cb8f883feb5d&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Vélodrome</div>`)[0];
+                popup_a184019acdadc6506611c0830e290bc7.setContent(html_03dee8318b5a896a2357cb8f883feb5d);
             
         
 
-        marker_0899828f15ba28dc3e1fc10ba35fa164.bindPopup(popup_c18df653552f5f11173e89e85b217e1b)
+        marker_ef6c33fb2689bb2c6db3f32d366d5f7f.bindPopup(popup_a184019acdadc6506611c0830e290bc7)
         ;
 
         
     
     
-            var marker_03a0f5f834abb8027b3dc3e1900bd2b6 = L.marker(
+            var marker_a4d27fdde8e791fd9c7f6faf0a88341c = L.marker(
                 [43.621944444444445, 3.812222222222222],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_6dfce0a5fa3a3c46f832c42cd5b84034 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_e3bb615cd3ddedfe4019884f896e7c3e = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_e2d11ac84b24c14a391d422a104a8f93 = $(`<div id=&quot;html_e2d11ac84b24c14a391d422a104a8f93&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de la Mosson</div>`)[0];
-                popup_6dfce0a5fa3a3c46f832c42cd5b84034.setContent(html_e2d11ac84b24c14a391d422a104a8f93);
+                var html_55612a0aa49766dfe8877b8c68c4657e = $(`<div id=&quot;html_55612a0aa49766dfe8877b8c68c4657e&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de la Mosson</div>`)[0];
+                popup_e3bb615cd3ddedfe4019884f896e7c3e.setContent(html_55612a0aa49766dfe8877b8c68c4657e);
             
         
 
-        marker_03a0f5f834abb8027b3dc3e1900bd2b6.bindPopup(popup_6dfce0a5fa3a3c46f832c42cd5b84034)
+        marker_a4d27fdde8e791fd9c7f6faf0a88341c.bindPopup(popup_e3bb615cd3ddedfe4019884f896e7c3e)
         ;
 
         
     
     
-            var marker_61fc39e32e27463d1e8b4dc37ccec8f4 = L.marker(
+            var marker_46f1d2c590972f8a8d8b16c6d930ab75 = L.marker(
                 [49.24666666666667, 4.025],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_c67df809e9ccbb98cd65b00003c15034 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_24cb47b98bfe9d335172469d4e60ef7b = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_61be66b7f84f631072e395a0674472d1 = $(`<div id=&quot;html_61be66b7f84f631072e395a0674472d1&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Auguste-Delaune</div>`)[0];
-                popup_c67df809e9ccbb98cd65b00003c15034.setContent(html_61be66b7f84f631072e395a0674472d1);
+                var html_29557b8a38ade6b4f6d599d01595f02b = $(`<div id=&quot;html_29557b8a38ade6b4f6d599d01595f02b&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Auguste-Delaune</div>`)[0];
+                popup_24cb47b98bfe9d335172469d4e60ef7b.setContent(html_29557b8a38ade6b4f6d599d01595f02b);
             
         
 
-        marker_61fc39e32e27463d1e8b4dc37ccec8f4.bindPopup(popup_c67df809e9ccbb98cd65b00003c15034)
+        marker_46f1d2c590972f8a8d8b16c6d930ab75.bindPopup(popup_24cb47b98bfe9d335172469d4e60ef7b)
         ;
 
         
     
     
-            var marker_5a604001e26178c789540efdcfdfd4e1 = L.marker(
+            var marker_9c801f29c0d64e38c772c6352bd0f088 = L.marker(
                 [43.705000000000005, 7.1925],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_875df69cd06a1dbb7e57240658ecbe0d = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_65252e763d9ec055d0ec6245b3b623eb = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_fcfc608630d5c0c488a69e47706bb789 = $(`<div id=&quot;html_fcfc608630d5c0c488a69e47706bb789&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Allianz Riviera</div>`)[0];
-                popup_875df69cd06a1dbb7e57240658ecbe0d.setContent(html_fcfc608630d5c0c488a69e47706bb789);
+                var html_fe280b77c6c0825c92901222cb106d83 = $(`<div id=&quot;html_fe280b77c6c0825c92901222cb106d83&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Allianz Riviera</div>`)[0];
+                popup_65252e763d9ec055d0ec6245b3b623eb.setContent(html_fe280b77c6c0825c92901222cb106d83);
             
         
 
-        marker_5a604001e26178c789540efdcfdfd4e1.bindPopup(popup_875df69cd06a1dbb7e57240658ecbe0d)
+        marker_9c801f29c0d64e38c772c6352bd0f088.bindPopup(popup_65252e763d9ec055d0ec6245b3b623eb)
         ;
 
         
     
     
-            var marker_5dae4897c8a1f87647cdb4b161d035e8 = L.marker(
+            var marker_537c47cbfc4d216bd92af55c8de30593 = L.marker(
                 [43.81083333333333, 4.356388888888889],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_b009ac71ac0f62bbab7c02a9b2a8fbde = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_3b2d1d6364ccf50e88507fae6fe30137 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_1c66356b44d63a69d76309a4db1cadc7 = $(`<div id=&quot;html_1c66356b44d63a69d76309a4db1cadc7&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade des Antonins</div>`)[0];
-                popup_b009ac71ac0f62bbab7c02a9b2a8fbde.setContent(html_1c66356b44d63a69d76309a4db1cadc7);
+                var html_40a45b2f2b049256d08fcbb97ab02a8d = $(`<div id=&quot;html_40a45b2f2b049256d08fcbb97ab02a8d&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade des Antonins</div>`)[0];
+                popup_3b2d1d6364ccf50e88507fae6fe30137.setContent(html_40a45b2f2b049256d08fcbb97ab02a8d);
             
         
 
-        marker_5dae4897c8a1f87647cdb4b161d035e8.bindPopup(popup_b009ac71ac0f62bbab7c02a9b2a8fbde)
+        marker_537c47cbfc4d216bd92af55c8de30593.bindPopup(popup_3b2d1d6364ccf50e88507fae6fe30137)
         ;
 
         
     
     
-            var marker_a5b62c6bbb2c5731531ef4d667fbff3e = L.marker(
+            var marker_89e2f6e1c23ee22f3849ebcf1340cb59 = L.marker(
                 [48.559999999999995, 7.755],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_263bf76dd4dfc61f7dc0a4ec99731f53 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_ed856c1ffa5ec74845cf3c593a067bfd = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_71dca6de3c1521d64c7d83f7f7b50e8c = $(`<div id=&quot;html_71dca6de3c1521d64c7d83f7f7b50e8c&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de la Meinau</div>`)[0];
-                popup_263bf76dd4dfc61f7dc0a4ec99731f53.setContent(html_71dca6de3c1521d64c7d83f7f7b50e8c);
+                var html_b800dbfa45f635bc47935d88e15fa0c8 = $(`<div id=&quot;html_b800dbfa45f635bc47935d88e15fa0c8&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de la Meinau</div>`)[0];
+                popup_ed856c1ffa5ec74845cf3c593a067bfd.setContent(html_b800dbfa45f635bc47935d88e15fa0c8);
             
         
 
-        marker_a5b62c6bbb2c5731531ef4d667fbff3e.bindPopup(popup_263bf76dd4dfc61f7dc0a4ec99731f53)
+        marker_89e2f6e1c23ee22f3849ebcf1340cb59.bindPopup(popup_ed856c1ffa5ec74845cf3c593a067bfd)
         ;
 
         
     
     
-            var marker_c1f45d5717454b9b01091b126dd22984 = L.marker(
+            var marker_5e5412db0cc8543728cef2a805439d30 = L.marker(
                 [48.1075, -1.7127777777777777],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_5b9e3b2495ac5b59e68d5efff232733e = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_d57188e2c9cf0f954038789d2ab53a28 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_4d57bc9c0606e7686b8ab65d1600d446 = $(`<div id=&quot;html_4d57bc9c0606e7686b8ab65d1600d446&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Roazhon Park</div>`)[0];
-                popup_5b9e3b2495ac5b59e68d5efff232733e.setContent(html_4d57bc9c0606e7686b8ab65d1600d446);
+                var html_5e30f41c81384add4a07351a72f0ed74 = $(`<div id=&quot;html_5e30f41c81384add4a07351a72f0ed74&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Roazhon Park</div>`)[0];
+                popup_d57188e2c9cf0f954038789d2ab53a28.setContent(html_5e30f41c81384add4a07351a72f0ed74);
             
         
 
-        marker_c1f45d5717454b9b01091b126dd22984.bindPopup(popup_5b9e3b2495ac5b59e68d5efff232733e)
+        marker_5e5412db0cc8543728cef2a805439d30.bindPopup(popup_d57188e2c9cf0f954038789d2ab53a28)
         ;
 
         
     
     
-            var marker_1779405dcf6265186a596c67ef6cff6f = L.marker(
+            var marker_c8e46a8abf6d6ee92bdbdd69989352ca = L.marker(
                 [47.46055555555556, -0.5308333333333334],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_03af9c2691b0ac1f6b49c86f5827ceec = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_83a72877bb244834861de7e7400c70e6 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_d13af50f3576bf2d8434f8c7b4e84a84 = $(`<div id=&quot;html_d13af50f3576bf2d8434f8c7b4e84a84&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Raymond-Kopa</div>`)[0];
-                popup_03af9c2691b0ac1f6b49c86f5827ceec.setContent(html_d13af50f3576bf2d8434f8c7b4e84a84);
+                var html_35aa285e7e361445412b6d68352241c5 = $(`<div id=&quot;html_35aa285e7e361445412b6d68352241c5&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Raymond-Kopa</div>`)[0];
+                popup_83a72877bb244834861de7e7400c70e6.setContent(html_35aa285e7e361445412b6d68352241c5);
             
         
 
-        marker_1779405dcf6265186a596c67ef6cff6f.bindPopup(popup_03af9c2691b0ac1f6b49c86f5827ceec)
+        marker_c8e46a8abf6d6ee92bdbdd69989352ca.bindPopup(popup_83a72877bb244834861de7e7400c70e6)
         ;
 
         
     
     
-            var marker_a0afbbc6ac648b3e8210ccb8ccc1e99a = L.marker(
+            var marker_ab3fc4f5180b957eefad0f0bc95536fa = L.marker(
                 [49.109722222222224, 6.159166666666667],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_c3e3c481c62588613bfeb726982ecd08 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_3329cb0d7dfc4475b69ad71aeabca7fc = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_3988af8bf123097f55d21397613c0284 = $(`<div id=&quot;html_3988af8bf123097f55d21397613c0284&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Saint-Symphorien</div>`)[0];
-                popup_c3e3c481c62588613bfeb726982ecd08.setContent(html_3988af8bf123097f55d21397613c0284);
+                var html_9fb60ecc6a2d5e55c46fb7c86682c663 = $(`<div id=&quot;html_9fb60ecc6a2d5e55c46fb7c86682c663&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Saint-Symphorien</div>`)[0];
+                popup_3329cb0d7dfc4475b69ad71aeabca7fc.setContent(html_9fb60ecc6a2d5e55c46fb7c86682c663);
             
         
 
-        marker_a0afbbc6ac648b3e8210ccb8ccc1e99a.bindPopup(popup_c3e3c481c62588613bfeb726982ecd08)
+        marker_ab3fc4f5180b957eefad0f0bc95536fa.bindPopup(popup_3329cb0d7dfc4475b69ad71aeabca7fc)
         ;
 
         
     
     
-            var marker_be7355cc8d5c17b9c900893e7404518e = L.marker(
+            var marker_7c54a1087c95ea5307b40767f80e074c = L.marker(
                 [47.25555555555555, -1.5252777777777777],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_f8ac7659e4864b2c6b44b937dca4a09e = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_316c412154453e6f9bc1646996e0d3db = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_abdf13a7a5cb2d016801f13866be8e02 = $(`<div id=&quot;html_abdf13a7a5cb2d016801f13866be8e02&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de la Beaujoire</div>`)[0];
-                popup_f8ac7659e4864b2c6b44b937dca4a09e.setContent(html_abdf13a7a5cb2d016801f13866be8e02);
+                var html_ff1eab5d1696621cc5e12f5ace9ba597 = $(`<div id=&quot;html_ff1eab5d1696621cc5e12f5ace9ba597&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de la Beaujoire</div>`)[0];
+                popup_316c412154453e6f9bc1646996e0d3db.setContent(html_ff1eab5d1696621cc5e12f5ace9ba597);
             
         
 
-        marker_be7355cc8d5c17b9c900893e7404518e.bindPopup(popup_f8ac7659e4864b2c6b44b937dca4a09e)
+        marker_7c54a1087c95ea5307b40767f80e074c.bindPopup(popup_316c412154453e6f9bc1646996e0d3db)
         ;
 
         
     
     
-            var marker_755f96b83ee56d3ab582fc1b69efbe01 = L.marker(
+            var marker_84004c3f3a9222073d818ffff33e04bf = L.marker(
                 [48.403055555555554, -4.461666666666667],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_bb9628ffbba13304125bdb0bd7fb7808 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_10e8f66e6cc55ca2e525a14fa94917a3 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_94bbb88b1ea80bb4160f7f48991b32b7 = $(`<div id=&quot;html_94bbb88b1ea80bb4160f7f48991b32b7&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Francis-Le Blé</div>`)[0];
-                popup_bb9628ffbba13304125bdb0bd7fb7808.setContent(html_94bbb88b1ea80bb4160f7f48991b32b7);
+                var html_accc35e7f6724cf94c35d0b1bf3590be = $(`<div id=&quot;html_accc35e7f6724cf94c35d0b1bf3590be&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Francis-Le Blé</div>`)[0];
+                popup_10e8f66e6cc55ca2e525a14fa94917a3.setContent(html_accc35e7f6724cf94c35d0b1bf3590be);
             
         
 
-        marker_755f96b83ee56d3ab582fc1b69efbe01.bindPopup(popup_bb9628ffbba13304125bdb0bd7fb7808)
+        marker_84004c3f3a9222073d818ffff33e04bf.bindPopup(popup_10e8f66e6cc55ca2e525a14fa94917a3)
         ;
 
         
     
     
-            var marker_68151dfac013e5ce0f55c176ec544f0b = L.marker(
+            var marker_55633b64057a9ffe33868ad2b155bf61 = L.marker(
                 [44.89722222222222, -0.5613888888888889],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_adf7e54405db4c1fbba4b119a92e1adb = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_865459ff47bb368c431e36e45e7e6c03 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_1a41641b9930675bd34ac9fef5f94cbf = $(`<div id=&quot;html_1a41641b9930675bd34ac9fef5f94cbf&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Matmut Atlantique</div>`)[0];
-                popup_adf7e54405db4c1fbba4b119a92e1adb.setContent(html_1a41641b9930675bd34ac9fef5f94cbf);
+                var html_99b127417e64ca30e3dbaa55dec1f3bc = $(`<div id=&quot;html_99b127417e64ca30e3dbaa55dec1f3bc&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Matmut Atlantique</div>`)[0];
+                popup_865459ff47bb368c431e36e45e7e6c03.setContent(html_99b127417e64ca30e3dbaa55dec1f3bc);
             
         
 
-        marker_68151dfac013e5ce0f55c176ec544f0b.bindPopup(popup_adf7e54405db4c1fbba4b119a92e1adb)
+        marker_55633b64057a9ffe33868ad2b155bf61.bindPopup(popup_865459ff47bb368c431e36e45e7e6c03)
         ;
 
         
     
     
-            var marker_5e5fac26801b7efe5452124aeac722c1 = L.marker(
+            var marker_37aba6add87c630fcc9760623eb5438d = L.marker(
                 [43.583333333333336, 1.4341666666666666],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_1ab79677f1d4405034d0b7d6d3132fee = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_2f06617e4a1fd79875df3fd2e299c899 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_9f5e3640245d5c87c85d04d399e43675 = $(`<div id=&quot;html_9f5e3640245d5c87c85d04d399e43675&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stadium de Toulouse</div>`)[0];
-                popup_1ab79677f1d4405034d0b7d6d3132fee.setContent(html_9f5e3640245d5c87c85d04d399e43675);
+                var html_70417d3301be6f155c8ddcb2d1a2e524 = $(`<div id=&quot;html_70417d3301be6f155c8ddcb2d1a2e524&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stadium de Toulouse</div>`)[0];
+                popup_2f06617e4a1fd79875df3fd2e299c899.setContent(html_70417d3301be6f155c8ddcb2d1a2e524);
             
         
 
-        marker_5e5fac26801b7efe5452124aeac722c1.bindPopup(popup_1ab79677f1d4405034d0b7d6d3132fee)
+        marker_37aba6add87c630fcc9760623eb5438d.bindPopup(popup_2f06617e4a1fd79875df3fd2e299c899)
         ;
 
         
     
     
-            var marker_b174dcbe8062526c1065a8269c24f6be = L.marker(
+            var marker_728cbaa0138437b8296842b286103cc3 = L.marker(
                 [49.89388888888889, 2.263611111111111],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_7a90058c71988863e4a2154d284ee9fa = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_a09d315074833d754704f48b94169369 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_ec96e332a46ffdf1a1ffd4c358e01bf8 = $(`<div id=&quot;html_ec96e332a46ffdf1a1ffd4c358e01bf8&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de la Licorne</div>`)[0];
-                popup_7a90058c71988863e4a2154d284ee9fa.setContent(html_ec96e332a46ffdf1a1ffd4c358e01bf8);
+                var html_bdae4ab45defacfbc97fa267b5c53584 = $(`<div id=&quot;html_bdae4ab45defacfbc97fa267b5c53584&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de la Licorne</div>`)[0];
+                popup_a09d315074833d754704f48b94169369.setContent(html_bdae4ab45defacfbc97fa267b5c53584);
             
         
 
-        marker_b174dcbe8062526c1065a8269c24f6be.bindPopup(popup_7a90058c71988863e4a2154d284ee9fa)
+        marker_728cbaa0138437b8296842b286103cc3.bindPopup(popup_a09d315074833d754704f48b94169369)
         ;
 
         
     
     
-            var marker_8ecf0176cdd2173298b70b0f051b39ec = L.marker(
+            var marker_10439eb9adc38aa610fd02749001a391 = L.marker(
                 [43.7275, 7.415555555555556],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_171ca841549bf73c53d2be4f91befdc1 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_af7a8bb1991149bfc8e092f2abbd7b68 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_0638c4060844db729b365a81d66e955e = $(`<div id=&quot;html_0638c4060844db729b365a81d66e955e&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Louis-II</div>`)[0];
-                popup_171ca841549bf73c53d2be4f91befdc1.setContent(html_0638c4060844db729b365a81d66e955e);
+                var html_ba08c8655160df5573b314fc7b69e53b = $(`<div id=&quot;html_ba08c8655160df5573b314fc7b69e53b&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Louis-II</div>`)[0];
+                popup_af7a8bb1991149bfc8e092f2abbd7b68.setContent(html_ba08c8655160df5573b314fc7b69e53b);
             
         
 
-        marker_8ecf0176cdd2173298b70b0f051b39ec.bindPopup(popup_171ca841549bf73c53d2be4f91befdc1)
+        marker_10439eb9adc38aa610fd02749001a391.bindPopup(popup_af7a8bb1991149bfc8e092f2abbd7b68)
         ;
 
         
     
     
-            var marker_808d988f9f9c12bb162ede15ce4e87b3 = L.marker(
+            var marker_a1cb8ce439a35e2b31b8937d0ee71246 = L.marker(
                 [47.324444444444445, 5.068333333333333],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_b83ae9d640d2347e1d3945e3085b8dc9 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_3fda59f1a65209d4fd9e07524552c3ed = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_ffd1bb792de403f49ac0eda0eeff4c25 = $(`<div id=&quot;html_ffd1bb792de403f49ac0eda0eeff4c25&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Gaston-Gérard</div>`)[0];
-                popup_b83ae9d640d2347e1d3945e3085b8dc9.setContent(html_ffd1bb792de403f49ac0eda0eeff4c25);
+                var html_b687e1ee7fb51b77e45919aa8aa14c70 = $(`<div id=&quot;html_b687e1ee7fb51b77e45919aa8aa14c70&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Gaston-Gérard</div>`)[0];
+                popup_3fda59f1a65209d4fd9e07524552c3ed.setContent(html_b687e1ee7fb51b77e45919aa8aa14c70);
             
         
 
-        marker_808d988f9f9c12bb162ede15ce4e87b3.bindPopup(popup_b83ae9d640d2347e1d3945e3085b8dc9)
+        marker_a1cb8ce439a35e2b31b8937d0ee71246.bindPopup(popup_3fda59f1a65209d4fd9e07524552c3ed)
         ;
 
         
     
     
-            var marker_ac492e394c1e90e8b998f3744e070b0a = L.marker(
+            var marker_8078b46878d485da6bf9b3d2504cec05 = L.marker(
                 [41.931666666666665, 8.77888888888889],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_bf6a4459ef6befa3e6b4a88195bbb6ea = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_bb3160cda7d83a3fa49e692f8b6b0bac = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_acc81f5b930a020d87b275fb22a4a74c = $(`<div id=&quot;html_acc81f5b930a020d87b275fb22a4a74c&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade François-Coty</div>`)[0];
-                popup_bf6a4459ef6befa3e6b4a88195bbb6ea.setContent(html_acc81f5b930a020d87b275fb22a4a74c);
+                var html_a05cf2be8df61af488e6d8b7821f244e = $(`<div id=&quot;html_a05cf2be8df61af488e6d8b7821f244e&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade François-Coty</div>`)[0];
+                popup_bb3160cda7d83a3fa49e692f8b6b0bac.setContent(html_a05cf2be8df61af488e6d8b7821f244e);
             
         
 
-        marker_ac492e394c1e90e8b998f3744e070b0a.bindPopup(popup_bf6a4459ef6befa3e6b4a88195bbb6ea)
+        marker_8078b46878d485da6bf9b3d2504cec05.bindPopup(popup_bb3160cda7d83a3fa49e692f8b6b0bac)
         ;
 
         
     
     
-            var marker_905d5a248f61770a4ac8f39406c690ce = L.marker(
+            var marker_1394482d247bc424e58e5f9806dd4a89 = L.marker(
                 [48.695277777777775, 6.210555555555556],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_0c3cfe84a37d091dea54974c2913b5db = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_6996b64a25a16c3bc6dff5e277cdb17b = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_bdd56985af4ad44b9d20c043b6a896e1 = $(`<div id=&quot;html_bdd56985af4ad44b9d20c043b6a896e1&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Marcel-Picot</div>`)[0];
-                popup_0c3cfe84a37d091dea54974c2913b5db.setContent(html_bdd56985af4ad44b9d20c043b6a896e1);
+                var html_dd4f5099675fbe0bee384ec48b933787 = $(`<div id=&quot;html_dd4f5099675fbe0bee384ec48b933787&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Marcel-Picot</div>`)[0];
+                popup_6996b64a25a16c3bc6dff5e277cdb17b.setContent(html_dd4f5099675fbe0bee384ec48b933787);
             
         
 
-        marker_905d5a248f61770a4ac8f39406c690ce.bindPopup(popup_0c3cfe84a37d091dea54974c2913b5db)
+        marker_1394482d247bc424e58e5f9806dd4a89.bindPopup(popup_6996b64a25a16c3bc6dff5e277cdb17b)
         ;
 
         
     
     
-            var marker_96654e5269d1a17dcb2c8e033f46841e = L.marker(
+            var marker_f5b3c80d95253361c4174993eb5d1c61 = L.marker(
                 [49.49888888888889, 0.16972222222222222],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_e2ae6b407a5fbfa79bd0b9991000e246 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_7c11b638c16d33859b1c2ff1f4c9a075 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_03fc9b72776f8790f712fb9b3ccb03d9 = $(`<div id=&quot;html_03fc9b72776f8790f712fb9b3ccb03d9&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Océane</div>`)[0];
-                popup_e2ae6b407a5fbfa79bd0b9991000e246.setContent(html_03fc9b72776f8790f712fb9b3ccb03d9);
+                var html_15045af02889a3707b1a49022bc61db7 = $(`<div id=&quot;html_15045af02889a3707b1a49022bc61db7&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Océane</div>`)[0];
+                popup_7c11b638c16d33859b1c2ff1f4c9a075.setContent(html_15045af02889a3707b1a49022bc61db7);
             
         
 
-        marker_96654e5269d1a17dcb2c8e033f46841e.bindPopup(popup_e2ae6b407a5fbfa79bd0b9991000e246)
+        marker_f5b3c80d95253361c4174993eb5d1c61.bindPopup(popup_7c11b638c16d33859b1c2ff1f4c9a075)
         ;
 
         
     
     
-            var marker_bd972fa915c93bfcc37a06098399793f = L.marker(
+            var marker_93d505c87ffaf6d622d30f83904d7e5b = L.marker(
                 [49.17944444444444, -0.39666666666666667],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_8ec22593dc673ed17bc2a6107857df5b = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_be483131721c808a9630884ad0f67ca5 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_4a1139db9adc5ba7f2e127f11da2356d = $(`<div id=&quot;html_4a1139db9adc5ba7f2e127f11da2356d&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Michel-d'Ornano</div>`)[0];
-                popup_8ec22593dc673ed17bc2a6107857df5b.setContent(html_4a1139db9adc5ba7f2e127f11da2356d);
+                var html_a69403339d3dfbb362b94edf5d8f7550 = $(`<div id=&quot;html_a69403339d3dfbb362b94edf5d8f7550&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Michel-d'Ornano</div>`)[0];
+                popup_be483131721c808a9630884ad0f67ca5.setContent(html_a69403339d3dfbb362b94edf5d8f7550);
             
         
 
-        marker_bd972fa915c93bfcc37a06098399793f.bindPopup(popup_8ec22593dc673ed17bc2a6107857df5b)
+        marker_93d505c87ffaf6d622d30f83904d7e5b.bindPopup(popup_be483131721c808a9630884ad0f67ca5)
         ;
 
         
     
     
-            var marker_825095f9fa26a9a34817196d5673f823 = L.marker(
+            var marker_c6f44d1d919ea44348f8a211fef5e7a7 = L.marker(
                 [45.81583333333333, 3.1216666666666666],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_4471d94f5c011df37303eae6f7a2f775 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_4de7627627fbab1f69d9afff157a7e73 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_6596c8cf6d943c62db428a694d8e2fff = $(`<div id=&quot;html_6596c8cf6d943c62db428a694d8e2fff&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Gabriel-Montpied</div>`)[0];
-                popup_4471d94f5c011df37303eae6f7a2f775.setContent(html_6596c8cf6d943c62db428a694d8e2fff);
+                var html_70b362dd55d49ac204c7b717358e7971 = $(`<div id=&quot;html_70b362dd55d49ac204c7b717358e7971&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Gabriel-Montpied</div>`)[0];
+                popup_4de7627627fbab1f69d9afff157a7e73.setContent(html_70b362dd55d49ac204c7b717358e7971);
             
         
 
-        marker_825095f9fa26a9a34817196d5673f823.bindPopup(popup_4471d94f5c011df37303eae6f7a2f775)
+        marker_c6f44d1d919ea44348f8a211fef5e7a7.bindPopup(popup_4de7627627fbab1f69d9afff157a7e73)
         ;
 
         
     
     
-            var marker_fda18e3b1d0dc059819b3a1b1cd05fca = L.marker(
+            var marker_821fef9980d756c976c62bdcc650c076 = L.marker(
                 [48.566111111111105, -3.1644444444444444],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_0047c4163689cab2e9d6ef3368b8ca34 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_bd0f522c893781732820e4f6973f2fb5 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_2028f3f484059778f0c04e7ed5b01625 = $(`<div id=&quot;html_2028f3f484059778f0c04e7ed5b01625&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de Roudourou</div>`)[0];
-                popup_0047c4163689cab2e9d6ef3368b8ca34.setContent(html_2028f3f484059778f0c04e7ed5b01625);
+                var html_3127fe6432dca972a6e7d0c279e33c54 = $(`<div id=&quot;html_3127fe6432dca972a6e7d0c279e33c54&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de Roudourou</div>`)[0];
+                popup_bd0f522c893781732820e4f6973f2fb5.setContent(html_3127fe6432dca972a6e7d0c279e33c54);
             
         
 
-        marker_fda18e3b1d0dc059819b3a1b1cd05fca.bindPopup(popup_0047c4163689cab2e9d6ef3368b8ca34)
+        marker_821fef9980d756c976c62bdcc650c076.bindPopup(popup_bd0f522c893781732820e4f6973f2fb5)
         ;
 
         
     
     
-            var marker_70d704e5350e16efaaddf971ed916876 = L.marker(
+            var marker_6763dec84ccee05441616b91f4b09eff = L.marker(
                 [47.74888888888889, -3.3691666666666666],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_645cfae4f06295cb8ec25c2cef698e62 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_d338b429e77445cdaffaa3fb8e453701 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_de8434042ced3a4ab204198c36308761 = $(`<div id=&quot;html_de8434042ced3a4ab204198c36308761&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade du Moustoir</div>`)[0];
-                popup_645cfae4f06295cb8ec25c2cef698e62.setContent(html_de8434042ced3a4ab204198c36308761);
+                var html_6811c44bfefda00ea4a32b32314758ee = $(`<div id=&quot;html_6811c44bfefda00ea4a32b32314758ee&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade du Moustoir</div>`)[0];
+                popup_d338b429e77445cdaffaa3fb8e453701.setContent(html_6811c44bfefda00ea4a32b32314758ee);
             
         
 
-        marker_70d704e5350e16efaaddf971ed916876.bindPopup(popup_645cfae4f06295cb8ec25c2cef698e62)
+        marker_6763dec84ccee05441616b91f4b09eff.bindPopup(popup_d338b429e77445cdaffaa3fb8e453701)
         ;
 
         
     
     
-            var marker_d6cb922bb1b81d65e2130d3f61373863 = L.marker(
+            var marker_b21c1d5a0bd6958b7492beb8d7f4632e = L.marker(
                 [48.81861111111112, 2.346388888888889],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_7ade529e7713b18e1b7b28b3f84923fa = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_627d57c48755318d818120da95f0319b = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_c5ee143252d28ba9018ff945af6dca4d = $(`<div id=&quot;html_c5ee143252d28ba9018ff945af6dca4d&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Charléty</div>`)[0];
-                popup_7ade529e7713b18e1b7b28b3f84923fa.setContent(html_c5ee143252d28ba9018ff945af6dca4d);
+                var html_fbc9129b8bb3c1df2248588eed100dd4 = $(`<div id=&quot;html_fbc9129b8bb3c1df2248588eed100dd4&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Charléty</div>`)[0];
+                popup_627d57c48755318d818120da95f0319b.setContent(html_fbc9129b8bb3c1df2248588eed100dd4);
             
         
 
-        marker_d6cb922bb1b81d65e2130d3f61373863.bindPopup(popup_7ade529e7713b18e1b7b28b3f84923fa)
+        marker_b21c1d5a0bd6958b7492beb8d7f4632e.bindPopup(popup_627d57c48755318d818120da95f0319b)
         ;
 
         
     
     
-            var marker_673bbe03a0e0ac0d1e262cde68ac6217 = L.marker(
+            var marker_49dd704a5b2abbde57ed7fb644bdc4a6 = L.marker(
                 [46.801944444444445, 1.7216666666666667],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_933c178c24d40a28694f9466128573a6 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_d100e1f5f9334fbf9b88990a62fe703f = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_bd0fbf0b5cfff7361b8344a50c589307 = $(`<div id=&quot;html_bd0fbf0b5cfff7361b8344a50c589307&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Gaston-Petit</div>`)[0];
-                popup_933c178c24d40a28694f9466128573a6.setContent(html_bd0fbf0b5cfff7361b8344a50c589307);
+                var html_5fb9d3ddc49e53591e9d805b1747f3ad = $(`<div id=&quot;html_5fb9d3ddc49e53591e9d805b1747f3ad&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Gaston-Petit</div>`)[0];
+                popup_d100e1f5f9334fbf9b88990a62fe703f.setContent(html_5fb9d3ddc49e53591e9d805b1747f3ad);
             
         
 
-        marker_673bbe03a0e0ac0d1e262cde68ac6217.bindPopup(popup_933c178c24d40a28694f9466128573a6)
+        marker_49dd704a5b2abbde57ed7fb644bdc4a6.bindPopup(popup_d100e1f5f9334fbf9b88990a62fe703f)
         ;
 
         
     
     
-            var marker_6ec5bfc2509b0dbf6e6668994230cec4 = L.marker(
+            var marker_1b93c40cb557556a5904689d17f8e75e = L.marker(
                 [47.78666666666666, 3.588611111111111],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_678645201e4765095a2e6db208be54e0 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_f58aa8ff4740692d5fbb03faa3ee96de = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_d751ea0bc519b15fda07718dd9566cec = $(`<div id=&quot;html_d751ea0bc519b15fda07718dd9566cec&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de l'Abbé-Deschamps</div>`)[0];
-                popup_678645201e4765095a2e6db208be54e0.setContent(html_d751ea0bc519b15fda07718dd9566cec);
+                var html_6dcf7e9dbf3b3a2645721f96aa1c279b = $(`<div id=&quot;html_6dcf7e9dbf3b3a2645721f96aa1c279b&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de l'Abbé-Deschamps</div>`)[0];
+                popup_f58aa8ff4740692d5fbb03faa3ee96de.setContent(html_6dcf7e9dbf3b3a2645721f96aa1c279b);
             
         
 
-        marker_6ec5bfc2509b0dbf6e6668994230cec4.bindPopup(popup_678645201e4765095a2e6db208be54e0)
+        marker_1b93c40cb557556a5904689d17f8e75e.bindPopup(popup_f58aa8ff4740692d5fbb03faa3ee96de)
         ;
 
         
     
     
-            var marker_b04dc34756321ff770a46b95ac57190c = L.marker(
+            var marker_44d7242cad823ea3718b8e10bd86b41c = L.marker(
                 [47.84027777777778, 1.9411111111111112],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_e6c2fa7c729c945011cd93826e032a76 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_b238edaf2f2ce6ecfac2f2dcf62d014a = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_334047b277c0b4f506e13a10d66698e1 = $(`<div id=&quot;html_334047b277c0b4f506e13a10d66698e1&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de la Source</div>`)[0];
-                popup_e6c2fa7c729c945011cd93826e032a76.setContent(html_334047b277c0b4f506e13a10d66698e1);
+                var html_5f47024582edf642cc9af8ffc074028d = $(`<div id=&quot;html_5f47024582edf642cc9af8ffc074028d&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de la Source</div>`)[0];
+                popup_b238edaf2f2ce6ecfac2f2dcf62d014a.setContent(html_5f47024582edf642cc9af8ffc074028d);
             
         
 
-        marker_b04dc34756321ff770a46b95ac57190c.bindPopup(popup_e6c2fa7c729c945011cd93826e032a76)
+        marker_44d7242cad823ea3718b8e10bd86b41c.bindPopup(popup_b238edaf2f2ce6ecfac2f2dcf62d014a)
         ;
 
         
     
     
-            var marker_6d6179587a53fe8f45f9df1463f1a9e4 = L.marker(
+            var marker_c2f7c32996c329e9e3cc5493dfb25022 = L.marker(
                 [50.34861111111111, 3.5322222222222224],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_60b08766c0156b8708921819272435e9 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_85b59a377134c0d2e2952522b763e778 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_21710d42b254dac4bfd174bf8036af15 = $(`<div id=&quot;html_21710d42b254dac4bfd174bf8036af15&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade du Hainaut</div>`)[0];
-                popup_60b08766c0156b8708921819272435e9.setContent(html_21710d42b254dac4bfd174bf8036af15);
+                var html_487d9124968578a93c62f5a1d0077df1 = $(`<div id=&quot;html_487d9124968578a93c62f5a1d0077df1&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade du Hainaut</div>`)[0];
+                popup_85b59a377134c0d2e2952522b763e778.setContent(html_487d9124968578a93c62f5a1d0077df1);
             
         
 
-        marker_6d6179587a53fe8f45f9df1463f1a9e4.bindPopup(popup_60b08766c0156b8708921819272435e9)
+        marker_c2f7c32996c329e9e3cc5493dfb25022.bindPopup(popup_85b59a377134c0d2e2952522b763e778)
         ;
 
         
     
     
-            var marker_88d95da5fd960839d5a8d7dc46cb5d7a = L.marker(
+            var marker_285d4ae938ec08e22512862a3841a704 = L.marker(
                 [46.316944444444445, -0.4891666666666667],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_989f637b450045ede69e54d63717357b = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_c9490a9fabf794f09390e274d2986c82 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_0c56bbb2fc9a026f7a5f5569d7d5cbca = $(`<div id=&quot;html_0c56bbb2fc9a026f7a5f5569d7d5cbca&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade René-Gaillard</div>`)[0];
-                popup_989f637b450045ede69e54d63717357b.setContent(html_0c56bbb2fc9a026f7a5f5569d7d5cbca);
+                var html_a862a0bb45959e03efcc80988370da14 = $(`<div id=&quot;html_a862a0bb45959e03efcc80988370da14&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade René-Gaillard</div>`)[0];
+                popup_c9490a9fabf794f09390e274d2986c82.setContent(html_a862a0bb45959e03efcc80988370da14);
             
         
 
-        marker_88d95da5fd960839d5a8d7dc46cb5d7a.bindPopup(popup_989f637b450045ede69e54d63717357b)
+        marker_285d4ae938ec08e22512862a3841a704.bindPopup(popup_c9490a9fabf794f09390e274d2986c82)
         ;
 
         
     
     
-            var marker_14c3fd3ad7429a399b8c1501a2da9bb1 = L.marker(
+            var marker_db6b513a83b2fcb307f17c74f95b8364 = L.marker(
                 [45.1875, 5.74],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_861900b2e43bfca3b046f0617e3c5d17 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_efe4cfec545f48dd277fc9462be733d5 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_fae768de3842362ee960a2335e9a1ba4 = $(`<div id=&quot;html_fae768de3842362ee960a2335e9a1ba4&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade des Alpes</div>`)[0];
-                popup_861900b2e43bfca3b046f0617e3c5d17.setContent(html_fae768de3842362ee960a2335e9a1ba4);
+                var html_82312510985c645af05226cea6d0f447 = $(`<div id=&quot;html_82312510985c645af05226cea6d0f447&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade des Alpes</div>`)[0];
+                popup_efe4cfec545f48dd277fc9462be733d5.setContent(html_82312510985c645af05226cea6d0f447);
             
         
 
-        marker_14c3fd3ad7429a399b8c1501a2da9bb1.bindPopup(popup_861900b2e43bfca3b046f0617e3c5d17)
+        marker_db6b513a83b2fcb307f17c74f95b8364.bindPopup(popup_efe4cfec545f48dd277fc9462be733d5)
         ;
 
         
     
     
-            var marker_216832c060fa3e5d2ef594dc3d1aabf7 = L.marker(
+            var marker_010d8b78d824c4b470993a87ba5bc5e8 = L.marker(
                 [47.51222222222222, 6.811388888888889],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_961a8e6524cdba6b1810483c43cd8352 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_47045c1c7bf3159969fbd0128644d1c4 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_169857cea2173b1864e81ce6544b6e49 = $(`<div id=&quot;html_169857cea2173b1864e81ce6544b6e49&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Auguste-Bonal</div>`)[0];
-                popup_961a8e6524cdba6b1810483c43cd8352.setContent(html_169857cea2173b1864e81ce6544b6e49);
+                var html_5203d14f6b1ee72cd595d5447055d25e = $(`<div id=&quot;html_5203d14f6b1ee72cd595d5447055d25e&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Auguste-Bonal</div>`)[0];
+                popup_47045c1c7bf3159969fbd0128644d1c4.setContent(html_5203d14f6b1ee72cd595d5447055d25e);
             
         
 
-        marker_216832c060fa3e5d2ef594dc3d1aabf7.bindPopup(popup_961a8e6524cdba6b1810483c43cd8352)
+        marker_010d8b78d824c4b470993a87ba5bc5e8.bindPopup(popup_47045c1c7bf3159969fbd0128644d1c4)
         ;
 
         
     
     
-            var marker_a954c684e3a8087b5fc11fcd3a51db5f = L.marker(
+            var marker_b4049466abbd251d76a29e35fae1bd2e = L.marker(
                 [44.35166666666667, 2.563611111111111],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_83f9f167eeba001799e2c60f1466f77f = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_a131eadc6e6b1dc9b59afe0675b6edf8 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_f9e5eaf455c1fcf4464042ac0e93ddca = $(`<div id=&quot;html_f9e5eaf455c1fcf4464042ac0e93ddca&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Paul-Lignon</div>`)[0];
-                popup_83f9f167eeba001799e2c60f1466f77f.setContent(html_f9e5eaf455c1fcf4464042ac0e93ddca);
+                var html_6a517282bbba746c8fef65facc856fa1 = $(`<div id=&quot;html_6a517282bbba746c8fef65facc856fa1&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Paul-Lignon</div>`)[0];
+                popup_a131eadc6e6b1dc9b59afe0675b6edf8.setContent(html_6a517282bbba746c8fef65facc856fa1);
             
         
 
-        marker_a954c684e3a8087b5fc11fcd3a51db5f.bindPopup(popup_83f9f167eeba001799e2c60f1466f77f)
+        marker_b4049466abbd251d76a29e35fae1bd2e.bindPopup(popup_a131eadc6e6b1dc9b59afe0675b6edf8)
         ;
 
         
     
     
-            var marker_a3ef94fa0651c42f747aa7dcab5e4051 = L.marker(
+            var marker_08932dca7ae0c8529928625127f1f716 = L.marker(
                 [49.17916666666667, 2.233611111111111],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_28e8e3b99f9c424e7458c00fa003c1e0 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_0ce775b1bf457d02c0b522d77d41e4a0 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_de732e6998d4e423058e734a9a649561 = $(`<div id=&quot;html_de732e6998d4e423058e734a9a649561&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Walter Luzi</div>`)[0];
-                popup_28e8e3b99f9c424e7458c00fa003c1e0.setContent(html_de732e6998d4e423058e734a9a649561);
+                var html_77ea9eda1ae24ef5bf81816898916db4 = $(`<div id=&quot;html_77ea9eda1ae24ef5bf81816898916db4&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Walter Luzi</div>`)[0];
+                popup_0ce775b1bf457d02c0b522d77d41e4a0.setContent(html_77ea9eda1ae24ef5bf81816898916db4);
             
         
 
-        marker_a3ef94fa0651c42f747aa7dcab5e4051.bindPopup(popup_28e8e3b99f9c424e7458c00fa003c1e0)
+        marker_08932dca7ae0c8529928625127f1f716.bindPopup(popup_0ce775b1bf457d02c0b522d77d41e4a0)
         ;
 
         
     
     
-            var marker_715cc32970dd39d49006f46995b33d1f = L.marker(
+            var marker_3238b068af51f7434f6d9dd79060dc49 = L.marker(
                 [48.3075, 4.0986111111111105],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_14dd0a29065a1652b5cc472651a50547 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_110d9e51aa998f6140d5da38b11a7023 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_12a0bea5db0d3b656d8b4410e9d43e95 = $(`<div id=&quot;html_12a0bea5db0d3b656d8b4410e9d43e95&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de l'Aube</div>`)[0];
-                popup_14dd0a29065a1652b5cc472651a50547.setContent(html_12a0bea5db0d3b656d8b4410e9d43e95);
+                var html_ea119d9b43dabc60b5fc7a6fdcdad15b = $(`<div id=&quot;html_ea119d9b43dabc60b5fc7a6fdcdad15b&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade de l'Aube</div>`)[0];
+                popup_110d9e51aa998f6140d5da38b11a7023.setContent(html_ea119d9b43dabc60b5fc7a6fdcdad15b);
             
         
 
-        marker_715cc32970dd39d49006f46995b33d1f.bindPopup(popup_14dd0a29065a1652b5cc472651a50547)
+        marker_3238b068af51f7434f6d9dd79060dc49.bindPopup(popup_110d9e51aa998f6140d5da38b11a7023)
         ;
 
         
     
     
-            var marker_798ac068acbe94dae77c9d77afe19e95 = L.marker(
+            var marker_6479d91ba89cb77065cfc57b95b94642 = L.marker(
                 [50.43277777777777, 2.815],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_2659e74a6a8d6c8d6277f8f2166be3a3 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_4e7ffb8a333620c75e7c46d6149d6ad7 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_76c78055b23df197e209b495055e9fb3 = $(`<div id=&quot;html_76c78055b23df197e209b495055e9fb3&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Bollaert-Delelis</div>`)[0];
-                popup_2659e74a6a8d6c8d6277f8f2166be3a3.setContent(html_76c78055b23df197e209b495055e9fb3);
+                var html_68d60d3a9c0e6c715d1653272af3c406 = $(`<div id=&quot;html_68d60d3a9c0e6c715d1653272af3c406&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Bollaert-Delelis</div>`)[0];
+                popup_4e7ffb8a333620c75e7c46d6149d6ad7.setContent(html_68d60d3a9c0e6c715d1653272af3c406);
             
         
 
-        marker_798ac068acbe94dae77c9d77afe19e95.bindPopup(popup_2659e74a6a8d6c8d6277f8f2166be3a3)
+        marker_6479d91ba89cb77065cfc57b95b94642.bindPopup(popup_4e7ffb8a333620c75e7c46d6149d6ad7)
         ;
 
         
     
     
-            var marker_b52b2396006f7f48e0a5e70da6a2641d = L.marker(
+            var marker_78ee0c0453236814ce26130b4cdc6072 = L.marker(
                 [47.95888888888889, 0.22472222222222224],
                 {}
-            ).addTo(map_6360c38efc1849a105eff54a9dbdf3ff);
+            ).addTo(map_da0c0adf93fbc2084fc879b526012879);
         
     
-        var popup_df184d5389e2e35db463a35dfb9f3151 = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
+        var popup_f3fab4f795d7a1f294cf4a09913d0b2d = L.popup({&quot;maxWidth&quot;: &quot;100%&quot;});
 
         
             
-                var html_fa00be064d6ba676fccfb3447710a70d = $(`<div id=&quot;html_fa00be064d6ba676fccfb3447710a70d&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Marie-Marvingt</div>`)[0];
-                popup_df184d5389e2e35db463a35dfb9f3151.setContent(html_fa00be064d6ba676fccfb3447710a70d);
+                var html_bf9159db0933e8af794e4f8aff38e104 = $(`<div id=&quot;html_bf9159db0933e8af794e4f8aff38e104&quot; style=&quot;width: 100.0%; height: 100.0%;&quot;>Stade Marie-Marvingt</div>`)[0];
+                popup_f3fab4f795d7a1f294cf4a09913d0b2d.setContent(html_bf9159db0933e8af794e4f8aff38e104);
             
         
 
-        marker_b52b2396006f7f48e0a5e70da6a2641d.bindPopup(popup_df184d5389e2e35db463a35dfb9f3151)
+        marker_78ee0c0453236814ce26130b4cdc6072.bindPopup(popup_f3fab4f795d7a1f294cf4a09913d0b2d)
         ;
 
         
     
     
-            map_6360c38efc1849a105eff54a9dbdf3ff.fitBounds(
+            map_da0c0adf93fbc2084fc879b526012879.fitBounds(
                 [[41.931666666666665, -4.461666666666667], [50.61194444444445, 8.77888888888889]],
                 {}
             );
@@ -4119,7 +4150,7 @@ pouvez faire <code>click droit &gt; Copier &gt; XPath</code>.</p>
 <p>On a obtenu les résultats suivants :</p>
 <div class="cell" data-execution_count="52">
 <div class="cell-output cell-output-stdout">
-<pre><code>['https://www.newsweek.com/legal-analysts-react-after-judge-finds-trump-engaged-insurrection-1844983', 'https://news.yahoo.com/nikki-haley-anti-trump-candidate-170149518.html', 'https://www.msn.com/en-us/news/politics/takeaways-from-the-blockbuster-trump-insurrectionist-ban-ruling/ar-AA1k8T3W', 'https://www.businessinsider.com/trumps-fraud-trial-defense-is-kid-critic-pals-2023-11', 'https://news.yahoo.com/trump-celebrates-release-violent-january-155100758.html', 'https://www.usatoday.com/story/news/politics/elections/2023/11/18/trump-insurrection-ballot-election-colorado-judge/71593332007/', 'https://www.msn.com/en-us/news/politics/judge-denies-trumps-request-for-a-mistrial-in-his-new-york-civil-fraud-case/ar-AA1k6Ruj', 'https://www.foxnews.com/politics/trump-family-attend-funeral-sister-maryanne-trump-barry-new-york-city']</code></pre>
+<pre><code>['https://www.msn.com/en-us/money/companies/republican-megadonor-mercer-family-weighs-backing-trump-as-they-maintain-massive-war-chest/ar-AA1kijjY', 'https://news.yahoo.com/not-law-legal-experts-torch-140917639.html', 'https://www.msn.com/en-us/news/other/trump-critics-appeal-colorado-ruling-that-said-insurrectionist-ban-doesn-t-apply-to-presidents/ar-AA1kit2w', 'https://www.msn.com/en-us/news/politics/louisiana-fraud-case-could-silence-donald-trump/ar-AA1khSUH', 'https://www.msn.com/en-us/news/politics/trump-fraud-trial-trump-continues-to-assail-judge-clerk/ar-AA1hyBsB', 'https://www.nytimes.com/2023/11/21/us/politics/trump-democrats-biden.html', 'https://www.msn.com/en-us/news/other/ex-trump-aide-says-democracy-won-t-survive-if-he-wins-2024-election/ar-AA1ki3uq', 'https://www.cbsnews.com/video/appeals-court-considers-reinstating-trumps-gag-order-in-2020-election-case/']</code></pre>
 </div>
 </div>
 <p>Les autres méthodes utiles de <code>Selenium</code>:</p>
@@ -4479,7 +4510,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","loop":true,"openEffect":"zoom","descPosition":"bottom"});</script>
+<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","openEffect":"zoom","selector":".lightbox","loop":true,"closeEffect":"zoom"});</script>
 
 
 

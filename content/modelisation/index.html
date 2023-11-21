@@ -313,6 +313,37 @@ fonctionnel en très peu de temps.">
     </ul>
   </li>
   <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-nlp" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">NLP</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-nlp">    
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/01_intro.html" rel="" target="">
+ <span class="dropdown-text">Quelques éléments pour comprendre les enjeux du NLP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/02_exoclean.html" rel="" target="">
+ <span class="dropdown-text">Nettoyer un texte: des exercices pour découvrir l’approche bag-of-words</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/03_lda.html" rel="" target="">
+ <span class="dropdown-text">Latent Dirichlet Allocation (LDA)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/04_word2vec.html" rel="" target="">
+ <span class="dropdown-text">Méthodes de vectorisation : comptages et word embeddings</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/05_exo_supp.html" rel="" target="">
+ <span class="dropdown-text">Exercices supplémentaires</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-approfondissements" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Approfondissements</span>
     </a>
@@ -558,7 +589,7 @@ le travail du <em>data scientist</em> exclusivement à la phase de modélisation
 Cette dernière dépend très fortement de la qualité du travail de
 nettoyage et structuration des données mis en oeuvre en amont. La
 mise en oeuvre de modèles complexes, qui s’accomodent de données
-peu structurées, est gourmande en ressource et coûteuse. Ce ne sont
+peu structurées, est gourmande en ressources et coûteuse. Ce ne sont
 donc qu’un nombre limité d’acteurs qui peuvent entraîner, <em>ex nihilo</em>,
 des grands modèles de langage<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, capables de dépenser au moins 300 000 dollars
 dans l’entraînement d’un modèle, avant même toute phase d’inférence <span class="citation" data-cites="izsak2021train">(<a href="#ref-izsak2021train" role="doc-biblioref">Izsak, Berchansky, and Levy 2021</a>)</span>.
@@ -569,9 +600,9 @@ des empreintes carbones non négligeables <span class="citation" data-cites="str
 légères (celles que nous présenterons dans les prochains chapitres)
 ou de réutiliser des modèles pré-entraînés pour les spécialiser
 sur un nouveau jeu de données (principe du <a href="https://huggingface.co/docs/transformers/training"><em>fine tuning</em></a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>).
-En fait, pour être plus pertinent que des approches plus parcimonieuse,
+En fait, pour être plus pertinent que des approches plus parcimonieuses,
 les techniques de <em>deep learning</em>, notamment
-les réseaux de neurone, nécessitent soit des volumes de données très
+les réseaux de neurones, nécessitent soit des volumes de données très
 importants (des millions voire dizaine de millions d’observations) soit
 des données à la structure complexe comme le langage naturel ou les images.
 Dans de nombreux cas, des modèles plus simples comme les techniques d’apprentissage
@@ -589,7 +620,7 @@ associer certains paramètres structurants des modèles de comportement
 économique à des valeurs quantitatives.
 Les modèles statistiques, comme les modèles économiques
 présentent néanmoins toujours une part d’irréalisme <span class="citation" data-cites="friedman1953methodology salmon2010probleme">(<a href="#ref-friedman1953methodology" role="doc-biblioref">Friedman 1953</a>; <a href="#ref-salmon2010probleme" role="doc-biblioref">Salmon 2010</a>)</span>
-et accepter de manière trop litérale les implications d’un modèle, même s’il
+et accepter de manière trop littérale les implications d’un modèle, même s’il
 a de bonnes performances prédictives, peut être dangereux et relever d’un biais
 scientiste. On sélectionne plutôt le moins mauvais modèle
 que le vrai processus générateur des données.</p>
@@ -598,7 +629,7 @@ base de la statistique comme discipline scientifique et ayant des
 applications dans de nombreux champs disciplinaires : économie,
 sociologie, géographique, biologie, physique, etc.
 Selon les disciplines, le nom donné peut varier mais on retrouve
-régulièrement la même approche scientifique: le modélisateur
+régulièrement la même approche scientifique : le modélisateur
 construit des relations entre plusieurs variables théoriques
 ayant des contreparties empiriques afin d’expliquer tel ou tel
 processus.</p>
@@ -607,7 +638,7 @@ principalement dans deux types d’approches : le <em>machine learning</em> et
 l’économétrie. La différence est certes
 sémantique - la régression linéaire peut être considérée comme une
 technique de <em>machine learning</em> ou d’économétrie - mais elle est
-également conceptuelle:</p>
+également conceptuelle :</p>
 <ul>
 <li>Dans le domaine du <em>machine learning</em>,
 la structure imposée par le modélisateur est minimale et ce sont plutôt
@@ -619,7 +650,7 @@ par le modélisateur.</li>
 </ul>
 <p>Dans cette partie du cours, nous allons principalement
 parler de <em>machine learning</em> car il s’agit d’une perspective
-plus opérationnel que l’économétrie qui est plus directement associée
+plus opérationnelle que l’économétrie qui est plus directement associée
 à des concepts statistiques complexes comme la théorie asymptotique.</p>
 <p>L’adoption du <em>machine learning</em> dans la littérature économique a été longue
 car la structuration des données est souvent le
@@ -636,7 +667,7 @@ Dans cette perspective, l’important n’est pas la causalité mais le fait qu�
 de <span class="math inline">\(x\)</span>% d’une variable permette d’anticiper un changement de <span class="math inline">\(\beta x\)</span> de la variable
 d’intérêt ; peu importe la raison.
 <span class="citation" data-cites="MullainathanJEP">Mullainathan and Spiess (<a href="#ref-MullainathanJEP" role="doc-biblioref">2017</a>)</span> ont ainsi, pour simplifier, proposé la différence fondamentale qui
-suit: l’économétrie se préoccupe de <span class="math inline">\(\widehat{\beta}\)</span> là où le <em>machine learning</em>
+suit : l’économétrie se préoccupe de <span class="math inline">\(\widehat{\beta}\)</span> là où le <em>machine learning</em>
 se focalise sur <span class="math inline">\(\widehat{y}\)</span>. Les deux sont bien sûr reliés dans un cadre
 linéaire mais cette différence d’approche a des implications importantes
 sur la structure des modèles étudiés, notamment leur parcimonie<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
@@ -658,13 +689,13 @@ sans avoir explicitement défini celui-ci. A partir d’algorithmes itératifs e
 métrique de performance, des règles de classification ou de prédiction vont permettre
 de mettre en relation des caractéristiques (<em>features</em>) avec une variable d’intérêt (<em>label</em>)<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
 <p>De nombreux algorithmes existent et se distinguent sur la manière d’introduire une structure plus ou
-moins formelle dans la relation entre les variables observées. Nous n’allons voir que quelques
-uns de ces algorithmes : <em>support vector machine</em> (SVM), régression logistique, arbres de décision, forêts
+moins formelle dans la relation entre les variables observées. Nous n’allons voir que quelques-uns
+de ces algorithmes : <em>support vector machine</em> (SVM), régression logistique, arbres de décision, forêts
 aléatoires, etc. Simples à mettre en oeuvre grâce à la librairie <code>Scikit-Learn</code>, ils permettront
 déjà de comprendre la démarche originale du <em>machine learning</em> que vous pourrez approfondir
 ultérieurement.</p>
 <p>Au sein de la grande famille des algorithmes de <em>machine learning</em>, tendent de plus à plus à devenir
-autonomes les techniques de réseaux de neurone. Les techniques qui s’appuient sur les réseaux de neurone sont regroupés
+autonomes les techniques de réseaux de neurone. Les techniques qui s’appuient sur les réseaux de neurones sont regroupés
 dans une famille qu’on
 appelle <em>deep learning</em> (apprentissage profond en Français).
 Ces réseaux sont inspirés du fonctionnement du cerveau humain et sont composés de nombreuses couches de neurones interconnectés.
@@ -683,7 +714,7 @@ cas d’application de ces méthodes.</p>
 </figure>
 </div>
 </div>
-<p></p><figcaption class="figure-caption">Figure&nbsp;1: Exemple de structure d’un réseau de neurone (<a href="https://www.lebigdata.fr/wp-content/uploads/2019/04/reseau-de-neurones-fonctionnement.jpg">source: lebigdata.fr</a>)</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: Exemple de structure d’un réseau de neurones (<a href="https://www.lebigdata.fr/wp-content/uploads/2019/04/reseau-de-neurones-fonctionnement.jpg">source: lebigdata.fr</a>)</figcaption><p></p>
 </figure>
 </div>
 <p>Nous n’allons pas vraiment parler dans ce cours de <em>deep learning</em> car ces modèles, pour être pertinents, nécessitent
@@ -693,7 +724,7 @@ un cours d’introduction. L’organisation <code>HuggingFace</code>, créatrice
 plateforme du même nom facilitant la réutilisation de modèles de <em>deep learning</em>
 propose d’excellents cours sur le sujet, notamment sur
 le <a href="https://huggingface.co/learn/nlp-course/chapter1/2?fw=pt">traitement du langage naturel (NLP)</a>.
-Nous ferons traitement du langage naturel dans la <a href="content/NLP/">prochaine partie</a> de ce cours mais
+Nous ferons du traitement du langage naturel dans la <a href="content/NLP/">prochaine partie</a> de ce cours mais
 de manière plus modeste en revenant sur les concepts nécessaires avant de mettre en oeuvre
 une modélisation sophistiquée du langage.</p>
 </section>
@@ -713,7 +744,7 @@ sur un ensemble d’observations de la même variable.</p>
 <p>Mais il est tout à fait possible d’entraîner un modèle sur un <em>label</em> qu’on ne mesure pas, en supposant
 qu’il fasse sens. Par exemple notre site de commerce peut désirer déterminer, en fonction des
 caractéristiques de notre nouveau client et de sa clientèle existante, s’il appartient à tel ou
-tel groupe de consommateurs: les dépensiers, les économes… Bien sûr on ne sait jamais <em>a priori</em>
+tel groupe de consommateurs : les dépensiers, les économes… Bien sûr on ne sait jamais <em>a priori</em>
 à quel groupe appartient un consommateur mais le rapprochement entre consommateurs ayant un comportement
 similaire permettra de donner du sens à cette catégorie. Dans ce cas, l’algorithme apprendra à reconnaître
 quelles caractéristiques sont structurantes dans la constitution de groupes au comportement similaire et
@@ -722,7 +753,7 @@ permettra d’associer tout nouveau consommateur à un groupe.</p>
 sur un <em>label</em> observé ou non. Cela constitue même l’une des dualités fondamentale dans les
 techniques de <em>machine learning</em> :</p>
 <ul>
-<li><strong>Apprentissage supervisé</strong> : la valeur cible est connue et peut-être utilisée pour évaluer la qualité d’un modèle ;</li>
+<li><strong>Apprentissage supervisé</strong> : la valeur cible est connue et peut être utilisée pour évaluer la qualité d’un modèle ;</li>
 <li><strong>Apprentissage non supervisé</strong> : la valeur cible est inconnue et ce sont des critères statistiques qui vont amener
 à sélectionner la structure de données la plus plausible.</li>
 </ul>
@@ -738,13 +769,13 @@ socio-démographiques.</p>
 <h3 class="anchored" data-anchor-id="classification-et-régression">Classification et régression</h3>
 <p>Une deuxième dualité fondamentale qui est déterminante dans le choix de la méthode de <em>machine learning</em>
 à mettre en oeuvre est la nature du <em>label</em>. S’agit-il d’une variable continue ou d’une variable
-discrète c’est-à-dire prenant un nombre limité de modalités ?</p>
+discrète, c’est-à-dire prenant un nombre limité de modalités ?</p>
 <p>Cette différence de nature entre les données amène à distinguer deux types d’approche :</p>
 <ul>
 <li>Dans les problématiques de <strong>classification</strong>, où notre label <span class="math inline">\(y\)</span> a un nombre fini de valeurs<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>,
 on cherche à prédire dans quelle classe ou à quel groupe il est possible de rattacher nos données.
-Par exemple, si vous prenez du café le matin, faites-vous parti du groupe des personnes ronchon au lever ?
-Les métriques de performance utilisent généralement la proportion de bonnes ou mauvaises classification
+Par exemple, si vous prenez du café le matin, faites-vous partie du groupe des personnes ronchons au lever ?
+Les métriques de performance utilisent généralement la proportion de bonnes ou mauvaises classifications
 pour estimer la qualité d’un modèle.</li>
 <li>Dans les problématiques de <strong>régression</strong>, où notre label est une grandeur numérique, on
 cherche à prédire directement la valeur de notre variable dans le modèle. Par exemple, si vous
@@ -771,7 +802,7 @@ la prédiction et la valeur observée.</li>
 <h2 class="unnumbered anchored" data-anchor-id="données">Données</h2>
 <p>La plupart des exemples de cette partie s’appuient sur les résultats des
 élections US 2020 au niveau comtés. Plusieurs bases sont utilisées pour
-cela:</p>
+cela :</p>
 <ul>
 <li>Les données électorales sont une reconstruction à partir des données du MIT election lab
 proposées sur <code>Github</code> par <a href="https://github.com/tonmcg/US_County_Level_Election_Results_08-20"><code>tonmcg</code></a>
@@ -857,7 +888,7 @@ def create_votes_dataframes():
 d’entrée dans le sujet à partir d’une série d’exemples sur un fil rouge.
 De nombreux modèles plus appronfondis, que ce soit en économétrie ou en <em>machine learning</em>
 mériteraient d’être évoqués. Pour les personnes désirant en savoir plus sur les
-modèles économétriques, qui seront moins évoqués que ceux de <em>machine learning</em>
+modèles économétriques, qui seront moins évoqués que ceux de <em>machine learning</em>,
 je recommande la lecture de <span class="citation" data-cites="Turrell2021">Turrell and contributors (<a href="#ref-Turrell2021" role="doc-biblioref">2021</a>)</span>.</p>
 </section>
 <section id="références" class="level2">
@@ -1199,7 +1230,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","closeEffect":"zoom","loop":true,"descPosition":"bottom"});</script>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","openEffect":"zoom","loop":true,"descPosition":"bottom"});</script>
 
 
 

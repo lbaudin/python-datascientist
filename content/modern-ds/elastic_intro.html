@@ -347,6 +347,37 @@ dans les données alimentaires de l’ OpenFoodFacts Database">
     </ul>
   </li>
   <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-nlp" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">NLP</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-nlp">    
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/01_intro.html" rel="" target="">
+ <span class="dropdown-text">Quelques éléments pour comprendre les enjeux du NLP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/02_exoclean.html" rel="" target="">
+ <span class="dropdown-text">Nettoyer un texte: des exercices pour découvrir l’approche bag-of-words</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/03_lda.html" rel="" target="">
+ <span class="dropdown-text">Latent Dirichlet Allocation (LDA)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/04_word2vec.html" rel="" target="">
+ <span class="dropdown-text">Méthodes de vectorisation : comptages et word embeddings</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/05_exo_supp.html" rel="" target="">
+ <span class="dropdown-text">Exercices supplémentaires</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-approfondissements" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Approfondissements</span>
     </a>
@@ -913,13 +944,13 @@ partie <a href="#nlp">NLP</a>, notamment:</p>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
 <figure class="figure">
-<p><a href="wordcloud_relevanc_start.png" class="lightbox" title="Scanner-data avant nettoyage" data-gallery="quarto-lightbox-gallery-3"><img src="wordcloud_relevanc_start.png" class="img-fluid figure-img"></a></p>
+<p><a href="wordcloud_relevanc_start.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Scanner-data avant nettoyage"><img src="wordcloud_relevanc_start.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">Scanner-data avant nettoyage</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
 <figure class="figure">
-<p><a href="wordcloud_openfood_start.png" class="lightbox" title="OpenFood data avant nettoyage" data-gallery="quarto-lightbox-gallery-4"><img src="wordcloud_openfood_start.png" class="img-fluid figure-img"></a></p>
+<p><a href="wordcloud_openfood_start.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="OpenFood data avant nettoyage"><img src="wordcloud_openfood_start.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">OpenFood data avant nettoyage</figcaption>
 </figure>
 </div>
@@ -927,13 +958,13 @@ partie <a href="#nlp">NLP</a>, notamment:</p>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
 <figure class="figure">
-<p><a href="wordcloud_relevanc_clean.png" class="lightbox" title="Scanner-data après nettoyage" data-gallery="quarto-lightbox-gallery-5"><img src="wordcloud_relevanc_clean.png" class="img-fluid figure-img"></a></p>
+<p><a href="wordcloud_relevanc_clean.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Scanner-data après nettoyage"><img src="wordcloud_relevanc_clean.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">Scanner-data après nettoyage</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
 <figure class="figure">
-<p><a href="wordcloud_openfood_clean.png" class="lightbox" title="OpenFood data après nettoyage" data-gallery="quarto-lightbox-gallery-6"><img src="wordcloud_openfood_clean.png" class="img-fluid figure-img"></a></p>
+<p><a href="wordcloud_openfood_clean.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="OpenFood data après nettoyage"><img src="wordcloud_openfood_clean.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">OpenFood data après nettoyage</figcaption>
 </figure>
 </div>
@@ -1131,7 +1162,7 @@ Les instructions ci-dessous indiquent comment établir la connection.</p>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>es.count(index <span class="op">=</span> <span class="st">'openfood'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <pre><code>{'count': 0, '_shards': {'total': 1, 'successful': 1, 'skipped': 0, 'failed': 0}}</code></pre>
-<p>Nous allons en rajouter quelques uns !</p>
+<p>Nous allons en rajouter quelques-uns !</p>
 <div class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>es.create(index <span class="op">=</span> <span class="st">'openfood'</span>,  <span class="bu">id</span> <span class="op">=</span> <span class="dv">1</span>, body <span class="op">=</span> {<span class="st">'product_name'</span>: <span class="st">'Tarte noix de coco'</span>, <span class="st">'product_name_clean'</span>: <span class="st">'TARTE NOIX COCO'</span>})</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>es.create(index <span class="op">=</span> <span class="st">'openfood'</span>,  <span class="bu">id</span> <span class="op">=</span> <span class="dv">2</span>, body <span class="op">=</span> {<span class="st">'product_name'</span>: <span class="st">'Noix de coco'</span>, <span class="st">'product_name_clean'</span>: <span class="st">'NOIX COCO'</span>})</span>
@@ -1626,7 +1657,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","loop":true,"descPosition":"bottom","closeEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"loop":true,"descPosition":"bottom","selector":".lightbox","closeEffect":"zoom","openEffect":"zoom"});</script>
 
 
 

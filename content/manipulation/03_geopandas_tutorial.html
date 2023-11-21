@@ -307,6 +307,37 @@ de manipuler des données géographiques complexes de manière simple.">
     </ul>
   </li>
   <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-nlp" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">NLP</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-nlp">    
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/01_intro.html" rel="" target="">
+ <span class="dropdown-text">Quelques éléments pour comprendre les enjeux du NLP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/02_exoclean.html" rel="" target="">
+ <span class="dropdown-text">Nettoyer un texte: des exercices pour découvrir l’approche bag-of-words</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/03_lda.html" rel="" target="">
+ <span class="dropdown-text">Latent Dirichlet Allocation (LDA)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/04_word2vec.html" rel="" target="">
+ <span class="dropdown-text">Méthodes de vectorisation : comptages et word embeddings</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/05_exo_supp.html" rel="" target="">
+ <span class="dropdown-text">Exercices supplémentaires</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-approfondissements" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Approfondissements</span>
     </a>
@@ -704,7 +735,7 @@ Ce <a href="https://www.earthdatascience.org/courses/earth-analytics/spatial-dat
 sujet, notamment l’image suivante qui montre bien le principe d’une projection :</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://www.earthdatascience.org/images/courses/earth-analytics/spatial-data/spatial-projection-transformations-crs.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Les différents types de projection"><img src="https://www.earthdatascience.org/images/courses/earth-analytics/spatial-data/spatial-projection-transformations-crs.png" class="img-fluid figure-img"></a></p>
+<p><a href="https://www.earthdatascience.org/images/courses/earth-analytics/spatial-data/spatial-projection-transformations-crs.png" class="lightbox" title="Les différents types de projection" data-gallery="quarto-lightbox-gallery-2"><img src="https://www.earthdatascience.org/images/courses/earth-analytics/spatial-data/spatial-projection-transformations-crs.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">Les différents types de projection</figcaption>
 </figure>
 </div>
@@ -739,7 +770,7 @@ C’est cette propriété qui explique son utilisation dans les systèmes
 GPS et ainsi dans les fonds de carte de navigation du type <em>Google Maps</em>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="truesize.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Exemple de reprojection de pays depuis le site thetruesize.com"><img src="truesize.png" class="img-fluid figure-img"></a></p>
+<p><a href="truesize.png" class="lightbox" title="Exemple de reprojection de pays depuis le site thetruesize.com" data-gallery="quarto-lightbox-gallery-3"><img src="truesize.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption"><em>Exemple de reprojection de pays depuis le site <a href="https://thetruesize.com/">thetruesize.com</a></em></figcaption>
 </figure>
 </div>
@@ -1331,7 +1362,7 @@ grâce à <code>cartiflette</code>:</p>
 <pre><code>https://minio.lab.sspcloud.fr/projet-cartiflette/diffusion/shapefiles-test1/year=2022/administrative_level=COMMUNE_ARRONDISSEMENT/crs=4326/DEPARTEMENT=75/vectorfile_format=topojson/provider=IGN/source=EXPRESS-COG-CARTO-TERRITOIRE/raw.topojson</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Downloading: : 0.00iB [00:00, ?iB/s]Downloading: : 8.00kiB [00:00, 79.2kiB/s]Downloading: : 33.0kiB [00:00, 146kiB/s] Downloading: : 40.1kiB [00:00, 166kiB/s]</code></pre>
+<pre><code>Downloading: : 0.00iB [00:00, ?iB/s]Downloading: : 28.0kiB [00:00, 167kiB/s]Downloading: : 40.1kiB [00:00, 213kiB/s]</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="14">
@@ -1448,7 +1479,7 @@ plus esthétique:</p>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="03_geopandas_tutorial_files/figure-html/cell-21-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="03_geopandas_tutorial_files/figure-html/cell-21-output-2.png" width="815" height="667" class="figure-img"></a></p>
+<p><a href="03_geopandas_tutorial_files/figure-html/cell-21-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="03_geopandas_tutorial_files/figure-html/cell-21-output-2.png" width="814" height="624" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1534,15 +1565,15 @@ est identique à si on avait un objet <code>Pandas</code> classique :</p>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">count</td>
-<td>1471.000000</td>
+<td>1470.000000</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">mean</td>
-<td>31.286200</td>
+<td>31.171429</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">std</td>
-<td>13.516946</td>
+<td>12.784457</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">min</td>
@@ -2159,7 +2190,7 @@ fera</p>
 <pre><code>https://minio.lab.sspcloud.fr/projet-cartiflette/diffusion/shapefiles-test1/year=2022/administrative_level=COMMUNE/crs=4326/DEPARTEMENT=31/vectorfile_format=topojson/provider=IGN/source=EXPRESS-COG-CARTO-TERRITOIRE/raw.topojson</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Downloading: : 0.00iB [00:00, ?iB/s]Downloading: : 8.00kiB [00:00, 70.6kiB/s]Downloading: : 32.0kiB [00:00, 128kiB/s] Downloading: : 72.0kiB [00:00, 194kiB/s]Downloading: : 146kiB [00:00, 314kiB/s] Downloading: : 270kiB [00:00, 499kiB/s]Downloading: : 514kiB [00:00, 882kiB/s]Downloading: : 0.98MiB [00:01, 1.65MiB/s]Downloading: : 1.60MiB [00:01, 1.53MiB/s]</code></pre>
+<pre><code>Downloading: : 0.00iB [00:00, ?iB/s]Downloading: : 12.0kiB [00:00, 119kiB/s]Downloading: : 44.0kiB [00:00, 234kiB/s]Downloading: : 96.0kiB [00:00, 359kiB/s]Downloading: : 200kiB [00:00, 620kiB/s] Downloading: : 404kiB [00:00, 1.12MiB/s]Downloading: : 816kiB [00:00, 2.11MiB/s]Downloading: : 1.59MiB [00:00, 4.05MiB/s]Downloading: : 1.60MiB [00:00, 2.29MiB/s]</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="36">
 <pre><code>&lt;Axes: &gt;</code></pre>
@@ -2193,7 +2224,7 @@ bon d’avoir en tête :</p>
 </blockquote>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://imgs.xkcd.com/comics/bad_map_projection_south_america.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17" title="Image empruntée à XKCD https://xkcd.com/2256/ qu’on peut également trouver sur https://blog.chrislansdown.com/2020/01/17/a-great-map-projection-joke/"><img src="https://imgs.xkcd.com/comics/bad_map_projection_south_america.png" class="img-fluid figure-img"></a></p>
+<p><a href="https://imgs.xkcd.com/comics/bad_map_projection_south_america.png" class="lightbox" title="Image empruntée à XKCD https://xkcd.com/2256/ qu’on peut également trouver sur https://blog.chrislansdown.com/2020/01/17/a-great-map-projection-joke/" data-gallery="quarto-lightbox-gallery-17"><img src="https://imgs.xkcd.com/comics/bad_map_projection_south_america.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption"><em>Image empruntée à XKCD <a href="https://xkcd.com/2256/" class="uri">https://xkcd.com/2256/</a> qu’on peut également trouver sur <a href="https://blog.chrislansdown.com/2020/01/17/a-great-map-projection-joke/" class="uri">https://blog.chrislansdown.com/2020/01/17/a-great-map-projection-joke/</a></em></figcaption>
 </figure>
 </div>
@@ -2222,7 +2253,7 @@ Datum: Reseau Geodesique Francais 1993 v1
 <li><strong><code>df.set_crs</code></strong> : cette commande sert à préciser quel est le système de projection utilisé, c’est-à-dire comment les coordonnées <em>(x,y)</em> sont reliées à la surface terrestre. <strong>Cette commande ne doit pas être utilisée pour transformer le système de coordonnées, seulement pour le définir</strong>.</li>
 <li><strong><code>df.to_crs</code></strong> : <strong>cette commande sert à projeter les points d’une géométrie dans une autre, c’est-à-dire à recalculer les coordonnées selon un autre système de projection.</strong></li>
 </ul>
-<p>Dans le cas particulier de production de carte avec un fond <code>OpenStreetMaps</code> ou une carte dynamique <code>leaflet</code>, il est nécessaire de dé-projeter les données (par exemple à partir du Lambert-93) pour atterrir dans le système non-projeté WGS 84 (code EPSG 4326). Ce site <a href="https://epsg.io/">dédié aux projections géographiques</a> peut-être utile pour retrouver le système de projection d’un fichier où il n’est pas indiqué.</p>
+<p>Dans le cas particulier de production de carte avec un fond <code>OpenStreetMaps</code> ou une carte dynamique <code>leaflet</code>, il est nécessaire de dé-projeter les données (par exemple à partir du Lambert-93) pour atterrir dans le système non-projeté WGS 84 (code EPSG 4326). Ce site <a href="https://epsg.io/">dédié aux projections géographiques</a> peut être utile pour retrouver le système de projection d’un fichier où il n’est pas indiqué.</p>
 <p>La définition du système de projection se fait de la manière suivante (:warning: avant de le faire, se souvenir de l’avertissement !) :</p>
 <div class="sourceCode" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>communes <span class="op">=</span> communes.set_crs(<span class="dv">2154</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Alors que la reprojection (projection Albers : <code>5070</code>) s’obtient de la manière suivante :</p>
@@ -2243,7 +2274,7 @@ Datum: Reseau Geodesique Francais 1993 v1
 <pre><code>https://minio.lab.sspcloud.fr/projet-cartiflette/diffusion/shapefiles-test1/year=2022/administrative_level=REGION/crs=4326/FRANCE_ENTIERE=metropole/vectorfile_format=topojson/provider=IGN/source=EXPRESS-COG-CARTO-TERRITOIRE/raw.topojson</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Downloading: : 0.00iB [00:00, ?iB/s]Downloading: : 9.00kiB [00:00, 73.4kiB/s]Downloading: : 33.0kiB [00:00, 133kiB/s] Downloading: : 81.0kiB [00:00, 268kiB/s]Downloading: : 165kiB [00:00, 468kiB/s] Downloading: : 217kiB [00:00, 482kiB/s]Downloading: : 393kiB [00:00, 830kiB/s]Downloading: : 781kiB [00:00, 1.75MiB/s]Downloading: : 1.41MiB [00:00, 3.20MiB/s]Downloading: : 1.79MiB [00:01, 3.38MiB/s]Downloading: : 3.15MiB [00:01, 6.08MiB/s]Downloading: : 4.45MiB [00:01, 5.87MiB/s]Downloading: : 4.76MiB [00:01, 2.96MiB/s]</code></pre>
+<pre><code>Downloading: : 0.00iB [00:00, ?iB/s]Downloading: : 29.0kiB [00:00, 178kiB/s]Downloading: : 93.0kiB [00:00, 368kiB/s]Downloading: : 289kiB [00:00, 886kiB/s] Downloading: : 629kiB [00:00, 1.59MiB/s]Downloading: : 893kiB [00:00, 1.60MiB/s]Downloading: : 2.65MiB [00:00, 6.09MiB/s]Downloading: : 3.61MiB [00:00, 7.15MiB/s]Downloading: : 4.55MiB [00:01, 7.91MiB/s]Downloading: : 4.76MiB [00:01, 4.87MiB/s]</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="39">
 <pre><code>&lt;Axes: &gt;</code></pre>
@@ -2616,7 +2647,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","loop":true,"descPosition":"bottom","openEffect":"zoom","selector":".lightbox"});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","loop":true,"descPosition":"bottom","closeEffect":"zoom"});</script>
 
 
 
