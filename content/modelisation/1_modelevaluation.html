@@ -8,7 +8,7 @@
 
 <meta name="author" content="Lino Galiana">
 <meta name="dcterms.date" content="2023-07-15">
-<meta name="description" content="Faire preuve de méthode pour évaluer la qualité d’un modèle permet de proposer des prédictions plus robustes, ayant de meilleures performances sur un nouveau jeu de données (prédictions out-of-sample). Décomposer l’échantillon initial en sous-échantillons d’entraînement et de tests, faire de la validation croisée, utiliser les bonnes mesures de performances peut se faire, grâce à scikit, de manière relativement standardisée. Cette démarche scientifique est essentielle pour assurer la confiance dans la qualité d’un modèle, ce qu’a illustré récemment un cycle de séminaire de Princeton">
+<meta name="description" content="Faire preuve de méthode pour évaluer la qualité d’un modèle permet de proposer des prédictions plus robustes, ayant de meilleures performances sur un nouveau jeu de données (prédictions out-of-sample). Décomposer l’échantillon initial en sous-échantillons d’entraînement et de tests, faire de la validation croisée, utiliser les bonnes mesures de performances peut se faire, grâce à scikit, de manière relativement standardisée. Cette démarche scientifique est essentielle pour assurer la confiance dans la qualité d’un modèle, ce qu’a illustré récemment un cycle de séminaire de Princeton.">
 
 <title>Python pour la data science - Evaluer la qualité d’un modèle</title>
 <style>
@@ -125,7 +125,7 @@ les bonnes mesures de performances
 peut se faire, grâce à scikit, de manière relativement standardisée.
 Cette démarche scientifique est essentielle pour assurer la confiance
 dans la qualité d’un modèle, ce qu’a illustré récemment
-un cycle de séminaire de Princeton">
+un cycle de séminaire de Princeton.">
 <meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Overfitting.svg/300px-Overfitting.svg.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="citation_title" content="Python pour la data science">
@@ -459,7 +459,7 @@ un cycle de séminaire de Princeton">
             peut se faire, grâce à scikit, de manière relativement standardisée.
             Cette démarche scientifique est essentielle pour assurer la confiance
             dans la qualité d’un modèle, ce qu’a illustré récemment
-            un <a href="https://reproducible.cs.princeton.edu/">cycle de séminaire de Princeton</a></p>
+            un <a href="https://reproducible.cs.princeton.edu/">cycle de séminaire de Princeton</a>.</p>
           </div>
         </div>
                 
@@ -594,7 +594,7 @@ que nous appliquerons dans les prochains chapitres.</p>
 <section id="découper-léchantillon" class="level2">
 <h2 class="anchored" data-anchor-id="découper-léchantillon">Découper l’échantillon</h2>
 <p>Le chapitre précédent présentait le <em>pipeline</em> simple ci-dessous
-pour introduire à la notion d’entraînement d’un modèle:</p>
+pour introduire à la notion d’entraînement d’un modèle :</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="scikit_predict.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="scikit_predict.png" class="img-fluid figure-img"></a></p>
@@ -612,7 +612,7 @@ pénalisation et choisir celui qui permet la meilleure prédiction.</p>
 <p>La notion de <strong>validation croisée</strong> permettra de généraliser cette approche. Ces paramètres
 qui affectent la prédiction seront pas la suite appelés des
 <strong>hyperparamètres</strong>. Comme nous allons le voir, nous allons aboutir à un
-raffinement de l’approche pour obtenir un <em>pipeline</em> ayant plutôt cet aspect:</p>
+raffinement de l’approche pour obtenir un <em>pipeline</em> ayant plutôt cet aspect :</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="scikit_predict2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="scikit_predict2.png" class="img-fluid figure-img"></a></p>
@@ -627,13 +627,12 @@ exemples nouveaux (éventuellement non labellisés).
 On vise donc de bonnes qualités
 prédictives et non un ajustement parfait
 aux données historiques.</p>
-<p>Il existe un <strong>arbitrage biais-variance</strong> dans la qualité d’estimation[^1]. Soit <span class="math inline">\(h(X,\theta)\)</span> un modèle statistique. On
+<p>Il existe un <strong>arbitrage biais-variance</strong> dans la qualité d’estimation<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Soit <span class="math inline">\(h(X,\theta)\)</span> un modèle statistique. On
 peut décomposer l’erreur d’estimation en deux parties :</p>
 <p><span class="math display">\[
 \mathbb{E}\bigg[(y - h(\theta,X))^2 \bigg] = \underbrace{ \bigg( y - \mathbb{E}(h_\theta(X)) \bigg)^2}_{\text{biais}^2} + \underbrace{\mathbb{V}\big(h(\theta,X)\big)}_{\text{variance}}
 \]</span></p>
 <p>Il y a ainsi un compromis à faire entre biais et variance. Un modèle peu parcimonieux, c’est-à-dire proposant un grand nombre de paramètres, va, en général, avoir un faible biais mais une grande variance. En effet, le modèle va tendre à se souvenir d’une combinaison de paramètres à partir d’un grand nombre d’exemples sans être capable d’apprendre la règle qui permette de structurer les données.</p>
-<p>[^1]! Cette formule permet de bien comprendre la théorie statistique asymptotique, notamment le théorème de Cramer-Rao. Dans la classe des estimateurs sans biais, c’est-à-dire dont le premier terme est nul, trouver l’estimateur à variance minimale revient à trouver l’estimateur qui minimise <span class="math inline">\(\mathbb{E}\bigg[(y - h_\theta(X))^2 \bigg]\)</span>. C’est la définition même de la régression, ce qui, quand on fait des hypothèses supplémentaires sur le modèle statistique, explique le théorème de Cramer-Rao.</p>
 <p>Par exemple, la ligne verte ci-dessous est trop dépendante des données et risque de produire une erreur plus importante que la ligne noire (qui moyennise plus) sur de nouvelles données.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -686,7 +685,7 @@ c’est-à-dire des paramètres exogènes qui déterminent la prédiction mais n
 La <strong>validation croisée</strong> est une méthode permettant de choisir la valeur du paramètre
 qui optimise la qualité de la prédiction en agrégeant
 des scores de performance sur des découpages différents de l’échantillon d’apprentissage.</p>
-<p>La validation croisée permet d’évaluer les performances de modèles différents (SVM, random forest, etc.) ou, couplé à une stratégie de <em>grid search</em> de trouver les valeurs des hyperparamètres qui aboutissent à la meilleure prédiction.</p>
+<p>La validation croisée permet d’évaluer les performances de modèles différents (SVM, random forest, etc.) ou, couplé à une stratégie de <em>grid search</em>, de trouver les valeurs des hyperparamètres qui aboutissent à la meilleure prédiction.</p>
 <div class="cell markdown">
 <div class="alert alert-info" role="alert">
 <h3 class="alert-heading anchored"><i class="fa-solid fa-comment"></i> Note</h3>
@@ -744,7 +743,7 @@ va néanmoins déterminer deux questions cruciales : la méthode et l’indicate
 <tr class="odd">
 <td><em>Accuracy</em></td>
 <td>Taux de classification correcte</td>
-<td>Diagonale du tableau: <span class="math inline">\(\frac{TP+TN}{TP+FP+FN+FP}\)</span></td>
+<td>Diagonale du tableau : <span class="math inline">\(\frac{TP+TN}{TP+FP+FN+FP}\)</span></td>
 </tr>
 <tr class="even">
 <td><em>Precision</em></td>
@@ -773,7 +772,7 @@ problème. Notamment, si on désire avoir une performance équivalente sur les c
 \mathbb{P}(y_i=1|X_i) &gt; c \Rightarrow \widehat{y}_i = 1
 \]</span></p>
 <p>Plus on augmente <span class="math inline">\(c\)</span>, plus on est sélectif sur le critère d’appartenance à la classe.
-Le rappel, i.e.&nbsp;le taux de faux négatifs, diminue. Mais on augmente le nombre de positifs manqués. Pour chaque valeur de <span class="math inline">\(c\)</span> correspond une matrice de confusion et donc des mesures de performances.
+La précision, i.e.&nbsp;le taux de vrais positifs parmi les prédictions positives, augmente. Mais on augmente le nombre de positifs manqués (autrement dit on diminue le rappel). Pour chaque valeur de <span class="math inline">\(c\)</span> correspond une matrice de confusion et donc des mesures de performances.
 La <strong>courbe ROC</strong> est un outil classique pour représenter en un graphique l’ensemble de ces
 informations en faisant varier <span class="math inline">\(c\)</span> de 0 à 1:</p>
 <div class="quarto-figure quarto-figure-center">
@@ -819,14 +818,20 @@ sens de ce critère. L’AUC représente la probabilité que le modèle soit cap
 </table>
 <p>L’économètre se focalise moins sur la qualité de la prédiction et utilisera
 d’autres critères pour évaluer la qualité d’un modèle (certains, comme le BIC, sont
-à regarder aussi dans une optique <em>Machine Learning</em>): <span class="math inline">\(R^2\)</span>, <span class="math inline">\(BIC\)</span>,
+à regarder aussi dans une optique <em>Machine Learning</em>) : <span class="math inline">\(R^2\)</span>, <span class="math inline">\(BIC\)</span>,
 <span class="math inline">\(AIC\)</span>, <em>log-likelihood</em>, etc.</p>
 
 
 </section>
 </section>
 
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@book{galiana2023,
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Cette formule permet de bien comprendre la théorie statistique asymptotique, notamment le théorème de Cramer-Rao. Dans la classe des estimateurs sans biais, c’est-à-dire dont le premier terme est nul, trouver l’estimateur à variance minimale revient à trouver l’estimateur qui minimise <span class="math inline">\(\mathbb{E}\bigg[(y - h_\theta(X))^2 \bigg]\)</span>. C’est la définition même de la régression, ce qui, quand on fait des hypothèses supplémentaires sur le modèle statistique, explique le théorème de Cramer-Rao.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@book{galiana2023,
   author = {Galiana, Lino},
   title = {Python Pour La Data Science},
   date = {2023},
@@ -1098,7 +1103,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","closeEffect":"zoom","loop":true,"descPosition":"bottom"});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","openEffect":"zoom","descPosition":"bottom","loop":true});</script>
 
 
 

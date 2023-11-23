@@ -577,11 +577,9 @@ ce modèle sur les données de vote aux élections présidentielles US de 2020."
 </p>
 <p></p>
 </div>
-<p>Pour pouvoir importer les données,
-nous allons importer les données suivantes:</p>
 <p>Nous allons partir du même jeu de données que précédemment,
 c’est-à-dire les résultats des élections US 2020 présentés dans l’<a href="../../content/modelisation/index.html">introduction
-de cette partie</a>: les données de vote aux élections présidentielles américaines
+de cette partie</a> : les données de vote aux élections présidentielles américaines
 croisées à des variables sociodémographiques.
 Le code
 est disponible <a href="https://github.com/linogaliana/python-datascientist/blob/master/content/modelisation/get_data.py">sur <code>Github</code></a>.</p>
@@ -596,6 +594,10 @@ est disponible <a href="https://github.com/linogaliana/python-datascientist/blob
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>votes <span class="op">=</span> getdata.create_votes_dataframes()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Pour ce TP, nous aurons besoin des packages suivants :</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <section id="la-méthode-des-svm-support-vector-machines" class="level2">
 <h2 class="anchored" data-anchor-id="la-méthode-des-svm-support-vector-machines">La méthode des <em>SVM</em> (<em>Support Vector Machines</em>)</h2>
 <p>L’une des méthodes de <em>machine learning</em> les
@@ -678,7 +680,7 @@ que la victoire des Républicains est notre <em>label</em> 1 et la défaite <em>
 <li>En utilisant la fonction prête à l’emploi nommée <code>train_test_split</code> de la librairie <code>sklearn.model_selection</code>,
 créer des échantillons de test (20 % des observations) et d’estimation (80 %) avec comme <em>features</em>: <code>'Unemployment_rate_2019', 'Median_Household_Income_2019', 'Percent of adults with less than a high school diploma, 2015-19', "Percent of adults with a bachelor's degree or higher, 2015-19"</code> et comme <em>label</em> la variable <code>y</code>.</li>
 </ol>
-<p><em>Note: Il se peut que vous ayez le warning suivant:</em></p>
+<p><em>Note: Il se peut que vous ayez le warning suivant :</em></p>
 <blockquote class="blockquote">
 <p>A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel()</p>
 </blockquote>
@@ -761,7 +763,7 @@ le nouveau classifieur avec devrait avoir les performances suivantes :</p>
 </tr>
 </tbody>
 </table>
-<p>Et la matrice de confusion associée:</p>
+<p>Et la matrice de confusion associée :</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="confusion_matrix3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="confusion_matrix3.png" class="img-fluid figure-img"></a></p>
@@ -1043,7 +1045,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","loop":true,"descPosition":"bottom","openEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":true,"openEffect":"zoom","closeEffect":"zoom","descPosition":"bottom"});</script>
 
 
 

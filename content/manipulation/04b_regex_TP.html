@@ -654,7 +654,7 @@ les deux premiers cas:</p>
 </div>
 </div>
 <p>Cependant, dans le dernier cas, nous ne trouvons pas
-le <em>pattern</em> recherché:</p>
+le <em>pattern</em> recherché :</p>
 <div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(pattern, <span class="st">"La soupe est chaude."</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -674,7 +674,7 @@ ou les ancres (<code>^</code>, <code>$</code>…)</p>
 <p>Dans l’exemple précédent,
 nous retrouvions deux quantifieurs accolés <code>.+</code>. Le premier (<code>.</code>) signifie n’importe quel caractère<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Le deuxième (<code>+</code>) signifie <em>“répète le pattern précédent”</em>.
 Dans notre cas, la combinaison <code>.+</code> permet ainsi de répéter n’importe quel caractère avant de trouver un <em>n</em>.
-Le nombre de fois est indeterminé: cela peut ne pas être pas nécessaire d’intercaler des caractères avant le <em>n</em>
+Le nombre de fois est indeterminé : cela peut ne pas être pas nécessaire d’intercaler des caractères avant le <em>n</em>
 ou cela peut être nécessaire d’en intercepter plusieurs :</p>
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(pattern, <span class="st">"J'ai un chino"</span>))</span>
@@ -1557,7 +1557,7 @@ Utiliser la méthode <code>str.extract()</code> avec l’argument <code>expand =
 </div>
 </div>
 <p>Quant aux nouveaux <code>NaN</code>,
-il s’agit de lignes qui ne contenaient pas de chaînes de caractères qui ressemblaient à des années:</p>
+il s’agit de lignes qui ne contenaient pas de chaînes de caractères qui ressemblaient à des années :</p>
 <div class="cell" data-execution_count="35">
 <div class="cell-output cell-output-display" data-execution_count="35">
 <div>
@@ -1884,7 +1884,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","selector":".lightbox","loop":true,"closeEffect":"zoom","openEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","closeEffect":"zoom","loop":true,"descPosition":"bottom"});</script>
 
 
 
