@@ -8,7 +8,7 @@
 
 <meta name="author" content="Lino Galiana">
 <meta name="dcterms.date" content="2020-10-14">
-<meta name="description" content="L’un des grands avantages comparatifs de Python par rapport aux langages concurrents (R notamment) est dans la richesse des librairies de Traitement du Langage Naturel (mieux connu sous son acronyme anglais : NLP pour natural langage processing). Cette partie vise à illustrer la richesse de cet écosystème à partir de quelques exemples littéraires : Dumas, Poe, Shelley, Lovecraft.">
+<meta name="description" content="L’un des grands avantages comparatifs de  par rapport aux langages concurrents ( notamment) est dans la richesse des librairies de traitement du langage naturel (mieux connu sous son acronyme anglais : NLP pour natural langage processing). Cette partie vise à illustrer la richesse de cet écosystème à partir de quelques exemples littéraires : Dumas, Poe, Shelley, Lovecraft.">
 
 <title>Python pour la data science - Partie 4 : Natural Language Processing (NLP)</title>
 <style>
@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -74,13 +108,18 @@ ul.task-list li input[type="checkbox"] {
         background: #e9f3fa;
       }
 </style>
+<script type="module" src="../../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../../styles.css">
 <meta name="twitter:title" content="Python pour la data science - Partie 4 : Natural Language Processing (NLP)">
-<meta name="twitter:description" content="L’un des grands avantages comparatifs de Python par rapport aux
-langages concurrents (R notamment) est dans
-la richesse des librairies de Traitement du Langage Naturel (mieux
+<meta name="twitter:description" content="L’un des grands avantages comparatifs de  par rapport aux
+langages concurrents ( notamment) est dans
+la richesse des librairies de traitement du langage naturel (mieux
 connu sous son acronyme anglais : NLP pour natural langage processing).
 Cette partie vise à illustrer la richesse de cet écosystème à partir
 de quelques exemples littéraires : Dumas, Poe, Shelley, Lovecraft.">
@@ -409,10 +448,10 @@ de quelques exemples littéraires : Dumas, Poe, Shelley, Lovecraft.">
         
                 <div>
           <div id="title-block-title-desc" class="description pt-4">
-            <p>L’un des grands avantages comparatifs de Python par rapport aux
-            langages concurrents (R notamment) est dans
-            la richesse des librairies de Traitement du Langage Naturel (mieux
-            connu sous son acronyme anglais : NLP pour natural langage processing).
+            <p>L’un des grands avantages comparatifs de <i class="fa-brands fa-python" aria-label="python"></i> par rapport aux
+            langages concurrents (<i class="fa-brands fa-r-project" aria-label="r-project"></i> notamment) est dans
+            la richesse des librairies de traitement du langage naturel (mieux
+            connu sous son acronyme anglais : NLP pour <em>natural langage processing</em>).
             Cette partie vise à illustrer la richesse de cet écosystème à partir
             de quelques exemples littéraires : Dumas, Poe, Shelley, Lovecraft.</p>
           </div>
@@ -493,7 +532,11 @@ de quelques exemples littéraires : Dumas, Poe, Shelley, Lovecraft.">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#résumé-de-la-partie" id="toc-résumé-de-la-partie" class="nav-link active" data-scroll-target="#résumé-de-la-partie">Résumé de la partie</a></li>
+  <li><a href="#résumé-de-la-partie" id="toc-résumé-de-la-partie" class="nav-link active" data-scroll-target="#résumé-de-la-partie">Résumé de la partie</a>
+  <ul class="collapse">
+  <li><a href="#nettoyages-textuels-et-analyse-de-fréquences" id="toc-nettoyages-textuels-et-analyse-de-fréquences" class="nav-link" data-scroll-target="#nettoyages-textuels-et-analyse-de-fréquences">Nettoyages textuels et analyse de fréquences</a></li>
+  <li><a href="#modélisation-du-langage" id="toc-modélisation-du-langage" class="nav-link" data-scroll-target="#modélisation-du-langage">Modélisation du langage</a></li>
+  </ul></li>
   <li><a href="#pour-aller-plus-loin" id="toc-pour-aller-plus-loin" class="nav-link" data-scroll-target="#pour-aller-plus-loin">Pour aller plus loin</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/linogaliana/python-datascientist/edit/master/content/NLP/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/linogaliana/python-datascientist/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -518,29 +561,38 @@ nous nous sommes jusqu’à présent plutôt consacrés
 dimension certes modeste mais qui ouvraient déjà énormément de
 problématiques à creuser. Cette partie propose maintenant de se
 consacrer à un sujet dont il n’est pas évident <em>a priori</em> que
-les ordinateurs s’emparent: le langage humain et sa richesse.</p>
+les ordinateurs s’emparent: le <strong>langage humain</strong> et sa richesse.</p>
 <p>En effet, si la linguistique propose certes de représenter
 de manière conceptuelle le langage sous une forme de données, comment
-des ordinateurs, qui au fond ne connaissent que le 0 et le 1, peuvent-ils
+des ordinateurs, qui au fond ne connaissent que le <em>0</em> et le <em>1</em>, peuvent-ils
 s’approprier cet objet éminemment complexe qu’est le langage et qu’un
 humain met lui-même des années à comprendre et s’approprier ?<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<p>Le traitement du langage naturel - traduction française du concept de
+<p>Le traitement automatique du langage - traduction française du concept de
 <em>natural language processing</em> (NLP) - est l’ensemble des techniques
 permettant aux ordinateurs de comprendre, analyser synthétiser et
 générer le langage humain<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
 <p>Il s’agit d’un champ disciplinaire à l’intersection de la statistique
 et de la linguistique qui connait depuis quelques années un engouement
-important que ce soit d’un point de vue académique ou opérationnel.
+important, que ce soit d’un point de vue académique ou opérationnel.
 Certaines des applications de ces techniques sont devenues incontournables
 dans nos tâches quotidiennes, notamment les moteurs de recherche, la traduction
 automatique et plus récemment les <em>chatbots</em>.</p>
+<section id="résumé-de-la-partie" class="level2">
+<h2 class="anchored" data-anchor-id="résumé-de-la-partie">Résumé de la partie</h2>
 <p>Cette partie du cours est consacrée à l’analyse des données textuelles avec
 des exemples de 📖 pour s’amuser. Elle est une introduction progressive
 à ce sujet en se concentrant sur des concepts de base, nécessaires à
 la compréhension ultérieure de principes plus avancés et de techniques
-sophistiquées<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
-<section id="résumé-de-la-partie" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="résumé-de-la-partie">Résumé de la partie</h2>
+sophistiquées<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. Cette partie présente principalement:</p>
+<ul>
+<li>Les enjeux de nettoyage de champs textuels
+et d’analyse de fréquence. Il s’agit de NLP un
+peu <em>old school</em> mais dont la compréhension est nécessaire pour aller
+plus loin ;</li>
+<li>La modélisation du langage, selon plusieurs approches.</li>
+</ul>
+<section id="nettoyages-textuels-et-analyse-de-fréquences" class="level3">
+<h3 class="anchored" data-anchor-id="nettoyages-textuels-et-analyse-de-fréquences">Nettoyages textuels et analyse de fréquences</h3>
 <p><code>Python</code> est un excellent outil pour l’analyse de données textuelles.
 Les méthodes de base ou les librairies spécialisées
 comme <code>NLTK</code> et <code>SpaCy</code> permettent d’effectuer ces tâches de manière
@@ -555,14 +607,21 @@ analyse statistique :</p>
 <ul>
 <li>Elle propose d’abord une introduction aux enjeux du nettoyage des données
 textuelles à travers l’analyse du <em>Comte de Monte Cristo</em> d’Alexandre Dumas
-<a href="../../01_intro">ici</a> qui permet de synthétiser rapidement l’information disponible
+<a href="../../content/NLP/01_intro.html">ici</a> qui permet de synthétiser rapidement l’information disponible
 dans un large volume de données (à l’image de la <strong>?@fig-wordcloud-dumas</strong>)</li>
 <li>Elle propose ensuite une série d’exercices sur le nettoyage de textes à partir des
 oeuvres d’Edgar Allan Poe, Mary Shelley et H.P. Lovecraft visant à distinguer la
 spécificité du vocabulaire employé par chaque auteurs (par exemple <strong>?@fig-waffle-fear</strong>). Ces exercices sont
-disponibles <a href="../../02_exoclean">dans le deuxième chapitre</a> de la partie.</li>
+disponibles <a href="../../content/NLP/01_exoclean.html">dans le deuxième chapitre</a> de la partie.</li>
 </ul>
-<p>Ensuite, nous proposerons d’explorer une approche alternative, prenant en compte
+</section>
+<section id="modélisation-du-langage" class="level3">
+<h3 class="anchored" data-anchor-id="modélisation-du-langage">Modélisation du langage</h3>
+<p>La suite de cette partie proposera une introduction aux enjeux de modélisation
+du langage. Ceux-ci sont très à la mode du fait du succès de <code>ChatGPT</code>. Néanmoins, avant
+d’en arriver aux LLM, il est nécessaire de passer par quelques modélisations
+préliminaires.</p>
+<p>Nous proposerons d’abord d’explorer une approche alternative, prenant en compte
 le contexte d’apparition d’un mot. L’introduction à la
 <em>Latent Dirichlet Allocation</em> (LDA) sera l’occasion de présenter la modélisation
 de documents sous la forme de <em>topics</em>.</p>
@@ -583,7 +642,7 @@ sophistiqué d’analyse du langage:</p>
 <figure class="figure">
 <div id="fig-encoder-decoder" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><a href="https://substackcdn.com/image/fetch/w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F81c2aa73-dd8c-46bf-85b0-90e01145b0ed_1422x1460.png" class="lightbox" title="Illustration transformer architecture" data-gallery="quarto-lightbox-gallery-1"><img src="https://substackcdn.com/image/fetch/w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F81c2aa73-dd8c-46bf-85b0-90e01145b0ed_1422x1460.png" class="img-fluid figure-img"></a></p>
+<p><a href="https://substackcdn.com/image/fetch/w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F81c2aa73-dd8c-46bf-85b0-90e01145b0ed_1422x1460.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Illustration transformer architecture"><img src="https://substackcdn.com/image/fetch/w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F81c2aa73-dd8c-46bf-85b0-90e01145b0ed_1422x1460.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption">(a) Illustration transformer architecture</figcaption>
 </figure>
 </div>
@@ -591,6 +650,7 @@ sophistiqué d’analyse du langage:</p>
 (source: <a href="https://magazine.sebastianraschka.com/p/understanding-encoder-and-decoder">Sebastien Raschka</a>)</figcaption>
 </figure>
 </div>
+</section>
 </section>
 <section id="pour-aller-plus-loin" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="pour-aller-plus-loin">Pour aller plus loin</h2>
@@ -603,6 +663,92 @@ ce <a href="https://huggingface.co/course/chapter1/2?fw=pt">cours d’<code>Hugg
 <p>Pour comprendre l’architecture interne d’un LLM,
 ce <a href="https://magazine.sebastianraschka.com/p/understanding-encoder-and-decoder">post de Sebastian Raschka</a>
 est très utile.</p>
+<p>Ces chapitres n’épuisent pas les cas d’usage du NLP pour les <em>data scientists</em>. Par exemple,
+dans le domaine de la statistique publique, un des principaux cas d’usage du NLP est l’utilisation
+de techniques de classification automatique pour transformer des réponses libres dans des questionnaires
+en champs prédéfinis dans une nomenclature.</p>
+<p>Voici un exemple sur un projet de classification automatisée des professions dans la typologie
+des nomenclatures d’activités:</p>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="183" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 182;"><span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>viewof activite <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">text</span>( </span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">''</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">'data scientist'</span><span class="op">,</span> <span class="dt">width</span><span class="op">:</span> <span class="dv">800</span>}</span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="191" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 190;"><span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a>d3<span class="op">.</span><span class="fu">json</span>(urlApe)<span class="op">.</span><span class="fu">then</span>(res <span class="kw">=&gt;</span> {</span>
+<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> IC<span class="op">,</span> results<span class="op">;</span></span>
+<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a>  ({ IC<span class="op">,</span> <span class="op">...</span>results } <span class="op">=</span> res)<span class="op">;</span></span>
+<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a>  IC <span class="op">=</span> <span class="pp">parseFloat</span>(IC)<span class="op">;</span></span>
+<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rows <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">values</span>(results)<span class="op">.</span><span class="fu">map</span>(obj <span class="kw">=&gt;</span> {</span>
+<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="vs">`</span></span>
+<span id="cb2-200"><a href="#cb2-200" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;tr&gt;</span></span>
+<span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;td&gt;</span><span class="sc">${</span>obj<span class="op">.</span><span class="at">code</span><span class="sc">}</span><span class="vs"> | </span><span class="sc">${</span>obj<span class="op">.</span><span class="at">libelle</span><span class="sc">}</span><span class="vs">&lt;/td&gt;</span></span>
+<span id="cb2-202"><a href="#cb2-202" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;td&gt;</span><span class="sc">${</span>obj<span class="op">.</span><span class="at">probabilite</span><span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">3</span>)<span class="sc">}</span><span class="vs">&lt;/td&gt;</span></span>
+<span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/tr&gt;</span></span>
+<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a><span class="vs">  `</span><span class="op">;</span></span>
+<span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a>  })<span class="op">.</span><span class="fu">join</span>(<span class="st">''</span>)<span class="op">;</span></span>
+<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> confidenceRow <span class="op">=</span> <span class="vs">`&lt;tr&gt;</span></span>
+<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;td colspan="2" style="text-align:left; "&gt;&lt;em&gt;Indice de confiance : </span><span class="sc">${</span>IC<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">3</span>)<span class="sc">}</span><span class="vs">&lt;/em&gt;&lt;/td&gt;</span></span>
+<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/tr&gt;`</span><span class="op">;</span></span>
+<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tableHTML <span class="op">=</span> <span class="fu">html</span><span class="vs">`</span></span>
+<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;table&gt;</span></span>
+<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;caption&gt;</span></span>
+<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a><span class="vs">      Prédiction de l'activité</span></span>
+<span id="cb2-215"><a href="#cb2-215" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/caption&gt;</span></span>
+<span id="cb2-216"><a href="#cb2-216" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;tr&gt;</span></span>
+<span id="cb2-217"><a href="#cb2-217" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;th style="text-align:center;"&gt;Libellé (NA2008)&lt;/th&gt;</span></span>
+<span id="cb2-218"><a href="#cb2-218" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;th&gt;Probabilité&lt;/th&gt;</span></span>
+<span id="cb2-219"><a href="#cb2-219" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/tr&gt;</span></span>
+<span id="cb2-220"><a href="#cb2-220" aria-hidden="true" tabindex="-1"></a><span class="vs">      </span><span class="sc">${</span>rows<span class="sc">}</span></span>
+<span id="cb2-221"><a href="#cb2-221" aria-hidden="true" tabindex="-1"></a><span class="vs">      </span><span class="sc">${</span>confidenceRow<span class="sc">}</span></span>
+<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/table&gt;`</span><span class="op">;</span></span>
+<span id="cb2-223"><a href="#cb2-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-224"><a href="#cb2-224" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Now you can use the tableHTML as needed, for example, inserting it into the DOM.</span></span>
+<span id="cb2-225"><a href="#cb2-225" aria-hidden="true" tabindex="-1"></a>  <span class="co">// For example, assuming you have a container with the id "tableContainer":</span></span>
+<span id="cb2-226"><a href="#cb2-226" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> tableHTML<span class="op">;</span></span>
+<span id="cb2-227"><a href="#cb2-227" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="233" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 232;"><span id="cb3-233"><a href="#cb3-233" aria-hidden="true" tabindex="-1"></a>activite_debounce <span class="op">=</span> <span class="fu">debounce</span>(viewof activite<span class="op">,</span> <span class="dv">2000</span>)</span>
+<span id="cb3-234"><a href="#cb3-234" aria-hidden="true" tabindex="-1"></a>urlApe <span class="op">=</span> <span class="vs">`https://codification-ape-test.lab.sspcloud.fr/predict?nb_echos_max=3&amp;prob_min=0&amp;text_feature=</span><span class="sc">${</span>activite_debounce<span class="sc">}</span><span class="vs">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="238" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 237;"><span id="cb4-238"><a href="#cb4-238" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {debounce} <span class="im">from</span> <span class="st">"@mbostock/debouncing-input"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
 
 
 </section>
@@ -611,7 +757,7 @@ est très utile.</p>
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>En écrivant ces lignes j’ai demandé à <code>ChatGPT</code> de me faire une blague, la communication entre l’humain et la machine est perfectible :</p>
+<li id="fn1"><p>En écrivant ces lignes j’ai demandé à <code>ChatGPT</code> de me faire une blague.</p>
 <blockquote class="blockquote">
 <p>Pourquoi les programmeurs détestent-ils la plage ?
 Parce que le sable change tout le temps de paradigme !</p>
@@ -652,6 +798,18 @@ l’ouverture ultérieure de la boite de Pandore que sont les <em>embeddings</em
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-galiana2023" class="csl-entry quarto-appendix-citeas" role="listitem">
 Galiana, Lino. 2023. <em>Python Pour La Data Science</em>. <a href="https://doi.org/10.5281/zenodo.8229676">https://doi.org/10.5281/zenodo.8229676</a>.
 </div></div></section></div></main> <!-- /main -->
+
+<script type="ojs-module-contents">
+{"contents":[{"methodName":"interpret","cellName":"ojs-cell-1","inline":false,"source":"viewof activite = Inputs.text( \n  {label: '', value: 'data scientist', width: 800}\n)\n"},{"methodName":"interpret","cellName":"ojs-cell-2","inline":false,"source":"d3.json(urlApe).then(res => {\n  var IC, results;\n\n  ({ IC, ...results } = res);\n\n  IC = parseFloat(IC);\n\n  const rows = Object.values(results).map(obj => {\n    return `\n    <tr>\n      <td>${obj.code} | ${obj.libelle}</td>\n      <td>${obj.probabilite.toFixed(3)}</td>\n    </tr>\n  `;\n  }).join('');\n\n  const confidenceRow = `<tr>\n    <td colspan=\"2\" style=\"text-align:left; \"><em>Indice de confiance : ${IC.toFixed(3)}</em></td>\n  </tr>`;\n\n  const tableHTML = html`\n  <table>\n    <caption>\n      Prédiction de l'activité\n    </caption>\n    <tr>\n      <th style=\"text-align:center;\">Libellé (NA2008)</th>\n      <th>Probabilité</th>\n    </tr>\n      ${rows}\n      ${confidenceRow}\n  </table>`;\n\n  // Now you can use the tableHTML as needed, for example, inserting it into the DOM.\n  // For example, assuming you have a container with the id \"tableContainer\":\n  return tableHTML;\n});\n"},{"methodName":"interpret","cellName":"ojs-cell-3","inline":false,"source":"activite_debounce = debounce(viewof activite, 2000)\nurlApe = `https://codification-ape-test.lab.sspcloud.fr/predict?nb_echos_max=3&prob_min=0&text_feature=${activite_debounce}`\n"},{"methodName":"interpret","cellName":"ojs-cell-4","inline":false,"source":"import {debounce} from \"@mbostock/debouncing-input\"\n"},{"methodName":"interpretQuiet","source":"shinyInput('activite')"}]}
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../content/NLP";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "../..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -910,7 +1068,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"loop":true,"closeEffect":"zoom","selector":".lightbox","openEffect":"zoom","descPosition":"bottom"});</script>
+<script>var lightboxQuarto = GLightbox({"loop":true,"descPosition":"bottom","closeEffect":"zoom","selector":".lightbox","openEffect":"zoom"});</script>
 
 
 
