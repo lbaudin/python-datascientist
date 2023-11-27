@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Lino Galiana">
+<meta name="dcterms.date" content="2020-09-03">
+<meta name="description" content="ElasticSearch est un moteur de recherche extrêmement rapide et flexible. Cette technologie s’est imposée dans le domaine du traitement des données textuelles. L’API Python permet d’intégrer cette technologie dans des processus Python afin de les accélérer. Ce chapitre présente cette intégration d’ Elastic avec l’exemple de la recherche dans les données alimentaires de l’ OpenFoodFacts Database">
+
+<title>Python pour la data science - Introduction à ElasticSearch pour la recherche textuelle</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../content/modern-ds/elastic_approfondissement.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+
+      .quarto-title-block .quarto-title-banner {
+        background: #e9f3fa;
+      }
+</style>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<meta name="twitter:title" content="Python pour la data science - Introduction à ElasticSearch pour la recherche textuelle">
+<meta name="twitter:description" content="ElasticSearch est un moteur de recherche extrêmement rapide et flexible.
+Cette technologie s’est imposée dans le domaine du traitement des
+données textuelles. L’API Python permet d’intégrer cette
+technologie dans des processus Python afin de les accélérer. Ce chapitre
+présente cette intégration d’ Elastic avec l’exemple de la recherche
+dans les données alimentaires de l’ OpenFoodFacts Database">
+<meta name="twitter:image" content="https://pythonds.linogaliana.fr/content/modern-ds/detective_words.png">
+<meta name="twitter:image-height" content="1024">
+<meta name="twitter:image-width" content="1024">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="citation_title" content="Python pour la data science">
+<meta name="citation_author" content="Lino Galiana">
+<meta name="citation_publication_date" content="2023">
+<meta name="citation_cover_date" content="2023">
+<meta name="citation_year" content="2023">
+<meta name="citation_online_date" content="2020-09-03">
+<meta name="citation_fulltext_html_url" content="https://pythonds.linogaliana.fr/">
+<meta name="citation_doi" content="10.5281/zenodo.8229676">
+<meta name="citation_language" content="en">
+<meta name="citation_reference" content="citation_title=Coding for economists;,citation_author=undefined Turrell;,citation_author=undefined contributors;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_fulltext_html_url=https://aeturrell.github.io/coding-for-economists;">
+<meta name="citation_reference" content="citation_title=Random forests;,citation_author=Leo Breiman;,citation_publication_date=2001;,citation_cover_date=2001;,citation_year=2001;,citation_volume=45;,citation_journal_title=Machine learning;,citation_publisher=Springer;">
+<meta name="citation_reference" content="citation_title=Bagging predictors;,citation_author=Leo Breiman;,citation_publication_date=1996;,citation_cover_date=1996;,citation_year=1996;,citation_volume=24;,citation_journal_title=Machine learning;,citation_publisher=Springer;">
+<meta name="citation_reference" content="citation_title=R for data science;,citation_author=Hadley Wickham;,citation_author=Mine Çetinkaya-Rundel;,citation_author=Garrett Grolemund;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;">
+<meta name="citation_reference" content="citation_title=Computational reproducibility of jupyter notebooks from biomedical publications;,citation_author=Sheeba Samuel;,citation_author=Daniel Mietchen;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://arxiv.org/abs/2308.07333;">
+<meta name="citation_reference" content="citation_title=Python data science handbook: Essential tools for working with data;,citation_author=Jake VanderPlas;,citation_publication_date=2016;,citation_cover_date=2016;,citation_year=2016;">
+<meta name="citation_reference" content="citation_title=Machine learning methods that economists should know about;,citation_author=Susan Athey;,citation_author=Guido W Imbens;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_volume=11;,citation_journal_title=Annual Review of Economics;,citation_publisher=Annual Reviews;">
+<meta name="citation_reference" content="citation_title=Fuzzy matching on big-data an illustration with scanner data and crowd-sourced nutritional data;,citation_author=Lino Galiana;,citation_author=Milena Suarez Castillo;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_publisher=Proceedings of the 2022 &amp;amp;amp;quot;Journées de Méthodologie Statistiques&amp;quot;;">
+<meta name="citation_reference" content="citation_title=Data visualization with python and JavaScript;,citation_author=Kyran Dale;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;">
+<meta name="citation_reference" content="citation_title=Sémiologie graphique;,citation_author=Jacques Bertin;,citation_publication_date=1967;,citation_cover_date=1967;,citation_year=1967;">
+<meta name="citation_reference" content="citation_title=La sémiologie graphique de jacques bertin a cinquante ans;,citation_author=Gilles Palsky;,citation_publication_date=2017;,citation_cover_date=2017;,citation_year=2017;,citation_journal_title=Visions carto (en ligne);">
+<meta name="citation_reference" content="citation_title=Fundamentals of data visualization: A primer on making informative and compelling figures;,citation_author=Claus O Wilke;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;">
+<meta name="citation_reference" content="citation_title=How to train BERT with an academic budget;,citation_author=Peter Izsak;,citation_author=Moshe Berchansky;,citation_author=Omer Levy;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_fulltext_html_url=https://arxiv.org/abs/2104.07705;">
+<meta name="citation_reference" content="citation_title=Python for data analysis: Data wrangling with pandas, NumPy, and IPython;,citation_author=Wes McKinney;,citation_publication_date=2012;,citation_cover_date=2012;,citation_year=2012;">
+<meta name="citation_reference" content="citation_title=Residential segregation, daytime segregation and spatial frictions: An analysis from mobile phone data;,citation_author=Lino Galiana;,citation_author=François Sémécurbe;,citation_author=Benjamin Sakarovitch;,citation_author=Zbigniew Smoreda;,citation_publication_date=2020;,citation_cover_date=2020;,citation_year=2020;,citation_publisher=Insee Working Paper;">
+<meta name="citation_reference" content="citation_title=Fuzzy matching on big-data: An illustration with scanner and crowd-sourced nutritional datasets;,citation_abstract=Food retailers’ scanner data provide unprecedented details on local consumption, provided that product identifiers allow a linkage with features of interest, such as nutritional information. In this paper, we enrich a large retailer dataset with nutritional information extracted from crowd-sourced and administrative nutritional datasets. To compensate for imperfect matching through the barcode, we develop a methodology to efficiently match short textual descriptions. After a preprocessing step to normalize short labels, we resort to fuzzy matching based on several tokenizers (including n-grams) by querying an ElasticSearch customized index and validate candidates echos as matches with a Levensthein edit-distance and an embedding-based similarity measure created from a siamese neural network model. The pipeline is composed of several steps successively relaxing constraints to find relevant matching candidates.;,citation_author=Lino Galiana;,citation_author=Milena Suarez Castillo;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=https://doi.org/10.1145/3524458.3547244;,citation_doi=10.1145/3524458.3547244;,citation_isbn=9781450392846;,citation_conference_title=Proceedings of the 2022 ACM conference on information technology for social good;,citation_conference=Association for Computing Machinery;,citation_series_title=GoodIT ’22;">
+<meta name="citation_reference" content="citation_title=Guide de sémiologie cartographique;,citation_author=undefined Insee;,citation_publication_date=2018;,citation_cover_date=2018;,citation_year=2018;,citation_publisher=Insee Working Paper;">
+<meta name="citation_reference" content="citation_title=Energy and policy considerations for deep learning in NLP;,citation_author=Emma Strubell;,citation_author=Ananya Ganesh;,citation_author=Andrew McCallum;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_fulltext_html_url=https://arxiv.org/abs/1906.02243;">
+<meta name="citation_reference" content="citation_title=High-resolution image synthesis with latent diffusion models;,citation_author=Robin Rombach;,citation_author=Andreas Blattmann;,citation_author=Dominik Lorenz;,citation_author=Patrick Esser;,citation_author=Björn Ommer;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_conference_title=Proceedings of the IEEE/CVF conference on computer vision and pattern recognition (CVPR);">
+<meta name="citation_reference" content="citation_title=Apache arrow and the&amp;amp;amp;quot; 10 things i hate about pandas;,citation_author=Wes McKinney;,citation_publication_date=2017;,citation_cover_date=2017;,citation_year=2017;,citation_volume=21;,citation_journal_title=Blog, September;">
+<meta name="citation_reference" content="citation_title=Many researchers were not compliant with their published data sharing statement: Mixed-methods study;,citation_author=Mirko Gabelica;,citation_author=Ružica Bojčić;,citation_author=Livia Puljak;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_journal_title=Journal of Clinical Epidemiology;,citation_publisher=Elsevier;">
+<meta name="citation_reference" content="citation_title=Credit scoring in the era of big data;,citation_author=Mikella Hurley;,citation_author=Julius Adebayo;,citation_publication_date=2016;,citation_cover_date=2016;,citation_year=2016;,citation_volume=18;,citation_journal_title=Yale JL &amp;amp;amp; Tech.;,citation_publisher=HeinOnline;">
+<meta name="citation_reference" content="citation_title=Econometrics and machine learning;,citation_author=Arthur Charpentier;,citation_author=Emmanuel Flachaire;,citation_author=Antoine Ly;,citation_publication_date=2018;,citation_cover_date=2018;,citation_year=2018;,citation_issue=1;,citation_volume=505;,citation_journal_title=Economie et Statistique;,citation_publisher=Persée-Portail des revues scientifiques en SHS;">
+<meta name="citation_reference" content="citation_title=Machine learning: An applied econometric approach;,citation_author=Sendhil Mullainathan;,citation_author=Jann Spiess;,citation_publication_date=2017-05;,citation_cover_date=2017-05;,citation_year=2017;,citation_fulltext_html_url=https://www.aeaweb.org/articles?id=10.1257/jep.31.2.87;,citation_issue=2;,citation_doi=10.1257/jep.31.2.87;,citation_volume=31;,citation_journal_title=Journal of Economic Perspectives;">
+<meta name="citation_reference" content="citation_title=Le problème du réalisme des hypothèses en économie politique;,citation_author=Pierre Salmon;,citation_publication_date=2010;,citation_cover_date=2010;,citation_year=2010;">
+<meta name="citation_reference" content="citation_title=The methodology of positive economics;,citation_author=Milton Friedman;,citation_publication_date=1953;,citation_cover_date=1953;,citation_year=1953;,citation_inbook_title=Essays in positive economics;">
+<meta name="citation_reference" content="citation_title=L’empreinte carbone du numérique;,citation_author=undefined Arcep;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;">
+<meta name="citation_reference" content="citation_title=Leakage and the reproducibility crisis in ML-based science;,citation_author=Sayash Kapoor;,citation_author=Arvind Narayanan;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=https://arxiv.org/abs/2207.07048;,citation_doi=10.48550/ARXIV.2207.07048;,citation_publisher=arXiv;">
+<meta name="citation_reference" content="citation_title=Data scientist, the sexiest job of the 21st century;,citation_author=Thomas H Davenport;,citation_author=DJ Patil;,citation_publication_date=2012;,citation_cover_date=2012;,citation_year=2012;,citation_fulltext_html_url=https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century;,citation_issue=5;,citation_volume=90;,citation_journal_title=Harvard business review;">
+<meta name="citation_reference" content="citation_title=Is data scientist still the sexiest job of the 21st century?;,citation_author=Thomas H Davenport;,citation_author=DJ Patil;,citation_publication_date=2012;,citation_cover_date=2012;,citation_year=2012;,citation_fulltext_html_url=https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century;,citation_issue=5;,citation_volume=90;,citation_journal_title=Harvard business review;">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Python pour la data science</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-introduction" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Introduction</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-introduction">    
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/01_installation.html" rel="" target="">
+ <span class="dropdown-text">Configuration de Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/02_DS_environment.html" rel="" target="">
+ <span class="dropdown-text">L’environnement Python pour la data science</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/03_data_analysis.html" rel="" target="">
+ <span class="dropdown-text">Comment aborder un jeu de données</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/04_python_practice.html" rel="" target="">
+ <span class="dropdown-text">Bonne pratique de Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/05_rappels_types.html" rel="" target="">
+ <span class="dropdown-text">Quelques rappels sur les principes de base de Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/06_rappels_fonctions.html" rel="" target="">
+ <span class="dropdown-text">Modules, tests, boucles, fonctions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/07_rappels_classes.html" rel="" target="">
+ <span class="dropdown-text">Les classes en Python</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-manipuler" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Manipuler</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-manipuler">    
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/01_numpy.html" rel="" target="">
+ <span class="dropdown-text">Numpy, la brique de base de la data science</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/02a_pandas_tutorial.html" rel="" target="">
+ <span class="dropdown-text">Introduction à Pandas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/02b_pandas_TP.html" rel="" target="">
+ <span class="dropdown-text">Pratique de pandas : un exemple complet</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/03_geopandas_tutorial.html" rel="" target="">
+ <span class="dropdown-text">Données spatiales : découverte de geopandas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/03_geopandas_TP.html" rel="" target="">
+ <span class="dropdown-text">Pratique de geopandas avec les données vélib</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/04a_webscraping_TP.html" rel="" target="">
+ <span class="dropdown-text">Web scraping avec Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/04c_API_TP.html" rel="" target="">
+ <span class="dropdown-text">Récupérer des données avec des API depuis Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/04b_regex_TP.html" rel="" target="">
+ <span class="dropdown-text">Maîtriser les expressions régulières</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/07_dask.html" rel="" target="">
+ <span class="dropdown-text">Introduction à dask grâce aux données DVF</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-communiquer" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Communiquer</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-communiquer">    
+        <li>
+    <a class="dropdown-item" href="../../content/visualisation/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/visualisation/matplotlib.html" rel="" target="">
+ <span class="dropdown-text">De beaux graphiques avec python : mise en pratique</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/visualisation/maps.html" rel="" target="">
+ <span class="dropdown-text">De belles cartes avec python : mise en pratique</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-modéliser" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Modéliser</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-modéliser">    
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/0_preprocessing.html" rel="" target="">
+ <span class="dropdown-text">Préparation des données pour construire un modèle</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/1_modelevaluation.html" rel="" target="">
+ <span class="dropdown-text">Evaluer la qualité d’un modèle</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/2_SVM.html" rel="" target="">
+ <span class="dropdown-text">Classification: premier modèle avec les SVM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/3_regression.html" rel="" target="">
+ <span class="dropdown-text">Régression : une introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/4_featureselection.html" rel="" target="">
+ <span class="dropdown-text">Sélection de variables : une introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/5_clustering.html" rel="" target="">
+ <span class="dropdown-text">Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/6_pipeline.html" rel="" target="">
+ <span class="dropdown-text">Premier pas vers l’industrialisation avec les pipelines scikit</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-nlp" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">NLP</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-nlp">    
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/01_intro.html" rel="" target="">
+ <span class="dropdown-text">Quelques éléments pour comprendre les enjeux du NLP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/02_exoclean.html" rel="" target="">
+ <span class="dropdown-text">Nettoyer un texte: des exercices pour découvrir l’approche bag-of-words</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/03_lda.html" rel="" target="">
+ <span class="dropdown-text">Latent Dirichlet Allocation (LDA)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/04_word2vec.html" rel="" target="">
+ <span class="dropdown-text">Méthodes de vectorisation : comptages et word embeddings</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/05_exo_supp.html" rel="" target="">
+ <span class="dropdown-text">Exercices supplémentaires</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-approfondissements" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Approfondissements</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-approfondissements">    
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/continuous_integration.html" rel="" target="">
+ <span class="dropdown-text">Intégration continue avec Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/dallE.html" rel="" target="">
+ <span class="dropdown-text">Génération d’images avec Python, DALL-E et StableDiffusion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/s3.html" rel="" target="">
+ <span class="dropdown-text">Les nouveaux modes d’accès aux données : le format parquet et les données sur le cloud</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/elastic_approfondissement.html" rel="" target="">
+ <span class="dropdown-text">Approfondissement ElasticSearch pour des recherches de proximité géographique</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/elastic_intro.html" rel="" target="">
+ <span class="dropdown-text">Introduction à ElasticSearch pour la recherche textuelle</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-git" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Git</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-git">    
+        <li>
+    <a class="dropdown-item" href="../../content/git/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/git/introgit.html" rel="" target="">
+ <span class="dropdown-text">Git : un élément essentiel au quotidien</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/git/exogit.html" rel="" target="">
+ <span class="dropdown-text">Un cadavre exquis pour découvrir Git</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-annexes" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Annexes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-annexes">    
+        <li>
+    <a class="dropdown-item" href="../../content/annexes/evaluation.html" rel="" target="">
+ <span class="dropdown-text">Evaluation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/annexes/corrections.html" rel="" target="">
+ <span class="dropdown-text">Corrections</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://linogaliana.github.io/python-datascientist-slides/#/title-slide" rel="" target="">
+ <span class="dropdown-text">Slides de présentation</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools ms-auto-item" href="https://github.com/linogaliana/python-datascientist">
+            Code source
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../content/modern-ds/elastic_intro.html">Introduction à ElasticSearch pour la recherche textuelle</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns">
+                <div id="title-block-header-title" class="quarto-title page-columns page-full page-layout-full featured-image p-4" style="background-image: url(detective_words.png);">
+                <h1 class="title">Introduction à ElasticSearch pour la recherche textuelle</h1>
+                                    <div class="quarto-categories">
+                        <div class="quarto-category">Tutoriel</div>
+                        <div class="quarto-category">Avancé</div>
+                      </div>
+                          </div>
+        
+                <div>
+          <div id="title-block-title-desc" class="description pt-4">
+            <p><code>ElasticSearch</code> est un moteur de recherche extrêmement rapide et flexible.
+            Cette technologie s’est imposée dans le domaine du traitement des
+            données textuelles. L’API <code>Python</code> permet d’intégrer cette
+            technologie dans des processus <code>Python</code> afin de les accélérer. Ce chapitre
+            présente cette intégration d’ <code>Elastic</code> avec l’exemple de la recherche
+            dans les données alimentaires de l’ <code>OpenFoodFacts</code> Database</p>
+          </div>
+        </div>
+                
+        
+        <div class="quarto-title-meta">
+
+            <div>
+            <div class="quarto-title-meta-heading">Author</div>
+            <div class="quarto-title-meta-contents">
+                     <p>Lino Galiana </p>
+                  </div>
+          </div>
+            
+            <div>
+            <div class="quarto-title-meta-heading">Published</div>
+            <div class="quarto-title-meta-contents">
+              <p class="date">September 3, 2020</p>
+            </div>
+          </div>
+          
+            
+          </div>
+          
+        
+        
+        
+
+        </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/modern-ds/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/modern-ds/continuous_integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intégration continue avec Python</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/modern-ds/dallE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Génération d’images avec Python, DALL-E et StableDiffusion</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/modern-ds/s3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Les nouveaux modes d’accès aux données : le format parquet et les données sur le cloud</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/modern-ds/elastic_approfondissement.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Approfondissement ElasticSearch pour des recherches de proximité géographique</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/modern-ds/elastic_intro.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Introduction à ElasticSearch pour la recherche textuelle</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#réplication-de-ce-chapitre" id="toc-réplication-de-ce-chapitre" class="nav-link" data-scroll-target="#réplication-de-ce-chapitre">Réplication de ce chapitre</a></li>
+  <li><a href="#cas-dusage" id="toc-cas-dusage" class="nav-link" data-scroll-target="#cas-dusage">Cas d’usage</a></li>
+  </ul></li>
+  <li><a href="#données-utilisées" id="toc-données-utilisées" class="nav-link" data-scroll-target="#données-utilisées">Données utilisées</a>
+  <ul class="collapse">
+  <li><a href="#les-bases-offrant-des-informations-nutritionnelles" id="toc-les-bases-offrant-des-informations-nutritionnelles" class="nav-link" data-scroll-target="#les-bases-offrant-des-informations-nutritionnelles">Les bases offrant des informations nutritionnelles</a></li>
+  <li><a href="#import" id="toc-import" class="nav-link" data-scroll-target="#import">Import</a></li>
+  </ul></li>
+  <li><a href="#elasticsearch-mais-ce-nest-pas-du-python" id="toc-elasticsearch-mais-ce-nest-pas-du-python" class="nav-link" data-scroll-target="#elasticsearch-mais-ce-nest-pas-du-python">ElasticSearch ? Mais ce n’est pas du Python ?!</a>
+  <ul class="collapse">
+  <li><a href="#quest-ce-quelastic" id="toc-quest-ce-quelastic" class="nav-link" data-scroll-target="#quest-ce-quelastic">Qu’est-ce qu’Elastic ?</a></li>
+  <li><a href="#elasticsearch-et-python" id="toc-elasticsearch-et-python" class="nav-link" data-scroll-target="#elasticsearch-et-python"><code>ElasticSearch</code> et <code>Python</code></a></li>
+  </ul></li>
+  <li><a href="#premières-limites-de-la-distance-de-levenshtein" id="toc-premières-limites-de-la-distance-de-levenshtein" class="nav-link" data-scroll-target="#premières-limites-de-la-distance-de-levenshtein">Premières limites de la distance de Levenshtein</a>
+  <ul class="collapse">
+  <li><a href="#premier-essai-les-produits-ciqual-les-plus-similaires-aux-produits-de-la-recette" id="toc-premier-essai-les-produits-ciqual-les-plus-similaires-aux-produits-de-la-recette" class="nav-link" data-scroll-target="#premier-essai-les-produits-ciqual-les-plus-similaires-aux-produits-de-la-recette">Premier essai: les produits <code>Ciqual</code> les plus similaires aux produits de la recette</a></li>
+  </ul></li>
+  <li><a href="#preprocessing-pour-améliorer-la-pertinence-des-matches" id="toc-preprocessing-pour-améliorer-la-pertinence-des-matches" class="nav-link" data-scroll-target="#preprocessing-pour-améliorer-la-pertinence-des-matches">Preprocessing pour améliorer la pertinence des matches</a>
+  <ul class="collapse">
+  <li><a href="#objectif" id="toc-objectif" class="nav-link" data-scroll-target="#objectif">Objectif</a></li>
+  <li><a href="#démarche" id="toc-démarche" class="nav-link" data-scroll-target="#démarche">Démarche</a></li>
+  <li><a href="#approche-systématique" id="toc-approche-systématique" class="nav-link" data-scroll-target="#approche-systématique">Approche systématique</a></li>
+  <li><a href="#réduire-les-temps-de-recherche" id="toc-réduire-les-temps-de-recherche" class="nav-link" data-scroll-target="#réduire-les-temps-de-recherche">Réduire les temps de recherche</a></li>
+  </ul></li>
+  <li><a href="#indexer-une-base" id="toc-indexer-une-base" class="nav-link" data-scroll-target="#indexer-une-base">Indexer une base</a>
+  <ul class="collapse">
+  <li><a href="#créer-un-cluster-elastic-sur-le-datalab" id="toc-créer-un-cluster-elastic-sur-le-datalab" class="nav-link" data-scroll-target="#créer-un-cluster-elastic-sur-le-datalab">Créer un cluster <code>Elastic</code> sur le DataLab</a></li>
+  <li><a href="#première-indexation" id="toc-première-indexation" class="nav-link" data-scroll-target="#première-indexation">Première indexation</a></li>
+  <li><a href="#première-recherche" id="toc-première-recherche" class="nav-link" data-scroll-target="#première-recherche">Première recherche</a></li>
+  <li><a href="#limite-de-cette-première-indexation" id="toc-limite-de-cette-première-indexation" class="nav-link" data-scroll-target="#limite-de-cette-première-indexation">Limite de cette première indexation</a></li>
+  </ul></li>
+  <li><a href="#améliorer-lindexation" id="toc-améliorer-lindexation" class="nav-link" data-scroll-target="#améliorer-lindexation">Améliorer l’indexation</a>
+  <ul class="collapse">
+  <li><a href="#une-indexation-plus-adaptée" id="toc-une-indexation-plus-adaptée" class="nav-link" data-scroll-target="#une-indexation-plus-adaptée">Une indexation plus adaptée</a></li>
+  <li><a href="#nos-premières-requêtes" id="toc-nos-premières-requêtes" class="nav-link" data-scroll-target="#nos-premières-requêtes">Nos premières requêtes</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/linogaliana/python-datascientist/edit/master/content/modern-ds/elastic_intro.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/linogaliana/python-datascientist/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+<!-- source: https://github.com/gadenbuie/garrickadenbuie-com/blob/main/_partials/title-block-link-buttons/title-block.html -->
+<!-- source: https://raw.githubusercontent.com/spcanelon/silvia/32853dd0e70a71514b0922ee306f80ed5897f776/_partials/title-block-link-buttons/title-block.html -->
+<!-- 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title"> 
+-->
+<!-- <header id="title-block-header" class="quarto-title-block default page-columns"> -->
+<!-- <div class="quarto-title page-columns page-full featured-image p-4" style="background-image: url(featured.png), url(featured.jpg), url(../featured.jpg);"> -->
+    
+
+<p>Pour essayer les exemples présents dans ce tutoriel :</p>
+<div class="cell markdown">
+<p class="badges">
+<a href="https://github.com/linogaliana/python-datascientist-notebooks/blob/main/notebooks/modern-ds/elastic_intro.ipynb" class="github"><i class="fab fa-github"></i></a>
+<a href="https://downgit.github.io/#/home?url=https://github.com/linogaliana/python-datascientist-notebooks/blob/main/notebooks/modern-ds/elastic_intro.ipynb" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Download-Notebook-important?logo=Jupyter" alt="Download"></a>
+<a href="https://nbviewer.jupyter.org/github/linogaliana/python-datascientist-notebooksblob/main/notebooks/modern-ds/elastic_intro.ipynb" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Visualize-nbviewer-blue?logo=Jupyter" alt="nbviewer"></a>
+<a href="https://datalab.sspcloud.fr/launcher/ide/jupyter-python?autoLaunch=true&amp;onyxia.friendlyName=%C2%ABpython-datascience%C2%BB&amp;init.personalInit=%C2%ABhttps%3A%2F%2Fraw.githubusercontent.com%2Flinogaliana%2Fpython-datascientist%2Fmaster%2Fsspcloud%2Finit-jupyter.sh%C2%BB&amp;init.personalInitArgs=%C2%ABmodern-ds%20elastic_intro%C2%BB&amp;security.allowlist.enabled=false" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/SSP%20Cloud-Tester_avec_Jupyter-orange?logo=Jupyter&amp;logoColor=orange" alt="Onyxia"></a>
+<a href="https://datalab.sspcloud.fr/launcher/ide/vscode-python?autoLaunch=true&amp;onyxia.friendlyName=%C2%ABpython-datascience%C2%BB&amp;init.personalInit=%C2%ABhttps%3A%2F%2Fraw.githubusercontent.com%2Flinogaliana%2Fpython-datascientist%2Fmaster%2Fsspcloud%2Finit-vscode.sh%C2%BB&amp;init.personalInitArgs=%C2%ABmodern-ds%20elastic_intro%C2%BB&amp;security.allowlist.enabled=false" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/SSP%20Cloud-Tester_avec_VSCode-blue?logo=visualstudiocode&amp;logoColor=blue" alt="Onyxia"></a><br>
+<a href="https://mybinder.org/v2/gh/linogaliana/python-datascientist-notebooks/main?filepath={binder_path}" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Launch-Binder-E66581.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABZCAMAAABi1XidAAAB8lBMVEX///9XmsrmZYH1olJXmsr1olJXmsrmZYH1olJXmsr1olJXmsrmZYH1olL1olJXmsr1olJXmsrmZYH1olL1olJXmsrmZYH1olJXmsr1olL1olJXmsrmZYH1olL1olJXmsrmZYH1olL1olL0nFf1olJXmsrmZYH1olJXmsq8dZb1olJXmsrmZYH1olJXmspXmspXmsr1olL1olJXmsrmZYH1olJXmsr1olL1olJXmsrmZYH1olL1olLeaIVXmsrmZYH1olL1olL1olJXmsrmZYH1olLna31Xmsr1olJXmsr1olJXmsrmZYH1olLqoVr1olJXmsr1olJXmsrmZYH1olL1olKkfaPobXvviGabgadXmsqThKuofKHmZ4Dobnr1olJXmsr1olJXmspXmsr1olJXmsrfZ4TuhWn1olL1olJXmsqBi7X1olJXmspZmslbmMhbmsdemsVfl8ZgmsNim8Jpk8F0m7R4m7F5nLB6jbh7jbiDirOEibOGnKaMhq+PnaCVg6qWg6qegKaff6WhnpKofKGtnomxeZy3noG6dZi+n3vCcpPDcpPGn3bLb4/Mb47UbIrVa4rYoGjdaIbeaIXhoWHmZYHobXvpcHjqdHXreHLroVrsfG/uhGnuh2bwj2Hxk17yl1vzmljzm1j0nlX1olL3AJXWAAAAbXRSTlMAEBAQHx8gICAuLjAwMDw9PUBAQEpQUFBXV1hgYGBkcHBwcXl8gICAgoiIkJCQlJicnJ2goKCmqK+wsLC4usDAwMjP0NDQ1NbW3Nzg4ODi5+3v8PDw8/T09PX29vb39/f5+fr7+/z8/Pz9/v7+zczCxgAABC5JREFUeAHN1ul3k0UUBvCb1CTVpmpaitAGSLSpSuKCLWpbTKNJFGlcSMAFF63iUmRccNG6gLbuxkXU66JAUef/9LSpmXnyLr3T5AO/rzl5zj137p136BISy44fKJXuGN/d19PUfYeO67Znqtf2KH33Id1psXoFdW30sPZ1sMvs2D060AHqws4FHeJojLZqnw53cmfvg+XR8mC0OEjuxrXEkX5ydeVJLVIlV0e10PXk5k7dYeHu7Cj1j+49uKg7uLU61tGLw1lq27ugQYlclHC4bgv7VQ+TAyj5Zc/UjsPvs1sd5cWryWObtvWT2EPa4rtnWW3JkpjggEpbOsPr7F7EyNewtpBIslA7p43HCsnwooXTEc3UmPmCNn5lrqTJxy6nRmcavGZVt/3Da2pD5NHvsOHJCrdc1G2r3DITpU7yic7w/7Rxnjc0kt5GC4djiv2Sz3Fb2iEZg41/ddsFDoyuYrIkmFehz0HR2thPgQqMyQYb2OtB0WxsZ3BeG3+wpRb1vzl2UYBog8FfGhttFKjtAclnZYrRo9ryG9uG/FZQU4AEg8ZE9LjGMzTmqKXPLnlWVnIlQQTvxJf8ip7VgjZjyVPrjw1te5otM7RmP7xm+sK2Gv9I8Gi++BRbEkR9EBw8zRUcKxwp73xkaLiqQb+kGduJTNHG72zcW9LoJgqQxpP3/Tj//c3yB0tqzaml05/+orHLksVO+95kX7/7qgJvnjlrfr2Ggsyx0eoy9uPzN5SPd86aXggOsEKW2Prz7du3VID3/tzs/sSRs2w7ovVHKtjrX2pd7ZMlTxAYfBAL9jiDwfLkq55Tm7ifhMlTGPyCAs7RFRhn47JnlcB9RM5T97ASuZXIcVNuUDIndpDbdsfrqsOppeXl5Y+XVKdjFCTh+zGaVuj0d9zy05PPK3QzBamxdwtTCrzyg/2Rvf2EstUjordGwa/kx9mSJLr8mLLtCW8HHGJc2R5hS219IiF6PnTusOqcMl57gm0Z8kanKMAQg0qSyuZfn7zItsbGyO9QlnxY0eCuD1XL2ys/MsrQhltE7Ug0uFOzufJFE2PxBo/YAx8XPPdDwWN0MrDRYIZF0mSMKCNHgaIVFoBbNoLJ7tEQDKxGF0kcLQimojCZopv0OkNOyWCCg9XMVAi7ARJzQdM2QUh0gmBozjc3Skg6dSBRqDGYSUOu66Zg+I2fNZs/M3/f/Grl/XnyF1Gw3VKCez0PN5IUfFLqvgUN4C0qNqYs5YhPL+aVZYDE4IpUk57oSFnJm4FyCqqOE0jhY2SMyLFoo56zyo6becOS5UVDdj7Vih0zp+tcMhwRpBeLyqtIjlJKAIZSbI8SGSF3k0pA3mR5tHuwPFoa7N7reoq2bqCsAk1HqCu5uvI1n6JuRXI+S1Mco54YmYTwcn6Aeic+kssXi8XpXC4V3t7/ADuTNKaQJdScAAAAAElFTkSuQmCC" alt="Binder"></a>
+<a href="https://colab.research.google.com/github/linogaliana/python-datascientist-notebooks/blob/main/notebooks/modern-ds/elastic_intro.ipynb" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>
+<a href="https://github.dev/linogaliana/python-datascientist-notebooks/notebooks/modern-ds/elastic_intro.ipynb" target="_blank" rel="noopener"><img src="https://img.shields.io/static/v1?logo=visualstudiocode&amp;label=&amp;message=Open%20in%20Visual%20Studio%20Code&amp;labelColor=2c2c32&amp;color=007acc&amp;logoColor=007acc" alt="githubdev"></a>
+</p>
+<p></p>
+</div>
+<p>Ce chapitre a été écrit avec <a href="https://milenasuarezcastillo.netlify.app/">Milena Suarez-Castillo</a>
+et présente quelques éléments qui servent de base à un travail en cours
+sur les inégalités socioéconomiques dans les
+choix de consommation alimentaire.</p>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<section id="réplication-de-ce-chapitre" class="level2">
+<h2 class="anchored" data-anchor-id="réplication-de-ce-chapitre">Réplication de ce chapitre</h2>
+<p>Ce chapitre est plus exigeant en termes d’infrastructures que les précédents.
+Si la première partie de ce chapitre peut être menée avec une
+installation standard de <code>Python</code>, ce n’est pas le cas de la
+deuxième qui nécessite un serveur <code>ElasticSearch</code>. Les utilisateurs du
+<a href="datalab.sspcloud.fr/">SSP Cloud</a> pourront répliquer les exemples de ce cours
+car cette technologie est disponible (que ce soit pour indexer une base ou
+pour requêter une base existante).</p>
+<p>⚠️ Ce
+chapitre nécessite une version particulière du
+package <code>ElasticSearch</code> pour tenir compte de l’héritage de la version 7 du moteur <code>Elastic</code>.
+Pour cela, faire</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install elasticsearch<span class="op">==</span><span class="fl">8.2.0</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install unidecode</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install rapidfuzz</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install xlrd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>La première partie de ce tutoriel ne nécessite pas d’architecture particulière et
+peut ainsi être exécutée en utilisant les packages suivants :</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Le script <code>functions.py</code>, disponible sur <code>Github</code>,
+regroupe un certain nombre de fonctions utiles permettant
+d’automatiser certaines tâches de nettoyage classiques
+en NLP.</p>
+<div class="cell markdown">
+<div class="alert alert-warning" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-lightbulb"></i> Hint</h3>
+<p>Plusieurs méthodes peuvent être mises en oeuvre pour récupérer
+le script d’utilitaires. Vous pouvez trouver en dessous
+de cet encadré une méthode qui va chercher la dernière
+version sur le dépôt <code>Github</code> du cours</p>
+</div>
+</div>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://github.com/linogaliana/python-datascientist/raw/master/content/modern-ds/functions.py"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> requests.get(url, allow_redirects<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">open</span>(<span class="st">'functions.py'</span>, <span class="st">'wb'</span>).write(r.content)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Après l’avoir récupéré (cf.&nbsp;encadré dédié),
+il convient d’importer les fonctions sous forme de module:</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> functions <span class="im">as</span> fc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="cas-dusage" class="level2">
+<h2 class="anchored" data-anchor-id="cas-dusage">Cas d’usage</h2>
+<p>Ce <em>notebook</em> recense et propose d’appréhender quelques outils utilisés
+pour le papier présenté aux
+<a href="http://jms-insee.fr/jms2022s28_2/">Journées de Méthodologie Statistiques 2022: Galiana and Suarez-Castillo, <em>“Fuzzy matching on big-data: an illustration with scanner data and crowd-sourced nutritional data”</em></a>
+(travail en cours!)</p>
+<p>On va partir du cas d’usage suivant :</p>
+<blockquote class="blockquote">
+<p>Combien de calories dans ma recette de cuisine de ce soir? Combien de calories dans mes courses de la semaine?</p>
+</blockquote>
+<p>L’objectif est de reconstituer, à partir de libellés de produits, les caractéristiques nutritionnelles d’une recette.
+Le problème est que les libellés des tickets de caisse ne sont pas des champs textuels très propres, ils contiennent,
+par exemple, beaucoup d’abbréviations, toutes n’étant pas évidentes.</p>
+<p>Voici par exemple une série de noms de produits qu’on va utiliser par la suite:</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ticket <span class="op">=</span> [<span class="st">'CROISSANTS X6 400G'</span>,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>          <span class="st">'MAQUEREAUX MOUTAR.'</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>          <span class="st">'IGP OC SAUVIGNON B'</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>          <span class="st">'LAIT 1/2 ECRM UHT'</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>          <span class="st">'6 OEUFS FRAIS LOCA'</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>          <span class="st">'ANANAS C2'</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>          <span class="st">'L POMME FUDJI X6 CAL 75/80 1KG ENV'</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>          <span class="st">'PLT MIEL'</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>          <span class="st">'STELLA ARTOIS X6'</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>          <span class="st">'COTES DU LUBERON AIGUEBRUN 75C'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A ces produits, s’ajoutent les ingrédients suivants, issus de la
+<a href="https://www.marmiton.org/recettes/recette_veloute-de-potiron-et-carottes_19009.aspx">recette du velouté de potiron et carottes de Marmiton</a>
+qui sera notre plat principal :</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ingredients <span class="op">=</span> [<span class="st">'500 g de carottes'</span>,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a> <span class="st">'2 pommes de terre'</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a> <span class="st">"1 gousse d'ail"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a> <span class="st">'1/2 l de lait'</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a> <span class="st">'1/2 l de bouillon de volaille'</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a> <span class="st">"1 cuillère à soupe de huile d'olive"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a> <span class="st">'1 kg de potiron'</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a> <span class="st">'1 oignon'</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a> <span class="st">'10 cl de crème liquide (facultatif)'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Essayer de récupérer par web scraping cette liste est un bon exercice pour réviser
+les concepts <a href="#webscraping">vus précédemment</a></p>
+<p>On va donc créer une liste de course compilant
+ces deux
+listes hétérogènes de noms de produits:</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>libelles <span class="op">=</span> ticket <span class="op">+</span> ingredients</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>On part avec cette liste dans notre supermarché virtuel. L’objectif sera de trouver
+une méthode permettant de passer à l’échelle:
+automatiser les traitements, effectuer des recherches efficaces, garder une certaine généralité et flexibilité.</p>
+<p>Ce chapitre montrera par l’exemple l’intérêt d’<code>Elastic</code> par rapport à une solution
+qui n’utiliserait que du <code>Python</code>.</p>
+</section>
+</section>
+<section id="données-utilisées" class="level1">
+<h1>Données utilisées</h1>
+<section id="les-bases-offrant-des-informations-nutritionnelles" class="level2">
+<h2 class="anchored" data-anchor-id="les-bases-offrant-des-informations-nutritionnelles">Les bases offrant des informations nutritionnelles</h2>
+<p>Pour un nombre restreint de produits, on pourrait bien sûr chercher à
+la main les caractéristiques des produits en utilisant les
+fonctionalités d’un moteur de recherche:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="fraise.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="fraise.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<p>Cependant, cette approche serait très fastidieuse et
+nécessiterait de récuperer, à la main, chaque caractéristique
+pour chaque produit. Ce n’est donc pas envisageable.</p>
+<p>Les données disponibles sur <code>Google</code> viennent de l’<a href="https://fdc.nal.usda.gov/">USDA</a>,
+l’équivalent américain de notre Ministère de l’Agriculture.
+Cependant, pour des recettes comportant des noms de produits français, ainsi que
+des produits potentiellement transformés, ce n’est pas très pratique d’utiliser
+une base de données de produits agricoles en Français. Pour cette raison,
+nous proposons d’utiliser les deux bases suivantes,
+qui servent de base au travail de
+<a href="https://dl.acm.org/doi/10.1145/3524458.3547244"><span class="citation" data-cites="galiana2022">Galiana and Suarez Castillo (<span>2022</span>)</span></a></p>
+<ul>
+<li>L’<a href="https://fr.openfoodfacts.org/"><code>OpenFoodFacts</code> database</a> qui est une base<br>
+collaborative française de produits alimentaires. Issue d’un projet <a href="https://dataforgood.fr/">Data4Good</a>, il s’agit d’une
+alternative <em>opensource</em> et <em>opendata</em> à la base de données de l’application <a href="https://yuka.io/">Yuka</a>.</li>
+<li>La table de composition nutritionnelle <a href="https://ciqual.anses.fr"><code>Ciqual</code></a> produite par l’Anses. Celle-ci
+propose la composition nutritionnelle <em>moyenne</em> des aliments les plus consommés en France. Il s’agit d’une base de données
+enrichie par rapport à celle de l’USDA puisqu’elle ne se cantonne pas aux produits agricoles non transformés.
+Avec cette base, il ne s’agit pas de trouver un produit exact mais essayer de trouver un produit type proche du produit
+dont on désire connaître les caractéristiques.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="openfood.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="openfood.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</section>
+<section id="import" class="level2">
+<h2 class="anchored" data-anchor-id="import">Import</h2>
+<p>Quelques fonctions utiles sont regroupées dans le script <code>functions.py</code> et importées dans le <em>notebook</em>.</p>
+<p>La base <code>OpenFood</code> peut être récupérée en ligne
+via la fonction <code>fc.import_openfood</code>. Néanmoins, cette opération nécessitant
+un certain temps (les données brutes faisant autour de 2Go), nous proposons une méthode
+pour les utilisateurs du <code>SSP Cloud</code> où une version est disponible sur
+l’espace de stockage.</p>
+<p>La base <code>Ciqual</code>, qui plus légère, est récupérée elle directement en ligne
+via la fonction <code>fc.import_ciqual</code>.</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pour les utilisateurs du SSP Cloud</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>openfood <span class="op">=</span> fc.import_openfood_s3()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Pour les utilisateurs hors du SSP Cloud</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># openfood = fc.import_openfood()</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>ciqual <span class="op">=</span> fc.import_ciqual()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>openfood.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ciqual.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="elasticsearch-mais-ce-nest-pas-du-python" class="level1">
+<h1>ElasticSearch ? Mais ce n’est pas du Python ?!</h1>
+<section id="quest-ce-quelastic" class="level2">
+<h2 class="anchored" data-anchor-id="quest-ce-quelastic">Qu’est-ce qu’Elastic ?</h2>
+<p><code>ElasticSearch</code> c’est un logiciel qui fournit un moteur de recherche installé sur
+un serveur (ou une machine personnelle) qu’il est possible de requêter depuis un client
+(une session <code>Python</code> par exemple).
+C’est un moteur de recherche
+très performant, puissant et flexible, extrêmement utilisé dans le domaine de la datascience
+sur données textuelles.</p>
+<p>Un cas d’usage est par exemple de trouver,
+dans un corpus de grande dimension
+(plusieurs sites web, livres…), un certain texte en s’autorisant des termes voisins
+(verbes conjugués, fautes de frappes…).</p>
+<p>Un <strong>index</strong> est une collection de documents dans lesquels on souhaite chercher, préalablement ingérés dans un moteur de recherche les documents sont les établissements.
+L’<strong>indexation</strong> consiste à pré-réaliser les traitements des termes des documents pour gagner en efficacité lors de la phase de recherche.
+L’indexation est faite une fois pour de nombreuses recherches potentielles, pour lesquelles la rapidité de réponse peut être cruciale.
+Après avoir indexé une base, on effectuera des <strong>requêtes</strong> qui sont des recherches
+d’un document dans la base indexé (équivalent de notre <em>web</em>) à partir de
+termes de recherche normalisés.</p>
+<p>Le principe est le même que celui d’un moteur de recherche du web comme <code>Google</code>.
+D’un côté, l’ensemble à parcourir est indexé pour être en
+mesure de parcourir de manière efficace l’ensemble du corpus.
+De l’autre côté, la phase de recherche permet de retrouver l’élément du corpus le
+plus cohérent avec la requête de recherche.
+L’indexation consiste, par exemple,
+à pré-définir des traitements des termes du corpus pour gagner en efficacité
+lors de la phase de recherche. En effet, l’indexation est une opération peu fréquente
+par rapport à la recherche. Pour cette dernière, l’efficacité est cruciale (un site web
+qui prend plusieurs secondes à interpréter une requête simple ne sera pas utilisé). Mais, pour
+l’indexation, ceci est moins crucial.</p>
+<p>Les documents sont constitués de variables, les <strong>champs</strong> (<em>‘fields’</em>),
+dont le type est spécifié (<em>“text”</em>, <em>“keywoard”</em>, <em>“geo_point”</em>, <em>“numeric”</em>…) à l’indexation.</p>
+<p><code>ElasticSearch</code> propose une interface graphique nommée <code>Kibana</code>.
+Celle-ci est pratique
+pour tester des requêtes et pour superviser le serveur Elastic. Cependant,
+pour le passage à l’échelle, notamment pour mettre en lien une base indexée dans
+Elastic avec une autre source de données, les API proposées par <code>ElasticSearch</code>
+sont beaucoup plus pratiques. Ces API permettent de connecter une session <code>Python</code> (idem pour <code>R</code>)
+à un serveur <code>Elastic</code> afin de communiquer avec lui
+(échanger des flux via une API REST).</p>
+</section>
+<section id="elasticsearch-et-python" class="level2">
+<h2 class="anchored" data-anchor-id="elasticsearch-et-python"><code>ElasticSearch</code> et <code>Python</code></h2>
+<p>En <code>Python</code>, le package officiel est <a href="https://elasticsearch-py.readthedocs.io/en/v7.12.0/"><code>elasticsearch</code></a>.
+Ce dernier permet de configurer les paramètres pour interagir avec un serveur, indexer
+une ou plusieurs bases, envoyer de manière automatisée un ensemble de requêtes
+au serveur, récupérer les résultats directement dans une session <code>Python</code>…</p>
+</section>
+</section>
+<section id="premières-limites-de-la-distance-de-levenshtein" class="level1">
+<h1>Premières limites de la distance de Levenshtein</h1>
+<p>Pour évaluer la similarité entre deux données textuelles, il est
+nécessaire de transformer l’information qualitative qu’est le nom
+du produit en information quantitative qui permettra de rapprocher
+différents types de produits.
+Les ordinateurs ont en effet besoin de transformer les informations
+textuelles en information numérique pour être en mesure
+de les exploiter.</p>
+<p>On appelle <strong>distance de Levenshtein</strong> entre deux chaînes de caractères
+le coût minimal (en nombre d’opérations)
+pour transformer la première en la seconde par:</p>
+<ul>
+<li>substitution</li>
+<li>insertion</li>
+<li>suppression</li>
+</ul>
+<p>La distance de Levenshtein est une mesure très utilisée pour comparer la similarité entre deux
+chaînes de caractères. Il existe plusieurs packages pour calculer cette dernière.
+<code>fuzzywuzzy</code> est le plus connu mais ce dernier est assez lent (implémentation en pur <code>Python</code>).
+Le package <code>rapidfuzz</code>, présenté ici, propose les mêmes fonctionalités mais est plus rapide car implémenté
+en <code>C++</code> qui est plus efficace.
+Cependant, nous allons le voir, ce package ne nous
+offrira pas des performances
+assez bonnes pour que nous puissions
+passer à l’échelle.</p>
+<p>Voici trois exemples pour évaluer le coût de chaque
+opération:</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rapidfuzz</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>[</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  rapidfuzz.distance.Levenshtein.distance(<span class="st">'salut'</span>,<span class="st">'slut'</span>, weights <span class="op">=</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)), <span class="co"># Suppression </span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  rapidfuzz.distance.Levenshtein.distance(<span class="st">'salut'</span>,<span class="st">'saalut'</span>, weights <span class="op">=</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)), <span class="co"># Addition </span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  rapidfuzz.distance.Levenshtein.distance(<span class="st">'salut'</span>,<span class="st">'selut'</span>, weights <span class="op">=</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)) <span class="co"># Substitution</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="premier-essai-les-produits-ciqual-les-plus-similaires-aux-produits-de-la-recette" class="level2">
+<h2 class="anchored" data-anchor-id="premier-essai-les-produits-ciqual-les-plus-similaires-aux-produits-de-la-recette">Premier essai: les produits <code>Ciqual</code> les plus similaires aux produits de la recette</h2>
+<p>On pourrait écrire une fonction qui prend en argument
+une liste de libellés d’intérêt et une liste de candidat au <em>match</em> et
+renvoie le libellé le plus proche.
+Cependant, le risque est que cet algorithme soit relativement lent s’il n’est pas codé
+parfaitement.</p>
+<p>Il est, à mon avis, plus simple, quand
+on est habitué à la logique <code>Pandas</code>,
+de faire un produit cartésien pour obtenir un vecteur mettant en miroir
+chaque produit de notre recette avec l’ensembles des produits <code>Ciqual</code> et ensuite comparer les deux vecteurs pour prendre,
+pour chaque produit, le meilleur <em>match</em>.</p>
+<p>Les bases étant de taille limitée, le produit cartésien n’est pas problématique.
+Avec des bases plus conséquentes, une stratégie plus parcimonieuse en mémoire devrait être envisagée.</p>
+<p>Pour faire cette opération, on va utiliser la fonction <code>match_product</code> de
+note script d’utilitaires.</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>dist_leven <span class="op">=</span> fc.match_product(libelles, ciqual)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>dist_leven</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Cette première étape naïve est décevante à plusieurs égards:</p>
+<ul>
+<li>Certes, on a des matches cohérent (par exemple “Oignon rouge, cru” et “1 oignon”)
+mais on a plus de couples incohérents ;</li>
+<li>Le temps de calcul peut apparaître faible mais le passage à l’échelle risque d’être compliqué ;</li>
+<li>Les besoins mémoires sont potentiellement importants lors de l’appel à
+<code>rapidfuzz.process.extract</code> ce qui peut bloquer le passage à l’échelle ;</li>
+<li>La distance textuelle n’est pas nécessairement la plus pertinente.</li>
+</ul>
+<p>On a, en fait, négligé une étape importante: la normalisation (ou nettoyage des textes) présentée dans la
+partie <a href="#nlp">NLP</a>, notamment:</p>
+<ul>
+<li>harmonisation de la casse, suppression des accents…</li>
+<li>suppressions des mots outils (e.g.&nbsp;ici on va d’abord négliger les quantités pour trouver la nature de l’aliment, en particulier pour <code>Ciqual</code>)</li>
+</ul>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
+<figure class="figure">
+<p><a href="wordcloud_relevanc_start.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Scanner-data avant nettoyage"><img src="wordcloud_relevanc_start.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Scanner-data avant nettoyage</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
+<figure class="figure">
+<p><a href="wordcloud_openfood_start.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="OpenFood data avant nettoyage"><img src="wordcloud_openfood_start.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">OpenFood data avant nettoyage</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
+<figure class="figure">
+<p><a href="wordcloud_relevanc_clean.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Scanner-data après nettoyage"><img src="wordcloud_relevanc_clean.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Scanner-data après nettoyage</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
+<figure class="figure">
+<p><a href="wordcloud_openfood_clean.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="OpenFood data après nettoyage"><img src="wordcloud_openfood_clean.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">OpenFood data après nettoyage</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Faisons donc en apparence un retour en arrière qui sera
+néanmoins salvateur pour améliorer
+la pertinence des liens faits entre nos
+bases de données.</p>
+</section>
+</section>
+<section id="preprocessing-pour-améliorer-la-pertinence-des-matches" class="level1">
+<h1>Preprocessing pour améliorer la pertinence des matches</h1>
+<section id="objectif" class="level2">
+<h2 class="anchored" data-anchor-id="objectif">Objectif</h2>
+<p>Le <em>preprocessing</em> correspond à l’ensemble des opérations
+ayant lieu avant l’analyse à proprement parler.
+Ici, ce <em>preprocessing</em> est intéressant à plusieurs
+égards:</p>
+<ul>
+<li>Il réduit le bruit dans nos jeux de données (par exemple des mots de liaisons) ;</li>
+<li>Il permet de normaliser et harmoniser les syntaxes dans nos différentes sources.</li>
+</ul>
+<p>L’objectif est ainsi de réduire nos noms de produits à la substantifique moelle
+pour améliorer la pertinence de la recherche.</p>
+<p>Pour être pertinent, le <em>preprocessing</em> comporte généralement deux types de
+traitements. En premier lieu, ceux qui sont généraux et applicables
+à tous types de corpus textuels: retrait des <em>stopwords</em>, de la ponctuation, etc.
+les méthodes disponibles dans la partie <a href="#NLP">NLP</a>.
+Ensuite, il est nécessaire de mettre en oeuvre des nettoyages plus spécifiques à chaque corpus.
+Par exemple dans la source <code>Ciqual</code>,
+la cuisson est souvent renseignée et bruite les appariemments.</p>
+</section>
+<section id="démarche" class="level2">
+<h2 class="anchored" data-anchor-id="démarche">Démarche</h2>
+<div class="cell markdown">
+<div class="alert alert-success" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 1: preprocessing</h3>
+<ol type="1">
+<li><p>Pour transformer les lettres avec accents en leur équivalent
+sans accent, la fonction <code>unidecode</code>
+(du package du même nom) est pratique.
+La tester sur le jeu de données <code>ciqual</code> en créant une nouvelle
+colonne nommée <code>libel_clean</code></p></li>
+<li><p>La casse différente selon les jeux de données peut être pénalisante
+pour trouver des produits similaires. Pour éviter ces problèmes,
+mettre tout en majuscule.</p></li>
+<li><p>Les informations sur les quantités ou le <em>packaging</em> peuvent apporter
+du bruit dans notre comparaison. Nous allons retirer ces mots,
+à travers la liste <code>['KG','CL','G','L','CRUE?S?', 'PREEMBALLEE?S?']</code>,
+qu’on peut considérer comme un dictionnaire de <em>stop-words</em> métier.
+Pour cela, il convient d’utiliser une expression régulière dans la méthode
+<code>str.replace</code> de <code>Pandas</code>.
+Avec ceux-ci, on va utiliser la liste des <em>stop-words</em> de
+la librairie <code>nltk</code> pour retirer les <em>stop-words</em> classiques (_“le”,“la”, etc.).
+La librairie <code>SpaCy</code>, plus riche, pourrait être utilisée ; nous laissons
+cela sous la forme d’exercice supplémentaire.</p></li>
+<li><p>On a encore des signes de ponctuation ou des chiffres qui peuvent
+poluer la comparaison. Les retirer grâce à la méthode <code>replace</code> et
+une regex <code>[^a-zA-Z]</code></p></li>
+<li><p>Enfin, par sécurité, on peut supprimer les espaces multiples.
+Utiliser la regex <code>'([ ]{2,})'</code> pour cela. Observer le résultat
+final.</p></li>
+<li><p><strong>(Optionnel)</strong>. Comme exercice supplémentaire, faire la même chose avec les
+<em>pipelines</em> <code>SpaCy</code>.</p></li>
+</ol>
+</div>
+</div>
+<p>A l’issue de la question 1, le jeu de données <code>ciqual</code> devrait
+ressembler à celui-ci:</p>
+<p>Après avoir mis en majuscule, on se retrouve avec le jeu de données
+suivant :</p>
+<p>Après retrait des <em>stop-words</em>, nos libellés prennent
+la forme suivante :</p>
+<p>La regex pour éliminer les caractères de ponctuation permet ainsi d’obtenir:</p>
+<p>Enfin, à l’issue de la question 5, le <code>DataFrame</code> obtenu est le suivant :</p>
+<p>Ces étapes de nettoyage ont ainsi permis de concentrer l’information
+dans les noms de produits sur ce qui l’identifie vraiment.</p>
+</section>
+<section id="approche-systématique" class="level2">
+<h2 class="anchored" data-anchor-id="approche-systématique">Approche systématique</h2>
+<p>Pour systématiser cette approche à nos différents <code>DataFrame</code>, rien de mieux
+qu’une fonction. Celle-ci est présente dans le module <code>functions</code>
+sous le nom <code>clean_libelle</code>.</p>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functions <span class="im">import</span> clean_libelle</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Pour résumer l’exercice précédent, cette fonction va :</p>
+<ul>
+<li>Harmoniser la casse et retirer les accents (voir <code>functions.py</code>) ;</li>
+<li>Retirer tout les caractères qui ne sont pas des lettres (chiffres, ponctuations) ;</li>
+<li>Retirer les caractères isolés.</li>
+</ul>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nltk</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>nltk.download(<span class="st">'stopwords'</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>stop_words <span class="op">=</span> [<span class="st">'KG'</span>,<span class="st">'CL'</span>,<span class="st">'G'</span>,<span class="st">'L'</span>,<span class="st">'CRUE?S?'</span>, <span class="st">'PREEMBALLEE?S?'</span>]</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>stop_words <span class="op">+=</span> [l.upper() <span class="cf">for</span> l <span class="kw">in</span> stopwords.words(<span class="st">'french'</span>)]</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>replace_regex <span class="op">=</span> {<span class="vs">r'[^A-Z]'</span>: <span class="st">' '</span>, <span class="vs">r'\b[A-Z0-9]{1,2}?\b'</span>:<span class="st">' '</span>} <span class="co"># </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Cela permet d’obtenir les bases nettoyées suivantes :</p>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ciqual <span class="op">=</span> clean_libelle(ciqual, yvar <span class="op">=</span> <span class="st">'alim_nom_fr'</span>, replace_regex <span class="op">=</span> replace_regex, stopWords <span class="op">=</span> stop_words)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>ciqual.sample(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>openfood <span class="op">=</span> clean_libelle(openfood, yvar <span class="op">=</span> <span class="st">'product_name'</span>, replace_regex <span class="op">=</span> replace_regex, stopWords <span class="op">=</span> stop_words)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>openfood.sample(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>courses <span class="op">=</span> pd.DataFrame(libelles, columns <span class="op">=</span> [<span class="st">'libel'</span>])</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>courses <span class="op">=</span> clean_libelle(courses, yvar <span class="op">=</span> <span class="st">'libel'</span>, replace_regex <span class="op">=</span> replace_regex, stopWords <span class="op">=</span> stop_words)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>courses.sample(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Les noms de produits sont déjà plus harmonisés.
+Voyons voir si cela permet de trouver un
+<em>match</em> dans l’Openfood database:</p>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>dist_leven_openfood <span class="op">=</span> fc.match_product(courses[<span class="st">"libel_clean"</span>], openfood, <span class="st">"libel_clean"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>dist_leven_openfood.sample(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Pas encore parfait, mais on progresse sur les produits appariés!
+Concernant le temps de calcul, les quelques secondes nécessaires à
+ce calcul peuvent apparaître un faible prix à payer. Cependant,
+il convient de rappeler que le nombre de produits dans l’ensemble
+de recherche est faible. Cette solution n’est donc pas généralisable.</p>
+</section>
+<section id="réduire-les-temps-de-recherche" class="level2">
+<h2 class="anchored" data-anchor-id="réduire-les-temps-de-recherche">Réduire les temps de recherche</h2>
+<p>Finalement, l’idéal serait de disposer d’un <strong>moteur de recherche</strong> adapté à notre besoin,
+contenant les produits candidats, que l’on pourrait interroger, rapide en lecture, capable de classer les échos renvoyés par pertinence, que l’on pourrait requêter de manière flexible.</p>
+<p>Par exemple, on pourrait vouloir signaler qu’un
+écho nous intéresse seulement si la donnée calorique n’est pas manquante.
+On pourrait même vouloir qu’il effectue pour nous des prétraitements sur les données.</p>
+<p>Cela paraît beaucoup demander. Mais c’est exactement ce que fait <code>ElasticSearch</code>.</p>
+</section>
+</section>
+<section id="indexer-une-base" class="level1">
+<h1>Indexer une base</h1>
+<p>A partir de maintenant, commence, à proprement parler, la démonstration <code>Elastic</code>.
+Cette
+partie développe les éléments les plus techniques, à savoir l’indexation d’une base.
+Tous les utilisateurs d’<code>Elastic</code> n’ont pas nécessairement à passer par là, ils peuvent
+trouver une base déjà indexée, idéalement par un <em>data engineer</em> qui aura optimisé
+les traitements.</p>
+<p>Les utilisateurs du <a href="https://datalab.sspcloud.fr/accueil">SSP Cloud</a>, architecture qui
+repose sur la technologie <a href="https://kubernetes.io/">Kubernetes</a> peuvent
+répliquer les éléments de la suite du document.</p>
+<section id="créer-un-cluster-elastic-sur-le-datalab" class="level2">
+<h2 class="anchored" data-anchor-id="créer-un-cluster-elastic-sur-le-datalab">Créer un cluster <code>Elastic</code> sur le DataLab</h2>
+<p>Pour lancer un service <code>Elastic</code>, il faut cliquer sur <a href="https://datalab.sspcloud.fr/launcher/databases/elastic?autoLaunch=false&amp;security.allowlist.enabled=false">ce lien</a>.</p>
+<p>Une fois créé, vous pouvez explorer l’interface graphique <code>Kibana</code>.
+Cependant, grâce à l’API <code>Elastic</code>
+de <code>Python</code>, on se passera de celle-ci. Donc, en pratique,
+une fois lancé, pas besoin d’ouvrir ce service <code>Elastic</code> pour continuer à suivre<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>Dans un terminal, vous pouvez aussi vérifier que vous êtes en mesure de dialoguer avec votre cluster <code>Elastic</code>,
+qui est prêt à vous écouter:</p>
+<pre class="shell"><code>kubectl get statefulset</code></pre>
+<p>Passer par la ligne de commande serait peu commode pour industrialiser notre
+recherche.
+Nous allons utiliser la librairie <code>elasticsearch</code> pour dialoguer avec notre moteur de recherche Elastic.
+Les instructions ci-dessous indiquent comment établir la connection.</p>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> elasticsearch <span class="im">import</span> Elasticsearch</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>HOST <span class="op">=</span> <span class="st">'elasticsearch-master'</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> elastic():</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Connection avec Elastic sur le data lab"""</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    es <span class="op">=</span> Elasticsearch([{<span class="st">'host'</span>: HOST, <span class="st">'port'</span>: <span class="dv">9200</span>, <span class="st">'scheme'</span>: <span class="st">'http'</span>}], http_compress<span class="op">=</span><span class="va">True</span>, request_timeout<span class="op">=</span><span class="dv">200</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> es</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>es <span class="op">=</span> elastic()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>&lt;Elasticsearch([{'host': 'elasticsearch-master', 'port': 9200}])&gt;</code></pre>
+<p>Maintenant que la connection est établie, deux étapes nous attendent:</p>
+<ol type="1">
+<li><strong>Indexation</strong> Envoyer les documents parmi lesquels on veut chercher des echos pertinents dans notre elastic. Un index est une collection de document. Nous pourrions en créer deux: un pour les produits ciqual, un pour les produits openfood</li>
+<li><strong>Requête</strong> Chercher les documents les plus pertinents suivant une recherche textuelle flexible. Nous allons rechercher les libellés de notre recette et de notre liste de course.</li>
+</ol>
+</section>
+<section id="première-indexation" class="level2">
+<h2 class="anchored" data-anchor-id="première-indexation">Première indexation</h2>
+<p>On crée donc nos deux index:</p>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> es.indices.exists(index <span class="op">=</span> <span class="st">'openfood'</span>):</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    es.indices.create(index <span class="op">=</span> <span class="st">'openfood'</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> es.indices.exists(index <span class="op">=</span> <span class="st">'ciqual'</span>):</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    es.indices.create(index <span class="op">=</span> <span class="st">'ciqual'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Pour l’instant, nos index sont vides! Ils contiennent 0 documents.</p>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>es.count(index <span class="op">=</span> <span class="st">'openfood'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>{'count': 0, '_shards': {'total': 1, 'successful': 1, 'skipped': 0, 'failed': 0}}</code></pre>
+<p>Nous allons en rajouter quelques-uns !</p>
+<div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>es.create(index <span class="op">=</span> <span class="st">'openfood'</span>,  <span class="bu">id</span> <span class="op">=</span> <span class="dv">1</span>, body <span class="op">=</span> {<span class="st">'product_name'</span>: <span class="st">'Tarte noix de coco'</span>, <span class="st">'product_name_clean'</span>: <span class="st">'TARTE NOIX COCO'</span>})</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>es.create(index <span class="op">=</span> <span class="st">'openfood'</span>,  <span class="bu">id</span> <span class="op">=</span> <span class="dv">2</span>, body <span class="op">=</span> {<span class="st">'product_name'</span>: <span class="st">'Noix de coco'</span>, <span class="st">'product_name_clean'</span>: <span class="st">'NOIX COCO'</span>})</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>es.create(index <span class="op">=</span> <span class="st">'openfood'</span>,  <span class="bu">id</span> <span class="op">=</span> <span class="dv">3</span>, body <span class="op">=</span> {<span class="st">'product_name'</span>: <span class="st">'Beurre doux'</span>, <span class="st">'product_name_clean'</span>: <span class="st">'BEURRE DOUX'</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>es.count(index <span class="op">=</span> <span class="st">'openfood'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>{'count': 3, '_shards': {'total': 1, 'successful': 1, 'skipped': 0, 'failed': 0}}</code></pre>
+<p>Dans l’interface graphique <code>Kibana</code>,
+on peut vérifier que l’indexation
+a bien eue lieu en allant dans <code>Management &gt; Stack Management</code></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="index_management.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="index_management.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</section>
+<section id="première-recherche" class="level2">
+<h2 class="anchored" data-anchor-id="première-recherche">Première recherche</h2>
+<p>Faisons notre première recherche: cherchons des noix de pécan!</p>
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>es.search(index <span class="op">=</span> <span class="st">'openfood'</span>, q <span class="op">=</span> <span class="st">'noix de pécan'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>ObjectApiResponse({'took': 116, 'timed_out': False, '_shards': {'total': 1, 'successful': 1, 'skipped': 0, 'failed': 0}, 'hits': {'total': {'value': 2, 'relation': 'eq'}, 'max_score': 0.9400072, 'hits': [{'_index': 'openfood', '_type': '_doc', '_id': '2', '_score': 0.9400072, '_source': {'product_name': 'Noix de coco', 'product_name_clean': 'NOIX COCO'}}, {'_index': 'openfood', '_type': '_doc', '_id': '1', '_score': 0.8272065, '_source': {'product_name': 'Tarte noix de coco', 'product_name_clean': 'TARTE NOIX COCO'}}]}})</code></pre>
+<p>Intéressons nous aux <code>hits</code> (résultats pertinents, ou echos) : nous en avons 2.
+Le score maximal parmi les hits est mentionné dans <code>max_score</code> et correspond à celui du deuxième document indexé.</p>
+<p><code>Elastic</code> nous fournit ici un <strong>score de pertinence</strong> dans notre recherche d’information, et classe ainsi les documents renvoyés.</p>
+<p>Ici nous utilisons la configuration par défaut. Mais comment est calculé ce score? Demandons à Elastic de nous expliquer le score du document <code>2</code> dans la requête <code>"noix de pécan"</code>.</p>
+<div class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>es.explain(index <span class="op">=</span> <span class="st">'openfood'</span>, <span class="bu">id</span> <span class="op">=</span> <span class="dv">2</span>, q <span class="op">=</span> <span class="st">'noix de pécan'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>ObjectApiResponse({'_index': 'openfood', '_type': '_doc', '_id': '2', 'matched': True, 'explanation': {'value': 0.9400072, 'description': 'max of:', 'details': [{'value': 0.49917626, 'description': 'sum of:', 'details': [{'value': 0.49917626, 'description': 'weight(product_name_clean:noix in 1) [PerFieldSimilarity], result of:', 'details': [{'value': 0.49917626, 'description': 'score(freq=1.0), computed as boost * idf * tf from:', 'details': [{'value': 2.2, 'description': 'boost', 'details': []}, {'value': 0.47000363, 'description': 'idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:', 'details': [{'value': 2, 'description': 'n, number of documents containing term', 'details': []}, {'value': 3, 'description': 'N, total number of documents with field', 'details': []}]}, {'value': 0.48275858, 'description': 'tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:', 'details': [{'value': 1.0, 'description': 'freq, occurrences of term within document', 'details': []}, {'value': 1.2, 'description': 'k1, term saturation parameter', 'details': []}, {'value': 0.75, 'description': 'b, length normalization parameter', 'details': []}, {'value': 2.0, 'description': 'dl, length of field', 'details': []}, {'value': 2.3333333, 'description': 'avgdl, average length of field', 'details': []}]}]}]}]}, {'value': 0.9400072, 'description': 'sum of:', 'details': [{'value': 0.4700036, 'description': 'weight(product_name:noix in 1) [PerFieldSimilarity], result of:', 'details': [{'value': 0.4700036, 'description': 'score(freq=1.0), computed as boost * idf * tf from:', 'details': [{'value': 2.2, 'description': 'boost', 'details': []}, {'value': 0.47000363, 'description': 'idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:', 'details': [{'value': 2, 'description': 'n, number of documents containing term', 'details': []}, {'value': 3, 'description': 'N, total number of documents with field', 'details': []}]}, {'value': 0.45454544, 'description': 'tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:', 'details': [{'value': 1.0, 'description': 'freq, occurrences of term within document', 'details': []}, {'value': 1.2, 'description': 'k1, term saturation parameter', 'details': []}, {'value': 0.75, 'description': 'b, length normalization parameter', 'details': []}, {'value': 3.0, 'description': 'dl, length of field', 'details': []}, {'value': 3.0, 'description': 'avgdl, average length of field', 'details': []}]}]}]}, {'value': 0.4700036, 'description': 'weight(product_name:de in 1) [PerFieldSimilarity], result of:', 'details': [{'value': 0.4700036, 'description': 'score(freq=1.0), computed as boost * idf * tf from:', 'details': [{'value': 2.2, 'description': 'boost', 'details': []}, {'value': 0.47000363, 'description': 'idf, computed as log(1 + (N - n + 0.5) / (n + 0.5)) from:', 'details': [{'value': 2, 'description': 'n, number of documents containing term', 'details': []}, {'value': 3, 'description': 'N, total number of documents with field', 'details': []}]}, {'value': 0.45454544, 'description': 'tf, computed as freq / (freq + k1 * (1 - b + b * dl / avgdl)) from:', 'details': [{'value': 1.0, 'description': 'freq, occurrences of term within document', 'details': []}, {'value': 1.2, 'description': 'k1, term saturation parameter', 'details': []}, {'value': 0.75, 'description': 'b, length normalization parameter', 'details': []}, {'value': 3.0, 'description': 'dl, length of field', 'details': []}, {'value': 3.0, 'description': 'avgdl, average length of field', 'details': []}]}]}]}]}]}})</code></pre>
+<p><code>Elastic</code> nous explique donc que le score <code>0.9400072</code> est le maximum entre deux sous-scores, <code>0.4991</code> et <code>0.9400072</code>.</p>
+<p>Pour chacun de ces sous-scores, le détail de son calcul est donné.
+Le premier sous-score n’a accordé un score que par rapport au premier mot (noix), tandis que le second a accordé un score sur la base des deux mots déjà connu dans les documents (“noix” et “de”). Il a ignoré pécan! Jusqu’à présent, ce terme n’est pas connu dans l’index.</p>
+<p>La pertinence d’un mot pour notre recherche est construite sur une variante de la <code>TF-IDF</code>,
+considérant qu’un terme est pertinent s’il est souvent présent dans le document (Term Frequency)
+alors qu’il est peu fréquent dans les autres document (inverse document frequency).
+Ici les notations des documents 1 et 2 sont très proches, la différence est dûe à des IDF plus faibles dans le document 1,
+qui est pénalisé pour être légérement plus long.</p>
+<p>Bref, tout ça est un peu lourd, mais assez efficace,
+en tout cas moins rudimentaire que les distances caractères à caractères pour ramener des echos pertinents.</p>
+</section>
+<section id="limite-de-cette-première-indexation" class="level2">
+<h2 class="anchored" data-anchor-id="limite-de-cette-première-indexation">Limite de cette première indexation</h2>
+<p>Pour l’instant, Elastic n’a pas l’air de gérer les fautes de frappes!
+Pas le droit à l’erreur dans la requête:</p>
+<div class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>es.search(index <span class="op">=</span> <span class="st">'openfood'</span>,q <span class="op">=</span> <span class="st">'TART NOI'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>ObjectApiResponse({'took': 38, 'timed_out': False, '_shards': {'total': 1, 'successful': 1, 'skipped': 0, 'failed': 0}, 'hits': {'total': {'value': 0, 'relation': 'eq'}, 'max_score': None, 'hits': []}})</code></pre>
+<p>Cela s’explique par la représentation des champs (<em>‘product_name’</em> par exemple) qu’<code>Elastic</code> a inféré,
+puisque nous n’avons rien spécifié.
+La représentation d’une variable conditionne la façon dont les champs sont analysés pour calculer la pertinence.
+Par exemple, regardons la représentation du champ <code>product_name</code></p>
+<div class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>es.indices.get_field_mapping(index <span class="op">=</span> <span class="st">'openfood'</span>, fields <span class="op">=</span> <span class="st">'product_name'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>ObjectApiResponse({'openfood': {'mappings': {'product_name': {'full_name': 'product_name', 'mapping': {'product_name': {'type': 'text', 'fields': {'keyword': {'type': 'keyword', 'ignore_above': 256}}}}}}}})</code></pre>
+<p><code>Elastic</code> a compris qu’il s’agissait d’un champ textuel.
+En revanche, le type est <code>keyword</code> n’autorise pas des analyses approximatives donc
+ne permet pas de tenir compte de fautes de frappes.</p>
+<p>Pour qu’un echo remonte, un des termes doit matcher exactement. Dommage !
+Mais c’est parce qu’on a utilisé le <em>mapping</em> par défaut.
+En réalité, il est assez simple de préciser un <em>mapping</em> plus riche,
+autorisant une analyse <em>“fuzzy”</em> ou <em>“flou”</em>.</p>
+</section>
+</section>
+<section id="améliorer-lindexation" class="level1">
+<h1>Améliorer l’indexation</h1>
+<p>On peut spécifier la façon dont l’on souhaite analyser le texte.
+Par exemple, on peut préciser que l’on souhaite enlever des <em>stopwords</em>, raciniser, analyser les termes via des <em>n-grammes</em>
+pour rendre la recherche plus robuste aux fautes de frappes…</p>
+<p>Ces concepts sont présentés dans la partie <a href="#nlp">NLP</a>.
+Pour une présentation plus complète, voir
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping.html">la documentation officielle d’Elastic</a></p>
+<p>On propose les analyseurs stockés dans un fichier <a href="#schema.json">schema.json</a></p>
+<p>Les <em>n-grammes</em> sont des séquences de <em>n</em> caractères ou plus généralement <em>n</em> éléments qui s’enchaînent séquentiellement.
+Par exemple, NOI et OIX sont des tri-grammes de caractères dans NOIX.</p>
+<p>Comparer les <em>n-grammes</em> composant des libellés peut permettre d’avoir dans des comparaisons à fautes de frappe/abbréviations près.
+Cela fait aussi plus de comparaisons à opérer ! D’où également, l’intérêt d’Elastic, qui intégre facilement et efficacement ces comparaisons.</p>
+<p>On va préciser un peu le schéma de données qu’on souhaite <em>indexer</em>, et aussi préciser comment les différents champs seront <em>analysés</em>.</p>
+<section id="une-indexation-plus-adaptée" class="level3">
+<h3 class="anchored" data-anchor-id="une-indexation-plus-adaptée">Une indexation plus adaptée</h3>
+<div class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> es.indices.exists(index <span class="op">=</span> <span class="st">'openfood'</span>):</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    es.indices.delete(index <span class="op">=</span> <span class="st">'openfood'</span>)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'schema.json'</span>) <span class="im">as</span> f:</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    mapping <span class="op">=</span> json.load(f)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>es.indices.create(index <span class="op">=</span> <span class="st">"openfood"</span>, body <span class="op">=</span> mapping)    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Maintenant, les champs textuels <em>“product_name”</em> et <em>“product_name_clean”</em>
+vont pouvoir être analysé aussi via leur n-grammes et après racinisation (et l’un n’exclut pas l’autre!)</p>
+<div class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>es.indices.get_field_mapping(</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  index <span class="op">=</span> <span class="st">'openfood'</span>, fields <span class="op">=</span> <span class="st">'product_name'</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>ObjectApiResponse({'openfood': {'mappings': {'product_name': {'full_name': 'product_name', 'mapping': {'product_name': {'type': 'text', 'fields': {'keyword': {'type': 'keyword', 'ignore_above': 256}, 'ngr': {'type': 'text', 'analyzer': 'ngram_analyzer'}, 'stem': {'type': 'text', 'analyzer': 'stem_analyzer'}}}}}}}})</code></pre>
+<p>C’est parti, on envoie toute notre base OpenFood pour pouvoir la requêter !
+La fonction suivante (<code>index_elastic</code>) va vous faire gagner du temps pour indexer
+car indexer chaque produit à la main n’est pas très efficace.</p>
+<p>Du coup ça prend quelques minutes… mais c’est pour nous en faire gagner ensuite.
+Cette opération est faite une fois, pour préparer des requêtes potentiellement nombreuses!</p>
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>fc.index_elastic(es <span class="op">=</span>es, index_name <span class="op">=</span> <span class="st">"openfood"</span>,</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>        setting_file <span class="op">=</span> <span class="st">'schema.json'</span>,</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> openfood[[<span class="st">'product_name'</span>,<span class="st">"libel_clean"</span>,<span class="st">"energy_100g"</span>,<span class="st">"nutriscore_score"</span>]].drop_duplicates())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>Temps d'exécution total : 125.57 secondes ---</code></pre>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>es.count(index <span class="op">=</span> <span class="st">'openfood'</span>)[<span class="st">'count'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>738366</code></pre>
+</section>
+<section id="nos-premières-requêtes" class="level2">
+<h2 class="anchored" data-anchor-id="nos-premières-requêtes">Nos premières requêtes</h2>
+<p>Vérifions qu’on recupère quelques tartes aux noix même si l’on fait plein de fautes:</p>
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>es.search(index <span class="op">=</span> <span class="st">'openfood'</span>, q <span class="op">=</span> <span class="st">'TART NOI'</span>, size <span class="op">=</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>ObjectApiResponse({'took': 60, 'timed_out': False, '_shards': {'total': 1, 'successful': 1, 'skipped': 0, 'failed': 0}, 'hits': {'total': {'value': 10000, 'relation': 'gte'}, 'max_score': 22.837925, 'hits': [{'_index': 'openfood', '_type': '_doc', '_id': '405332', '_score': 22.837925, '_source': {'product_name': 'Tarte noix', 'libel_clean': 'TARTE NOIX', 'energy_100g': 1833.0, 'nutriscore_score': 23.0}}, {'_index': 'openfood', '_type': '_doc', '_id': '1103594', '_score': 22.82367, '_source': {'product_name': 'Tarte aux noix', 'libel_clean': 'TARTE NOIX', 'energy_100g': 4.0, 'nutriscore_score': 4.0}}, {'_index': 'openfood', '_type': '_doc', '_id': '1150755', '_score': 22.82367, '_source': {'product_name': 'Tarte aux noix', 'libel_clean': 'TARTE NOIX', 'energy_100g': 1929.0, 'nutriscore_score': 21.0}}]}})</code></pre>
+<p>Si on préfère sous une forme de <code>DataFrame</code>:</p>
+<div class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.json_normalize(</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    es.search(index <span class="op">=</span> <span class="st">'openfood'</span>, q <span class="op">=</span> <span class="st">'TART NOI'</span>, size <span class="op">=</span> <span class="dv">3</span>)[<span class="st">'hits'</span>][<span class="st">'hits'</span>]</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>df.columns <span class="op">=</span> df.columns.<span class="bu">str</span>.replace(<span class="st">"_source."</span>, <span class="st">""</span>, regex <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+\n  \n    \n      \n      \n      \n      \n      \n      \n      \n      \n      \n    \n  \n  \n    \n      \n      \n      \n      \n      \n      \n      \n      \n      \n    \n    \n      \n      \n      \n      \n      \n      \n      \n      \n      \n    \n    \n      \n      \n      \n      \n      \n      \n      \n      \n      \n    \n  \n<table class="dataframe table table-sm table-striped small"><thead><tr><th></th><th>_index</th><th>_type</th><th>_id</th><th>_score</th><th>product_name</th><th>libel_clean</th><th>energy_100g</th><th>nutriscore_score</th></tr></thead><tbody><tr><th>0</th><td>openfood</td><td>_doc</td><td>405332</td><td>22.837925</td><td>Tarte noix</td><td>TARTE NOIX</td><td>1833.0</td><td>23.0</td></tr><tr><th>1</th><td>openfood</td><td>_doc</td><td>1103594</td><td>22.823670</td><td>Tarte aux noix</td><td>TARTE NOIX</td><td>4.0</td><td>4.0</td></tr><tr><th>2</th><td>openfood</td><td>_doc</td><td>1150755</td><td>22.823670</td><td>Tarte aux noix</td><td>TARTE NOIX</td><td>1929.0</td><td>21.0</td></tr></tbody></table>
+<p>Pour automatiser l’envoi de requêtes et la récupération du meilleur
+écho, on peut définir la fonction suivante</p>
+<div class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> matchElastic(libelles):</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    start_time <span class="op">=</span> time.time()</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    matches <span class="op">=</span> {}</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> l <span class="kw">in</span> libelles:</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>        response <span class="op">=</span> es.search(index <span class="op">=</span> <span class="st">'openfood'</span>, q <span class="op">=</span> l, size <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(response[<span class="st">'hits'</span>][<span class="st">'hits'</span>])<span class="op">&gt;</span><span class="dv">0</span>:</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>            matches[l] <span class="op">=</span> pd.json_normalize(</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>              response[<span class="st">'hits'</span>][<span class="st">'hits'</span>]</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="dv">80</span><span class="op">*</span><span class="st">'-'</span>)</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Temps d'exécution total : </span><span class="sc">{</span>(time.time() <span class="op">-</span> start_time)<span class="sc">:.2f}</span><span class="ss"> secondes ---"</span>)</span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> matches</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>matches <span class="op">=</span> matchElastic(courses[<span class="st">'libel_clean'</span>])</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>matches <span class="op">=</span> pd.concat(matches)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>matches.sample(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+\n  \n    \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n    \n  \n  \n    \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n    \n    \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n    \n    \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n    \n  \n<table class="dataframe table table-sm table-striped small"><thead><tr><th></th><th></th><th>_index</th><th>_type</th><th>_id</th><th>_score</th><th>_source.product_name</th><th>_source.libel_clean</th><th>_source.energy_100g</th><th>_source.nutriscore_score</th></tr></thead><tbody><tr><th>GOUSSE AIL</th><th>0</th><td>openfood</td><td>_doc</td><td>1982062</td><td>57.93140</td><td>Gousse d\'ail</td><td>GOUSSE AIL</td><td>498.0</td><td>5.0</td></tr><tr><th>IGP SAUVIGNON</th><th>0</th><td>openfood</td><td>_doc</td><td>1801406</td><td>96.55756</td><td>vin blanc Sauvignon</td><td>VIN BLANC SAUVIGNON</td><td>66.3</td><td>1.0</td></tr><tr><th>POTIRON</th><th>0</th><td>openfood</td><td>_doc</td><td>1043961</td><td>75.96385</td><td>Potiron</td><td>POTIRON</td><td>172.0</td><td>0.0</td></tr></tbody></table>
+<p>Et voilà, on a un outil très rapide de requête !
+La pertinence des résultats est encore douteuse.
+Pour cela, il conviendrait de préciser des requêtes plus sophistiquées!<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<div class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>req <span class="op">=</span> {</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bool"</span>: {</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>      <span class="st">"should"</span>: [</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>        { <span class="st">"match"</span>: { <span class="st">"libel_clean"</span>:  { <span class="st">"query"</span>:  <span class="st">"HUILE OLIVE"</span> , <span class="st">"boost"</span> : <span class="dv">10</span>}}},</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>        { <span class="st">"match"</span>: { <span class="st">"libel_clean.ngr"</span>:   <span class="st">"HUILE OLIVE"</span> }}</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>        ],</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"minimum_should_match"</span>: <span class="dv">1</span>,</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">"filter"</span>: [</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>      { </span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">"range"</span> : {</span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>                <span class="st">"nutriscore_score"</span> : {</span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"gte"</span> : <span class="dv">10</span>,</span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"lte"</span> : <span class="dv">20</span></span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>                    }</span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>                    }</span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>                    }</span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>      ]</span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> es.search(index <span class="op">=</span> <span class="st">'openfood'</span>, query <span class="op">=</span> req, size <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>pd.json_normalize(out[<span class="st">'hits'</span>][<span class="st">'hits'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+\n  \n    \n      \n      \n      \n      \n      \n      \n      \n      \n      \n    \n  \n  \n    \n      \n      \n      \n      \n      \n      \n      \n      \n      \n    \n  \n<table class="dataframe table table-sm table-striped small"><thead><tr><th></th><th>_index</th><th>_type</th><th>_id</th><th>_score</th><th>_source.product_name</th><th>_source.libel_clean</th><th>_source.energy_100g</th><th>_source.nutriscore_score</th></tr></thead><tbody><tr><th>0</th><td>openfood</td><td>_doc</td><td>960041</td><td>174.27896</td><td>Huile d olive</td><td>HUILE OLIVE</td><td>3761.0</td><td>11.0</td></tr></tbody></table>
+<p>Qu’a-t-on demandé ici?
+- De renvoyer 1 et 1 seul echo (<code>"size":"1"</code>) et seulement si celui ci a:
++ <code>"should"</code>: Au moins un (<code>"minimum_should_match":"1"</code>) des termes des deux champs <code>libel_clean</code> et <code>libel_clean.ngr</code> qui matche sur un terme de <em>HUILE OLIVE</em>, l’analyse (la définition du “terme”) étant réalisé soit en tant que <code>text</code> (“libel_clean”) soit en tant que n-gramme <code>ngr</code> (“libel_clean.ngr”, une analyse que nous avons spécifié dans le mapping)
++ <code>"filter"</code>: Le champ <code>float</code> <code>nutriscore_score</code> doit être compris entre 10 et 20 (“filter”).</p>
+<p>A noter :</p>
+<ol type="1">
+<li>Les clauses (<code>"should"</code>+<code>"minimum_should_match":"1"</code>) peuvent être remplacé par un <code>"must"</code>. Auquel cas, l’écho doit obligatoirement matcher sur chaque clause.</li>
+<li>Préciser dans <code>"filter"</code> (plutôt que dans <code>"should"</code>) une condition signifie que celle-ci ne participe pas au score de pertinence.</li>
+</ol>
+<p>On n’a pas encore un appariemment très satisfaisant, en particulier sur les boissons. Comment faire ? La réponse est dans <span class="citation" data-cites="galiana2022">Galiana and Suarez Castillo (<a href="#ref-galiana2022" role="doc-biblioref">2022</a>)</span></p>
+<div class="alert alert-success" role="alert">
+<p>A vous, de calculer le nombre de calories de notre recette de course !</p>
+</div>
+
+
+
+</section>
+</section>
+
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-galiana2022" class="csl-entry" role="listitem">
+Galiana, Lino, and Milena Suarez Castillo. 2022. <span>“Fuzzy Matching on Big-Data: An Illustration with Scanner and Crowd-Sourced Nutritional Datasets.”</span> In <em>Proceedings of the 2022 ACM Conference on Information Technology for Social Good</em>, 331–37. GoodIT ’22. New York, NY, USA: Association for Computing Machinery. <a href="https://doi.org/10.1145/3524458.3547244">https://doi.org/10.1145/3524458.3547244</a>.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Le lancement du service a créé dans votre <code>NAMESPACE Kubernetes</code> (l’ensemble de tout vos services) un cluster <code>Elastic</code>.
+Vous n’avez droit qu’à un cluster par <em>namespace</em> (ou compte d’utilisateur).
+Votre service <code>Jupyter</code>, <code>VSCode</code>, <code>RStudio</code>, etc. est associé au même <em>namespace</em>.
+De même qu’il n’est pas nécessaire de comprendre comment fonctionne le moteur d’une voiture pour conduire,
+il n’est pas nécessaire de comprendre la manière dont tout ce beau monde dialogue pour pouvoir utiliser le <code>SSP Cloud</code>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Vous pouvez aussi explorer les possibilités de requêtes via la <a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/query-dsl.html">doc Elastic</a> et vous entrainer à un écrire avec votre index tout neuf.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@book{galiana2023,
+  author = {Galiana, Lino},
+  title = {Python Pour La Data Science},
+  date = {2023},
+  url = {https://pythonds.linogaliana.fr/},
+  doi = {10.5281/zenodo.8229676},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-galiana2023" class="csl-entry quarto-appendix-citeas" role="listitem">
+Galiana, Lino. 2023. <em>Python Pour La Data Science</em>. <a href="https://doi.org/10.5281/zenodo.8229676">https://doi.org/10.5281/zenodo.8229676</a>.
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="linogaliana/python-datascientist" data-repo-id="MDEwOlJlcG9zaXRvcnkyODAxNjE2Nzc=" data-category="General" data-category-id="DIC_kwDOELLtjc4B-5TX" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../content/modern-ds/elastic_approfondissement.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Approfondissement ElasticSearch pour des recherches de proximité géographique</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Python pour la <em>data science</em>, Lino Galiana.<br>
+Licence <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i><br>
+Code source disponible sur <a href="https://github.com/linogaliana/python-datascientist"><code>Github</code></a></div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">Site construit avec <i class="fa-brands fa-python" aria-label="python"></i> et <a href="https://quarto.org/"><code>Quarto</code></a><br>
+Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com">ici</a><br>
+<a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","selector":".lightbox","loop":true,"descPosition":"bottom","closeEffect":"zoom"});</script>
+
+
+
+</body></html>

@@ -1,0 +1,1905 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Lino Galiana">
+<meta name="dcterms.date" content="2023-07-01">
+<meta name="description" content="Après avoir présenté la logique de Pandas dans le chapitre précédent, ce chapitre vise à illustrer les fonctionalités du package à partir de données d’émissions de gaz à effet de serre de l’Ademe.">
+
+<title>Python pour la data science - Pratique de pandas : un exemple complet</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../content/manipulation/03_geopandas_tutorial.html" rel="next">
+<link href="../../content/manipulation/02a_pandas_tutorial.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+
+      .quarto-title-block .quarto-title-banner {
+        background: #e9f3fa;
+      }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../styles.css">
+<meta name="twitter:title" content="Python pour la data science - Pratique de pandas : un exemple complet">
+<meta name="twitter:description" content="Après avoir présenté la logique de Pandas dans le chapitre précédent,
+ce chapitre vise à illustrer les fonctionalités du package
+à partir de données d’émissions de gaz à effet de serre
+de l’Ademe.">
+<meta name="twitter:image" content="https://pythonds.linogaliana.fr/content/manipulation/panda_stretching.png">
+<meta name="twitter:image-height" content="1024">
+<meta name="twitter:image-width" content="1024">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="citation_title" content="Python pour la data science">
+<meta name="citation_author" content="Lino Galiana">
+<meta name="citation_publication_date" content="2023">
+<meta name="citation_cover_date" content="2023">
+<meta name="citation_year" content="2023">
+<meta name="citation_online_date" content="2023-07-01">
+<meta name="citation_fulltext_html_url" content="https://pythonds.linogaliana.fr/">
+<meta name="citation_doi" content="10.5281/zenodo.8229676">
+<meta name="citation_language" content="en">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Python pour la data science</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-introduction" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Introduction</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-introduction">    
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/01_installation.html" rel="" target="">
+ <span class="dropdown-text">Configuration de Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/02_DS_environment.html" rel="" target="">
+ <span class="dropdown-text">L’environnement Python pour la data science</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/03_data_analysis.html" rel="" target="">
+ <span class="dropdown-text">Comment aborder un jeu de données</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/04_python_practice.html" rel="" target="">
+ <span class="dropdown-text">Bonne pratique de Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/05_rappels_types.html" rel="" target="">
+ <span class="dropdown-text">Quelques rappels sur les principes de base de Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/06_rappels_fonctions.html" rel="" target="">
+ <span class="dropdown-text">Modules, tests, boucles, fonctions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/getting-started/07_rappels_classes.html" rel="" target="">
+ <span class="dropdown-text">Les classes en Python</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-manipuler" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Manipuler</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-manipuler">    
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/01_numpy.html" rel="" target="">
+ <span class="dropdown-text">Numpy, la brique de base de la data science</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/02a_pandas_tutorial.html" rel="" target="">
+ <span class="dropdown-text">Introduction à Pandas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/02b_pandas_TP.html" rel="" target="">
+ <span class="dropdown-text">Pratique de pandas : un exemple complet</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/03_geopandas_tutorial.html" rel="" target="">
+ <span class="dropdown-text">Données spatiales : découverte de geopandas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/03_geopandas_TP.html" rel="" target="">
+ <span class="dropdown-text">Pratique de geopandas avec les données vélib</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/04a_webscraping_TP.html" rel="" target="">
+ <span class="dropdown-text">Web scraping avec Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/04c_API_TP.html" rel="" target="">
+ <span class="dropdown-text">Récupérer des données avec des API depuis Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/04b_regex_TP.html" rel="" target="">
+ <span class="dropdown-text">Maîtriser les expressions régulières</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/manipulation/07_dask.html" rel="" target="">
+ <span class="dropdown-text">Introduction à dask grâce aux données DVF</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-communiquer" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Communiquer</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-communiquer">    
+        <li>
+    <a class="dropdown-item" href="../../content/visualisation/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/visualisation/matplotlib.html" rel="" target="">
+ <span class="dropdown-text">De beaux graphiques avec python : mise en pratique</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/visualisation/maps.html" rel="" target="">
+ <span class="dropdown-text">De belles cartes avec python : mise en pratique</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-modéliser" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Modéliser</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-modéliser">    
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/0_preprocessing.html" rel="" target="">
+ <span class="dropdown-text">Préparation des données pour construire un modèle</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/1_modelevaluation.html" rel="" target="">
+ <span class="dropdown-text">Evaluer la qualité d’un modèle</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/2_SVM.html" rel="" target="">
+ <span class="dropdown-text">Classification: premier modèle avec les SVM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/3_regression.html" rel="" target="">
+ <span class="dropdown-text">Régression : une introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/4_featureselection.html" rel="" target="">
+ <span class="dropdown-text">Sélection de variables : une introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/5_clustering.html" rel="" target="">
+ <span class="dropdown-text">Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/6_pipeline.html" rel="" target="">
+ <span class="dropdown-text">Premier pas vers l’industrialisation avec les pipelines scikit</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-nlp" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">NLP</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-nlp">    
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/01_intro.html" rel="" target="">
+ <span class="dropdown-text">Quelques éléments pour comprendre les enjeux du NLP</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/02_exoclean.html" rel="" target="">
+ <span class="dropdown-text">Nettoyer un texte: des exercices pour découvrir l’approche bag-of-words</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/03_lda.html" rel="" target="">
+ <span class="dropdown-text">Latent Dirichlet Allocation (LDA)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/04_word2vec.html" rel="" target="">
+ <span class="dropdown-text">Méthodes de vectorisation : comptages et word embeddings</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/NLP/05_exo_supp.html" rel="" target="">
+ <span class="dropdown-text">Exercices supplémentaires</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-approfondissements" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Approfondissements</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-approfondissements">    
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/continuous_integration.html" rel="" target="">
+ <span class="dropdown-text">Intégration continue avec Python</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/dallE.html" rel="" target="">
+ <span class="dropdown-text">Génération d’images avec Python, DALL-E et StableDiffusion</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/s3.html" rel="" target="">
+ <span class="dropdown-text">Les nouveaux modes d’accès aux données : le format parquet et les données sur le cloud</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/elastic_approfondissement.html" rel="" target="">
+ <span class="dropdown-text">Approfondissement ElasticSearch pour des recherches de proximité géographique</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modern-ds/elastic_intro.html" rel="" target="">
+ <span class="dropdown-text">Introduction à ElasticSearch pour la recherche textuelle</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-git" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Git</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-git">    
+        <li>
+    <a class="dropdown-item" href="../../content/git/index.html" rel="" target="">
+ <span class="dropdown-text">Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/git/introgit.html" rel="" target="">
+ <span class="dropdown-text">Git : un élément essentiel au quotidien</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/git/exogit.html" rel="" target="">
+ <span class="dropdown-text">Un cadavre exquis pour découvrir Git</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-annexes" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Annexes</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-annexes">    
+        <li>
+    <a class="dropdown-item" href="../../content/annexes/evaluation.html" rel="" target="">
+ <span class="dropdown-text">Evaluation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/annexes/corrections.html" rel="" target="">
+ <span class="dropdown-text">Corrections</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://linogaliana.github.io/python-datascientist-slides/#/title-slide" rel="" target="">
+ <span class="dropdown-text">Slides de présentation</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools ms-auto-item" href="https://github.com/linogaliana/python-datascientist">
+            Code source
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../content/manipulation/02b_pandas_TP.html">Pratique de pandas : un exemple complet</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns">
+                <div id="title-block-header-title" class="quarto-title page-columns page-full page-layout-full featured-image p-4" style="background-image: url(panda_stretching.png);">
+                <h1 class="title">Pratique de pandas : un exemple complet</h1>
+                                    <div class="quarto-categories">
+                        <div class="quarto-category">Manipulation</div>
+                        <div class="quarto-category">Exercice</div>
+                      </div>
+                          </div>
+        
+                <div>
+          <div id="title-block-title-desc" class="description pt-4">
+            <p>Après avoir présenté la logique de <code>Pandas</code> dans le chapitre précédent,
+            ce chapitre vise à illustrer les fonctionalités du <em>package</em>
+            à partir de données d’émissions de gaz à effet de serre
+            de l’<a href="https://data.ademe.fr/"><code>Ademe</code></a>.</p>
+          </div>
+        </div>
+                
+        
+        <div class="quarto-title-meta">
+
+            <div>
+            <div class="quarto-title-meta-heading">Author</div>
+            <div class="quarto-title-meta-contents">
+                     <p>Lino Galiana </p>
+                  </div>
+          </div>
+            
+            <div>
+            <div class="quarto-title-meta-heading">Published</div>
+            <div class="quarto-title-meta-contents">
+              <p class="date">July 1, 2023</p>
+            </div>
+          </div>
+          
+            
+          </div>
+          
+        
+        
+        
+
+        </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/01_numpy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Numpy, la brique de base de la data science</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/02a_pandas_tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction à Pandas</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/02b_pandas_TP.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Pratique de pandas : un exemple complet</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/03_geopandas_tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Données spatiales : découverte de geopandas</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/03_geopandas_TP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pratique de geopandas avec les données vélib</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/04a_webscraping_TP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Web scraping avec Python</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/04c_API_TP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Récupérer des données avec des API depuis Python</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/04b_regex_TP.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Maîtriser les expressions régulières</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/manipulation/07_dask.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction à dask grâce aux données DVF</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#importer-les-données" id="toc-importer-les-données" class="nav-link active" data-scroll-target="#importer-les-données">Importer les données</a>
+  <ul class="collapse">
+  <li><a href="#import-dun-csv-de-lademe" id="toc-import-dun-csv-de-lademe" class="nav-link" data-scroll-target="#import-dun-csv-de-lademe">Import d’un csv de l’Ademe</a></li>
+  </ul></li>
+  <li><a href="#premières-manipulations-de-données" id="toc-premières-manipulations-de-données" class="nav-link" data-scroll-target="#premières-manipulations-de-données">Premières manipulations de données</a>
+  <ul class="collapse">
+  <li><a href="#import-des-données-de-linsee" id="toc-import-des-données-de-linsee" class="nav-link" data-scroll-target="#import-des-données-de-linsee">Import des données de l’Insee</a></li>
+  </ul></li>
+  <li><a href="#les-indices" id="toc-les-indices" class="nav-link" data-scroll-target="#les-indices">Les indices</a></li>
+  <li><a href="#restructurer-les-données" id="toc-restructurer-les-données" class="nav-link" data-scroll-target="#restructurer-les-données">Restructurer les données</a></li>
+  <li><a href="#combiner-les-données" id="toc-combiner-les-données" class="nav-link" data-scroll-target="#combiner-les-données">Combiner les données</a>
+  <ul class="collapse">
+  <li><a href="#travail-préliminaire" id="toc-travail-préliminaire" class="nav-link" data-scroll-target="#travail-préliminaire">Travail préliminaire</a></li>
+  <li><a href="#associer-des-données" id="toc-associer-des-données" class="nav-link" data-scroll-target="#associer-des-données">Associer des données</a></li>
+  </ul></li>
+  <li><a href="#exercices-bonus" id="toc-exercices-bonus" class="nav-link" data-scroll-target="#exercices-bonus">Exercices bonus</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/linogaliana/python-datascientist/edit/master/content/manipulation/02b_pandas_TP.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/linogaliana/python-datascientist/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+<!-- source: https://github.com/gadenbuie/garrickadenbuie-com/blob/main/_partials/title-block-link-buttons/title-block.html -->
+<!-- source: https://raw.githubusercontent.com/spcanelon/silvia/32853dd0e70a71514b0922ee306f80ed5897f776/_partials/title-block-link-buttons/title-block.html -->
+<!-- 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title"> 
+-->
+<!-- <header id="title-block-header" class="quarto-title-block default page-columns"> -->
+<!-- <div class="quarto-title page-columns page-full featured-image p-4" style="background-image: url(featured.png), url(featured.jpg), url(../featured.jpg);"> -->
+    
+
+<p>Les exemples de ce TP sont visualisables sous forme de <code>Jupyter Notebooks</code>:</p>
+<div class="cell markdown">
+<p class="badges">
+<a href="https://github.com/linogaliana/python-datascientist-notebooks/blob/main/notebooks/manipulation/02b_pandas_TP.ipynb" class="github"><i class="fab fa-github"></i></a>
+<a href="https://downgit.github.io/#/home?url=https://github.com/linogaliana/python-datascientist-notebooks/blob/main/notebooks/manipulation/02b_pandas_TP.ipynb" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Download-Notebook-important?logo=Jupyter" alt="Download"></a>
+<a href="https://nbviewer.jupyter.org/github/linogaliana/python-datascientist-notebooksblob/main/notebooks/manipulation/02b_pandas_TP.ipynb" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Visualize-nbviewer-blue?logo=Jupyter" alt="nbviewer"></a>
+<a href="https://datalab.sspcloud.fr/launcher/ide/jupyter-python?autoLaunch=true&amp;onyxia.friendlyName=%C2%ABpython-datascience%C2%BB&amp;init.personalInit=%C2%ABhttps%3A%2F%2Fraw.githubusercontent.com%2Flinogaliana%2Fpython-datascientist%2Fmaster%2Fsspcloud%2Finit-jupyter.sh%C2%BB&amp;init.personalInitArgs=%C2%ABmanipulation%2002b_pandas_TP%C2%BB&amp;security.allowlist.enabled=false" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/SSP%20Cloud-Tester_avec_Jupyter-orange?logo=Jupyter&amp;logoColor=orange" alt="Onyxia"></a>
+<a href="https://datalab.sspcloud.fr/launcher/ide/vscode-python?autoLaunch=true&amp;onyxia.friendlyName=%C2%ABpython-datascience%C2%BB&amp;init.personalInit=%C2%ABhttps%3A%2F%2Fraw.githubusercontent.com%2Flinogaliana%2Fpython-datascientist%2Fmaster%2Fsspcloud%2Finit-vscode.sh%C2%BB&amp;init.personalInitArgs=%C2%ABmanipulation%2002b_pandas_TP%C2%BB&amp;security.allowlist.enabled=false" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/SSP%20Cloud-Tester_avec_VSCode-blue?logo=visualstudiocode&amp;logoColor=blue" alt="Onyxia"></a><br>
+<a href="https://mybinder.org/v2/gh/linogaliana/python-datascientist-notebooks/main?filepath={binder_path}" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Launch-Binder-E66581.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABZCAMAAABi1XidAAAB8lBMVEX///9XmsrmZYH1olJXmsr1olJXmsrmZYH1olJXmsr1olJXmsrmZYH1olL1olJXmsr1olJXmsrmZYH1olL1olJXmsrmZYH1olJXmsr1olL1olJXmsrmZYH1olL1olJXmsrmZYH1olL1olL0nFf1olJXmsrmZYH1olJXmsq8dZb1olJXmsrmZYH1olJXmspXmspXmsr1olL1olJXmsrmZYH1olJXmsr1olL1olJXmsrmZYH1olL1olLeaIVXmsrmZYH1olL1olL1olJXmsrmZYH1olLna31Xmsr1olJXmsr1olJXmsrmZYH1olLqoVr1olJXmsr1olJXmsrmZYH1olL1olKkfaPobXvviGabgadXmsqThKuofKHmZ4Dobnr1olJXmsr1olJXmspXmsr1olJXmsrfZ4TuhWn1olL1olJXmsqBi7X1olJXmspZmslbmMhbmsdemsVfl8ZgmsNim8Jpk8F0m7R4m7F5nLB6jbh7jbiDirOEibOGnKaMhq+PnaCVg6qWg6qegKaff6WhnpKofKGtnomxeZy3noG6dZi+n3vCcpPDcpPGn3bLb4/Mb47UbIrVa4rYoGjdaIbeaIXhoWHmZYHobXvpcHjqdHXreHLroVrsfG/uhGnuh2bwj2Hxk17yl1vzmljzm1j0nlX1olL3AJXWAAAAbXRSTlMAEBAQHx8gICAuLjAwMDw9PUBAQEpQUFBXV1hgYGBkcHBwcXl8gICAgoiIkJCQlJicnJ2goKCmqK+wsLC4usDAwMjP0NDQ1NbW3Nzg4ODi5+3v8PDw8/T09PX29vb39/f5+fr7+/z8/Pz9/v7+zczCxgAABC5JREFUeAHN1ul3k0UUBvCb1CTVpmpaitAGSLSpSuKCLWpbTKNJFGlcSMAFF63iUmRccNG6gLbuxkXU66JAUef/9LSpmXnyLr3T5AO/rzl5zj137p136BISy44fKJXuGN/d19PUfYeO67Znqtf2KH33Id1psXoFdW30sPZ1sMvs2D060AHqws4FHeJojLZqnw53cmfvg+XR8mC0OEjuxrXEkX5ydeVJLVIlV0e10PXk5k7dYeHu7Cj1j+49uKg7uLU61tGLw1lq27ugQYlclHC4bgv7VQ+TAyj5Zc/UjsPvs1sd5cWryWObtvWT2EPa4rtnWW3JkpjggEpbOsPr7F7EyNewtpBIslA7p43HCsnwooXTEc3UmPmCNn5lrqTJxy6nRmcavGZVt/3Da2pD5NHvsOHJCrdc1G2r3DITpU7yic7w/7Rxnjc0kt5GC4djiv2Sz3Fb2iEZg41/ddsFDoyuYrIkmFehz0HR2thPgQqMyQYb2OtB0WxsZ3BeG3+wpRb1vzl2UYBog8FfGhttFKjtAclnZYrRo9ryG9uG/FZQU4AEg8ZE9LjGMzTmqKXPLnlWVnIlQQTvxJf8ip7VgjZjyVPrjw1te5otM7RmP7xm+sK2Gv9I8Gi++BRbEkR9EBw8zRUcKxwp73xkaLiqQb+kGduJTNHG72zcW9LoJgqQxpP3/Tj//c3yB0tqzaml05/+orHLksVO+95kX7/7qgJvnjlrfr2Ggsyx0eoy9uPzN5SPd86aXggOsEKW2Prz7du3VID3/tzs/sSRs2w7ovVHKtjrX2pd7ZMlTxAYfBAL9jiDwfLkq55Tm7ifhMlTGPyCAs7RFRhn47JnlcB9RM5T97ASuZXIcVNuUDIndpDbdsfrqsOppeXl5Y+XVKdjFCTh+zGaVuj0d9zy05PPK3QzBamxdwtTCrzyg/2Rvf2EstUjordGwa/kx9mSJLr8mLLtCW8HHGJc2R5hS219IiF6PnTusOqcMl57gm0Z8kanKMAQg0qSyuZfn7zItsbGyO9QlnxY0eCuD1XL2ys/MsrQhltE7Ug0uFOzufJFE2PxBo/YAx8XPPdDwWN0MrDRYIZF0mSMKCNHgaIVFoBbNoLJ7tEQDKxGF0kcLQimojCZopv0OkNOyWCCg9XMVAi7ARJzQdM2QUh0gmBozjc3Skg6dSBRqDGYSUOu66Zg+I2fNZs/M3/f/Grl/XnyF1Gw3VKCez0PN5IUfFLqvgUN4C0qNqYs5YhPL+aVZYDE4IpUk57oSFnJm4FyCqqOE0jhY2SMyLFoo56zyo6becOS5UVDdj7Vih0zp+tcMhwRpBeLyqtIjlJKAIZSbI8SGSF3k0pA3mR5tHuwPFoa7N7reoq2bqCsAk1HqCu5uvI1n6JuRXI+S1Mco54YmYTwcn6Aeic+kssXi8XpXC4V3t7/ADuTNKaQJdScAAAAAElFTkSuQmCC" alt="Binder"></a>
+<a href="https://colab.research.google.com/github/linogaliana/python-datascientist-notebooks/blob/main/notebooks/manipulation/02b_pandas_TP.ipynb" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>
+<a href="https://github.dev/linogaliana/python-datascientist-notebooks/notebooks/manipulation/02b_pandas_TP.ipynb" target="_blank" rel="noopener"><img src="https://img.shields.io/static/v1?logo=visualstudiocode&amp;label=&amp;message=Open%20in%20Visual%20Studio%20Code&amp;labelColor=2c2c32&amp;color=007acc&amp;logoColor=007acc" alt="githubdev"></a>
+</p>
+<p></p>
+</div>
+<p>Dans cette série d’exercices <code>Pandas</code>,
+nous allons découvrir comment manipuler plusieurs
+jeux de données avec <code>Python</code>.</p>
+<p>Si vous êtes intéressés par <code>R</code>,
+une version très proche de ce TP est
+disponible dans <a href="https://rgeo.linogaliana.fr/exercises/r-wrangling.html">ce cours</a>.</p>
+<p>Dans ce tutoriel, nous allons utiliser deux sources de données :</p>
+<ul>
+<li>Les émissions de gaz à effet de serre estimées au niveau communal par l’<code>ADEME</code>. Le jeu de données est
+disponible sur <a href="https://www.data.gouv.fr/fr/datasets/inventaire-de-gaz-a-effet-de-serre-territorialise/#_">data.gouv</a>
+et requêtable directement dans <code>Python</code> avec
+<a href="https://koumoul.com/s/data-fair/api/v1/datasets/igt-pouvoir-de-rechauffement-global/convert">cet url</a> (ce sera l’objet du premier exercice).</li>
+<li>Idéalement, on utiliserait directement les données
+<a href="https://www.insee.fr/fr/statistiques/3560121">disponibles sur le site de l’Insee</a> mais celles-ci nécessitent un peu de travail
+de nettoyage qui n’entre pas dans le cadre de ce TP.
+Pour faciliter l’import de données Insee, il est recommandé d’utiliser le <em>package</em>
+<a href="https://pynsee.readthedocs.io/en/latest/"><code>pynsee</code></a> qui simplifie l’accès aux données
+de l’Insee disponibles sur le site web <a href="https://www.insee.fr/fr/accueil">insee.fr</a>
+ou via des API.</li>
+</ul>
+<p>La librairie <code>pynsee</code> n’est pas installée par défaut avec <code>Python</code>. Avant de pouvoir l’utiliser,
+il est nécessaire de l’installer :</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install xlrd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install pynsee</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Toutes les dépendances indispensables étant installées, il suffit
+maintenant d’importer les librairies qui seront utilisées
+pendant ces exercices :</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pynsee</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pynsee.download</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="importer-les-données" class="level2">
+<h2 class="anchored" data-anchor-id="importer-les-données">Importer les données</h2>
+<section id="import-dun-csv-de-lademe" class="level3">
+<h3 class="anchored" data-anchor-id="import-dun-csv-de-lademe">Import d’un csv de l’Ademe</h3>
+<p>L’URL d’accès aux données peut être conservé dans une variable <em>ad hoc</em> :</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://koumoul.com/s/data-fair/api/v1/datasets/igt-pouvoir-de-rechauffement-global/convert"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>L’objectif du premier exercice est de se familiariser à l’import et l’affichage de données
+avec <code>Pandas</code>.</p>
+<div class="cell markdown">
+<div class="alert alert-success" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 1: Importer un CSV et explorer la structure de données</h3>
+<ol type="1">
+<li>Importer les données de l’Ademe à l’aide du package <code>Pandas</code> et de la commande consacrée pour l’import de csv. Nommer le <code>DataFrame</code> obtenu <code>emissions</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</li>
+<li>Utiliser les méthodes adéquates afin d’afficher pour les 10 premières valeurs, les 15 dernières et un échantillon aléatoire de 10 valeurs grâce aux méthodes adéquates du <em>package</em> <code>Pandas</code>.</li>
+<li>Tirer 5 pourcents de l’échantillon sans remise.</li>
+<li>Ne conserver que les 10 premières lignes et tirer aléatoirement dans celles-ci pour obtenir un DataFrame de 100 données.</li>
+<li>Faire 100 tirages à partir des 6 premières lignes avec une probabilité de 1/2 pour la première observation et une probabilité uniforme pour les autres.</li>
+</ol>
+<details>
+<summary>
+En cas de blocage à la question 1
+</summary>
+<p>Lire la documentation de <code>read_csv</code> (très bien faite) ou chercher des exemples
+en ligne pour découvrir cette fonction.</p>
+</details>
+</div>
+</div>
+</section>
+</section>
+<section id="premières-manipulations-de-données" class="level2">
+<h2 class="anchored" data-anchor-id="premières-manipulations-de-données">Premières manipulations de données</h2>
+<p>Le chapitre précédent évoquait quelques manipulations traditionnelles
+de données. Les principales sont rappelées ici :</p>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><a href="select_pandas.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Sélectionner des colonnes"><img src="select_pandas.png" class="img-fluid" alt="Sélectionner des colonnes"></a>
+<a href="rename_pandas.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Renommer des colonnes"><img src="rename_pandas.png" class="img-fluid" alt="Renommer des colonnes"></a></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><a href="mutate_pandas.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Créer de nouvelles colonnes"><img src="mutate_pandas.png" class="img-fluid" alt="Créer de nouvelles colonnes"></a>
+<a href="filter_pandas.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Sélectionner des lignes"><img src="filter_pandas.png" class="img-fluid" alt="Sélectionner des lignes"></a></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
+<figure class="figure">
+<p><a href="arrange_pandas.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Réordonner le DataFrame"><img src="arrange_pandas.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Réordonner le <em>DataFrame</em></figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>La <em>cheatsheet</em> suivante est très pratique puisqu’elle illustre ces différentes
+fonctions. Il est recommandé de régulièrement
+la consulter :</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://cdn-images-1.medium.com/max/2000/1*YhTbz8b8Svi22wNVvqzneg.jpeg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Cheasheet Pandas"><img src="https://cdn-images-1.medium.com/max/2000/1*YhTbz8b8Svi22wNVvqzneg.jpeg" class="img-fluid figure-img" style="width:70.0%"></a></p>
+<figcaption class="figure-caption">Cheasheet <code>Pandas</code></figcaption>
+</figure>
+</div>
+<p>L’objectif du prochain exercice est de se familiariser aux principales manipulations de données
+sur un sous-ensemble de la table des émissions de gaz carbonique.</p>
+<div class="cell markdown">
+<div class="alert alert-success" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 2: Découverte des verbes de <code>Pandas</code> pour manipuler des données</h3>
+<p>En premier lieu, on propose de se familiariser avec les opérations sur
+les colonnes.</p>
+<ol type="1">
+<li>Créer un <em>dataframe</em> <code>emissions_copy</code> ne conservant que les colonnes
+<code>INSEE commune</code>, <code>Commune</code>, <code>Autres transports</code> et <code>Autres transports international</code></li>
+</ol>
+<details>
+<summary>
+Indice pour cette question
+</summary>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="./select_pandas.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="./select_pandas.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</details>
+<ol start="2" type="1">
+<li>Comme les noms de variables sont peu pratiques, les renommer de la
+manière suivante :
+<ul>
+<li><code>INSEE commune</code> <span class="math inline">\(\to\)</span> <code>code_insee</code></li>
+<li><code>Autres transports</code> <span class="math inline">\(\to\)</span> <code>transports</code></li>
+<li><code>Autres transports international</code> <span class="math inline">\(\to\)</span> <code>transports_international</code></li>
+</ul></li>
+</ol>
+<details>
+<summary>
+Indice pour cette question
+</summary>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="./rename_pandas.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="./rename_pandas.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</details>
+<ol start="3" type="1">
+<li><p>On propose, pour simplifier, de remplacer les valeurs manquantes (<code>NA</code>)
+par la valeur 0. Utiliser la
+méthode <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.fillna.html"><code>fillna</code></a>
+pour transformer les valeurs manquantes en 0.</p></li>
+<li><p>Créer les variables suivantes :</p>
+<ul>
+<li><code>dep</code>: le département. Celui-ci peut être créé grâce aux deux premiers caractères de <code>code_insee</code> en appliquant la méthode <code>str</code> ;</li>
+<li><code>transports_total</code>: les émissions du secteur transports (somme des deux variables)</li>
+</ul></li>
+</ol>
+<details>
+<summary>
+Indice pour cette question
+</summary>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="mutate_pandas.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="mutate_pandas.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</details>
+<ol start="5" type="1">
+<li>Ordonner les données du plus gros pollueur au plus petit
+puis ordonner les données
+du plus gros pollueur au plus petit par département (du 01 au 95).</li>
+</ol>
+<details>
+<summary>
+Indice pour cette question
+</summary>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="arrange_pandas.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="arrange_pandas.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</details>
+<ol start="6" type="1">
+<li>Ne conserver que les communes appartenant aux départements 13 ou 31.
+Ordonner ces communes du plus gros pollueur au plus petit.</li>
+</ol>
+<details>
+<summary>
+Indice pour cette question
+</summary>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="./filter_pandas.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="./filter_pandas.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</details>
+<ol start="7" type="1">
+<li>Calculer les émissions totales par départements</li>
+</ol>
+<details>
+<summary>
+Indice pour cette question
+</summary>
+<ul>
+<li><em>“Grouper par”</em> = <code>groupby</code></li>
+<li><em>“émissions totales”</em> = <code>agg({***: "sum"})</code></li>
+</ul>
+</details>
+</div>
+</div>
+<p>A la question 5, quand on ordonne les communes exclusivement à partir de la variable
+<code>transports_total</code>, on obtient ainsi:</p>
+<div class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">code_insee</th>
+<th data-quarto-table-cell-role="th">Commune</th>
+<th data-quarto-table-cell-role="th">transports</th>
+<th data-quarto-table-cell-role="th">transports_international</th>
+<th data-quarto-table-cell-role="th">dep</th>
+<th data-quarto-table-cell-role="th">transports_total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">31108</td>
+<td>77291</td>
+<td>LE MESNIL-AMELOT</td>
+<td>133834.090767</td>
+<td>3.303394e+06</td>
+<td>77</td>
+<td>3.437228e+06</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">31099</td>
+<td>77282</td>
+<td>MAUREGARD</td>
+<td>133699.072712</td>
+<td>3.303394e+06</td>
+<td>77</td>
+<td>3.437093e+06</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">31111</td>
+<td>77294</td>
+<td>MITRY-MORY</td>
+<td>89815.529858</td>
+<td>2.202275e+06</td>
+<td>77</td>
+<td>2.292090e+06</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>A la question 6, on obtient ce classement :</p>
+<div class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">code_insee</th>
+<th data-quarto-table-cell-role="th">Commune</th>
+<th data-quarto-table-cell-role="th">transports</th>
+<th data-quarto-table-cell-role="th">transports_international</th>
+<th data-quarto-table-cell-role="th">dep</th>
+<th data-quarto-table-cell-role="th">transports_total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4438</td>
+<td>13096</td>
+<td>SAINTES-MARIES-DE-LA-MER</td>
+<td>271182.758578</td>
+<td>0.000000</td>
+<td>13</td>
+<td>271182.758578</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">4397</td>
+<td>13054</td>
+<td>MARIGNANE</td>
+<td>245375.418650</td>
+<td>527360.799265</td>
+<td>13</td>
+<td>772736.217915</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">11684</td>
+<td>31069</td>
+<td>BLAGNAC</td>
+<td>210157.688544</td>
+<td>403717.366279</td>
+<td>31</td>
+<td>613875.054823</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<section id="import-des-données-de-linsee" class="level3">
+<h3 class="anchored" data-anchor-id="import-des-données-de-linsee">Import des données de l’Insee</h3>
+<p>En ce qui concerne nos informations communales, on va utiliser l’une des
+sources de l’Insee les plus utilisées : les données <a href="https://www.insee.fr/fr/metadonnees/source/serie/s1172"><code>Filosofi</code></a>.
+Afin de faciliter la récupération de celles-ci, nous allons
+utiliser le <em>package</em> communautaire <code>pynsee</code> :</p>
+<div class="cell markdown">
+<div class="alert alert-info" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-comment"></i> Note</h3>
+<p>Le <em>package</em> <code>pynsee</code> comporte deux principaux points d’entrée :</p>
+<ul>
+<li>Les API de l’Insee, ce qui sera illustré dans le chapitre consacré.</li>
+<li>Quelques jeux de données directement issus du site web de
+l’Insee (<a href="https://www.insee.fr/fr/accueil">insee.fr</a>)</li>
+</ul>
+<p>Dans ce chapitre, nous allons exclusivement utiliser cette deuxième
+approche. Cela se fera par le module <code>pynsee.download</code>.</p>
+<p>La liste des données disponibles depuis ce <em>package</em> est <a href="https://inseefrlab.github.io/DoReMIFaSol/articles/donnees_dispo.html">ici</a>.
+La fonction <code>download_file</code> attend un identifiant unique
+pour savoir quelle base de données aller chercher et
+restructurer depuis le
+site <a href="https://www.insee.fr/fr/accueil">insee.fr</a>.</p>
+<details>
+<summary>
+Connaître la liste des bases disponibles
+</summary>
+<p>Pour connaître la liste des bases disponibles, vous
+pouvez utiliser la fonction <code>meta = pynsee.get_file_list()</code>
+après avoir fait <code>import pynsee</code>.
+Celle-ci renvoie un <code>DataFrame</code> dans lequel on peut
+rechercher, par exemple grâce à une recherche
+de mots-clefs :</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>meta <span class="op">=</span> pynsee.get_file_list()</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>meta.loc[meta[<span class="st">'label'</span>].<span class="bu">str</span>.contains(<span class="vs">r"Filosofi.*2016"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>pynsee.download's metadata rely on volunteering contributors and their manual updates
+get_file_list does not provide data from official Insee's metadata API
+Consequently, please report any issue</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">label</th>
+<th data-quarto-table-cell-role="th">collection</th>
+<th data-quarto-table-cell-role="th">link</th>
+<th data-quarto-table-cell-role="th">type</th>
+<th data-quarto-table-cell-role="th">zip</th>
+<th data-quarto-table-cell-role="th">big_zip</th>
+<th data-quarto-table-cell-role="th">data_file</th>
+<th data-quarto-table-cell-role="th">tab</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">label_col</th>
+<th data-quarto-table-cell-role="th">date_ref</th>
+<th data-quarto-table-cell-role="th">meta_file</th>
+<th data-quarto-table-cell-role="th">separator</th>
+<th data-quarto-table-cell-role="th">type_col</th>
+<th data-quarto-table-cell-role="th">long_col</th>
+<th data-quarto-table-cell-role="th">val_col</th>
+<th data-quarto-table-cell-role="th">encoding</th>
+<th data-quarto-table-cell-role="th">last_row</th>
+<th data-quarto-table-cell-role="th">missing_value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">79</td>
+<td>FILOSOFI_COM_2016</td>
+<td>FILOSOFI_COM</td>
+<td>Données Filosofi niveau communal – 2016</td>
+<td>FILOSOFI</td>
+<td>https://www.insee.fr/fr/statistiques/fichier/4...</td>
+<td>xls</td>
+<td>True</td>
+<td>False</td>
+<td>base-cc-filosofi-2016.xls</td>
+<td>COM</td>
+<td>...</td>
+<td>NaN</td>
+<td>2016-01-01</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">80</td>
+<td>FILOSOFI_EPCI_2016</td>
+<td>FILOSOFI_EPCI</td>
+<td>Données Filosofi niveau EPCI – 2016</td>
+<td>FILOSOFI</td>
+<td>https://www.insee.fr/fr/statistiques/fichier/4...</td>
+<td>xls</td>
+<td>True</td>
+<td>False</td>
+<td>base-cc-filosofi-2016.xls</td>
+<td>EPCI</td>
+<td>...</td>
+<td>NaN</td>
+<td>2016-01-01</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">81</td>
+<td>FILOSOFI_ARR_2016</td>
+<td>FILOSOFI_ARR</td>
+<td>Données Filosofi niveau arondissement – 2016</td>
+<td>FILOSOFI</td>
+<td>https://www.insee.fr/fr/statistiques/fichier/4...</td>
+<td>xls</td>
+<td>True</td>
+<td>False</td>
+<td>base-cc-filosofi-2016.xls</td>
+<td>ARR</td>
+<td>...</td>
+<td>NaN</td>
+<td>2016-01-01</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">82</td>
+<td>FILOSOFI_DEP_2016</td>
+<td>FILOSOFI_DEP</td>
+<td>Données Filosofi niveau départemental – 2016</td>
+<td>FILOSOFI</td>
+<td>https://www.insee.fr/fr/statistiques/fichier/4...</td>
+<td>xls</td>
+<td>True</td>
+<td>False</td>
+<td>base-cc-filosofi-2016.xls</td>
+<td>DEP</td>
+<td>...</td>
+<td>NaN</td>
+<td>2016-01-01</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">83</td>
+<td>FILOSOFI_REG_2016</td>
+<td>FILOSOFI_REG</td>
+<td>Données Filosofi niveau régional – 2016</td>
+<td>FILOSOFI</td>
+<td>https://www.insee.fr/fr/statistiques/fichier/4...</td>
+<td>xls</td>
+<td>True</td>
+<td>False</td>
+<td>base-cc-filosofi-2016.xls</td>
+<td>REG</td>
+<td>...</td>
+<td>NaN</td>
+<td>2016-01-01</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">84</td>
+<td>FILOSOFI_METRO_2016</td>
+<td>FILOSOFI_METRO</td>
+<td>Données Filosofi niveau France métropolitaine ...</td>
+<td>FILOSOFI</td>
+<td>https://www.insee.fr/fr/statistiques/fichier/4...</td>
+<td>xls</td>
+<td>True</td>
+<td>False</td>
+<td>base-cc-filosofi-2016.xls</td>
+<td>METRO</td>
+<td>...</td>
+<td>NaN</td>
+<td>2016-01-01</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">85</td>
+<td>FILOSOFI_AU2010_2016</td>
+<td>FILOSOFI_AU2010</td>
+<td>Données Filosofi niveau aire urbaine – 2016</td>
+<td>FILOSOFI</td>
+<td>https://www.insee.fr/fr/statistiques/fichier/4...</td>
+<td>xls</td>
+<td>True</td>
+<td>False</td>
+<td>base-cc-filosofi-2016.xls</td>
+<td>AU2010</td>
+<td>...</td>
+<td>NaN</td>
+<td>2016-01-01</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">86</td>
+<td>FILOSOFI_UU2010_2016</td>
+<td>FILOSOFI_UU2010</td>
+<td>Données Filosofi niveau unité urbaine – 2016</td>
+<td>FILOSOFI</td>
+<td>https://www.insee.fr/fr/statistiques/fichier/4...</td>
+<td>xls</td>
+<td>True</td>
+<td>False</td>
+<td>base-cc-filosofi-2016.xls</td>
+<td>UU2010</td>
+<td>...</td>
+<td>NaN</td>
+<td>2016-01-01</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">87</td>
+<td>FILOSOFI_ZE2010_2016</td>
+<td>FILOSOFI_ZE2010</td>
+<td>Données Filosofi niveau zone d’emploi – 2016</td>
+<td>FILOSOFI</td>
+<td>https://www.insee.fr/fr/statistiques/fichier/4...</td>
+<td>xls</td>
+<td>True</td>
+<td>False</td>
+<td>base-cc-filosofi-2016.xls</td>
+<td>ZE2010</td>
+<td>...</td>
+<td>NaN</td>
+<td>2016-01-01</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+<p>9 rows × 24 columns</p>
+</div>
+</div>
+</div>
+<p>Ici, <code>meta['label'].str.contains(r"Filosofi.*2016")</code> signifie:
+“<em><code>pandas</code> trouve moi tous les labels où sont contenus les termes Filosofi et 2016.</em>”
+(<code>.*</code> signifiant “<em>peu m’importe le nombre de mots ou caractères entre</em>”)</p>
+</details>
+</div>
+</div>
+<p>On va utiliser les données Filosofi (données de revenus) au niveau communal de 2016.
+Ce n’est pas la même année que les données d’émission de CO2, ce n’est donc pas parfaitement rigoureux,
+mais cela permettra tout de même d’illustrer
+les principales fonctionnalités de <code>Pandas</code></p>
+<p>Le point d’entrée principal de la fonction <code>pynsee</code> est la fonction <code>download_file</code>.</p>
+<p>Le code pour télécharger les données est le suivant :</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pynsee.download <span class="im">import</span> download_file</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>filosofi <span class="op">=</span> download_file(<span class="st">"FILOSOFI_COM_2016"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Le <em>DataFrame</em> en question a l’aspect suivant :</p>
+<div class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display" data-execution_count="11">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">CODGEO</th>
+<th data-quarto-table-cell-role="th">LIBGEO</th>
+<th data-quarto-table-cell-role="th">NBMENFISC16</th>
+<th data-quarto-table-cell-role="th">NBPERSMENFISC16</th>
+<th data-quarto-table-cell-role="th">MED16</th>
+<th data-quarto-table-cell-role="th">PIMP16</th>
+<th data-quarto-table-cell-role="th">TP6016</th>
+<th data-quarto-table-cell-role="th">TP60AGE116</th>
+<th data-quarto-table-cell-role="th">TP60AGE216</th>
+<th data-quarto-table-cell-role="th">TP60AGE316</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">PPEN16</th>
+<th data-quarto-table-cell-role="th">PPAT16</th>
+<th data-quarto-table-cell-role="th">PPSOC16</th>
+<th data-quarto-table-cell-role="th">PPFAM16</th>
+<th data-quarto-table-cell-role="th">PPMINI16</th>
+<th data-quarto-table-cell-role="th">PPLOGT16</th>
+<th data-quarto-table-cell-role="th">PIMPOT16</th>
+<th data-quarto-table-cell-role="th">D116</th>
+<th data-quarto-table-cell-role="th">D916</th>
+<th data-quarto-table-cell-role="th">RD16</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">9872</td>
+<td>27638</td>
+<td>Le Thuit de l'Oison</td>
+<td>1348</td>
+<td>3680.5</td>
+<td>22948.09523809524</td>
+<td>63</td>
+<td>7</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>...</td>
+<td>30</td>
+<td>7.3</td>
+<td>3.6</td>
+<td>2.4</td>
+<td>0.7</td>
+<td>0.6</td>
+<td>-15.8</td>
+<td>13823.5</td>
+<td>36414</td>
+<td>2.6342098600209787</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">14001</td>
+<td>37237</td>
+<td>Saint-Roch</td>
+<td>479</td>
+<td>1311.5</td>
+<td>23559.33333333333</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">34603</td>
+<td>93001</td>
+<td>Aubervilliers</td>
+<td>27943</td>
+<td>80226</td>
+<td>13240.666666666666</td>
+<td>32</td>
+<td>45</td>
+<td>42</td>
+<td>45</td>
+<td>51</td>
+<td>...</td>
+<td>17</td>
+<td>4.1</td>
+<td>15.4</td>
+<td>4.8</td>
+<td>6</td>
+<td>4.7</td>
+<td>-12.9</td>
+<td>6668.695652173914</td>
+<td>25310.666666666668</td>
+<td>3.7954448646064236</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">4316</td>
+<td>13025</td>
+<td>Châteauneuf-le-Rouge</td>
+<td>800</td>
+<td>2112.5</td>
+<td>29378.888888888887</td>
+<td>76</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>...</td>
+<td>26.7</td>
+<td>15.5</td>
+<td>1.7</td>
+<td>0.8</td>
+<td>0.5</td>
+<td>0.3</td>
+<td>-22.1</td>
+<td>15970.666666666666</td>
+<td>51011.333333333336</td>
+<td>3.19406411754884</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16946</td>
+<td>46201</td>
+<td>Montcuq-en-Quercy-Blanc</td>
+<td>747</td>
+<td>1543.5</td>
+<td>18306</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+<p>5 rows × 29 columns</p>
+</div>
+</div>
+</div>
+<p><code>Pandas</code> a géré automatiquement les types de variables. Il le fait relativement bien, mais une vérification est toujours utile pour les variables qui ont un statut spécifique.</p>
+<p>Pour les variables qui ne sont pas en type <code>float</code> alors qu’elles devraient l’être, on modifie leur type.</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>filosofi.loc[:, filosofi.columns[<span class="dv">2</span>:]] <span class="op">=</span> (</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  filosofi.loc[:, filosofi.columns[<span class="dv">2</span>:]]</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  .<span class="bu">apply</span>(pd.to_numeric, errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Un simple coup d’oeil sur les données
+donne une idée assez précise de la manière dont les données sont organisées.
+On remarque que certaines variables de <code>filosofi</code> semblent avoir beaucoup de valeurs manquantes (secret statistique)
+alors que d’autres semblent complètes.
+Si on désire exploiter <code>filosofi</code>, il faut faire attention à la variable choisie.</p>
+<p>Notre objectif à terme va être de relier l’information contenue entre ces
+deux jeux de données. En effet, sinon, nous risquons d’être frustré : nous allons
+vouloir en savoir plus sur les émissions de gaz carbonique mais seront très
+limités dans les possibilités d’analyse sans ajout d’une information annexe
+issue de <code>filosofi</code>.</p>
+</section>
+</section>
+<section id="les-indices" class="level2">
+<h2 class="anchored" data-anchor-id="les-indices">Les indices</h2>
+<p>Les indices sont des éléments spéciaux d’un <code>DataFrame</code> puisqu’ils permettent d’identifier certaines observations.
+Il est tout à fait possible d’utiliser plusieurs indices, par exemple si on a des niveaux imbriqués.</p>
+<p>Pour le moment, on va prendre comme acquis que les codes communes (dits aussi codes Insee) permettent
+d’identifier de manière unique une commune. Un exercice ultérieur permettra de s’en assurer.</p>
+<p><code>Pandas</code> propose un système d’indice qui permet d’ordonner les variables mais également de gagner
+en efficacité sur certains traitements, comme des recherches d’observations. Le prochain
+exercice illustre cette fonctionnalité.</p>
+<div class="cell markdown">
+<div class="alert alert-success" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 3 : Les indices</h3>
+<p>On suppose ici qu’on peut se fier aux codes communes. En effet, on a un même ordre de grandeur de communes dans les deux bases.</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(emissions[[<span class="st">'INSEE commune'</span>, <span class="st">'Commune'</span>]].nunique())</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(filosofi[[<span class="st">'CODGEO'</span>, <span class="st">'LIBGEO'</span>]].nunique())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>INSEE commune    35798
+Commune          33338
+dtype: int64
+CODGEO    34932
+LIBGEO    32676
+dtype: int64</code></pre>
+</div>
+</div>
+<ol type="1">
+<li><p>Fixer comme indice la variable de code commune dans les deux bases.
+Regarder le changement que cela induit sur le <em>display</em> du <code>DataFrame</code></p></li>
+<li><p>Les deux premiers chiffres des codes communes sont le numéro de département.
+Créer une variable de département <code>dep</code> dans <code>emissions</code> et <code>filosofi</code></p></li>
+<li><p>Calculer les émissions totales par secteur pour chaque département.
+Mettre en <em>log</em> ces résultats dans un objet <code>emissions_log</code>.
+Garder 5 départements et produire un <code>barplot</code> grâce à la méthode <em>plot</em> (la
+figure n’a pas besoin d’être vraiment propre, c’est seulement pour illustrer
+cette méthode)</p></li>
+<li><p>Repartir de <code>emissions</code>.
+Calculer les émissions totales par département et sortir la liste
+des 10 principaux émetteurs de CO2 et des 5 départements les moins émetteurs.
+Essayer de comprendre pourquoi ce sont ces départements qui apparaissent en tête
+du classement. Pour cela, il peut être utile de regarder les caractéristiques de ces
+départements dans <code>filosofi</code></p></li>
+</ol>
+</div>
+</div>
+<p>En pratique, l’utilisation des indices en <code>Pandas</code> peut être piégeuse, notamment lorsqu’on
+associe des sources de données.<br>
+Il est plutôt recommandé de ne pas les utiliser ou de les utiliser avec parcimonie,
+cela pourra éviter de mauvaises surprises.</p>
+</section>
+<section id="restructurer-les-données" class="level2">
+<h2 class="anchored" data-anchor-id="restructurer-les-données">Restructurer les données</h2>
+<p>Quand on a plusieurs informations pour un même individu ou groupe, on
+retrouve généralement deux types de structure de données :</p>
+<ul>
+<li>format <strong>wide</strong> : les données comportent des observations répétées, pour un même individu (ou groupe), dans des colonnes différentes</li>
+<li>format <strong>long</strong> : les données comportent des observations répétées, pour un même individu, dans des lignes différentes avec une colonne permettant de distinguer les niveaux d’observations</li>
+</ul>
+<p>Un exemple de la distinction entre les deux peut être pris à l’ouvrage de référence d’Hadley Wickham, <a href="https://r4ds.hadley.nz/"><em>R for Data Science</em></a>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://d33wubrfki0l68.cloudfront.net/3aea19108d39606bbe49981acda07696c0c7fcd8/2de65/images/tidy-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Données long et wide"><img src="https://d33wubrfki0l68.cloudfront.net/3aea19108d39606bbe49981acda07696c0c7fcd8/2de65/images/tidy-9.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Données <em>long</em> et <em>wide</em></figcaption>
+</figure>
+</div>
+<p>L’aide mémoire suivante aidera à se rappeler les fonctions à appliquer si besoin :</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="reshape.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="reshape.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<p>Le fait de passer d’un format <em>wide</em> au format <em>long</em> (ou vice-versa)
+peut être extrêmement pratique car certaines fonctions sont plus adéquates sur une forme de données ou sur l’autre.</p>
+<p>En règle générale, avec <code>Python</code> comme avec <code>R</code>, les <strong>formats <em>long</em> sont souvent préférables</strong>.
+Les formats <em>wide</em> sont plutôt pensés pour des tableurs comme <code>Excel</code> ou on dispose d’un nombre réduit
+de lignes à partir duquel faire des tableaux croisés dynamiques.</p>
+<p>Le prochain exercice propose donc une telle restructuration de données.
+Les données de l’ADEME, et celles de l’Insee également, sont au format
+<em>wide</em>.
+Le prochain exercice illustre l’intérêt de faire la conversion <em>long</em> <span class="math inline">\(\to\)</span> <em>wide</em>
+avant de faire un graphique.</p>
+<div class="cell markdown">
+<div class="alert alert-success" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 5: Restructurer les données : wide to long</h3>
+<ol type="1">
+<li><p>Créer une copie des données de l’<code>ADEME</code> en faisant <code>df_wide = emissions_wide.copy()</code></p></li>
+<li><p>Restructurer les données au format <em>long</em> pour avoir des données d’émissions par secteur en gardant comme niveau d’analyse la commune (attention aux autres variables identifiantes).</p></li>
+<li><p>Faire la somme par secteur et représenter graphiquement</p></li>
+<li><p>Garder, pour chaque département, le secteur le plus polluant</p></li>
+</ol>
+</div>
+</div>
+</section>
+<section id="combiner-les-données" class="level2">
+<h2 class="anchored" data-anchor-id="combiner-les-données">Combiner les données</h2>
+<section id="travail-préliminaire" class="level3">
+<h3 class="anchored" data-anchor-id="travail-préliminaire">Travail préliminaire</h3>
+<p>Jusqu’à présent lorsque nous avons produit des statistiques descriptives,
+celles-ci étaient univariées, c’est-à-dire que nous produisions de l’information
+sur une variable mais nous ne la mettions pas en lien avec une autre. Pourtant,
+on est rapidement amené à désirer expliquer certaines statistiques agrégées à partir
+de caractéristiques issues d’une autre source de données. Cela implique
+donc d’associer des jeux de données,
+autrement dit de mettre en lien deux jeux de données
+présentant le même niveau d’information.</p>
+<p>On appelle ceci faire un <em>merge</em> ou un <em>join</em>. De manière illustrée,
+ceci revient à effectuer ce type d’opération :</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://pandas.pydata.org/docs/_images/merging_concat_axis1_inner.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="https://pandas.pydata.org/docs/_images/merging_concat_axis1_inner.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<p>Avant de faire ceci, il est néanmoins nécessaire de s’assurer que les variables
+communes entre les bases de données présentent le bon niveau d’information.</p>
+<div class="cell markdown">
+<div class="alert alert-success" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 6: vérification des clés de jointure</h3>
+<p>On commence par vérifier les dimensions des <code>DataFrames</code> et la structure de certaines variables clés.
+En l’occurrence, les variables fondamentales pour lier nos données sont les variables communales.
+Ici, on a deux variables géographiques: un code commune et un nom de commune.</p>
+<ol type="1">
+<li><p>Vérifier les dimensions des <em>DataFrames</em>.</p></li>
+<li><p>Identifier dans <code>filosofi</code> les noms de communes qui correspondent à plusieurs codes communes et sélectionner leurs codes. En d’autres termes, identifier les <code>LIBGEO</code> tels qu’il existe des doublons de <code>CODGEO</code> et les stocker dans un vecteur <code>x</code> (conseil: faire attention à l’index de <code>x</code>).</p></li>
+</ol>
+<p>On se focalise temporairement sur les observations où le libellé comporte plus de deux codes communes différents</p>
+<ul>
+<li><p><em>Question 3</em>. Regarder dans <code>filosofi</code> ces observations.</p></li>
+<li><p><em>Question 4</em>. Pour mieux y voir, réordonner la base obtenue par order alphabétique.</p></li>
+<li><p><em>Question 5</em>. Déterminer la taille moyenne (variable nombre de personnes: <code>NBPERSMENFISC16</code>) et quelques statistiques descriptives de ces données.
+Comparer aux mêmes statistiques sur les données où libellés et codes communes coïncident.</p></li>
+<li><p><em>Question 6</em>. Vérifier les grandes villes (plus de 100 000 personnes),
+la proportion de villes pour lesquelles un même nom est associé à différents codes commune.</p></li>
+<li><p><em>Question 7</em>. Vérifier dans <code>filosofi</code> les villes dont le libellé est égal à Montreuil.
+Vérifier également celles qui contiennent le terme <em>‘Saint-Denis’</em>.</p></li>
+</ul>
+</div>
+</div>
+<p>Ce petit exercice permet de se rassurer car les libellés dupliqués
+sont en fait des noms de commune identiques mais qui ne sont pas dans le même département.
+Il ne s’agit donc pas d’observations dupliquées.
+On peut donc se fier aux codes communes, qui eux sont uniques.</p>
+</section>
+<section id="associer-des-données" class="level3">
+<h3 class="anchored" data-anchor-id="associer-des-données">Associer des données</h3>
+<p>Une information que l’on cherche à obtenir s’obtient de moins en moins à partir d’une unique base de données. Il devient commun de devoir combiner des données issues de sources différentes.</p>
+<p>Nous allons ici nous focaliser sur le cas le plus favorable qui est la situation où une information permet d’apparier de manière exacte deux bases de données (autrement nous serions dans une situation, beaucoup plus complexe, d’appariement flou). La situation typique est l’appariement entre deux sources de données selon un identifiant individuel ou un identifiant de code commune, ce qui est notre cas.</p>
+<p>Il est recommandé de lire <a href="https://www.book.utilitr.org/03_fiches_thematiques/fiche_joindre_donnees">ce guide assez complet sur la question des jointures avec R</a> qui donne des recommandations également utiles en <code>Python</code>.</p>
+<p>Dans le langage courant du statisticien,
+on utilise de manière indifférente les termes <em>merge</em> ou <em>join</em>. Le deuxième terme provient de la syntaxe <code>SQL</code>.
+Quand on fait du <code>Pandas</code>, on utilise plutôt la commande <em>merge</em>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="pandas_join.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="pandas_join.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<div class="cell markdown">
+<div class="alert alert-success" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 7: Calculer l'empreinte carbone par habitant</h3>
+<p>En premier lieu, on va calculer l’empreinte carbone de chaque commune.</p>
+<ol type="1">
+<li><p>Créer une variable <code>emissions</code> qui correspond aux émissions totales d’une commune</p></li>
+<li><p>Faire une jointure à gauche entre les données d’émissions et les données de cadrage<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p></li>
+<li><p>Calculer l’empreinte carbone (émissions totales / population).</p></li>
+</ol>
+<p>A ce stade nous pourrions avoir envie d’aller vers la modélisation pour essayer d’expliquer
+les déterminants de l’empreinte carbone à partir de variables communales.
+Une approche inférentielle nécessite néanmoins pour être pertinente de
+vérifier en amont des statistiques descriptives.</p>
+<ol start="4" type="1">
+<li>Sortir un histogramme en niveau puis en log de l’empreinte carbone communale.</li>
+</ol>
+<p>Avec une meilleure compréhension de nos données, nous nous rapprochons
+de la statistique inférentielle. Néanmoins, nous avons jusqu’à présent
+construit des statistiques univariées mais n’avons pas cherché à comprendre
+les résultats en regardant le lien avec d’autres variables.
+Cela nous amène vers la statistique bivariée, notamment l’analyse des corrélations.
+Ce travail est important puisque toute modélisation ultérieure consistera à
+raffiner l’analyse des corrélations pour tenir compte des corrélations croisées
+entre multiples facteurs. On propose ici de faire cette analyse
+de manière minimale.</p>
+<ol start="5" type="1">
+<li>Regarder la corrélation entre les variables de cadrage et l’empreinte carbone. Certaines variables semblent-elles pouvoir potentiellement influer sur l’empreinte carbone ?</li>
+</ol>
+</div>
+</div>
+<p>A l’issue de la question 5, le graphique des corrélations est le suivant :</p>
+<div class="cell" data-execution_count="35">
+<div class="cell-output cell-output-display" data-execution_count="34">
+<pre><code>&lt;Axes: ylabel='index'&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="02b_pandas_TP_files/figure-html/cell-36-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="02b_pandas_TP_files/figure-html/cell-36-output-2.png" width="773" height="411" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercices-bonus" class="level2">
+<h2 class="anchored" data-anchor-id="exercices-bonus">Exercices bonus</h2>
+<p>Les plus rapides d’entre vous sont invités à aller un peu plus loin en s’entraînant avec des exercices bonus qui proviennent du <a href="http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx3">site de Xavier Dupré</a>. 3 notebooks en lien avec <code>numpy</code> et <code>pandas</code> vous y sont proposés :</p>
+<ol type="1">
+<li>Calcul Matriciel, Optimisation : <a href="http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx3/notebooks/td2a_cenonce_session_2A.html">énoncé</a> / <a href="http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx3/notebooks/td2a_correction_session_2A.html">corrigé</a></li>
+<li>DataFrame et Graphes : <a href="http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx3/notebooks/td2a_cenonce_session_1.html">énoncé</a> / <a href="http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx3/notebooks/td2a_correction_session_1.html">corrigé</a></li>
+<li>Pandas et itérateurs : <a href="http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx3/notebooks/pandas_iterator.html">énoncé</a> / <a href="http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx3/notebooks/pandas_iterator_correction.html">corrigé</a></li>
+</ol>
+
+
+</section>
+
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Par manque d’imagination, on est souvent tenté d’appeler notre
+<em>dataframe</em> principal <code>df</code> ou <code>data</code>. C’est souvent une mauvaise idée puisque
+ce nom n’est pas très informatif quand on relit le code quelques semaines
+plus tard. L’autodocumentation, approche qui consiste à avoir un code
+qui se comprend de lui-même, est une bonne pratique et il est donc recommandé
+de donner un nom simple mais efficace pour connaître la nature du <em>dataset</em> en question.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Idéalement, il serait nécessaire de s’assurer que cette jointure n’introduit
+pas de biais. En effet, comme nos années de référence ne sont pas forcément identiques,
+il peut y avoir un <em>mismatch</em> entre nos deux sources. Le TP étant déjà long, nous n’allons pas dans cette voie.
+Les lecteurs intéressés pourront effectuer une telle analyse en exercice supplémentaire.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@book{galiana2023,
+  author = {Galiana, Lino},
+  title = {Python Pour La Data Science},
+  date = {2023},
+  url = {https://pythonds.linogaliana.fr/},
+  doi = {10.5281/zenodo.8229676},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-galiana2023" class="csl-entry quarto-appendix-citeas" role="listitem">
+Galiana, Lino. 2023. <em>Python Pour La Data Science</em>. <a href="https://doi.org/10.5281/zenodo.8229676">https://doi.org/10.5281/zenodo.8229676</a>.
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="linogaliana/python-datascientist" data-repo-id="MDEwOlJlcG9zaXRvcnkyODAxNjE2Nzc=" data-category="General" data-category-id="DIC_kwDOELLtjc4B-5TX" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../content/manipulation/02a_pandas_tutorial.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction à Pandas</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../content/manipulation/03_geopandas_tutorial.html" class="pagination-link">
+        <span class="nav-page-text">Données spatiales : découverte de geopandas</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Python pour la <em>data science</em>, Lino Galiana.<br>
+Licence <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i><br>
+Code source disponible sur <a href="https://github.com/linogaliana/python-datascientist"><code>Github</code></a></div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">Site construit avec <i class="fa-brands fa-python" aria-label="python"></i> et <a href="https://quarto.org/"><code>Quarto</code></a><br>
+Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com">ici</a><br>
+<a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","closeEffect":"zoom","loop":true,"selector":".lightbox","openEffect":"zoom"});</script>
+
+
+
+</body></html>
