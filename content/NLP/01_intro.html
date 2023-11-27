@@ -351,6 +351,10 @@ sur le Comte de Monte Cristo d’Alexandre Dumas.">
     <a class="dropdown-item" href="../../content/modelisation/6_pipeline.html" rel="" target="">
  <span class="dropdown-text">Premier pas vers l’industrialisation avec les pipelines scikit</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/7_mlapi.html" rel="" target="">
+ <span class="dropdown-text">Mettre à disposition un modèle par le biais d’une API</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -772,13 +776,13 @@ mesure de les comparer.</p>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
 <figure class="figure">
-<p><a href="wordcloud_openfood_start.png" class="lightbox" title="OpenFoodFacts avant nettoyage" data-gallery="quarto-lightbox-gallery-2"><img src="wordcloud_openfood_start.png" class="img-fluid figure-img"></a></p>
+<p><a href="wordcloud_openfood_start.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="OpenFoodFacts avant nettoyage"><img src="wordcloud_openfood_start.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption"><code>OpenFoodFacts</code> avant nettoyage</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
 <figure class="figure">
-<p><a href="wordcloud_relevanc_start.png" class="lightbox" title="Scanner-data avant nettoyage" data-gallery="quarto-lightbox-gallery-3"><img src="wordcloud_relevanc_start.png" class="img-fluid figure-img"></a></p>
+<p><a href="wordcloud_relevanc_start.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Scanner-data avant nettoyage"><img src="wordcloud_relevanc_start.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption"><em>Scanner-data</em> avant nettoyage</figcaption>
 </figure>
 </div>
@@ -788,13 +792,13 @@ mesure de les comparer.</p>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
 <figure class="figure">
-<p><a href="wordcloud_openfood_clean.png" class="lightbox" title="OpenFoodFacts après nettoyage" data-gallery="quarto-lightbox-gallery-4"><img src="wordcloud_openfood_clean.png" class="img-fluid figure-img"></a></p>
+<p><a href="wordcloud_openfood_clean.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="OpenFoodFacts après nettoyage"><img src="wordcloud_openfood_clean.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption"><code>OpenFoodFacts</code> après nettoyage</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center" style="flex-basis: 50.0%;justify-content: center;">
 <figure class="figure">
-<p><a href="wordcloud_relevanc_clean.png" class="lightbox" title="Scanner-data après nettoyage" data-gallery="quarto-lightbox-gallery-5"><img src="wordcloud_relevanc_clean.png" class="img-fluid figure-img"></a></p>
+<p><a href="wordcloud_relevanc_clean.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Scanner-data après nettoyage"><img src="wordcloud_relevanc_clean.png" class="img-fluid figure-img"></a></p>
 <figcaption class="figure-caption"><em>Scanner-data</em> après nettoyage</figcaption>
 </figure>
 </div>
@@ -1036,11 +1040,11 @@ sur les premières phrases de l’ouvrage</p>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>doc <span class="op">=</span> nlp(dumas[<span class="dv">15000</span>:<span class="dv">17000</span>])</span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>displacy.render(doc, style<span class="op">=</span><span class="st">"ent"</span>, jupyter<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>2023-11-27 16:52:17.998992: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  SSE4.1 SSE4.2 AVX AVX2 FMA
+<pre><code>2023-11-27 17:30:03.223774: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  SSE4.1 SSE4.2 AVX AVX2 FMA
 To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
 Collecting fr-core-news-sm==3.6.0
   Downloading https://github.com/explosion/spacy-models/releases/download/fr_core_news_sm-3.6.0/fr_core_news_sm-3.6.0-py3-none-any.whl (16.3 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0.0/16.3 MB ? eta -:--:--     ━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.0/16.3 MB 119.0 MB/s eta 0:00:01     ━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━ 9.5/16.3 MB 139.5 MB/s eta 0:00:01     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━ 15.1/16.3 MB 163.0 MB/s eta 0:00:01     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ 16.3/16.3 MB 160.9 MB/s eta 0:00:01     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.3/16.3 MB 92.1 MB/s eta 0:00:00
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0.0/16.3 MB ? eta -:--:--     ━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.3/16.3 MB 128.2 MB/s eta 0:00:01     ━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━ 10.1/16.3 MB 146.6 MB/s eta 0:00:01     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ 16.2/16.3 MB 173.2 MB/s eta 0:00:01     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ 16.3/16.3 MB 168.5 MB/s eta 0:00:01     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.3/16.3 MB 96.3 MB/s eta 0:00:00
 Requirement already satisfied: spacy&lt;3.7.0,&gt;=3.6.0 in /opt/mamba/lib/python3.9/site-packages (from fr-core-news-sm==3.6.0) (3.6.1)
 Requirement already satisfied: spacy-legacy&lt;3.1.0,&gt;=3.0.11 in /opt/mamba/lib/python3.9/site-packages (from spacy&lt;3.7.0,&gt;=3.6.0-&gt;fr-core-news-sm==3.6.0) (3.0.12)
 Requirement already satisfied: spacy-loggers&lt;2.0.0,&gt;=1.0.0 in /opt/mamba/lib/python3.9/site-packages (from spacy&lt;3.7.0,&gt;=3.6.0-&gt;fr-core-news-sm==3.6.0) (1.0.5)
@@ -1081,7 +1085,7 @@ WARNING: Running pip as the 'root' user can result in broken permissions and con
 You can now load the package via spacy.load('fr_core_news_sm')</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>2023-11-27 16:52:25.447824: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  SSE4.1 SSE4.2 AVX AVX2 FMA
+<pre><code>2023-11-27 17:30:10.682535: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  SSE4.1 SSE4.2 AVX AVX2 FMA
 To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -1447,7 +1451,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","closeEffect":"zoom","loop":true,"openEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","openEffect":"zoom","selector":".lightbox","closeEffect":"zoom","loop":true});</script>
 
 
 

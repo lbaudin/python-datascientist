@@ -86,6 +86,7 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../content/modelisation/7_mlapi.html" rel="next">
 <link href="../../content/modelisation/5_clustering.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -351,6 +352,10 @@ faciliter la ré-application d’un code à de nouvelles données.">
     <a class="dropdown-item" href="../../content/modelisation/6_pipeline.html" rel="" target="">
  <span class="dropdown-text">Premier pas vers l’industrialisation avec les pipelines scikit</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/7_mlapi.html" rel="" target="">
+ <span class="dropdown-text">Mettre à disposition un modèle par le biais d’une API</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -580,6 +585,12 @@ faciliter la ré-application d’un code à de nouvelles données.">
   <div class="sidebar-item-container"> 
   <a href="../../content/modelisation/6_pipeline.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Premier pas vers l’industrialisation avec les pipelines scikit</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/modelisation/7_mlapi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mettre à disposition un modèle par le biais d’une API</span></a>
   </div>
 </li>
     </ul>
@@ -881,7 +892,7 @@ pour la suite de l’exercice</p>
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>mutations.loc[:, colonnes_surface] <span class="op">=</span> mutations.loc[:, colonnes_surface].replace({<span class="st">','</span>: <span class="st">'.'</span>}, regex<span class="op">=</span><span class="va">True</span>).astype(<span class="bu">float</span>).fillna(<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"78e465b83c35429f92b1ad747d4ffd41","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"d5c3f71c9dda43efaee6d0ef77ca58bb","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 </div>
@@ -1405,7 +1416,7 @@ is_categorical_dtype is deprecated and will be removed in a future version. Use 
 </code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="28">
-<pre><code>&lt;matplotlib.lines.AxLine at 0x7f7b429ebd90&gt;</code></pre>
+<pre><code>&lt;matplotlib.lines.AxLine at 0x7fb2b99c5f70&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1830,7 +1841,7 @@ use_inf_as_na option is deprecated and will be removed in a future version. Conv
 </code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="37">
-<pre><code>&lt;matplotlib.legend.Legend at 0x7f7aadd95e20&gt;</code></pre>
+<pre><code>&lt;matplotlib.legend.Legend at 0x7fb2ae2d5730&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -1925,7 +1936,7 @@ l’optimisation de combinaisons de classifieurs faibles.<a href="#fnref1" class
 Galiana, Lino. 2023. <em>Python Pour La Data Science</em>. <a href="https://doi.org/10.5281/zenodo.8229676">https://doi.org/10.5281/zenodo.8229676</a>.
 </div></div></section></div></main> <!-- /main -->
 <script type="application/vnd.jupyter.widget-state+json">
-{"state":{"4f9bf9805f974d40841eaf348f570e4b":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":"auto"}},"78e465b83c35429f92b1ad747d4ffd41":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"FloatProgressModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"FloatProgressModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"ProgressView","bar_style":"","description":"","description_allow_html":false,"layout":"IPY_MODEL_4f9bf9805f974d40841eaf348f570e4b","max":100,"min":0,"orientation":"horizontal","style":"IPY_MODEL_925da97d662e49e58558771444d039d6","tabbable":null,"tooltip":null,"value":100}},"925da97d662e49e58558771444d039d6":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ProgressStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ProgressStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","bar_color":"black","description_width":""}}},"version_major":2,"version_minor":0}
+{"state":{"0589863c662143868a1fdc9e3d82b91e":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":"auto"}},"551ac41f2e7d4f4fa5169aa6820eacf1":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ProgressStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ProgressStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","bar_color":"black","description_width":""}},"d5c3f71c9dda43efaee6d0ef77ca58bb":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"FloatProgressModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"FloatProgressModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"ProgressView","bar_style":"","description":"","description_allow_html":false,"layout":"IPY_MODEL_0589863c662143868a1fdc9e3d82b91e","max":100,"min":0,"orientation":"horizontal","style":"IPY_MODEL_551ac41f2e7d4f4fa5169aa6820eacf1","tabbable":null,"tooltip":null,"value":100}}},"version_major":2,"version_minor":0}
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -2169,6 +2180,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../content/modelisation/7_mlapi.html" class="pagination-link">
+        <span class="nav-page-text">Mettre à disposition un modèle par le biais d’une API</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
@@ -2185,7 +2199,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","loop":true,"closeEffect":"zoom","selector":".lightbox","openEffect":"zoom"});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":true,"closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom"});</script>
 
 
 

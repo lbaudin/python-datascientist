@@ -294,6 +294,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../../content/modelisation/6_pipeline.html" rel="" target="">
  <span class="dropdown-text">Premier pas vers l’industrialisation avec les pipelines scikit</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/7_mlapi.html" rel="" target="">
+ <span class="dropdown-text">Mettre à disposition un modèle par le biais d’une API</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -648,7 +652,7 @@ sur un ordinateur normalement doté en RAM<a href="#fn2" class="footnote-ref" id
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>dvf.shape</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>dvf.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_3846/455432909.py:13: DtypeWarning:
+<pre><code>/tmp/ipykernel_3845/455432909.py:13: DtypeWarning:
 
 Columns (18,23,24,26,28,41) have mixed types. Specify dtype option on import or set low_memory=False.
 </code></pre>
@@ -1785,7 +1789,7 @@ Name: count, dtype: int64[pyarrow]</code></pre>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>dvf_dd.loc[:,<span class="st">"Type local"</span>].value_counts().compute()</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>time<span class="sc">.</span>time() <span class="op">-</span> start_time<span class="sc">}</span><span class="ss"> seconds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>3.5097570419311523 seconds</code></pre>
+<pre><code>3.5962252616882324 seconds</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="11">
@@ -1793,7 +1797,7 @@ Name: count, dtype: int64[pyarrow]</code></pre>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>dvf.loc[:,<span class="st">"Type local"</span>].value_counts()</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>time<span class="sc">.</span>time() <span class="op">-</span> start_time<span class="sc">}</span><span class="ss"> seconds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.13266468048095703 seconds</code></pre>
+<pre><code>0.13184213638305664 seconds</code></pre>
 </div>
 </div>
 <p>On se rend compte que le <code>pandas.DataFrame</code> a un temps de calcul plus court, mais c’est parce que <code>dask</code> va nous servir avant tout à lire des bases dont le traitement excède notre RAM. Donc, cette comparaison n’existera tout simplement pas car le <code>pandas.DataFrame</code> n’aura pas été chargé en RAM. <strong>On voit dans cet exemple que lorsque le traitement du <code>DataFrame</code> tient en RAM, l’utilisation de <code>Dask</code> est inutile</strong>.</p>
@@ -1941,7 +1945,7 @@ les calculs.</p>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>dvf_dd.head()</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>time<span class="sc">.</span>time() <span class="op">-</span> start_time<span class="sc">}</span><span class="ss"> seconds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.3616819381713867 seconds</code></pre>
+<pre><code>0.37897777557373047 seconds</code></pre>
 </div>
 </div>
 <p>On a bien un temps plus important avec le <code>dask.DataFrame</code> initial, comparé avec celui sur lequel on a utilisé <code>persist</code>. L’opération qu’on réalise ici étant peu complexe, la différence n’est pas substantielle. Elle serait beaucoup plus marquée avec un jeu de données plus volumineux ou des étapes intensives en calcul.</p>
@@ -1977,7 +1981,7 @@ manière suivante :</p>
 <span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>car3</span>
 <span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(time.time() <span class="op">-</span> start_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>2.0014801025390625</code></pre>
+<pre><code>2.002403974533081</code></pre>
 </div>
 </div>
 <p>Avec le décorateur <code>dask.delayed</code>, on définit
@@ -2011,7 +2015,7 @@ nos fonctions de la manière suivante :</p>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>car3.compute()</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(time.time() <span class="op">-</span> start_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>1.001662254333496</code></pre>
+<pre><code>1.002195119857788</code></pre>
 </div>
 </div>
 <p>Ici l’intérêt est assez limité, mais on voit que l’on réduit quand même de 2 à 1 seconde le temps de calcul. Mais l’idée derrière est que l’on a transformé <code>car3</code> en un objet <code>Delayed</code>. Cela a généré un <code>task graph</code> permettant de paralléliser certaines opérations.</p>
@@ -2322,7 +2326,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","openEffect":"zoom","loop":true,"descPosition":"bottom"});</script>
+<script>var lightboxQuarto = GLightbox({"loop":true,"descPosition":"bottom","closeEffect":"zoom","openEffect":"zoom","selector":".lightbox"});</script>
 
 
 
