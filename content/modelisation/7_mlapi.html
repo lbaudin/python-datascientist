@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Lino Galiana">
-<meta name="dcterms.date" content="2023-06-29">
-<meta name="description" content="Cette introduction propose quelques éléments de révision des concepts de base en Python et présente l’écosystème Python que nous allons découvrir tout au long de ce cours.">
+<meta name="dcterms.date" content="2023-10-20">
+<meta name="description" content="TO BE COMPLETED">
 
-<title>Python pour la data science - Introduction</title>
+<title>Python pour la data science - Mettre à disposition un modèle par le biais d’une API</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,26 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -52,7 +67,7 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../content/getting-started/01_installation.qmd" rel="next">
+<link href="../../content/modelisation/6_pipeline.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -90,22 +105,21 @@ div.csl-indent {
         background: #e9f3fa;
       }
 </style>
+<script type="module" src="../../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="../../styles.css">
-<meta name="twitter:title" content="Python pour la data science - Introduction">
-<meta name="twitter:description" content="Cette introduction propose quelques éléments de
-révision des concepts de base en Python et
-présente l’écosystème Python que nous allons
-découvrir tout au long de ce cours.">
-<meta name="twitter:image" content="https://ensae-reproductibilite.github.io/website/cards/introduction/egg.jpg">
+<meta name="twitter:title" content="Python pour la data science - Mettre à disposition un modèle par le biais d’une API">
+<meta name="twitter:description" content="TO BE COMPLETED">
+<meta name="twitter:image" content="https://pythonds.linogaliana.fr/content/modelisation/featured.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="citation_title" content="Python pour la data science">
 <meta name="citation_author" content="Lino Galiana">
 <meta name="citation_publication_date" content="2023">
 <meta name="citation_cover_date" content="2023">
 <meta name="citation_year" content="2023">
-<meta name="citation_online_date" content="2023-06-29">
+<meta name="citation_online_date" content="2023-10-20">
 <meta name="citation_fulltext_html_url" content="https://pythonds.linogaliana.fr/">
 <meta name="citation_doi" content="10.5281/zenodo.8229676">
 <meta name="citation_language" content="en">
@@ -436,7 +450,7 @@ découvrir tout au long de ce cours.">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../content/getting-started/index.html">Introduction</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../content/modelisation/7_mlapi.html">Mettre à disposition un modèle par le biais d’une API</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -444,16 +458,17 @@ découvrir tout au long de ce cours.">
 </header>
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns">
-                <div id="title-block-header-title" class="quarto-title page-columns page-full page-layout-full featured-image p-4" style="background-image: url(https://ensae-reproductibilite.github.io/website/cards/introduction/egg.jpg);">
-                <h1 class="title">Introduction</h1>
-                        </div>
+                <div id="title-block-header-title" class="quarto-title page-columns page-full page-layout-full featured-image p-4" style="background-image: url(featured.png);">
+                <h1 class="title">Mettre à disposition un modèle par le biais d’une API</h1>
+                                    <div class="quarto-categories">
+                        <div class="quarto-category">Modélisation</div>
+                        <div class="quarto-category">Tutoriel</div>
+                      </div>
+                          </div>
         
                 <div>
           <div id="title-block-title-desc" class="description pt-4">
-            <p>Cette introduction propose quelques éléments de
-            révision des concepts de base en <code>Python</code> et
-            présente l’écosystème <code>Python</code> que nous allons
-            découvrir tout au long de ce cours.</p>
+            <p>TO BE COMPLETED</p>
           </div>
         </div>
                 
@@ -470,7 +485,7 @@ découvrir tout au long de ce cours.">
             <div>
             <div class="quarto-title-meta-heading">Published</div>
             <div class="quarto-title-meta-contents">
-              <p class="date">June 29, 2023</p>
+              <p class="date">October 20, 2023</p>
             </div>
           </div>
           
@@ -488,8 +503,20 @@ découvrir tout au long de ce cours.">
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../content/getting-started/index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../content/modelisation/index.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/modelisation/6_pipeline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Premier pas vers l’industrialisation avec les pipelines scikit</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/modelisation/7_mlapi.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Mettre à disposition un modèle par le biais d’une API</span></a>
   </div>
 </li>
     </ul>
@@ -502,21 +529,12 @@ découvrir tout au long de ce cours.">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
-  <ul class="collapse">
-  <li><a href="#pourquoi-faire-du-python-pour-lanalyse-de-données" id="toc-pourquoi-faire-du-python-pour-lanalyse-de-données" class="nav-link" data-scroll-target="#pourquoi-faire-du-python-pour-lanalyse-de-données">Pourquoi faire du <code>Python</code> pour l’analyse de données ?</a></li>
-  <li><a href="#objectif-du-cours" id="toc-objectif-du-cours" class="nav-link" data-scroll-target="#objectif-du-cours">Objectif du cours</a></li>
-  <li><a href="#public-cible" id="toc-public-cible" class="nav-link" data-scroll-target="#public-cible">Public cible</a></li>
-  <li><a href="#reproductibilité" id="toc-reproductibilité" class="nav-link" data-scroll-target="#reproductibilité">Reproductibilité</a></li>
-  <li><a href="#architecture-du-site-web" id="toc-architecture-du-site-web" class="nav-link" data-scroll-target="#architecture-du-site-web">Architecture du site web</a></li>
-  <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation">Evaluation</a></li>
-  <li><a href="#références" id="toc-références" class="nav-link" data-scroll-target="#références">Références</a></li>
-  <li><a href="#contenu-général" id="toc-contenu-général" class="nav-link" data-scroll-target="#contenu-général">Contenu général</a></li>
-  <li><a href="#eléments-supplémentaires" id="toc-eléments-supplémentaires" class="nav-link" data-scroll-target="#eléments-supplémentaires">Eléments supplémentaires</a></li>
-  <li><a href="#structuration-de-cette-partie" id="toc-structuration-de-cette-partie" class="nav-link" data-scroll-target="#structuration-de-cette-partie">Structuration de cette partie</a></li>
-  </ul></li>
+  <li><a href="#exemple-de-réutilisation-dun-modèle-sous-forme-dapi" id="toc-exemple-de-réutilisation-dun-modèle-sous-forme-dapi" class="nav-link active" data-scroll-target="#exemple-de-réutilisation-dun-modèle-sous-forme-dapi">Exemple de réutilisation d’un modèle sous forme d’API</a></li>
+  <li><a href="#etape-1-créer-une-application-en-local" id="toc-etape-1-créer-une-application-en-local" class="nav-link" data-scroll-target="#etape-1-créer-une-application-en-local">Etape 1: créer une application en local</a></li>
+  <li><a href="#etape-2-créer-une-api-en-local" id="toc-etape-2-créer-une-api-en-local" class="nav-link" data-scroll-target="#etape-2-créer-une-api-en-local">Etape 2: créer une API en local</a></li>
+  <li><a href="#aller-plus-loin-mettre-à-disposition-cette-api-de-manière-pérenne" id="toc-aller-plus-loin-mettre-à-disposition-cette-api-de-manière-pérenne" class="nav-link" data-scroll-target="#aller-plus-loin-mettre-à-disposition-cette-api-de-manière-pérenne">Aller plus loin: mettre à disposition cette API de manière pérenne</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/linogaliana/python-datascientist/edit/master/content/getting-started/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/linogaliana/python-datascientist/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/linogaliana/python-datascientist/edit/master/content/modelisation/7_mlapi.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/linogaliana/python-datascientist/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
@@ -531,303 +549,303 @@ découvrir tout au long de ce cours.">
 <!-- <div class="quarto-title page-columns page-full featured-image p-4" style="background-image: url(featured.png), url(featured.jpg), url(../featured.jpg);"> -->
     
 
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
-<p>Ce cours rassemble l’ensemble du contenu du cours
-<em>Python <i class="fa-brands fa-python" aria-label="python"></i> pour la data science</em> que je donne
-à l’<a href="https://www.ensae.fr/courses/python-pour-le-data-scientist-pour-leconomiste/">ENSAE</a>
-depuis 2018.
-Ce cours était auparavant donné par <a href="http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx3/td_2a.html">Xavier Dupré</a>.
-Quelques éléments supplémentaires sont disponibles dans
-les <a href="../../slides/intro/">slides d’introduction</a>.
-Des éléments plus avancés sont présents dans un autre cours consacré
-à la mise en production de projets <em>data science</em>
-que je donne avec Romain Avouac
-à l’ENSAE (<a href="https://ensae-reproductibilite.github.io/website">ensae-reproductibilite.github.io/website</a>)</p>
-<p><code>Python</code> est un langage qui a déjà plus de trente ans
-mais qui a connu, au cours de la décennie 2010, une
-nouvelle jeunesse du fait de l’engouement pour
-la <em>data science</em>.</p>
-<p><code>Python</code>, plus que tout autre
-langage informatique, réunit des communautés aussi
-diverses que des statisticiens, des développeurs,
-des gestionnaires
-d’applications ou d’infrastructures informatiques,
-des lycées - <code>Python</code> est au programme du bac français
-depuis quelques années - ou des chercheurs
-dans des champs à la fois théoriques et appliqués. Contrairement
-à beaucoup de langages informatiques qui fédèrent
-une communauté assez homogène, <code>Python</code> est parvenu à réunir
-largement grâce à quelques principes centraux : la lisibilité
-du langage, la simplicité à utiliser des modules,
-la simplicité à l’associer à des langages plus performants
-pour certaines tâches données, l’énorme volume de documentation
-disponible en ligne…
-Être le deuxième meilleur langage pour réaliser telle ou telle
-tâche
-peut ainsi être une source de succès lorsque la concurrence ne dispose
-pas d’un éventail aussi large d’avantages.</p>
-<p>Le succès de <code>Python</code>, de par sa nature de
-langage couteau-suisse, est indissociable
-de l’émergence du profil du <em>data scientist</em>, individu
-capable de s’intégrer à différents niveaux dans la valorisation
-de données.
-<span class="citation" data-cites="davenport2012data">Davenport and Patil (<a href="#ref-davenport2012data" role="doc-biblioref">2012a</a>)</span>, dans la <em>Harvard Business Review</em>,
-ont ainsi pu parler du <em>“boulot le plus sexy du 21e siècle”</em>
-et ont pu, dix ans plus tard, faire un panorama complet de l’évolution
-des compétences attendues d’un <em>data scientist</em> dans
-la même revue <span class="citation" data-cites="davenport2022data">(<a href="#ref-davenport2022data" role="doc-biblioref">Davenport and Patil 2012b</a>)</span>.</p>
-<p>La richesse de <code>Python</code> permet de l’utiliser dans toutes les phases
-du traitement de la donnée, de sa récupération et structuration à partir de
-sources diverses à sa valorisation.
-Par le prisme de la <em>data science</em>, nous verrons que <code>Python</code> est
-un très bon candidat pour assister les <em>data scientists</em> dans tous
-les aspects du travail de données.</p>
-<p>Ce cours introduit différents outils qui permettent de mettre en relation
-des données et des théories grâce à <code>Python</code>. Néanmoins, ce cours
-va au-delà d’une simple introduction au langage et propose
-des éléments plus approfondis, notamment sur les dernières
-innovations permises par la <em>data science</em> dans les méthodes de travail.</p>
-<section id="pourquoi-faire-du-python-pour-lanalyse-de-données" class="level2">
-<h2 class="anchored" data-anchor-id="pourquoi-faire-du-python-pour-lanalyse-de-données">Pourquoi faire du <code>Python</code> pour l’analyse de données ?</h2>
-<p>Le succès de <a href="https://scikit-learn.org/stable/">scikit-learn</a> et
-de <a href="https://www.tensorflow.org/">Tensorflow</a> dans la communauté
-de la <em>Data-Science</em> ont beaucoup contribué à l’adoption de <code>Python</code>. Cependant,
-résumer <code>Python</code> à ces quelques librairies serait réducteur tant il s’agit
-d’un véritable couteau-suisse pour les <em>data scientists</em>,
-les <em>social scientists</em> ou les économistes.</p>
-<p>L’intérêt de <code>Python</code> pour un <em>data scientist</em> ou <em>data economist</em>
-va au-delà du champ du <em>Machine Learning</em>.
-Comme pour <code>R</code>, l’intérêt de Python est son rôle central dans un
-écosystème plus large autour d’outils puissants, flexibles et <em>open-source</em>.
-<code>Python</code> concurrence très bien <code>R</code> dans son domaine de prédilection, à
-savoir l’analyse statistique sur des bases de données structurées.
-Comme dans <code>R</code>, les <em>dataframes</em> sont un concept central de <code>Python</code>.
-<code>Python</code> est néanmoins bien plus complet dans certains domaines.
-Outre le <em>Machine Learning</em>,
-<code>Python</code> est mieux adapté aux données volumineuses que
-<code>R</code>. <code>Python</code> est également meilleur que <code>R</code> pour faire
-du <em>webscraping</em> ou accéder à des données par le biais d’API.
-Dans le domaine de l’économétrie, <code>Python</code> offre
-l’avantage de la simplicité avec un nombre restreint de packages (<code>scikit</code> et
-<code>statsmodels</code>) permettant d’avoir des modèles très généraux
-(les <a href="https://www.statsmodels.org/stable/gee.html">generalized estimating equations</a>)
-alors qu’il faut
-choisir parmi une grande variété de packages en <code>R</code> pour obtenir les
-modèles équivalents. Dans le domaine du <em>Deep Learning</em>, <code>Python</code> écrase
-la concurrence.<br>
-Au contraire, dans certains domaines, <code>R</code> reste meilleur, même si les
-évolutions très récentes de certains outils peuvent amener à réviser
-ce constat. Historiquement,
-<code>R</code> était très bien intégré au langage de publication <code>Markdown</code> ce qui,
-permet la construction de documents reproductibles très raffinés.
-L’émergence récente de <code>Quarto</code>, héritier de <code>R Markdown</code> développé par
-la société <code>Posit</code> permet aux utilisateur de <code>Python</code> de bénéficier
-également de la richesse de cette approche pour leur langage de prédilection.
-Ce site <em>web</em>, à l’arborescence relativement complexe, est ainsi
-construit grâce à cet outil qui permet à la fois de tester les blocs
-de code présentés mais aussi de produire de manière automatisée les
-tableaux et graphiques présentés. S’il fallait trouver un point faible
-à <code>Python</code> par rapport à <code>R</code> dans le domaine de la <em>data science</em>
-c’est sur la production de graphiques. <code>matplotlib</code> et <code>seaborn</code>, qui sont
-présentés dans la partie visualisation, sont d’excellents outils. Néanmoins,
-<code>ggplot2</code>, l’équivalent en <code>R</code> est plus facile de prise en main et
-propose une syntaxe extrêmement flexible, qu’il est difficile de ne pas
-apprécier. Cependant, l’écosystème de la
-visualisation de données est en pleine révolution avec le succès
-d’<a href="https://observablehq.com/"><code>Observable</code></a> qui
-rapproche l’écosystème <code>JavaScript</code> des développeurs web
-de la communauté des analystes de données.</p>
-<p>Un des avantages comparatifs de <code>Python</code> par rapport à d’autres
-langages (notamment <code>R</code> et <code>Julia</code>) est sa dynamique,
-ce que montre <a href="https://towardsdatascience.com/python-vs-r-for-data-science-6a83e4541000">l’explosion du nombre de questions
-sur <code>Stack Overflow</code></a>.</p>
-<p>Cependant, il ne s’agit pas bêtement d’enterrer <code>R</code>.
-Au contraire, outre leur logique très proche,
-les deux langages sont dans une phase de convergence avec des initiatives comme
-<a href="https://rstudio.github.io/reticulate/"><code>reticulate</code></a>,
-<a href="https://quarto.org/"><code>quarto</code></a> ou
-<a href="https://snakemake.readthedocs.io/en/stable/tutorial/basics.html">snakemake</a> qui
-permettent, de manière différente, de créer des chaînes de traitement
-mélangeant <code>R</code> et <code>Python</code>.</p>
-<p>Une autre raison pour laquelle cette guéguerre <code>R</code>/<code>Python</code> n’a pas
-de sens est que les bonnes
-pratiques peuvent être transposées de manière presque transparente d’un
-langage à l’autre. Il s’agit d’un point qui est développé plus amplement
-dans le cours plus avancé que je donne avec Romain Avouac en dernière année
-d’ENSAE : <a href="https://ensae-reproductibilite.github.io/website">ensae-reproductibilite.github.io/website</a>.
-A terme, les data scientists et chercheurs en sciences sociales ou
-économie utiliseront
-de manière presque indifférente, et en alternance, <code>Python</code> et <code>R</code>. Ce cours
-présentera ainsi régulièrement des analogies avec <code>R</code> pour aider les
-personnes découvrant <code>Python</code>, mais connaissant déjà bien <code>R</code>, à
-mieux comprendre certains messages.</p>
-</section>
-<section id="objectif-du-cours" class="level2">
-<h2 class="anchored" data-anchor-id="objectif-du-cours">Objectif du cours</h2>
-<p>Le but de ce cours est de rendre autonome sur
-l’utilisation de <code>Python</code>
-dans un contexte de travail de <em>data scientist</em> ou de
-<em>social scientist</em> (économie, sociologie, géographie…).
-Autrement dit,
-il présuppose qu’on désire faire un usage intense
-de données dans un cadre statistique rigoureux.</p>
-<p>La <em>data science</em> est un ensemble de techniques
-visant à donner du sens à des sources de données
-diverses. Selon les organisations,
-les <em>data scientists</em> peuvent ainsi être à
-l’interface de projets nécessitant un
-large spectre de compétences
-(analyse
-de données textuelles, représentation
-graphique interactive…),
-avoir des interactions avec des profils
-très différents (experts métiers,
-développeurs, <em>data architect</em>,
-<em>data engineer</em>…) voire adopter
-un peu tous ces rôles.</p>
-<p>Les innovations
-récentes de la <em>data science</em> ne se réduisent
-néanmoins
-pas qu’à des découvertes méthodologiques.
-La <em>data science</em> propose un ensemble de
-techniques et de méthodes de travail
-pour réduire les coûts de passage
-d’un protype à une chaine
-de production pérenne.
-Ce cours introduit à quelques notions
-sur le sujet, notamment les
-<em>pipelines</em> <code>scikit</code>, pour adopter
-dès l’apprentissage du langage
-quelques bons réflexes (<a href="https://ensae-reproductibilite.github.io/website">ensae-reproductibilite.github.io/website</a>).</p>
-</section>
-<section id="public-cible" class="level2">
-<h2 class="anchored" data-anchor-id="public-cible">Public cible</h2>
-<p>Ce cours ne revient que de manière secondaire
-sur les fondements statistiques ou algorithmiques
-derrière certaines des techniques évoquées.
-Ne pas connaître ces notions n’empêche néanmoins pas de comprendre
-le contenu de ce site <em>web</em>. En effet, la facilité d’usage de <code>Python</code>
-évite de devoir programmer soi-même un modèle, ce qui rend
-possible l’application
-de modèles dont on n’est pas expert. La connaissance des modèles sera
-plutôt nécessaire dans l’interprétation des résultats.</p>
-<p>Cependant, la facilité avec laquelle il est possible de construire des modèles complexes
-avec <code>Python</code> peut laisser apparaître que connaître les spécifités de chaque
-modèle est inutile. Il
-s’agirait d’une grave erreur : même si l’implémentation de modèles est aisée, il
-est nécessaire de bien comprendre la structure des données et leur adéquation
-avec les hypothèses d’un modèle.</p>
-</section>
-<section id="reproductibilité" class="level2">
-<h2 class="anchored" data-anchor-id="reproductibilité">Reproductibilité</h2>
-<p>Ce cours donne une place centrale à
-la notion de reproductibilité. Cette exigence se traduit de diverses
-manières dans cet enseignement, en particulier en insistant sur un
-outil indispensable pour favoriser le partage de codes informatiques,
-à savoir <code>Git</code>.</p>
-<p>L’ensemble du contenu du site <em>web</em> est reproductible dans des environnements
-informatiques divers. Il est bien sûr possible de copier-coller les morceaux
-de code présents dans ce site. Cette méthode montrant rapidement ses limites,
-le site présente un certain nombre de boutons disponibles pour
-ouvrir la page sous un format <code>Jupyter Notebook</code> sur divers
-pages <em>web</em>:</p>
-<ul>
-<li><p>Sur l’ensemble du site web,
-il est possible de cliquer
-sur la petite icone <i class="fa-brands fa-github" aria-label="github"></i>
-pour être redirigé vers le dépôt <code>Github</code> associé à ce cours.</p></li>
-<li><p>Un certain nombre de boutons permettent de transformer chaque
-page web en <code>Jupyter Notebooks</code> s’il est nécessaire de
-visualiser ou exécuter du code <code>Python</code>.</p></li>
-</ul>
-<p>Voici, par exemple, ces boutons pour le tutoriel <code>numpy</code> :</p>
+<div class="cell markdown">
 <p class="badges">
-<a href="https://github.com/linogaliana/python-datascientist-notebooks/blob/main/notebooks/manipulation/01_numpy.ipynb" class="github"><i class="fab fa-github"></i></a>
-<a href="https://downgit.github.io/#/home?url=https://github.com/linogaliana/python-datascientist-notebooks/blob/main/notebooks/manipulation/01_numpy.ipynb" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Download-Notebook-important?logo=Jupyter" alt="Download"></a>
-<a href="https://nbviewer.jupyter.org/github/linogaliana/python-datascientist-notebooksblob/main/notebooks/manipulation/01_numpy.ipynb" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Visualize-nbviewer-blue?logo=Jupyter" alt="nbviewer"></a>
-<a href="https://datalab.sspcloud.fr/launcher/ide/jupyter-python?autoLaunch=true&amp;onyxia.friendlyName=%C2%ABpython-datascience%C2%BB&amp;init.personalInit=%C2%ABhttps%3A%2F%2Fraw.githubusercontent.com%2Flinogaliana%2Fpython-datascientist%2Fmaster%2Fsspcloud%2Finit-jupyter.sh%C2%BB&amp;init.personalInitArgs=%C2%ABmanipulation%2001_numpy%C2%BB&amp;security.allowlist.enabled=false" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/SSP%20Cloud-Tester_avec_Jupyter-orange?logo=Jupyter&amp;logoColor=orange" alt="Onyxia"></a>
-<a href="https://datalab.sspcloud.fr/launcher/ide/vscode-python?autoLaunch=true&amp;onyxia.friendlyName=%C2%ABpython-datascience%C2%BB&amp;init.personalInit=%C2%ABhttps%3A%2F%2Fraw.githubusercontent.com%2Flinogaliana%2Fpython-datascientist%2Fmaster%2Fsspcloud%2Finit-vscode.sh%C2%BB&amp;init.personalInitArgs=%C2%ABmanipulation%2001_numpy%C2%BB&amp;security.allowlist.enabled=false" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/SSP%20Cloud-Tester_avec_VSCode-blue?logo=visualstudiocode&amp;logoColor=blue" alt="Onyxia"></a><br>
+<a href="https://github.com/linogaliana/python-datascientist-notebooks/blob/main/notebooks/modelisation/7_mlapi.ipynb" class="github"><i class="fab fa-github"></i></a>
+<a href="https://downgit.github.io/#/home?url=https://github.com/linogaliana/python-datascientist-notebooks/blob/main/notebooks/modelisation/7_mlapi.ipynb" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Download-Notebook-important?logo=Jupyter" alt="Download"></a>
+<a href="https://nbviewer.jupyter.org/github/linogaliana/python-datascientist-notebooksblob/main/notebooks/modelisation/7_mlapi.ipynb" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Visualize-nbviewer-blue?logo=Jupyter" alt="nbviewer"></a>
+<a href="https://datalab.sspcloud.fr/launcher/ide/jupyter-python?autoLaunch=true&amp;onyxia.friendlyName=%C2%ABpython-datascience%C2%BB&amp;init.personalInit=%C2%ABhttps%3A%2F%2Fraw.githubusercontent.com%2Flinogaliana%2Fpython-datascientist%2Fmaster%2Fsspcloud%2Finit-jupyter.sh%C2%BB&amp;init.personalInitArgs=%C2%ABmodelisation%207_mlapi%C2%BB&amp;security.allowlist.enabled=false" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/SSP%20Cloud-Tester_avec_Jupyter-orange?logo=Jupyter&amp;logoColor=orange" alt="Onyxia"></a>
+<a href="https://datalab.sspcloud.fr/launcher/ide/vscode-python?autoLaunch=true&amp;onyxia.friendlyName=%C2%ABpython-datascience%C2%BB&amp;init.personalInit=%C2%ABhttps%3A%2F%2Fraw.githubusercontent.com%2Flinogaliana%2Fpython-datascientist%2Fmaster%2Fsspcloud%2Finit-vscode.sh%C2%BB&amp;init.personalInitArgs=%C2%ABmodelisation%207_mlapi%C2%BB&amp;security.allowlist.enabled=false" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/SSP%20Cloud-Tester_avec_VSCode-blue?logo=visualstudiocode&amp;logoColor=blue" alt="Onyxia"></a><br>
 <a href="https://mybinder.org/v2/gh/linogaliana/python-datascientist-notebooks/main?filepath={binder_path}" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Launch-Binder-E66581.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABZCAMAAABi1XidAAAB8lBMVEX///9XmsrmZYH1olJXmsr1olJXmsrmZYH1olJXmsr1olJXmsrmZYH1olL1olJXmsr1olJXmsrmZYH1olL1olJXmsrmZYH1olJXmsr1olL1olJXmsrmZYH1olL1olJXmsrmZYH1olL1olL0nFf1olJXmsrmZYH1olJXmsq8dZb1olJXmsrmZYH1olJXmspXmspXmsr1olL1olJXmsrmZYH1olJXmsr1olL1olJXmsrmZYH1olL1olLeaIVXmsrmZYH1olL1olL1olJXmsrmZYH1olLna31Xmsr1olJXmsr1olJXmsrmZYH1olLqoVr1olJXmsr1olJXmsrmZYH1olL1olKkfaPobXvviGabgadXmsqThKuofKHmZ4Dobnr1olJXmsr1olJXmspXmsr1olJXmsrfZ4TuhWn1olL1olJXmsqBi7X1olJXmspZmslbmMhbmsdemsVfl8ZgmsNim8Jpk8F0m7R4m7F5nLB6jbh7jbiDirOEibOGnKaMhq+PnaCVg6qWg6qegKaff6WhnpKofKGtnomxeZy3noG6dZi+n3vCcpPDcpPGn3bLb4/Mb47UbIrVa4rYoGjdaIbeaIXhoWHmZYHobXvpcHjqdHXreHLroVrsfG/uhGnuh2bwj2Hxk17yl1vzmljzm1j0nlX1olL3AJXWAAAAbXRSTlMAEBAQHx8gICAuLjAwMDw9PUBAQEpQUFBXV1hgYGBkcHBwcXl8gICAgoiIkJCQlJicnJ2goKCmqK+wsLC4usDAwMjP0NDQ1NbW3Nzg4ODi5+3v8PDw8/T09PX29vb39/f5+fr7+/z8/Pz9/v7+zczCxgAABC5JREFUeAHN1ul3k0UUBvCb1CTVpmpaitAGSLSpSuKCLWpbTKNJFGlcSMAFF63iUmRccNG6gLbuxkXU66JAUef/9LSpmXnyLr3T5AO/rzl5zj137p136BISy44fKJXuGN/d19PUfYeO67Znqtf2KH33Id1psXoFdW30sPZ1sMvs2D060AHqws4FHeJojLZqnw53cmfvg+XR8mC0OEjuxrXEkX5ydeVJLVIlV0e10PXk5k7dYeHu7Cj1j+49uKg7uLU61tGLw1lq27ugQYlclHC4bgv7VQ+TAyj5Zc/UjsPvs1sd5cWryWObtvWT2EPa4rtnWW3JkpjggEpbOsPr7F7EyNewtpBIslA7p43HCsnwooXTEc3UmPmCNn5lrqTJxy6nRmcavGZVt/3Da2pD5NHvsOHJCrdc1G2r3DITpU7yic7w/7Rxnjc0kt5GC4djiv2Sz3Fb2iEZg41/ddsFDoyuYrIkmFehz0HR2thPgQqMyQYb2OtB0WxsZ3BeG3+wpRb1vzl2UYBog8FfGhttFKjtAclnZYrRo9ryG9uG/FZQU4AEg8ZE9LjGMzTmqKXPLnlWVnIlQQTvxJf8ip7VgjZjyVPrjw1te5otM7RmP7xm+sK2Gv9I8Gi++BRbEkR9EBw8zRUcKxwp73xkaLiqQb+kGduJTNHG72zcW9LoJgqQxpP3/Tj//c3yB0tqzaml05/+orHLksVO+95kX7/7qgJvnjlrfr2Ggsyx0eoy9uPzN5SPd86aXggOsEKW2Prz7du3VID3/tzs/sSRs2w7ovVHKtjrX2pd7ZMlTxAYfBAL9jiDwfLkq55Tm7ifhMlTGPyCAs7RFRhn47JnlcB9RM5T97ASuZXIcVNuUDIndpDbdsfrqsOppeXl5Y+XVKdjFCTh+zGaVuj0d9zy05PPK3QzBamxdwtTCrzyg/2Rvf2EstUjordGwa/kx9mSJLr8mLLtCW8HHGJc2R5hS219IiF6PnTusOqcMl57gm0Z8kanKMAQg0qSyuZfn7zItsbGyO9QlnxY0eCuD1XL2ys/MsrQhltE7Ug0uFOzufJFE2PxBo/YAx8XPPdDwWN0MrDRYIZF0mSMKCNHgaIVFoBbNoLJ7tEQDKxGF0kcLQimojCZopv0OkNOyWCCg9XMVAi7ARJzQdM2QUh0gmBozjc3Skg6dSBRqDGYSUOu66Zg+I2fNZs/M3/f/Grl/XnyF1Gw3VKCez0PN5IUfFLqvgUN4C0qNqYs5YhPL+aVZYDE4IpUk57oSFnJm4FyCqqOE0jhY2SMyLFoo56zyo6becOS5UVDdj7Vih0zp+tcMhwRpBeLyqtIjlJKAIZSbI8SGSF3k0pA3mR5tHuwPFoa7N7reoq2bqCsAk1HqCu5uvI1n6JuRXI+S1Mco54YmYTwcn6Aeic+kssXi8XpXC4V3t7/ADuTNKaQJdScAAAAAElFTkSuQmCC" alt="Binder"></a>
-<a href="https://colab.research.google.com/github/linogaliana/python-datascientist-notebooks/blob/main/notebooks/manipulation/01_numpy.ipynb" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>
-<a href="https://github.dev/linogaliana/python-datascientist-notebooks/notebooks/manipulation/01_numpy.ipynb" target="_blank" rel="noopener"><img src="https://img.shields.io/static/v1?logo=visualstudiocode&amp;label=&amp;message=Open%20in%20Visual%20Studio%20Code&amp;labelColor=2c2c32&amp;color=007acc&amp;logoColor=007acc" alt="githubdev"></a>
+<a href="https://colab.research.google.com/github/linogaliana/python-datascientist-notebooks/blob/main/notebooks/modelisation/7_mlapi.ipynb" target="_blank" rel="noopener"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>
+<a href="https://github.dev/linogaliana/python-datascientist-notebooks/notebooks/modelisation/7_mlapi.ipynb" target="_blank" rel="noopener"><img src="https://img.shields.io/static/v1?logo=visualstudiocode&amp;label=&amp;message=Open%20in%20Visual%20Studio%20Code&amp;labelColor=2c2c32&amp;color=007acc&amp;logoColor=007acc" alt="githubdev"></a>
 </p>
 <p></p>
-<p>Pour les agents de la fonction publique, ou
-les élèves des écoles partenaires, il est recommandé
-de privilégier le bouton <code>SSPCloud</code> qui est
-une infrastructure <em>cloud</em> moderne, puissante et flexible
-développée par l’Insee et accessible à l’url
-<a href="https://datalab.sspcloud.fr/home">https://datalab.sspcloud.fr</a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
-<p>L’ensemble du contenu de ce site s’appuie sur des données
-ouvertes, qu’il s’agisse de données françaises (principalement
-issues de la plateforme
-centralisatrice <a href="https://www.data.gouv.fr"><code>data.gouv</code></a> ou du site
-<em>web</em> de l’<a href="https://www.insee.fr">Insee</a>) ou de données
-américaines. Les résultats sont donc reproductibles pour quelqu’un
-disposant d’un environnement identique.</p>
-</section>
-<section id="architecture-du-site-web" class="level2">
-<h2 class="anchored" data-anchor-id="architecture-du-site-web">Architecture du site web</h2>
-<p>Ce cours présente
-des tutoriels et des exercices complets.
-Chaque page est structurée sous la forme
-d’un problème concret et présente la
-démarche générique pour résoudre ce problème général.</p>
-<p>Vous pouvez naviguer dans l’architecture du site via la table des matières
-ou par les liens vers le contenu antérieur ou postérieur à la fin de chaque
-page. Certaines parties, notamment celle consacrée à la modélisation,
-proposent des exemples fil-rouge pour illustrer la démarche de manière
-plus extensive.</p>
-</section>
-<section id="evaluation" class="level2">
-<h2 class="anchored" data-anchor-id="evaluation">Evaluation</h2>
-<p>Les élèves de l’ENSAE valident le cours grâce à
-un projet approfondi.
-Les éléments relatifs à l’évaluation du cours, ainsi qu’une
-liste des projets déjà effectués, sont disponibles dans la
-Section <a href="annexes/evaluation">Evaluation</a>.</p>
-</section>
-<section id="références" class="level2">
-<h2 class="anchored" data-anchor-id="références">Références</h2>
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-davenport2012data" class="csl-entry" role="listitem">
-Davenport, Thomas H, and DJ Patil. 2012a. <span>“Data Scientist, the Sexiest Job of the 21st Century.”</span> <em>Harvard Business Review</em> 90 (5): 70–76. <a href="https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century">https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century</a>.
 </div>
-<div id="ref-davenport2022data" class="csl-entry" role="listitem">
-———. 2012b. <span>“Is Data Scientist Still the Sexiest Job of the 21st Century?”</span> <em>Harvard Business Review</em> 90 (5): 70–76. <a href="https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century">https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century</a>.
+<p>Ce chapitre présente la deuxième application
+d’une journée de cours que j’ai
+donné à l’Université Dauphine dans le cadre
+des <em>PSL Data Week</em>.</p>
+<p>L’objectif de ce chapitre est d’amener à développer
+une API du type de <a href="https://dvf-simple-api.lab.sspcloud.fr">celle-ci</a>.</p>
+<details open="">
+<summary>
+Dérouler les <em>slides</em> associées ci-dessous ou <a href="https://linogaliana.github.io/dauphine-week-data/#/title-slide">cliquer ici</a>
+pour les afficher en plein écran.
+</summary>
+<div id="cb1" class="sourceCode">
+<pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre>
+<iframe class="sourceCode yaml code-with-copy" src="https://linogaliana.github.io/dauphine-week-data/#/title-slide">
+</iframe>
+</div>
+</details>
+<p>Le chapitre précédent constituait une introduction à la création
+de <em>pipelines</em> de <em>machine learning</em>.
+Ce chapitre va aller plus loin en montrant la démarche pour le rendre
+disponible à plus grande échelle par le biais d’une API pouvant
+être consommée avec de nouvelles données. L’objectif de celle-ci est
+de ne pas contraindre les réutilisateurs d’un modèle
+à disposer d’un environnement technique complexe
+pour pouvoir utiliser le même modèle que celui entraîné précédemment.</p>
+<section id="exemple-de-réutilisation-dun-modèle-sous-forme-dapi" class="level2">
+<h2 class="anchored" data-anchor-id="exemple-de-réutilisation-dun-modèle-sous-forme-dapi">Exemple de réutilisation d’un modèle sous forme d’API</h2>
+<p>Un exemple d’API obtenue à l’issue de ce chapitre est
+mis à disposition sur <a href="https://dvf-simple-api.lab.sspcloud.fr/">https://dvf-simple-api.lab.sspcloud.fr/</a>.
+La documentation de l’API est disponible <a href="https://dvf-simple-api.lab.sspcloud.fr/docs">ici</a>.</p>
+<p>Cette API est utilisable dans plusieurs langages.</p>
+<p>En <code>Python</code>, par exemple, cela donnera:</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pieces_principales <span class="op">=</span> <span class="dv">6</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>surface <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="ss">f"https://dvf-simple-api.lab.sspcloud.fr/predict?month=4&amp;nombre_lots=1&amp;code_type_local=2&amp;nombre_pieces_principales=</span><span class="sc">{</span>pieces_principales<span class="sc">}</span><span class="ss">&amp;surface=</span><span class="sc">{</span>surface<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>requests.get(url).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>728358.5461884077</code></pre>
+</div>
+</div>
+<p>Néanmoins, l’un des intérêts de proposer
+une API est que les utilisateurs du modèle
+ne sont pas obligés d’être des pythonistes.
+Cela accroît grandement la cible des ré-utilisateurs
+potentiels.</p>
+<p>Cette approche ouvre notamment la possibilité de
+faire des applications interactives qui utilisent,
+en arrière plan, notre modèle entraîné avec <code>Python</code>.</p>
+<p>Voici un exemple, minimaliste, d’une réutilisation
+de notre modèle avec deux sélecteurs Javascript
+qui mettent à jour le prix estimé du bien.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="105" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 104;"><span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;div&gt;Nombre de pièces&lt;/div&gt;&lt;div&gt;</span><span class="sc">${</span>viewof pieces_principales<span class="sc">}</span><span class="vs">&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="112" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 111;"><span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;div&gt;Surface de l'appartement&lt;/div&gt;&lt;div&gt;</span><span class="sc">${</span>surface<span class="sc">}</span><span class="vs">&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="120" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 119;"><span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a>viewof pieces_principales <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">12</span>]<span class="op">,</span> {<span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">6</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="125" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 124;"><span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a>viewof surface <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">300</span>]<span class="op">,</span> {<span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">50</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb7" data-startfrom="131" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 130;"><span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`</span><span class="sc">${</span>return_message<span class="sc">}</span><span class="vs">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-5" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb8" data-startfrom="136" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 135;"><span id="cb8-136"><a href="#cb8-136" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`</span><span class="sc">${</span>url_api_print<span class="sc">}</span><span class="vs">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-6" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb9" data-startfrom="143" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 142;"><span id="cb9-143"><a href="#cb9-143" aria-hidden="true" tabindex="-1"></a>url_api_dvf <span class="op">=</span> <span class="vs">`https://corsproxy.io/?https://dvf-simple-api.lab.sspcloud.fr/predict?month=4&amp;nombre_lots=1&amp;code_type_local=2&amp;nombre_pieces_principales=</span><span class="sc">${</span>pieces_principales<span class="sc">}</span><span class="vs">&amp;surface=</span><span class="sc">${</span>surface<span class="sc">}</span><span class="vs">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-7" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb10" data-startfrom="148" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 147;"><span id="cb10-148"><a href="#cb10-148" aria-hidden="true" tabindex="-1"></a>url_api_print <span class="op">=</span> <span class="fu">md</span><span class="vs">`[&lt;span class="blue-underlined"&gt;https://dvf-simple-api.lab.sspcloud.fr/predict?&lt;/span&gt;month=4&amp;nombre_lots=1&amp;code_type_local=2&amp;nombre_pieces_principales=&lt;span class="blue-underlined"&gt;</span><span class="sc">${</span>pieces_principales<span class="sc">}</span><span class="vs">&lt;/span&gt;&amp;surface=&lt;span class="blue-underlined"&gt;</span><span class="sc">${</span>surface<span class="sc">}</span><span class="vs">&lt;/span&gt;](</span><span class="sc">${</span>url_api_dvf<span class="sc">}</span><span class="vs">)`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-8" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb11" data-startfrom="154" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 153;"><span id="cb11-154"><a href="#cb11-154" aria-hidden="true" tabindex="-1"></a>value <span class="op">=</span> d3<span class="op">.</span><span class="fu">json</span>(url_api_dvf)<span class="op">.</span><span class="fu">then</span>(data <span class="kw">=&gt;</span> {</span>
+<span id="cb11-155"><a href="#cb11-155" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Access the 'value' property from the object</span></span>
+<span id="cb11-156"><a href="#cb11-156" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> originalNumber <span class="op">=</span> data<span class="op">;</span></span>
+<span id="cb11-157"><a href="#cb11-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-158"><a href="#cb11-158" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Convert it to a floating-point number</span></span>
+<span id="cb11-159"><a href="#cb11-159" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> numericValue <span class="op">=</span> <span class="pp">parseFloat</span>(originalNumber)<span class="op">;</span></span>
+<span id="cb11-160"><a href="#cb11-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-161"><a href="#cb11-161" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Round the number</span></span>
+<span id="cb11-162"><a href="#cb11-162" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> roundedNumber <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(numericValue)<span class="op">.</span><span class="fu">toLocaleString</span>()<span class="op">;</span></span>
+<span id="cb11-163"><a href="#cb11-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-164"><a href="#cb11-164" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> roundedNumber<span class="op">;</span></span>
+<span id="cb11-165"><a href="#cb11-165" aria-hidden="true" tabindex="-1"></a>})<span class="op">.</span><span class="fu">catch</span>(error <span class="kw">=&gt;</span> <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="st">'Error:'</span><span class="op">,</span> error))<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-9" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb12" data-startfrom="170" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 169;"><span id="cb12-170"><a href="#cb12-170" aria-hidden="true" tabindex="-1"></a>return_message <span class="op">=</span> <span class="vs">`Valeur estimée de l'appartement: &lt;span class="blue2"&gt;__</span><span class="sc">${</span>value<span class="sc">}</span><span class="vs"> €__&lt;/span&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-10" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</section>
+<section id="etape-1-créer-une-application-en-local" class="level2">
+<h2 class="anchored" data-anchor-id="etape-1-créer-une-application-en-local">Etape 1: créer une application en local</h2>
+<p>Mettre en place une API consiste à gravir une marche
+dans l’échelle de la reproductibilité par rapport
+à fournir un <em>notebook</em>. Ces derniers
+ne sont pas les outils les plus adaptés
+pour partager autre chose que du code, à faire tourner
+de son côté.</p>
+<p>Il est donc naturel de sortir des <em>notebooks</em>
+lorsqu’on commence à aller vers ce niveau de mise à
+disposition.
+Par le biais de
+scripts <code>Python</code> lancés en ligne de commande,
+construits en exportant le code du chapitre précédent
+de nos notebooks, on pourra
+créer une base de départ propre.</p>
+<p>Il est plus naturel de privilégier une interface de développement
+généraliste comme VSCode à Jupyter lorsqu’on franchit
+ce rubicon. L’exercice suivant permettra donc
+de créer cette première application minimale, à
+exécuter en ligne de commande.</p>
+<div class="cell markdown">
+<div class="alert alert-success" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 1: créer des scripts pour entraîner le modèle</h3>
+<p>Le dépôt <code>Github</code> qui permet de construire l’API <em>from scratch</em>
+est <a href="https://github.com/linogaliana/api-dvf">disponible ici</a>.
+Nous allons emprunter quelques éléments, par-ci par-là,
+pour faire notre application en local.</p>
+<ul>
+<li>Créer un nouveau service <code>VSCode</code> sur le <code>SSPCloud</code> en paramétrant dans l’onglet
+<code>Networking</code> le port 5000 ;</li>
+<li>Utiliser la commande suivante depuis le terminal:</li>
+</ul>
+<pre class="shell"><code>mkdir app
+cd app</code></pre>
+<p>Depuis le menu des fichiers, créer quatre fichiers dont le contenu
+suit:</p>
+<ul>
+<li><p><code>requirements.txt</code>: récupérer le contenu sur <a href="https://raw.githubusercontent.com/linogaliana/api-dvf/main/requirements.txt">cette page</a> ;</p></li>
+<li><p><code>getdvf.py</code>: récupérer le contenu sur <a href="https://raw.githubusercontent.com/linogaliana/api-dvf/main/getdvf.py">cette page</a> ;</p></li>
+<li><p><code>train.py</code>: récupérer le contenu sur <a href="https://raw.githubusercontent.com/linogaliana/api-dvf/main/train.py">cette page</a> ;</p></li>
+<li><p><code>api.py</code>: récupérer le contenu sur <a href="https://raw.githubusercontent.com/linogaliana/api-dvf/main/main.py">cette page</a>.</p></li>
+<li><p>Exécuter <code>getdvf.py</code> puis <code>train.py</code> pour stocker en local le modèle entraîné</p></li>
+<li><p>Ajouter <code>model.joblib</code> au <code>.gitignore</code> <em>(si vous utilisez <code>Git</code>)</em></p></li>
+<li><p>Créer un script <code>test.py</code> qui contient la fonction suivante et la teste après avoir importé votre modèle (<code>load('pipe.joblib')</code> en n’oubliant pas <code>from joblib import load</code>):</p></li>
+</ul>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> predict(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    month: <span class="bu">int</span> <span class="op">=</span> <span class="dv">3</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    nombre_lots: <span class="bu">int</span> <span class="op">=</span> <span class="dv">1</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    code_type_local: <span class="bu">int</span> <span class="op">=</span> <span class="dv">2</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    nombre_pieces_principales: <span class="bu">int</span> <span class="op">=</span> <span class="dv">3</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    surface: <span class="bu">float</span> <span class="op">=</span> <span class="dv">75</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>            <span class="st">"month"</span>: [month],</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Nombre_de_lots"</span>: [nombre_lots],</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Code_type_local"</span>: [code_type_local],</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Nombre_pieces_principales"</span>: [nombre_pieces_principales],</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"surface"</span>: [surface]</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    prediction <span class="op">=</span> model.predict(df)</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> prediction</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="etape-2-créer-une-api-en-local" class="level2">
+<h2 class="anchored" data-anchor-id="etape-2-créer-une-api-en-local">Etape 2: créer une API en local</h2>
+<p>Le script précédent constitue déjà un progrès dans
+la reproductibilité. Il rend plus facile le réentraînement
+d’un modèle sur le même jeu de données. Néanmoins,
+il reste tributaire du fait que la personne désirant
+utiliser du modèle utilise <code>Python</code> et sache réentrainer
+le modèle dans les mêmes conditions que vous.</p>
+<p>Avec <code>FastAPI</code>, nous allons très facilement pouvoir
+transformer cette application <code>Python</code> en une API.</p>
+<div class="cell markdown">
+<div class="alert alert-success" role="alert">
+<h3 class="alert-heading anchored"><i class="fa-solid fa-pencil"></i> Exercice 2: créer des scripts pour entraîner le modèle</h3>
+<ul>
+<li>La ligne ci-dessous du script <code>api.py</code> récupère un modèle pré-entraîné enregistré sur un espace de stockage</li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>download_file(<span class="st">"https://minio.lab.sspcloud.fr/projet-formation/diffusion/python-datascientist/pipe.joblib"</span>, <span class="st">'pipe.joblib'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Retirer cette ligne de votre script, pour utiliser
+le modèle que vous venez d’entraîner.</p>
+<ul>
+<li>Déployer en local l’API avec la commande</li>
+</ul>
+<pre class="shell"><code>uvicorn api:app --reload --host "0.0.0.0" --port 5000</code></pre>
+<ul>
+<li>A partir du <code>README</code> du <a href="https://datalab.sspcloud.fr/my-services">service VSCode</a>,
+se rendre sur l’URL de déploiement,
+ajouter <code>/docs/</code> à celui-ci et observer la documentation de l’API</li>
+<li>Se servir de la documentation pour tester les requêtes <code>/predict</code></li>
+<li>Récupérer l’URL d’une des requêtes proposées. La tester dans le navigateur
+et depuis <code>Python</code> avec <code>Requests</code> (<code>requests.get(url).json()</code>)</li>
+<li>Optionnel: faire tourner le même code dans un autre environnement que le SSPCloud (par exemple une installation de <code>Python</code> en local) pour voir que ça fonctionne de manière identique.</li>
+</ul>
 </div>
 </div>
 </section>
-<section id="contenu-général" class="level2">
-<h2 class="anchored" data-anchor-id="contenu-général">Contenu général</h2>
-<p></p>
+<section id="aller-plus-loin-mettre-à-disposition-cette-api-de-manière-pérenne" class="level2">
+<h2 class="anchored" data-anchor-id="aller-plus-loin-mettre-à-disposition-cette-api-de-manière-pérenne">Aller plus loin: mettre à disposition cette API de manière pérenne</h2>
+<p>L’étape précédente permettait de créer un point d’accès
+à votre modèle depuis n’importe quel type de client. A chaque
+requête de l’API, le script <code>api.py</code> était exécuté et
+renvoyait son <em>output</em>.</p>
+<p>Ceci est déjà un saut de géant dans l’échelle de la
+reproductibilité. Néanmoins, cela reste artisanal: si votre
+serveur local connait un problème (par exemple, vous <em>killez</em> l’application), les clients ne recevront plus de réponse,
+sans comprendre pourquoi.</p>
+<p>Il est donc plus fiable de mettre en production sur des
+serveurs dédiés, qui tournent 24h/24 et qui peuvent
+également se répartir la charge de travail s’il y a
+beaucoup de demandes instantanées.</p>
+<p>Ceci dépasse néanmoins
+le cadre de ce cours et sera l’objet
+d’un cours dédié en 3e année de l’ENSAE: <a href="https://ensae-reproductibilite.github.io/website/">“Mise en production de projets <em>data science</em>”</a> donné par Romain Avouac et moi.</p>
+
+
 </section>
-<section id="eléments-supplémentaires" class="level2">
-<h2 class="anchored" data-anchor-id="eléments-supplémentaires">Eléments supplémentaires</h2>
-<div id="wcb" class="carbonbadge wcb-d">
 
-</div>
-<script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer=""></script>
-</section>
-<section id="structuration-de-cette-partie" class="level2">
-<h2 class="anchored" data-anchor-id="structuration-de-cette-partie">Structuration de cette partie</h2>
-<p></p>
-
-
-</section>
-</section>
-
-
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>Pour les utilisateurs de cette infrastructure, les <em>notebooks</em>
-sont également listés, parmi de nombreuses autres
-ressources de qualité, sur la
-<a href="https://www.sspcloud.fr/formation">page <code>Formation</code></a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@book{galiana2023,
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@book{galiana2023,
   author = {Galiana, Lino},
   title = {Python Pour La Data Science},
   date = {2023},
@@ -838,6 +856,17 @@ ressources de qualité, sur la
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-galiana2023" class="csl-entry quarto-appendix-citeas" role="listitem">
 Galiana, Lino. 2023. <em>Python Pour La Data Science</em>. <a href="https://doi.org/10.5281/zenodo.8229676">https://doi.org/10.5281/zenodo.8229676</a>.
 </div></div></section></div></main> <!-- /main -->
+<script type="ojs-module-contents">
+{"contents":[{"methodName":"interpret","cellName":"ojs-cell-1","inline":false,"source":"html`<div>Nombre de pièces</div><div>${viewof pieces_principales}</div>`\n"},{"methodName":"interpret","cellName":"ojs-cell-2","inline":false,"source":"html`<div>Surface de l'appartement</div><div>${surface}</div>`\n"},{"methodName":"interpret","cellName":"ojs-cell-3","inline":false,"source":"viewof pieces_principales = Inputs.range([1, 12], {step: 1, value: 6})\n"},{"methodName":"interpret","cellName":"ojs-cell-4","inline":false,"source":"viewof surface = Inputs.range([1, 300], {step: 1, value: 50})\n"},{"methodName":"interpret","cellName":"ojs-cell-5","inline":false,"source":"md`${return_message}`\n"},{"methodName":"interpret","cellName":"ojs-cell-6","inline":false,"source":"html`${url_api_print}`\n"},{"methodName":"interpret","cellName":"ojs-cell-7","inline":false,"source":"url_api_dvf = `https://corsproxy.io/?https://dvf-simple-api.lab.sspcloud.fr/predict?month=4&nombre_lots=1&code_type_local=2&nombre_pieces_principales=${pieces_principales}&surface=${surface}`\n"},{"methodName":"interpret","cellName":"ojs-cell-8","inline":false,"source":"url_api_print = md`[<span class=\"blue-underlined\">https://dvf-simple-api.lab.sspcloud.fr/predict?</span>month=4&nombre_lots=1&code_type_local=2&nombre_pieces_principales=<span class=\"blue-underlined\">${pieces_principales}</span>&surface=<span class=\"blue-underlined\">${surface}</span>](${url_api_dvf})`\n"},{"methodName":"interpret","cellName":"ojs-cell-9","inline":false,"source":"value = d3.json(url_api_dvf).then(data => {\n    // Access the 'value' property from the object\n    let originalNumber = data;\n\n    // Convert it to a floating-point number\n    let numericValue = parseFloat(originalNumber);\n\n    // Round the number\n    let roundedNumber = Math.round(numericValue).toLocaleString();\n\n    return roundedNumber;\n}).catch(error => console.error('Error:', error));\n"},{"methodName":"interpret","cellName":"ojs-cell-10","inline":false,"source":"return_message = `Valeur estimée de l'appartement: <span class=\"blue2\">__${value} €__</span>`\n"},{"methodName":"interpretQuiet","source":"shinyInput('pieces_principales')"},{"methodName":"interpretQuiet","source":"shinyInput('surface')"}]}
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../content/modelisation";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "../..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1075,11 +1104,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../../content/modelisation/6_pipeline.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Premier pas vers l’industrialisation avec les pipelines scikit</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../content/getting-started/01_installation.qmd" class="pagination-link">
-        <span class="nav-page-text"></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

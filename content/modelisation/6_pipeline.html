@@ -86,7 +86,8 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../content/modelisation/5_clustering.html" rel="prev">
+<link href="../../content/modelisation/7_mlapi.html" rel="next">
+<link href="../../content/modelisation/5_clustering.qmd" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -143,8 +144,6 @@ dans une chaîne d’opérations. Il s’agit d’une approche particulièrement
 appropriée pour réduire la difficulté à changer d’algorithme ou pour
 faciliter la ré-application d’un code à de nouvelles données.">
 <meta name="twitter:image" content="https://pythonds.linogaliana.fr/content/modelisation/featured.png">
-<meta name="twitter:image-height" content="293">
-<meta name="twitter:image-width" content="293">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="citation_title" content="Python pour la data science">
 <meta name="citation_author" content="Lino Galiana">
@@ -189,7 +188,6 @@ faciliter la ré-application d’un code à de nouvelles données.">
 
 <body class="nav-sidebar floating nav-fixed">
 
-
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
@@ -219,32 +217,32 @@ faciliter la ré-application d’un code à de nouvelles données.">
  <span class="dropdown-text">Introduction</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/getting-started/01_installation.html" rel="" target="">
- <span class="dropdown-text">Configuration de Python</span></a>
+    <a class="dropdown-item" href="../../content/getting-started/01_installation.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/getting-started/02_DS_environment.html" rel="" target="">
- <span class="dropdown-text">L’environnement Python pour la data science</span></a>
+    <a class="dropdown-item" href="../../content/getting-started/02_DS_environment.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/getting-started/03_data_analysis.html" rel="" target="">
- <span class="dropdown-text">Comment aborder un jeu de données</span></a>
+    <a class="dropdown-item" href="../../content/getting-started/03_data_analysis.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/getting-started/04_python_practice.html" rel="" target="">
- <span class="dropdown-text">Bonne pratique de Python</span></a>
+    <a class="dropdown-item" href="../../content/getting-started/04_python_practice.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/getting-started/05_rappels_types.html" rel="" target="">
- <span class="dropdown-text">Quelques rappels sur les principes de base de Python</span></a>
+    <a class="dropdown-item" href="../../content/getting-started/05_rappels_types.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/getting-started/06_rappels_fonctions.html" rel="" target="">
- <span class="dropdown-text">Modules, tests, boucles, fonctions</span></a>
+    <a class="dropdown-item" href="../../content/getting-started/06_rappels_fonctions.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/getting-started/07_rappels_classes.html" rel="" target="">
- <span class="dropdown-text">Les classes en Python</span></a>
+    <a class="dropdown-item" href="../../content/getting-started/07_rappels_classes.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
     </ul>
   </li>
@@ -254,44 +252,44 @@ faciliter la ré-application d’un code à de nouvelles données.">
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-manipuler">    
         <li>
-    <a class="dropdown-item" href="../../content/manipulation/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../content/manipulation/index.qmd" rel="" target="">
  <span class="dropdown-text">Introduction</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/manipulation/01_numpy.html" rel="" target="">
- <span class="dropdown-text">Numpy, la brique de base de la data science</span></a>
+    <a class="dropdown-item" href="../../content/manipulation/01_numpy.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/manipulation/02a_pandas_tutorial.html" rel="" target="">
- <span class="dropdown-text">Introduction à Pandas</span></a>
+    <a class="dropdown-item" href="../../content/manipulation/02a_pandas_tutorial.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/manipulation/02b_pandas_TP.html" rel="" target="">
- <span class="dropdown-text">Pratique de pandas : un exemple complet</span></a>
+    <a class="dropdown-item" href="../../content/manipulation/02b_pandas_TP.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/manipulation/03_geopandas_tutorial.html" rel="" target="">
- <span class="dropdown-text">Données spatiales : découverte de geopandas</span></a>
+    <a class="dropdown-item" href="../../content/manipulation/03_geopandas_tutorial.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/manipulation/03_geopandas_TP.html" rel="" target="">
- <span class="dropdown-text">Pratique de geopandas avec les données vélib</span></a>
+    <a class="dropdown-item" href="../../content/manipulation/03_geopandas_TP.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/manipulation/04a_webscraping_TP.html" rel="" target="">
- <span class="dropdown-text">Web scraping avec Python</span></a>
+    <a class="dropdown-item" href="../../content/manipulation/04a_webscraping_TP.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/manipulation/04c_API_TP.html" rel="" target="">
- <span class="dropdown-text">Récupérer des données avec des API depuis Python</span></a>
+    <a class="dropdown-item" href="../../content/manipulation/04c_API_TP.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/manipulation/04b_regex_TP.html" rel="" target="">
- <span class="dropdown-text">Maîtriser les expressions régulières</span></a>
+    <a class="dropdown-item" href="../../content/manipulation/04b_regex_TP.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/manipulation/07_dask.html" rel="" target="">
- <span class="dropdown-text">Introduction à dask grâce aux données DVF</span></a>
+    <a class="dropdown-item" href="../../content/manipulation/07_dask.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
     </ul>
   </li>
@@ -301,16 +299,16 @@ faciliter la ré-application d’un code à de nouvelles données.">
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-communiquer">    
         <li>
-    <a class="dropdown-item" href="../../content/visualisation/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../content/visualisation/index.qmd" rel="" target="">
  <span class="dropdown-text">Introduction</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/visualisation/matplotlib.html" rel="" target="">
- <span class="dropdown-text">De beaux graphiques avec python : mise en pratique</span></a>
+    <a class="dropdown-item" href="../../content/visualisation/matplotlib.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/visualisation/maps.html" rel="" target="">
- <span class="dropdown-text">De belles cartes avec python : mise en pratique</span></a>
+    <a class="dropdown-item" href="../../content/visualisation/maps.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
     </ul>
   </li>
@@ -320,36 +318,40 @@ faciliter la ré-application d’un code à de nouvelles données.">
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-modéliser">    
         <li>
-    <a class="dropdown-item" href="../../content/modelisation/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../content/modelisation/index.qmd" rel="" target="">
  <span class="dropdown-text">Introduction</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/modelisation/0_preprocessing.html" rel="" target="">
- <span class="dropdown-text">Préparation des données pour construire un modèle</span></a>
+    <a class="dropdown-item" href="../../content/modelisation/0_preprocessing.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/modelisation/1_modelevaluation.html" rel="" target="">
- <span class="dropdown-text">Evaluer la qualité d’un modèle</span></a>
+    <a class="dropdown-item" href="../../content/modelisation/1_modelevaluation.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/modelisation/2_SVM.html" rel="" target="">
- <span class="dropdown-text">Classification: premier modèle avec les SVM</span></a>
+    <a class="dropdown-item" href="../../content/modelisation/2_SVM.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/modelisation/3_regression.html" rel="" target="">
- <span class="dropdown-text">Régression : une introduction</span></a>
+    <a class="dropdown-item" href="../../content/modelisation/3_regression.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/modelisation/4_featureselection.html" rel="" target="">
- <span class="dropdown-text">Sélection de variables : une introduction</span></a>
+    <a class="dropdown-item" href="../../content/modelisation/4_featureselection.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/modelisation/5_clustering.html" rel="" target="">
- <span class="dropdown-text">Clustering</span></a>
+    <a class="dropdown-item" href="../../content/modelisation/5_clustering.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../content/modelisation/6_pipeline.html" rel="" target="">
  <span class="dropdown-text">Premier pas vers l’industrialisation avec les pipelines scikit</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../content/modelisation/7_mlapi.html" rel="" target="">
+ <span class="dropdown-text">Mettre à disposition un modèle par le biais d’une API</span></a>
   </li>  
     </ul>
   </li>
@@ -359,28 +361,28 @@ faciliter la ré-application d’un code à de nouvelles données.">
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-nlp">    
         <li>
-    <a class="dropdown-item" href="../../content/NLP/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../content/NLP/index.qmd" rel="" target="">
  <span class="dropdown-text">Introduction</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/NLP/01_intro.html" rel="" target="">
- <span class="dropdown-text">Quelques éléments pour comprendre les enjeux du NLP</span></a>
+    <a class="dropdown-item" href="../../content/NLP/01_intro.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/NLP/02_exoclean.html" rel="" target="">
- <span class="dropdown-text">Nettoyer un texte: des exercices pour découvrir l’approche bag-of-words</span></a>
+    <a class="dropdown-item" href="../../content/NLP/02_exoclean.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/NLP/03_lda.html" rel="" target="">
- <span class="dropdown-text">Latent Dirichlet Allocation (LDA)</span></a>
+    <a class="dropdown-item" href="../../content/NLP/03_lda.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/NLP/04_word2vec.html" rel="" target="">
- <span class="dropdown-text">Méthodes de vectorisation : comptages et word embeddings</span></a>
+    <a class="dropdown-item" href="../../content/NLP/04_word2vec.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/NLP/05_exo_supp.html" rel="" target="">
- <span class="dropdown-text">Exercices supplémentaires</span></a>
+    <a class="dropdown-item" href="../../content/NLP/05_exo_supp.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
     </ul>
   </li>
@@ -390,28 +392,28 @@ faciliter la ré-application d’un code à de nouvelles données.">
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-approfondissements">    
         <li>
-    <a class="dropdown-item" href="../../content/modern-ds/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../content/modern-ds/index.qmd" rel="" target="">
  <span class="dropdown-text">Introduction</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/modern-ds/continuous_integration.html" rel="" target="">
- <span class="dropdown-text">Intégration continue avec Python</span></a>
+    <a class="dropdown-item" href="../../content/modern-ds/continuous_integration.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/modern-ds/dallE.html" rel="" target="">
- <span class="dropdown-text">Génération d’images avec Python, DALL-E et StableDiffusion</span></a>
+    <a class="dropdown-item" href="../../content/modern-ds/dallE.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/modern-ds/s3.html" rel="" target="">
- <span class="dropdown-text">Les nouveaux modes d’accès aux données : le format parquet et les données sur le cloud</span></a>
+    <a class="dropdown-item" href="../../content/modern-ds/s3.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/modern-ds/elastic_approfondissement.html" rel="" target="">
- <span class="dropdown-text">Approfondissement ElasticSearch pour des recherches de proximité géographique</span></a>
+    <a class="dropdown-item" href="../../content/modern-ds/elastic_approfondissement.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/modern-ds/elastic_intro.html" rel="" target="">
- <span class="dropdown-text">Introduction à ElasticSearch pour la recherche textuelle</span></a>
+    <a class="dropdown-item" href="../../content/modern-ds/elastic_intro.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
     </ul>
   </li>
@@ -421,16 +423,16 @@ faciliter la ré-application d’un code à de nouvelles données.">
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-git">    
         <li>
-    <a class="dropdown-item" href="../../content/git/index.html" rel="" target="">
+    <a class="dropdown-item" href="../../content/git/index.qmd" rel="" target="">
  <span class="dropdown-text">Introduction</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/git/introgit.html" rel="" target="">
- <span class="dropdown-text">Git : un élément essentiel au quotidien</span></a>
+    <a class="dropdown-item" href="../../content/git/introgit.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/git/exogit.html" rel="" target="">
- <span class="dropdown-text">Un cadavre exquis pour découvrir Git</span></a>
+    <a class="dropdown-item" href="../../content/git/exogit.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
     </ul>
   </li>
@@ -440,12 +442,12 @@ faciliter la ré-application d’un code à de nouvelles données.">
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-annexes">    
         <li>
-    <a class="dropdown-item" href="../../content/annexes/evaluation.html" rel="" target="">
- <span class="dropdown-text">Evaluation</span></a>
+    <a class="dropdown-item" href="../../content/annexes/evaluation.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../content/annexes/corrections.html" rel="" target="">
- <span class="dropdown-text">Corrections</span></a>
+    <a class="dropdown-item" href="../../content/annexes/corrections.qmd" rel="" target="">
+ <span class="dropdown-text"></span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="https://linogaliana.github.io/python-datascientist-slides/#/title-slide" rel="" target="">
@@ -536,50 +538,20 @@ faciliter la ré-application d’un code à de nouvelles données.">
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../content/modelisation/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../content/modelisation/index.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../content/modelisation/0_preprocessing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Préparation des données pour construire un modèle</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../content/modelisation/1_modelevaluation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evaluer la qualité d’un modèle</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../content/modelisation/2_SVM.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Classification: premier modèle avec les SVM</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../content/modelisation/3_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Régression : une introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../content/modelisation/4_featureselection.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sélection de variables : une introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../content/modelisation/5_clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Clustering</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../content/modelisation/6_pipeline.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Premier pas vers l’industrialisation avec les pipelines scikit</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../content/modelisation/7_mlapi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mettre à disposition un modèle par le biais d’une API</span></a>
   </div>
 </li>
     </ul>
@@ -610,6 +582,7 @@ faciliter la ré-application d’un code à de nouvelles données.">
   </ul></li>
   <li><a href="#restriction-du-champ-du-modèle" id="toc-restriction-du-champ-du-modèle" class="nav-link" data-scroll-target="#restriction-du-champ-du-modèle">Restriction du champ du modèle</a></li>
   <li><a href="#recherche-des-hyperparamètres-optimaux-avec-une-validation-croisée" id="toc-recherche-des-hyperparamètres-optimaux-avec-une-validation-croisée" class="nav-link" data-scroll-target="#recherche-des-hyperparamètres-optimaux-avec-une-validation-croisée">Recherche des hyperparamètres optimaux avec une validation croisée</a></li>
+  <li><a href="#prochaine-étape" id="toc-prochaine-étape" class="nav-link" data-scroll-target="#prochaine-étape">Prochaine étape</a></li>
   <li><a href="#références" id="toc-références" class="nav-link" data-scroll-target="#références">Références</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/linogaliana/python-datascientist/edit/master/content/modelisation/6_pipeline.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/linogaliana/python-datascientist/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -640,6 +613,21 @@ faciliter la ré-application d’un code à de nouvelles données.">
 </p>
 <p></p>
 </div>
+<p>Ce chapitre présente la première application
+d’une journée de cours que j’ai
+donné à l’Université Dauphine dans le cadre
+des <em>PSL Data Week</em>.</p>
+<details>
+<summary>
+Dérouler les <em>slides</em> associées ci-dessous ou <a href="https://linogaliana.github.io/dauphine-week-data/#/title-slide">cliquer ici</a>
+pour les afficher en plein écran.
+</summary>
+<div id="cb1" class="sourceCode">
+<pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre>
+<iframe class="sourceCode yaml code-with-copy" src="https://linogaliana.github.io/dauphine-week-data/#/title-slide">
+</iframe>
+</div>
+</details>
 <p>Pour lire les données de manière efficace, nous
 proposons d’utiliser le <em>package</em> <code>duckdb</code>.
 Pour l’installer, voici la commande:</p>
@@ -717,7 +705,7 @@ Ils présentent de nombreux intérêts, parmi lesquels:</p>
 <h3 class="alert-heading anchored"><i class="fa-solid fa-lightbulb"></i> Hint</h3>
 <p>Un des intérêts des <em>pipelines</em> scikit est qu’ils fonctionnent aussi avec
 des méthodes qui ne sont pas issues de <code>scikit</code>.</p>
-<p>Il est possible d’introduire un modèle de réseau de neurones <code>Keras</code> dans
+<p>Il est possible d’introduire un modèle de réseau de neurone <code>Keras</code> dans
 un pipeline <code>scikit</code>.
 Pour introduire un modèle économétrique <code>statsmodels</code>
 c’est un peu plus coûteux mais nous allons proposer des exemples
@@ -820,14 +808,9 @@ une vue:</p>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> duckdb</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>duckdb.sql(<span class="ss">f'CREATE OR REPLACE VIEW dvf AS SELECT * FROM read_parquet("dvf.parquet")'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Les données prennent la forme suivante :</p>
+<p>Les données prennent la forme suivante:</p>
 <div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>duckdb.sql(<span class="ss">f"SELECT * FROM dvf LIMIT 5"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"ade0d46f48ec4be4a4fd95506ab70eba","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>┌──────────────────────┬────────────────────┬───┬────────────────┬──────────────────────┬─────────────────┐
 │ Identifiant de doc…  │ Reference document │ … │ Nature culture │ Nature culture spe…  │ Surface terrain │
@@ -870,7 +853,7 @@ pour la suite de l’exercice</p>
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>mutations.loc[:, colonnes_surface] <span class="op">=</span> mutations.loc[:, colonnes_surface].replace({<span class="st">','</span>: <span class="st">'.'</span>}, regex<span class="op">=</span><span class="va">True</span>).astype(<span class="bu">float</span>).fillna(<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"5b02cd3bc04141feb14cb547c152a376","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"9eb8aaf3fa43436dae0380355360ac9c","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
 </script>
 </div>
 </div>
@@ -1003,8 +986,10 @@ exceptions près (<a href="#fig-corr-surface">Figure&nbsp;1</a>):</p>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/opt/mamba/lib/python3.9/site-packages/seaborn/matrix.py:260: FutureWarning: Format strings passed to MaskedConstant are ignored, but in future may error or produce different behavior
-  annotation = ("{:" + self.fmt + "}").format(val)</code></pre>
+<pre><code>/opt/mamba/lib/python3.9/site-packages/seaborn/matrix.py:260: FutureWarning:
+
+Format strings passed to MaskedConstant are ignored, but in future may error or produce different behavior
+</code></pre>
 </div>
 <div id="fig-corr-surface-1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -1015,7 +1000,7 @@ exceptions près (<a href="#fig-corr-surface">Figure&nbsp;1</a>):</p>
 <div class="cell-output cell-output-display">
 <div id="fig-corr-surface-2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><a href="6_pipeline_files/figure-html/fig-corr-surface-output-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="6_pipeline_files/figure-html/fig-corr-surface-output-3.png" class="img-fluid figure-img"></a></p>
+<p><a href="6_pipeline_files/figure-html/fig-corr-surface-output-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="6_pipeline_files/figure-html/fig-corr-surface-output-3.png" width="587" height="512" class="figure-img"></a></p>
 <figcaption class="figure-caption">(b)</figcaption>
 </figure>
 </div>
@@ -1027,8 +1012,10 @@ exceptions près (<a href="#fig-corr-surface">Figure&nbsp;1</a>):</p>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mutations[<span class="st">'lprix'</span>] <span class="op">=</span> np.log(mutations[<span class="st">"Valeur fonciere"</span>])</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>mutations[<span class="st">'surface'</span>] <span class="op">=</span> mutations.loc[:, colonnes_surface].<span class="bu">sum</span>(axis <span class="op">=</span> <span class="dv">1</span>).astype(<span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/opt/mamba/lib/python3.9/site-packages/pandas/core/arraylike.py:396: RuntimeWarning: divide by zero encountered in log
-  result = getattr(ufunc, method)(*inputs, **kwargs)</code></pre>
+<pre><code>/opt/mamba/lib/python3.9/site-packages/pandas/core/arraylike.py:396: RuntimeWarning:
+
+divide by zero encountered in log
+</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="16">
@@ -1089,6 +1076,10 @@ exceptionnelles dont le mécanisme de fixation du prix diffère)</p>
 catégorielles et les variables numériques.
 Ces différents types vont bénéficier d’étapes de <em>preprocessing</em>
 différentes.</p>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>numeric_features <span class="op">=</span> mutations2.columns[<span class="op">~</span>mutations2.columns.isin([<span class="st">'dep'</span>,<span class="st">'Code_type_local'</span>, <span class="st">'month'</span>, <span class="st">'Valeur_fonciere'</span>])].tolist()</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>categorical_features <span class="op">=</span> [<span class="st">'dep'</span>,<span class="st">'Code_type_local'</span>,<span class="st">'month'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Au passage, nous avons abandonné la variable de code postal pour privilégier
 le département afin de réduire la dimension de notre jeu de données. Si on voulait
 vraiment avoir un bon modèle, il faudrait faire autrement car le code postal
@@ -1102,10 +1093,10 @@ afin de tenir compte, de manière minimale, de la géographie.
 Pour accélérer les calculs pour ce tutoriel, nous n’allons considérer que
 30% des transactions observées sur chaque département.</p>
 <p>Voici le code pour le faire:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>mutations2 <span class="op">=</span> mutations2.groupby(<span class="st">'dep'</span>).sample(frac <span class="op">=</span> <span class="fl">0.1</span>, random_state <span class="op">=</span> <span class="dv">123</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>mutations2 <span class="op">=</span> mutations2.groupby(<span class="st">'dep'</span>).sample(frac <span class="op">=</span> <span class="fl">0.1</span>, random_state <span class="op">=</span> <span class="dv">123</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Avec la fonction adéquate de <code>Scikit</code>, faire un découpage de <code>mutations2</code>
 en <em>train</em> et <em>test sets</em>
-en suivant les consignes suivantes :</p>
+en suivant les consignes suivantes:</p>
 <ul>
 <li>20% des données dans l’échantillon de <em>test</em> ;</li>
 <li>L’échantillonnage est stratifié par départements ;</li>
@@ -1221,8 +1212,10 @@ quel semble être le problème ?</li>
 </div>
 <div class="cell" data-execution_count="23">
 <div class="cell-output cell-output-stderr">
-<pre><code>/opt/mamba/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:975: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-  warnings.warn(</code></pre>
+<pre><code>/opt/mamba/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:975: FutureWarning:
+
+`sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
+</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="21">
 <style>#sk-container-id-4 {color: black;}#sk-container-id-4 pre{padding: 0;}#sk-container-id-4 div.sk-toggleable {background-color: white;}#sk-container-id-4 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-4 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-4 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-4 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-4 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-4 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-4 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-4 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-4 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-4 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-4 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-4 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-4 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-4 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-4 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-4 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-4 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-4 div.sk-item {position: relative;z-index: 1;}#sk-container-id-4 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-4 div.sk-item::before, #sk-container-id-4 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-4 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-4 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-4 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-4 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-4 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-4 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-4 div.sk-label-container {text-align: center;}#sk-container-id-4 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-4 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-4" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[('preprocessor',
@@ -1303,7 +1296,7 @@ qui ont une importance non nulle.</p>
 <li>Récupérer la <em>feature importance</em> directement depuis la couche adaptée de votre <em>pipeline</em></li>
 <li>Utiliser le code suivant pour calculer l’intervalle de confiance de cette mesure d’importance:</li>
 </ol>
-<div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>std <span class="op">=</span> np.std([tree.feature_importances_ <span class="cf">for</span> tree <span class="kw">in</span> pipe[<span class="st">'randomforest'</span>].estimators_], axis<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>std <span class="op">=</span> np.std([tree.feature_importances_ <span class="cf">for</span> tree <span class="kw">in</span> pipe[<span class="st">'randomforest'</span>].estimators_], axis<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="3" type="1">
 <li>Représenter les variables d’importance non nulle. Qu’en concluez-vous ?</li>
 </ol>
@@ -1315,9 +1308,14 @@ de cet exercice est le suivant.</p>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="6_pipeline_files/figure-html/cell-29-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="6_pipeline_files/figure-html/cell-29-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="6_pipeline_files/figure-html/cell-29-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="6_pipeline_files/figure-html/cell-29-output-1.png" width="661" height="470" class="figure-img"></a></p>
 </figure>
 </div>
+</div>
+</div>
+<div class="cell" data-execution_count="29">
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>&lt;Axes: title={'center': 'Feature importances using MDI'}, ylabel='Mean decrease in impurity'&gt;</code></pre>
 </div>
 </div>
 <p>Les statistiques obtenues par le biais de cette <em>variable importance</em>
@@ -1342,37 +1340,49 @@ consulter la
 <p>Les prédictions peuvent nous suggérer également
 qu’il y a un problème:</p>
 <div class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>compar <span class="op">=</span> pd.DataFrame([y_test, pipe.predict(X_test)]).T</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>compar.columns <span class="op">=</span> [<span class="st">'obs'</span>,<span class="st">'pred'</span>]</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>compar[<span class="st">'diff'</span>] <span class="op">=</span> compar.obs <span class="op">-</span> compar.pred</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.relplot(data <span class="op">=</span> compar, x <span class="op">=</span> <span class="st">'obs'</span>, y <span class="op">=</span> <span class="st">'pred'</span>, color <span class="op">=</span> <span class="st">"royalblue"</span>, alpha <span class="op">=</span> <span class="fl">0.8</span>)</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>g.<span class="bu">set</span>(ylim<span class="op">=</span>(<span class="dv">0</span>, <span class="fl">2e6</span>), xlim<span class="op">=</span>(<span class="dv">0</span>, <span class="fl">2e6</span>),</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>      title<span class="op">=</span><span class="st">'Evaluating estimation error on test sample'</span>,</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>      xlabel<span class="op">=</span><span class="st">'Observed values'</span>,</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>      ylabel<span class="op">=</span><span class="st">'Predicted values'</span>)</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>g.ax.axline(xy1<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">0</span>), slope<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span><span class="st">"red"</span>, dashes<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>compar <span class="op">=</span> pd.DataFrame([y_test, pipe.predict(X_test)]).T</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>compar.columns <span class="op">=</span> [<span class="st">'obs'</span>,<span class="st">'pred'</span>]</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>compar[<span class="st">'diff'</span>] <span class="op">=</span> compar.obs <span class="op">-</span> compar.pred</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.relplot(data <span class="op">=</span> compar, x <span class="op">=</span> <span class="st">'obs'</span>, y <span class="op">=</span> <span class="st">'pred'</span>, color <span class="op">=</span> <span class="st">"royalblue"</span>, alpha <span class="op">=</span> <span class="fl">0.8</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>g.<span class="bu">set</span>(ylim<span class="op">=</span>(<span class="dv">0</span>, <span class="fl">2e6</span>), xlim<span class="op">=</span>(<span class="dv">0</span>, <span class="fl">2e6</span>),</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>      title<span class="op">=</span><span class="st">'Evaluating estimation error on test sample'</span>,</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>      xlabel<span class="op">=</span><span class="st">'Observed values'</span>,</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>      ylabel<span class="op">=</span><span class="st">'Predicted values'</span>)</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>g.ax.axline(xy1<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">0</span>), slope<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span><span class="st">"red"</span>, dashes<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1498: FutureWarning: is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
-  if pd.api.types.is_categorical_dtype(vector):
-/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1498: FutureWarning: is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
-  if pd.api.types.is_categorical_dtype(vector):
-/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1498: FutureWarning: is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
-  if pd.api.types.is_categorical_dtype(vector):
-/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1498: FutureWarning: is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
-  if pd.api.types.is_categorical_dtype(vector):
-/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1498: FutureWarning: is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
-  if pd.api.types.is_categorical_dtype(vector):
-/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1498: FutureWarning: is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
-  if pd.api.types.is_categorical_dtype(vector):</code></pre>
+<pre><code>/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1498: FutureWarning:
+
+is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
+
+/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1498: FutureWarning:
+
+is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
+
+/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1498: FutureWarning:
+
+is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
+
+/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1498: FutureWarning:
+
+is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
+
+/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1498: FutureWarning:
+
+is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
+
+/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1498: FutureWarning:
+
+is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
+</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="27">
-<pre><code>&lt;matplotlib.lines.AxLine at 0x7f2ff02ba3d0&gt;</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<pre><code>&lt;matplotlib.lines.AxLine at 0x7f2b8a6defa0&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="6_pipeline_files/figure-html/cell-31-output-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="6_pipeline_files/figure-html/cell-31-output-3.png" class="img-fluid figure-img"></a></p>
+<p><a href="6_pipeline_files/figure-html/cell-31-output-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="6_pipeline_files/figure-html/cell-31-output-3.png" width="493" height="473" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1382,22 +1392,22 @@ qu’il y a un problème:</p>
 <section id="restriction-du-champ-du-modèle" class="level2">
 <h2 class="anchored" data-anchor-id="restriction-du-champ-du-modèle">Restriction du champ du modèle</h2>
 <p>Mettre en oeuvre un bon modèle de prix au niveau France entière
-est complexe. Nous allons donc nous restreindre au champ suivant :
+est complexe. Nous allons donc nous restreindre au champ suivant:
 les appartements dans Paris.</p>
 <div class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>mutations_paris <span class="op">=</span> mutations.drop(</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    colonnes_surface.tolist() <span class="op">+</span> [<span class="st">"Date mutation"</span>, <span class="st">"lprix"</span>], <span class="co"># ajouter "confinement" si données 2020</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    axis <span class="op">=</span> <span class="st">"columns"</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    ).copy()</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>mutations_paris <span class="op">=</span> mutations_paris.loc[mutations_paris[<span class="st">'Valeur fonciere'</span>] <span class="op">&lt;</span> <span class="fl">5e6</span>] <span class="co">#keep only values below 5 millions</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>mutations_paris.columns <span class="op">=</span> mutations_paris.columns.<span class="bu">str</span>.replace(<span class="st">" "</span>, <span class="st">"_"</span>)</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>mutations_paris  <span class="op">=</span> mutations_paris.dropna(subset <span class="op">=</span> [<span class="st">'dep'</span>,<span class="st">'Code_type_local'</span>,<span class="st">'month'</span>])</span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>mutations_paris <span class="op">=</span> mutations_paris.loc[mutations_paris[<span class="st">'dep'</span>] <span class="op">==</span> <span class="st">"75"</span>]</span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>mutations_paris <span class="op">=</span> mutations_paris.loc[mutations_paris[<span class="st">'Code_type_local'</span>] <span class="op">==</span> <span class="dv">2</span>].drop([<span class="st">'dep'</span>,<span class="st">'Code_type_local'</span>], axis <span class="op">=</span> <span class="st">"columns"</span>)</span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>mutations_paris.loc[mutations_paris[<span class="st">'surface'</span>]<span class="op">&gt;</span><span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>mutations_paris <span class="op">=</span> mutations.drop(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    colonnes_surface.tolist() <span class="op">+</span> [<span class="st">"Date mutation"</span>, <span class="st">"lprix"</span>], <span class="co"># ajouter "confinement" si données 2020</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    axis <span class="op">=</span> <span class="st">"columns"</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    ).copy()</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>mutations_paris <span class="op">=</span> mutations_paris.loc[mutations_paris[<span class="st">'Valeur fonciere'</span>] <span class="op">&lt;</span> <span class="fl">5e6</span>] <span class="co">#keep only values below 5 millions</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>mutations_paris.columns <span class="op">=</span> mutations_paris.columns.<span class="bu">str</span>.replace(<span class="st">" "</span>, <span class="st">"_"</span>)</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>mutations_paris  <span class="op">=</span> mutations_paris.dropna(subset <span class="op">=</span> [<span class="st">'dep'</span>,<span class="st">'Code_type_local'</span>,<span class="st">'month'</span>])</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>mutations_paris <span class="op">=</span> mutations_paris.loc[mutations_paris[<span class="st">'dep'</span>] <span class="op">==</span> <span class="st">"75"</span>]</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>mutations_paris <span class="op">=</span> mutations_paris.loc[mutations_paris[<span class="st">'Code_type_local'</span>] <span class="op">==</span> <span class="dv">2</span>].drop([<span class="st">'dep'</span>,<span class="st">'Code_type_local'</span>], axis <span class="op">=</span> <span class="st">"columns"</span>)</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>mutations_paris.loc[mutations_paris[<span class="st">'surface'</span>]<span class="op">&gt;</span><span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
 <div>
 
 
@@ -1520,10 +1530,12 @@ plutôt qu’une forêt aléatoire.</p>
 de celles-ci:</p>
 <div class="cell" data-execution_count="32">
 <div class="cell-output cell-output-stderr">
-<pre><code>/opt/mamba/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:975: FutureWarning: `sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
-  warnings.warn(</code></pre>
+<pre><code>/opt/mamba/lib/python3.9/site-packages/sklearn/preprocessing/_encoders.py:975: FutureWarning:
+
+`sparse` was renamed to `sparse_output` in version 1.2 and will be removed in 1.4. `sparse_output` is ignored unless you leave `sparse` to its default value.
+</code></pre>
 </div>
-<div id="estim-model-paris" class="cell-output cell-output-display" data-execution_count="29">
+<div id="estim-model-paris" class="cell-output cell-output-display" data-execution_count="30">
 <div>
 
 
@@ -1607,7 +1619,7 @@ hyperparamètres plus adaptés. Après tout, nous avons choisi par défaut
 la profondeur de l’arbre mais c’était un choix au doigt mouillé.</p>
 <p>❓️ Quels sont les hyperparamètres qu’on peut essayer d’optimiser ?</p>
 <div class="cell" data-execution_count="33">
-<div class="cell-output cell-output-display" data-execution_count="30">
+<div class="cell-output cell-output-display" data-execution_count="31">
 <pre><code>{'alpha': 0.9,
  'ccp_alpha': 0.0,
  'criterion': 'friedman_mse',
@@ -1666,7 +1678,7 @@ Pour gagner en performance, il est recommandé d’utiliser l’argument
 </div>
 </div>
 <div class="cell" data-execution_count="36">
-<div class="cell-output cell-output-display" data-execution_count="33">
+<div class="cell-output cell-output-display" data-execution_count="34">
 <style>#sk-container-id-5 {color: black;}#sk-container-id-5 pre{padding: 0;}#sk-container-id-5 div.sk-toggleable {background-color: white;}#sk-container-id-5 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-5 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-5 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-5 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-5 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-5 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-5 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-5 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-5 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-5 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-5 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-5 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-5 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-5 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-5 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-5 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-5 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-5 div.sk-item {position: relative;z-index: 1;}#sk-container-id-5 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-5 div.sk-item::before, #sk-container-id-5 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-5 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-5 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-5 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-5 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-5 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-5 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-5 div.sk-label-container {text-align: center;}#sk-container-id-5 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-5 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-5" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GridSearchCV(estimator=Pipeline(steps=[('preprocessor',
                                         ColumnTransformer(transformers=[('pipeline',
                                                                          Pipeline(steps=[('simpleimputer',
@@ -1722,7 +1734,7 @@ Pour gagner en performance, il est recommandé d’utiliser l’argument
 </div>
 </div>
 <div class="cell" data-execution_count="37">
-<div class="cell-output cell-output-display" data-execution_count="34">
+<div class="cell-output cell-output-display" data-execution_count="35">
 <style>#sk-container-id-6 {color: black;}#sk-container-id-6 pre{padding: 0;}#sk-container-id-6 div.sk-toggleable {background-color: white;}#sk-container-id-6 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-6 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-6 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-6 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-6 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-6 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-6 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-6 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-6 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-6 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-6 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-6 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-6 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-6 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-6 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-6 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-6 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-6 div.sk-item {position: relative;z-index: 1;}#sk-container-id-6 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-6 div.sk-item::before, #sk-container-id-6 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-6 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-6 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-6 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-6 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-6 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-6 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-6 div.sk-label-container {text-align: center;}#sk-container-id-6 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-6 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-6" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[('preprocessor',
                  ColumnTransformer(transformers=[('pipeline',
                                                   Pipeline(steps=[('simpleimputer',
@@ -1768,24 +1780,34 @@ d’hyperparamètres sont disponibles dans l’attribut:</p>
 <p>Regardons les résultats moyens pour chaque valeur des hyperparamètres:</p>
 <div class="cell" data-execution_count="39">
 <div class="cell-output cell-output-stderr">
-<pre><code>/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1498: FutureWarning: is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
-  if pd.api.types.is_categorical_dtype(vector):
-/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1498: FutureWarning: is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
-  if pd.api.types.is_categorical_dtype(vector):
-/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1498: FutureWarning: is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
-  if pd.api.types.is_categorical_dtype(vector):
-/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context('mode.use_inf_as_na', True):
-/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
-  with pd.option_context('mode.use_inf_as_na', True):</code></pre>
+<pre><code>/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1498: FutureWarning:
+
+is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
+
+/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1498: FutureWarning:
+
+is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
+
+/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1498: FutureWarning:
+
+is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
+
+/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1119: FutureWarning:
+
+use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+
+/opt/mamba/lib/python3.9/site-packages/seaborn/_oldcore.py:1119: FutureWarning:
+
+use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="36">
-<pre><code>&lt;matplotlib.legend.Legend at 0x7f2ff021dd30&gt;</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="37">
+<pre><code>&lt;matplotlib.legend.Legend at 0x7f2b8a2ed970&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="6_pipeline_files/figure-html/cell-40-output-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="6_pipeline_files/figure-html/cell-40-output-3.png" class="img-fluid figure-img"></a></p>
+<p><a href="6_pipeline_files/figure-html/cell-40-output-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="6_pipeline_files/figure-html/cell-40-output-3.png" width="739" height="429" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1797,12 +1819,12 @@ performance de manière plus marquée.</p>
 paramètres sur l’ensemble du jeu de <em>train</em> et l’évaluer sur l’ensemble
 du jeu de <em>test</em>:</p>
 <div class="cell" data-execution_count="40">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>pipe_optimal <span class="op">=</span> grid_search.best_estimator_</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>pipe_optimal.fit(X_train, y_train)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>compar <span class="op">=</span> pd.DataFrame([y_test, pipe_optimal.predict(X_test)]).T</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>compar.columns <span class="op">=</span> [<span class="st">'obs'</span>,<span class="st">'pred'</span>]</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>compar[<span class="st">'diff'</span>] <span class="op">=</span> compar.obs <span class="op">-</span> compar.pred</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>pipe_optimal <span class="op">=</span> grid_search.best_estimator_</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>pipe_optimal.fit(X_train, y_train)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>compar <span class="op">=</span> pd.DataFrame([y_test, pipe_optimal.predict(X_test)]).T</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>compar.columns <span class="op">=</span> [<span class="st">'obs'</span>,<span class="st">'pred'</span>]</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>compar[<span class="st">'diff'</span>] <span class="op">=</span> compar.obs <span class="op">-</span> compar.pred</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>On obtient le RMSE suivant :</p>
 <div class="cell" data-execution_count="41">
@@ -1810,7 +1832,7 @@ du jeu de <em>test</em>:</p>
 <pre><code>Le RMSE sur le jeu de test est 562,317</code></pre>
 </div>
 </div>
-<p>Et si on regarde la qualité en prédiction :</p>
+<p>Et si on regarde la qualité en prédiction:</p>
 <p>On obtient plus de variance dans la prédiction, c’est déjà un peu mieux.
 Cependant, cela reste décevant pour plusieurs raisons:</p>
 <ul>
@@ -1819,6 +1841,16 @@ Cependant, cela reste décevant pour plusieurs raisons:</p>
 pertinente était le prix ou une transformation de celle-ci
 (par exemple le prix au <span class="math inline">\(m^2\)</span>)</li>
 </ul>
+</section>
+<section id="prochaine-étape" class="level2">
+<h2 class="anchored" data-anchor-id="prochaine-étape">Prochaine étape</h2>
+<p>Nous avons un modèle certes perfectible mais fonctionnel.
+La question qui se pose maintenant c’est d’essayer d’en faire
+quelque chose au service des utilisateurs. Cela nous amène vers
+la question de la <strong>mise en production</strong>.</p>
+<p>Ceci est l’objet du prochain chapitre. Il s’agira d’une version introductive
+des enjeux évoqués dans le cadre du cours de
+3e année de <a href="https://ensae-reproductibilite.github.io/website/">mise en production de projets de <em>data science</em></a>.</p>
 </section>
 <section id="références" class="level2">
 
@@ -1865,7 +1897,7 @@ l’optimisation de combinaisons de classifieurs faibles.<a href="#fnref1" class
 Galiana, Lino. 2023. <em>Python Pour La Data Science</em>. <a href="https://doi.org/10.5281/zenodo.8229676">https://doi.org/10.5281/zenodo.8229676</a>.
 </div></div></section></div></main> <!-- /main -->
 <script type="application/vnd.jupyter.widget-state+json">
-{"state":{"0520efb8e24a459ba5a3edab38bafffe":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":"auto"}},"07c63a1513644f69aaf8189168e6004c":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ProgressStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ProgressStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","bar_color":"black","description_width":""}},"2f8400019e044e788da6b83944e0caa9":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ProgressStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ProgressStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","bar_color":"black","description_width":""}},"5b02cd3bc04141feb14cb547c152a376":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"FloatProgressModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"FloatProgressModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"ProgressView","bar_style":"","description":"","description_allow_html":false,"layout":"IPY_MODEL_af3241190b0e4734abade199cd38b011","max":100,"min":0,"orientation":"horizontal","style":"IPY_MODEL_2f8400019e044e788da6b83944e0caa9","tabbable":null,"tooltip":null,"value":100}},"ade0d46f48ec4be4a4fd95506ab70eba":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"FloatProgressModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"FloatProgressModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"ProgressView","bar_style":"","description":"","description_allow_html":false,"layout":"IPY_MODEL_0520efb8e24a459ba5a3edab38bafffe","max":100,"min":0,"orientation":"horizontal","style":"IPY_MODEL_07c63a1513644f69aaf8189168e6004c","tabbable":null,"tooltip":null,"value":100}},"af3241190b0e4734abade199cd38b011":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":"auto"}}},"version_major":2,"version_minor":0}
+{"state":{"6f2bac0a3afa4d6cb902da634c00adb4":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"ProgressStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"ProgressStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"StyleView","bar_color":"black","description_width":""}},"9eb8aaf3fa43436dae0380355360ac9c":{"model_module":"@jupyter-widgets/controls","model_module_version":"2.0.0","model_name":"FloatProgressModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"2.0.0","_model_name":"FloatProgressModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"2.0.0","_view_name":"ProgressView","bar_style":"","description":"","description_allow_html":false,"layout":"IPY_MODEL_b32f61019a7f405eba4a5cd59d3191b1","max":100,"min":0,"orientation":"horizontal","style":"IPY_MODEL_6f2bac0a3afa4d6cb902da634c00adb4","tabbable":null,"tooltip":null,"value":100}},"b32f61019a7f405eba4a5cd59d3191b1":{"model_module":"@jupyter-widgets/base","model_module_version":"2.0.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"2.0.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"2.0.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border_bottom":null,"border_left":null,"border_right":null,"border_top":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"padding":null,"right":null,"top":null,"visibility":null,"width":"auto"}}},"version_major":2,"version_minor":0}
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -2104,11 +2136,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../content/modelisation/5_clustering.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Clustering</span>
+      <a href="../../content/modelisation/5_clustering.qmd" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../content/modelisation/7_mlapi.html" class="pagination-link">
+        <span class="nav-page-text">Mettre à disposition un modèle par le biais d’une API</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
@@ -2125,7 +2160,7 @@ Inspiration pour la mise en forme du site <a href="https://www.andreashandel.com
 <a href="https://github.com/linogaliana/python-datascientist">Code source disponible sur <i class="fa-brands fa-github" aria-label="github"></i> <code>GitHub</code></a></div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","openEffect":"zoom","descPosition":"bottom","loop":true});</script>
+<script>var lightboxQuarto = GLightbox({"loop":true,"descPosition":"bottom","selector":".lightbox","closeEffect":"zoom","openEffect":"zoom"});</script>
 
 
 
